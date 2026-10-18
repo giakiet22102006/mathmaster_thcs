@@ -1,0 +1,424 @@
+// ==============================================================================
+// MathMaster THCS - Prisma Schema hoàn chỉnh (PostgreSQL)
+// Đã kiểm tra tính tương thích với Prisma 5.22.0 & PostgreSQL 15/16
+// ==============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  TEACHER
+  PARENT
+  ADMIN
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum CognitiveLevel {
+  NHAN_BIET
+  THONG_HIEU
+  VAN_DUNG
+  VAN_DUNG_CAO
+}
+
+enum QuestionType {
+  MCQ
+  ESSAY
+}
+
+enum VerificationStatus {
+  VERIFIED
+  PENDING_REVIEW
+  REJECTED
+}
+
+enum DocumentStatus {
+  UPLOADED
+  PROCESSING
+  EXTRACTED
+  VERIFIED
+  FAILED
+}
+
+enum AttemptStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  SUBMITTED
+  GRADED
+}
+
+enum MasteryLevel {
+  INSUFFICIENT_DATA
+  NEEDS_WORK
+  PROGRESSING
+  MASTERED
+}
+
+model users {
+  id                String              @id @default(uuid())
+  email             String              @unique
+  username          String              @unique
+  password_hash     String
+  role              Role                @default(STUDENT)
+  is_guest          Boolean             @default(false)
+  created_at        DateTime            @default(now())
+  updated_at        DateTime            @updatedAt
+  profile           user_profiles?
+  settings          user_settings?
+  source_documents  source_documents[]
+  generated_exams   generated_exams[]
+  exam_attempts     exam_attempts[]
+  topic_mastery     topic_mastery[]
+  review_queue      review_queue[]
+  study_sessions    study_sessions[]
+  user_achievements user_achievements[]
+  learning_goals    learning_goals[]
+}
+
+model user_profiles {
+  id                String    @id @default(uuid())
+  user_id           String    @unique
+  full_name         String
+  current_grade     Int       @default(8)
+  preferred_book_id String    @default("KNTT")
+  school_name       String?
+  xp_points         Int       @default(0)
+  level             Int       @default(1)
+  streak_days       Int       @default(0)
+  last_study_date   DateTime?
+  user              users     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model user_settings {
+  id                 String @id @default(uuid())
+  user_id            String @unique
+  theme              String @default("light")
+  auto_save_interval Int    @default(10)
+  daily_goal_minutes Int    @default(30)
+  weekly_exam_target Int    @default(3)
+  user               users  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model textbooks {
+  id        String            @id
+  code      String            @unique
+  name      String
+  publisher String
+  chapters  chapters[]
+  questions questions[]
+  exams     generated_exams[]
+}
+
+model grades {
+  id        Int               @id
+  name      String
+  tagline   String?
+  semesters semesters[]
+  chapters  chapters[]
+  questions questions[]
+  exams     generated_exams[]
+  formulas  math_formulas[]
+}
+
+model semesters {
+  id       String     @id
+  grade_id Int
+  number   Int
+  name     String
+  grade    grades     @relation(fields: [grade_id], references: [id], onDelete: Cascade)
+  chapters chapters[]
+
+  @@unique([grade_id, number])
+}
+
+model chapters {
+  id          String          @id
+  textbook_id String
+  grade_id    Int
+  semester_id String
+  order_index Int
+  title       String
+  book_notes  Json?
+  lessons     String[]
+  textbook    textbooks       @relation(fields: [textbook_id], references: [id])
+  grade       grades          @relation(fields: [grade_id], references: [id])
+  semester    semesters       @relation(fields: [semester_id], references: [id])
+  topics      topics[]
+  questions   questions[]
+  formulas    math_formulas[]
+}
+
+model topics {
+  id            String          @id
+  chapter_id    String
+  lesson_title  String
+  topic_name    String
+  problem_types String[]
+  chapter       chapters        @relation(fields: [chapter_id], references: [id], onDelete: Cascade)
+  questions     questions[]
+  topic_mastery topic_mastery[]
+}
+
+model source_documents {
+  id                        String         @id @default(uuid())
+  user_id                   String
+  file_name                 String
+  file_type                 String
+  file_size_bytes           Int
+  storage_path              String
+  extracted_text            String?
+  extracted_questions_count Int            @default(0)
+  grade_id                  Int
+  textbook_id               String
+  semester_number           Int
+  chapter_id                String?
+  processing_status         DocumentStatus @default(UPLOADED)
+  is_seed_data              Boolean        @default(false)
+  created_at                DateTime       @default(now())
+  user                      users          @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  questions                 questions[]
+}
+
+model questions {
+  id                  String              @id
+  code                String              @unique
+  grade_id            Int
+  textbook_id         String
+  semester_number     Int
+  chapter_id          String
+  topic_id            String
+  lesson_title        String?
+  problem_type        String
+  question_type       QuestionType
+  difficulty          Difficulty
+  cognitive_level     CognitiveLevel
+  content             String
+  default_points      Float               @default(1.0)
+  source_doc_id       String?
+  source_label        String?
+  verification_status VerificationStatus  @default(VERIFIED)
+  version             Int                 @default(1)
+  is_seed_data        Boolean             @default(false)
+  created_at          DateTime            @default(now())
+  grade               grades              @relation(fields: [grade_id], references: [id])
+  textbook            textbooks           @relation(fields: [textbook_id], references: [id])
+  chapter             chapters            @relation(fields: [chapter_id], references: [id])
+  topic               topics              @relation(fields: [topic_id], references: [id])
+  source_doc          source_documents?   @relation(fields: [source_doc_id], references: [id], onDelete: SetNull)
+  options             question_options[]
+  solution            question_solutions?
+  exam_questions      exam_questions[]
+  student_answers     student_answers[]
+  review_items        review_queue[]
+}
+
+model question_options {
+  id          String    @id @default(uuid())
+  question_id String
+  label       String
+  content     String
+  is_correct  Boolean   @default(false)
+  question    questions @relation(fields: [question_id], references: [id], onDelete: Cascade)
+
+  @@unique([question_id, label])
+}
+
+model question_solutions {
+  id                 String    @id @default(uuid())
+  question_id        String    @unique
+  standard_answer    String
+  accepted_answers   String[]
+  solution_text      String
+  step_by_step_guide Json
+  key_formula        String?
+  common_mistakes    String?
+  question           questions @relation(fields: [question_id], references: [id], onDelete: Cascade)
+}
+
+model math_formulas {
+  id                  String    @id
+  grade_id            Int
+  semester_number     Int
+  chapter_id          String
+  title               String
+  formula_latex       String
+  condition_text      String?
+  example_text        String?
+  related_question_id String?
+  grade               grades    @relation(fields: [grade_id], references: [id], onDelete: Cascade)
+  chapter             chapters  @relation(fields: [chapter_id], references: [id], onDelete: Cascade)
+}
+
+model generated_exams {
+  id               String           @id @default(uuid())
+  user_id          String
+  title            String
+  exam_code        String           @default("101")
+  grade_id         Int
+  textbook_id      String
+  semester_number  Int
+  exam_category    String
+  difficulty       Difficulty
+  format_type      String
+  duration_minutes Int
+  max_score        Float            @default(10.0)
+  is_favorite      Boolean          @default(false)
+  is_seed_data     Boolean          @default(false)
+  created_at       DateTime         @default(now())
+  user             users            @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  grade            grades           @relation(fields: [grade_id], references: [id])
+  textbook         textbooks        @relation(fields: [textbook_id], references: [id])
+  exam_questions   exam_questions[]
+  exam_attempts    exam_attempts[]
+}
+
+model exam_questions {
+  id          String          @id @default(uuid())
+  exam_id     String
+  question_id String
+  order_index Int
+  points      Float
+  exam        generated_exams @relation(fields: [exam_id], references: [id], onDelete: Cascade)
+  question    questions       @relation(fields: [question_id], references: [id], onDelete: Cascade)
+
+  @@unique([exam_id, question_id])
+}
+
+model exam_attempts {
+  id                 String            @id @default(uuid())
+  exam_id            String
+  user_id            String
+  grade_id           Int               @default(8)
+  status             AttemptStatus     @default(IN_PROGRESS)
+  started_at         DateTime          @default(now())
+  submitted_at       DateTime?
+  time_spent_seconds Int               @default(0)
+  remaining_seconds  Int
+  total_score        Float?
+  mcq_score          Float?
+  essay_score        Float?
+  correct_count      Int               @default(0)
+  wrong_count        Int               @default(0)
+  unanswered_count   Int               @default(0)
+  exam               generated_exams   @relation(fields: [exam_id], references: [id], onDelete: Cascade)
+  user               users             @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  student_answers    student_answers[]
+  grading_result     grading_results?
+}
+
+model student_answers {
+  id                 String        @id @default(uuid())
+  attempt_id         String
+  question_id        String
+  selected_option    String?
+  essay_response     String?
+  workings_text      String?
+  flagged_for_review Boolean       @default(false)
+  is_correct         Boolean?
+  earned_points      Float         @default(0)
+  error_category     String?
+  matched_reason     String?
+  ai_estimated       Boolean       @default(false)
+  attempt            exam_attempts @relation(fields: [attempt_id], references: [id], onDelete: Cascade)
+  question           questions     @relation(fields: [question_id], references: [id], onDelete: Cascade)
+
+  @@unique([attempt_id, question_id])
+}
+
+model grading_results {
+  id                  String        @id @default(uuid())
+  attempt_id          String        @unique
+  total_score         Float
+  mcq_score           Float
+  essay_score         Float
+  accuracy_percent    Float
+  weak_topics_summary String[]
+  graded_at           DateTime      @default(now())
+  attempt             exam_attempts @relation(fields: [attempt_id], references: [id], onDelete: Cascade)
+}
+
+model topic_mastery {
+  id               String       @id @default(uuid())
+  user_id          String
+  grade_id         Int
+  topic_id         String
+  questions_done   Int          @default(0)
+  questions_right  Int          @default(0)
+  accuracy_percent Float        @default(0)
+  mastery_level    MasteryLevel @default(INSUFFICIENT_DATA)
+  user             users        @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  topic            topics       @relation(fields: [topic_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, topic_id])
+}
+
+model review_queue {
+  id             String    @id @default(uuid())
+  user_id        String
+  question_id    String
+  wrong_attempts Int       @default(1)
+  last_wrong_ans String?
+  error_type     String?
+  resolved       Boolean   @default(false)
+  added_at       DateTime  @default(now())
+  user           users     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  question       questions @relation(fields: [question_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, question_id])
+}
+
+model study_sessions {
+  id               String   @id @default(uuid())
+  user_id          String
+  grade_id         Int
+  activity_type    String
+  duration_minutes Int
+  xp_earned        Int      @default(0)
+  session_date     DateTime @default(now())
+  user             users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model achievements {
+  id                String              @id
+  code              String              @unique
+  title             String
+  description       String
+  icon              String              @default("award")
+  condition_text    String?
+  xp_reward         Int
+  user_achievements user_achievements[]
+}
+
+model user_achievements {
+  id             String       @id @default(uuid())
+  user_id        String
+  achievement_id String
+  unlocked_at    DateTime     @default(now())
+  user           users        @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  achievement    achievements @relation(fields: [achievement_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, achievement_id])
+}
+
+model learning_goals {
+  id            String   @id @default(uuid())
+  user_id       String
+  title         String
+  goal_type     String
+  target_value  Int
+  current_value Int      @default(0)
+  unit          String   @default("đề")
+  completed     Boolean  @default(false)
+  user          users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
