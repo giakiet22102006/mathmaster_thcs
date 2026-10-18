@@ -4,7 +4,7 @@ import { hashPassword, verifyPassword, signSessionToken } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
 
-export function deleteUserCascadeFromState(state: any, targetUserId: string) {
+function deleteUserCascadeFromState(state: any, targetUserId: string) {
   const target = (state.users || []).find((u: any) => u.id === targetUserId);
   if (!target) return { deleted: false, error: 'Không tìm thấy tài khoản cần xóa.' };
 
@@ -107,9 +107,9 @@ export async function POST(req: NextRequest) {
       try {
         const prisma = await getPrismaClient();
         if (prisma && process.env.DATABASE_URL && !process.env.DATABASE_URL.includes('CHANGE_ME')) {
-          await prisma.users.delete({ where: { id: userId } }).catch(() => {});
+          await prisma.users.delete({ where: { id: userId } }).catch(() => { });
         }
-      } catch {}
+      } catch { }
 
       return NextResponse.json({
         ok: true,
