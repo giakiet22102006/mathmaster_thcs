@@ -577,12 +577,37 @@ export function generateExamFromPool(
   const includeDraft = Boolean(config?.includeDraft);
   const userId = String(config?.userId || 'user_minhanh_01');
 
+  const sourceMode: 'BANK' | 'DOCS_REUSE' | 'DOCS_SIMILAR' | 'MIXED' =
+    String(config?.sourceMode || 'BANK').trim().toUpperCase() as any;
+  const documentIds: string[] = Array.isArray(config?.documentIds)
+    ? config.documentIds.filter(Boolean)
+    : config?.documentId ? [String(config.documentId)] : [];
+
   // Xác định danh sách chương được lọc (hỗ trợ cả chapterIds[] và chapterId đơn lẻ)
-  const chapterIds: string[] = Array.isArray(config?.chapterIds)
+  let chapterIds: string[] = Array.isArray(config?.chapterIds)
     ? config.chapterIds.filter((c: string) => c && c !== 'ALL')
     : config?.chapterId && config.chapterId !== 'ALL'
     ? [String(config.chapterId)]
     : [];
+
+  // Nếu là DOCS_SIMILAR mà chưa chỉ định chapterIds, tự rút ra các chương từ tài liệu đã chọn
+  if (sourceMode === 'DOCS_SIMILAR' && chapterIds.length === 0) {
+    const docChapters = [
+      ...new Set(
+        (allQuestions || [])
+          .filter(
+            (q) =>
+              q.sourceDocId &&
+              (documentIds.length === 0 || documentIds.includes(q.sourceDocId)) &&
+              Number(q.grade) === grade
+          )
+          .map((q) => String(q.chapterId))
+      ),
+    ].filter((c) => c && c !== 'ALL' && c !== 'undefined');
+    if (docChapters.length > 0) {
+      chapterIds = docChapters;
+    }
+  }
 
   // Xác định ràng buộc học kỳ
   let semConstraint = Number(config?.semester || 0);
@@ -602,6 +627,28 @@ export function generateExamFromPool(
   const pool = (allQuestions || []).filter((q) => {
     if (Number(q.grade) !== grade) return false;
     if (!includeDraft && q.verificationStatus !== 'verified') return false;
+
+    // Lọc theo sourceMode
+    if (sourceMode === 'DOCS_REUSE') {
+      if (!q.sourceDocId) return false;
+      if (documentIds.length > 0 && !documentIds.includes(q.sourceDocId)) return false;
+      if (q.userId && q.userId !== userId && !includeDraft) return false;
+    } else if (sourceMode === 'DOCS_SIMILAR') {
+      // DOCS_SIMILAR chỉ sinh câu mới từ Parametric Engine dựa trên chương của tài liệu
+      return false;
+    } else if (sourceMode === 'BANK') {
+      // Ngân hàng chuẩn không lấy câu cá nhân từ tài liệu của người dùng
+      if (q.sourceDocId) return false;
+    } else if (sourceMode === 'MIXED') {
+      // MIXED: chấp nhận câu từ tài liệu được chọn hoặc câu từ ngân hàng chung
+      if (q.sourceDocId && documentIds.length > 0 && !documentIds.includes(q.sourceDocId)) {
+        return false;
+      }
+      if (q.sourceDocId && q.userId && q.userId !== userId && !includeDraft) {
+        return false;
+      }
+    }
+
     if (textbook && textbook !== 'ALL') {
       const books = Array.isArray(q.textbooks) ? q.textbooks : [];
       if (books.length > 0 && !books.includes(textbook)) return false;
@@ -671,37 +718,39 @@ export function generateExamFromPool(
     },
   };
 
-  // Bù đắp thiếu hụt tự động bằng Parametric Question Engine trước khi báo lỗi
+  // Bù đắp thiếu hụt tự động bằng Parametric Question Engine trước khi báo lỗi (cho BANK, DOCS_SIMILAR, MIXED)
   const generatedQuestions: any[] = [];
-  for (const lv of COGNITIVE_LEVELS) {
-    if (shortage[lv].missing > 0) {
-      let reqType: 'mcq' | 'essay' | 'ALL' = 'ALL';
-      if (format === 'mcq') reqType = 'mcq';
-      else if (format === 'essay') reqType = 'essay';
-      else if (format === 'combined') {
-        reqType = lv === 'nhan_biet' || lv === 'thong_hieu' ? 'mcq' : 'essay';
-      }
-
-      const genRes = generateQuestions({
-        grade,
-        textbook: textbook && textbook !== 'ALL' ? (textbook as any) : undefined,
-        chapterIds: chapterIds.length > 0 ? chapterIds : undefined,
-        semester: semConstraint === 1 || semConstraint === 2 ? (semConstraint as any) : 0,
-        difficulty: COGNITIVE_TO_DIFFICULTY[lv],
-        cognitiveLevel: lv,
-        type: reqType,
-        count: shortage[lv].missing,
-        seed: config?.seed,
-      });
-
-      if (genRes.questions.length > 0) {
-        for (const gq of genRes.questions) {
-          availableByLevel[lv].push(gq);
-          pool.push(gq);
-          generatedQuestions.push(gq);
+  if (sourceMode !== 'DOCS_REUSE') {
+    for (const lv of COGNITIVE_LEVELS) {
+      if (shortage[lv].missing > 0) {
+        let reqType: 'mcq' | 'essay' | 'ALL' = 'ALL';
+        if (format === 'mcq') reqType = 'mcq';
+        else if (format === 'essay') reqType = 'essay';
+        else if (format === 'combined') {
+          reqType = lv === 'nhan_biet' || lv === 'thong_hieu' ? 'mcq' : 'essay';
         }
-        shortage[lv].have = availableByLevel[lv].length;
-        shortage[lv].missing = Math.max(0, targetCounts[lv] - availableByLevel[lv].length);
+
+        const genRes = generateQuestions({
+          grade,
+          textbook: textbook && textbook !== 'ALL' ? (textbook as any) : undefined,
+          chapterIds: chapterIds.length > 0 ? chapterIds : undefined,
+          semester: semConstraint === 1 || semConstraint === 2 ? (semConstraint as any) : 0,
+          difficulty: COGNITIVE_TO_DIFFICULTY[lv],
+          cognitiveLevel: lv,
+          type: reqType,
+          count: shortage[lv].missing,
+          seed: config?.seed,
+        });
+
+        if (genRes.questions.length > 0) {
+          for (const gq of genRes.questions) {
+            availableByLevel[lv].push(gq);
+            pool.push(gq);
+            generatedQuestions.push(gq);
+          }
+          shortage[lv].have = availableByLevel[lv].length;
+          shortage[lv].missing = Math.max(0, targetCounts[lv] - availableByLevel[lv].length);
+        }
       }
     }
   }
@@ -714,6 +763,11 @@ export function generateExamFromPool(
   if (hasShortage) {
     if (!allowBorrowAdjacent) {
       const suggestions: string[] = [];
+      if (sourceMode === 'DOCS_REUSE') {
+        suggestions.push(
+          `Tài liệu đã chọn chỉ có ${pool.length} câu hỏi khả dụng, không đủ cho cấu hình ${totalCount} câu. Vui lòng tải thêm tài liệu, giảm số câu hoặc chuyển sang chế độ "Sinh đề mới dựa trên file" / "Kết hợp".`
+        );
+      }
       if (chapterIds.length > 0) {
         suggestions.push('Mở rộng phạm vi sang nhiều chương hơn hoặc chọn "Toàn học kỳ".');
       }
@@ -836,6 +890,7 @@ export function generateExamFromPool(
       if (!recentQIds.has(q.id)) score += 20;
       if (!answeredQIds.has(q.id)) score += 10;
       if (wrongQTimestamp.has(q.id)) score += 15;
+      if (sourceMode === 'MIXED' && q.sourceDocId) score += 50;
 
       // Với đề kết hợp (combined): ưu tiên Trắc nghiệm cho NB/TH và Tự luận cho VD/VDC
       if (format === 'combined') {
@@ -900,6 +955,11 @@ export function generateExamFromPool(
   };
   const formatCounts = { mcq: 0, essay: 0 };
   const chapterCounts: Record<string, number> = {};
+  const bySource = {
+    bank: 0,
+    document: 0,
+    generated: 0,
+  };
 
   for (const q of selected) {
     const lv = resolveQuestionCognitiveLevel(q);
@@ -908,15 +968,32 @@ export function generateExamFromPool(
     else formatCounts.essay += 1;
     const ch = String(q.chapterId || 'OTHER');
     chapterCounts[ch] = (chapterCounts[ch] || 0) + 1;
+
+    if (q.sourceDocId) {
+      bySource.document += 1;
+    } else if (
+      q.isGenerated ||
+      q.templateId ||
+      String(q.id).startsWith('Q_GEN_') ||
+      String(q.code).startsWith('GEN-') ||
+      String(q.source || '').includes('Parametric')
+    ) {
+      bySource.generated += 1;
+    } else {
+      bySource.bank += 1;
+    }
   }
 
   const composition = {
+    sourceMode,
+    documentIds,
     requestedPreset: presetKey,
     requestedRatios: activeRatios,
     targetCounts,
     actualCounts,
     formatCounts,
     chapterCounts,
+    bySource,
     borrowedFromAdjacent,
     borrowedDetails,
     seed: numericSeed,
@@ -938,6 +1015,8 @@ export function generateExamFromPool(
     difficulty: presetKey,
     format,
     durationMinutes,
+    sourceMode,
+    documentIds,
     maxScore: 10.0,
     questionIds: selected.map((q) => q.id),
     questions: selected,

@@ -24,6 +24,7 @@
     "test:engine": "tsx scripts/test-question-engine.mjs",
     "bank:audit": "tsx scripts/bank-audit.mjs",
     "audit:difficulty": "tsx scripts/audit-difficulty.mjs",
+    "test:documents": "tsx scripts/test-documents.mjs",
     "dev:lan": "node scripts/start-lan.mjs"
   },
   "prisma": {
@@ -32,14 +33,18 @@
   "dependencies": {
     "@prisma/client": "5.22.0",
     "@types/katex": "^0.16.8",
+    "@vercel/blob": "^2.8.2",
     "chart.js": "^4.5.1",
     "jose": "^6.2.13",
     "katex": "^0.19.0",
+    "mammoth": "^1.13.0",
     "mathjs": "^15.2.0",
     "next": "14.2.15",
     "nodemailer": "^10.1.7",
     "react": "18.3.1",
     "react-dom": "18.3.1",
+    "unpdf": "^1.9.1",
+    "xlsx": "^0.18.5",
     "zod": "^4.6.7"
   },
   "devDependencies": {

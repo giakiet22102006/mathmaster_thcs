@@ -1,0 +1,19 @@
+Câu 1: Rút gọn biểu thức $A = (x + 2)^2 - x^2$.
+A. $4x + 4$
+B. $2x + 4$
+C. $4x$
+D. $4$
+Đáp án: A
+Lời giải: $(x+2)^2 - x^2 = x^2 + 4x + 4 - x^2 = 4x + 4$.
+
+Câu 2: Phân tích đa thức $x^2 - 9$ thành nhân tử.
+A. $(x - 3)^2$
+B. $(x - 3)(x + 3)$
+C. $(x + 3)^2$
+D. $x(x - 9)$
+Đáp án: B
+Lời giải: $x^2 - 9 = x^2 - 3^2 = (x - 3)(x + 3)$.
+
+Câu 3: Tìm giá trị nhỏ nhất của biểu thức $P = x^2 - 4x + 7$.
+Đáp án: 3
+Lời giải: $P = (x - 2)^2 + 3 \ge 3$. Giá trị nhỏ nhất là 3 khi $x = 2$.

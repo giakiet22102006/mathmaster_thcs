@@ -2,12 +2,13 @@
 
 // ==============================================================================
 // MathMaster THCS - Màn Hình Tạo Đề Theo Ma Trận 3 Bước (/exams/new)
+// Hỗ trợ chọn Nguồn Đề: Ngân hàng chuẩn / Từ file tài liệu (B-1/B-2) / Kết hợp
 // Có Bảng Xem Trước Ma Trận Trực Tiếp (have vs need) & Cảnh Báo Thiếu Câu Minh Bạch
 // ==============================================================================
 
 import React, { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { AppShell, COGNITIVE_META, CognitiveBadge } from '@/components/MathMasterShell';
+import { AppShell, COGNITIVE_META, CognitiveBadge, MathText } from '@/components/MathMasterShell';
 import {
   COGNITIVE_LEVELS,
   CognitiveLevel,
@@ -17,11 +18,26 @@ import {
   resolveQuestionCognitiveLevel,
 } from '@/lib/exam-matrix-presets';
 
+export type ExamSourceMode = 'BANK' | 'DOCS_REUSE' | 'DOCS_SIMILAR' | 'MIXED';
+
 export default function ExamBuilderWizardPage() {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
   const [curriculum, setCurriculum] = useState<any>(null);
   const [allVerifiedQuestions, setAllVerifiedQuestions] = useState<any[]>([]);
+
+  // Cấu hình Nguồn Đề (Mục B.1 & B.5)
+  const [sourceMode, setSourceMode] = useState<ExamSourceMode>('BANK');
+  const [userDocuments, setUserDocuments] = useState<any[]>([]);
+  const [selectedDocumentIds, setSelectedDocumentIds] = useState<string[]>([]);
+  const [isUploadingDoc, setIsUploadingDoc] = useState<boolean>(false);
+  const [uploadNotice, setUploadNotice] = useState<string | null>(null);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+
+  // Màn hình duyệt / chỉnh sửa câu hỏi của tài liệu (Review Modal)
+  const [reviewingDoc, setReviewingDoc] = useState<any | null>(null);
+  const [reviewItems, setReviewItems] = useState<any[]>([]);
+  const [savingReview, setSavingReview] = useState<boolean>(false);
 
   // Cấu hình 3 bước của Wizard
   const [step, setStep] = useState<1 | 2 | 3>(1);
@@ -66,6 +82,19 @@ export default function ExamBuilderWizardPage() {
           (data.state.questions || []).filter((q: any) => q.verificationStatus === 'verified')
         );
       }
+
+      // Tải danh sách tài liệu cá nhân của người dùng
+      try {
+        const docRes = await fetch('/api/documents');
+        if (docRes.ok) {
+          const docData = await docRes.json();
+          if (Array.isArray(docData.documents)) {
+            setUserDocuments(docData.documents);
+          }
+        }
+      } catch {
+        // Fallback im lặng nếu chưa tải được docs
+      }
     }
     init();
   }, [router]);
@@ -98,6 +127,90 @@ export default function ExamBuilderWizardPage() {
       prev.includes(chId) ? prev.filter((id) => id !== chId) : [...prev, chId]
     );
     setApiError(null);
+  }
+
+  function toggleDocumentSelection(docId: string) {
+    setSelectedDocumentIds((prev) =>
+      prev.includes(docId) ? prev.filter((id) => id !== docId) : [...prev, docId]
+    );
+    setApiError(null);
+  }
+
+  // Xử lý tải lên file mới trực tiếp từ wizard
+  async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploadingDoc(true);
+    setUploadNotice(null);
+    setUploadError(null);
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('grade', String(grade));
+    formData.append('textbook', textbook);
+    formData.append('semester', String(semester));
+    if (selectedChapters.length > 0) {
+      formData.append('chapterId', selectedChapters[0]);
+    }
+
+    try {
+      const res = await fetch('/api/documents', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await res.json();
+
+      if (!res.ok || data.ok === false) {
+        setUploadError(
+          data.message || data.error || 'Không thể trích xuất tài liệu. Vui lòng kiểm tra lại file.'
+        );
+        return;
+      }
+
+      if (data.document) {
+        setUserDocuments((prev) => [data.document, ...prev.filter((d) => d.id !== data.document.id)]);
+        setSelectedDocumentIds((prev) => [...prev, data.document.id]);
+        setUploadNotice(
+          `✓ Đã trích xuất ${data.extractedQuestionsCount || 0} câu hỏi từ "${file.name}".`
+        );
+      }
+    } catch {
+      setUploadError('Lỗi kết nối máy chủ khi tải lên tài liệu.');
+    } finally {
+      setIsUploadingDoc(false);
+      e.target.value = '';
+    }
+  }
+
+  // Mở màn hình duyệt câu hỏi tài liệu
+  function openDocReview(doc: any) {
+    setReviewingDoc(doc);
+    setReviewItems(doc.items ? JSON.parse(JSON.stringify(doc.items)) : []);
+  }
+
+  // Lưu chỉnh sửa câu hỏi của tài liệu
+  async function handleSaveReviewItems() {
+    if (!reviewingDoc) return;
+    setSavingReview(true);
+    try {
+      const res = await fetch(`/api/documents/${reviewingDoc.id}/items`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: reviewItems }),
+      });
+      const data = await res.json();
+      if (data.ok && data.document) {
+        setUserDocuments((prev) =>
+          prev.map((d) => (d.id === data.document.id ? data.document : d))
+        );
+        setReviewingDoc(null);
+      }
+    } catch {
+      // Báo lỗi nếu cần
+    } finally {
+      setSavingReview(false);
+    }
   }
 
   // Chọn preset hoặc thanh trượt tùy chỉnh
@@ -139,8 +252,23 @@ export default function ExamBuilderWizardPage() {
     const activeRatios = useCustomSliders ? customRatios : EXAM_MATRIX_PRESETS[presetKey].ratios;
     const needCounts = allocateQuotaLargestRemainder(questionCount, activeRatios);
 
+    // Lọc theo Nguồn Đề: Ngân hàng chuẩn, Tài liệu, hoặc Kết hợp
     const filteredPool = allVerifiedQuestions.filter((q) => {
       if (Number(q.grade) !== Number(grade)) return false;
+
+      if (sourceMode === 'DOCS_REUSE') {
+        if (!q.sourceDocId) return false;
+        if (selectedDocumentIds.length > 0 && !selectedDocumentIds.includes(q.sourceDocId)) {
+          return false;
+        }
+      } else if (sourceMode === 'BANK') {
+        if (q.sourceDocId) return false;
+      } else if (sourceMode === 'MIXED') {
+        if (q.sourceDocId && selectedDocumentIds.length > 0 && !selectedDocumentIds.includes(q.sourceDocId)) {
+          return false;
+        }
+      }
+
       if (textbook && textbook !== 'ALL' && Array.isArray(q.textbooks) && q.textbooks.length > 0) {
         if (!q.textbooks.includes(textbook)) return false;
       }
@@ -193,6 +321,8 @@ export default function ExamBuilderWizardPage() {
     presetKey,
     useCustomSliders,
     customRatios,
+    sourceMode,
+    selectedDocumentIds,
   ]);
 
   async function handleGenerateExam() {
@@ -213,6 +343,8 @@ export default function ExamBuilderWizardPage() {
         questionCount,
         durationMinutes,
         allowBorrowAdjacent,
+        sourceMode,
+        documentIds: selectedDocumentIds,
         customTitle: customTitle.trim() || undefined,
       };
 
@@ -244,12 +376,12 @@ export default function ExamBuilderWizardPage() {
     <AppShell
       user={user}
       title="Wizard Tạo Đề Kiểm Tra Theo Ma Trận Chuẩn"
-      subtitle="Đảm bảo 100% câu hỏi đúng khối lớp, chương học và phân bổ đúng tỷ lệ 4 mức độ nhận thức (Thông tư 22/2021)"
+      subtitle="Đảm bảo 100% câu hỏi đúng khối lớp, chương học và phân bổ đúng tỷ lệ 4 mức độ nhận thức (GDPT 2018)"
     >
       {/* Thanh tiến trình 3 bước */}
       <div className="mb-6 grid grid-cols-3 gap-2">
         {[
-          { num: 1, title: 'Bước 1: Phạm vi kiến thức', desc: 'Lớp, Sách, Học kỳ & Chương' },
+          { num: 1, title: 'Bước 1: Phạm vi & Nguồn đề', desc: 'Sách, Chương & Tài liệu cá nhân' },
           { num: 2, title: 'Bước 2: Ma trận độ khó', desc: '4 mức nhận thức NB / TH / VD / VDC' },
           { num: 3, title: 'Bước 3: Xem trước & Tạo đề', desc: 'Kiểm tra kho câu hỏi & Bắt đầu' },
         ].map((item) => (
@@ -275,7 +407,7 @@ export default function ExamBuilderWizardPage() {
           {step === 1 && (
             <div className="rounded-2xl bg-white p-5 md:p-6 border border-slate-200 shadow-sm space-y-5">
               <h2 className="text-base font-bold text-slate-900">
-                1. Chọn Khối Lớp, Bộ Sách Giáo Khoa & Chương Học
+                1. Chọn Khối Lớp, Bộ Sách Giáo Khoa & Nguồn Học Liệu
               </h2>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -326,6 +458,124 @@ export default function ExamBuilderWizardPage() {
                     <option value={0}>Cả năm / Tổng hợp (Thi vào 10)</option>
                   </select>
                 </div>
+              </div>
+
+              {/* NGUỒN HỌC LIỆU (Phần B.5) */}
+              <div className="rounded-xl border border-indigo-100 bg-indigo-50/40 p-4 space-y-3">
+                <div className="text-xs font-bold text-indigo-900 flex items-center justify-between">
+                  <span>📂 Nguồn câu hỏi sinh đề</span>
+                  <span className="text-[11px] font-normal text-indigo-700">
+                    Hỗ trợ DOCX, PDF, XLSX, TXT và Ảnh
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-4 gap-2">
+                  {[
+                    { mode: 'BANK', label: 'Ngân hàng chuẩn', desc: '100% câu chuẩn GDPT 2018' },
+                    { mode: 'DOCS_REUSE', label: 'Dùng lại từ file (B-1)', desc: 'Lấy đúng câu trong file của bạn' },
+                    { mode: 'DOCS_SIMILAR', label: 'Sinh đề MỚI từ file (B-2)', desc: 'Sinh câu cùng dạng theo chuẩn độ khó' },
+                    { mode: 'MIXED', label: 'Kết hợp cả hai', desc: 'Ưu tiên câu từ file + bù ngân hàng' },
+                  ].map((m) => {
+                    const active = sourceMode === m.mode;
+                    return (
+                      <button
+                        key={m.mode}
+                        type="button"
+                        onClick={() => {
+                          setSourceMode(m.mode as ExamSourceMode);
+                          setApiError(null);
+                        }}
+                        className={`rounded-xl border p-2.5 text-left transition ${
+                          active
+                            ? 'border-indigo-600 bg-white ring-2 ring-indigo-300 shadow-sm'
+                            : 'border-slate-200 bg-white/70 hover:bg-white'
+                        }`}
+                      >
+                        <div className="text-xs font-bold text-slate-900">{m.label}</div>
+                        <div className="text-[10px] text-slate-500 mt-0.5 leading-snug">{m.desc}</div>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {sourceMode !== 'BANK' && (
+                  <div className="rounded-xl border border-slate-200 bg-white p-3.5 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-slate-800">
+                        Chọn tài liệu áp dụng ({selectedDocumentIds.length} đã chọn):
+                      </span>
+                      <label className="cursor-pointer rounded-lg bg-indigo-600 px-2.5 py-1 text-xs font-bold text-white hover:bg-indigo-700 transition">
+                        {isUploadingDoc ? 'Đang trích xuất...' : '+ Tải tệp mới lên'}
+                        <input
+                          type="file"
+                          accept=".txt,.md,.csv,.json,.docx,.xlsx,.xls,.pdf,.png,.jpg,.jpeg"
+                          onChange={handleFileUpload}
+                          disabled={isUploadingDoc}
+                          className="hidden"
+                        />
+                      </label>
+                    </div>
+
+                    {uploadNotice && (
+                      <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-2 text-xs text-emerald-800">
+                        {uploadNotice}
+                      </div>
+                    )}
+                    {uploadError && (
+                      <div className="rounded-lg bg-rose-50 border border-rose-200 p-2 text-xs text-rose-800">
+                        ⚠️ {uploadError}
+                      </div>
+                    )}
+
+                    {userDocuments.length === 0 ? (
+                      <div className="text-center py-4 text-xs text-slate-500 border border-dashed rounded-xl">
+                        Bạn chưa có tài liệu nào. Hãy nhấn <strong>+ Tải tệp mới lên</strong> (TXT, DOCX, XLSX, PDF...) để hệ thống tự động bóc tách.
+                      </div>
+                    ) : (
+                      <div className="max-h-48 overflow-y-auto space-y-1.5 pr-1">
+                        {userDocuments.map((doc) => {
+                          const isChecked = selectedDocumentIds.includes(doc.id);
+                          return (
+                            <div
+                              key={doc.id}
+                              className={`flex items-center justify-between rounded-lg border p-2 text-xs transition ${
+                                isChecked
+                                  ? 'border-indigo-500 bg-indigo-50/60'
+                                  : 'border-slate-200 bg-slate-50/50 hover:bg-slate-100'
+                              }`}
+                            >
+                              <label className="flex items-center gap-2 cursor-pointer flex-1 min-w-0">
+                                <input
+                                  type="checkbox"
+                                  checked={isChecked}
+                                  onChange={() => toggleDocumentSelection(doc.id)}
+                                  className="h-4 w-4 rounded border-slate-300 text-indigo-600"
+                                />
+                                <span className="font-semibold text-slate-900 truncate">
+                                  {doc.fileName}
+                                </span>
+                                <span className="rounded bg-slate-200 px-1.5 py-0.5 text-[10px] text-slate-700">
+                                  {doc.fileType}
+                                </span>
+                                <span className="text-[11px] text-slate-500">
+                                  • {doc.extractedQuestionsCount || 0} câu
+                                </span>
+                              </label>
+
+                              <button
+                                type="button"
+                                onClick={() => openDocReview(doc)}
+                                className="ml-2 text-xs text-indigo-600 hover:underline font-semibold"
+                              >
+                                Xem & duyệt ({doc.needsReviewCount ? `⚠️ ${doc.needsReviewCount}` : '✓'})
+                              </button>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
 
               <div>
@@ -390,7 +640,7 @@ export default function ExamBuilderWizardPage() {
           {step === 2 && (
             <div className="rounded-2xl bg-white p-5 md:p-6 border border-slate-200 shadow-sm space-y-5">
               <h2 className="text-base font-bold text-slate-900">
-                2. Chọn Cấu Trúc Ma Trận Độ Khó (4 Mức Nhận Thức)
+                2. Chọn Cấu Trúc Ma Trận Độ Khó (4 Mức Nhận Thức GDPT 2018)
               </h2>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -537,7 +787,7 @@ export default function ExamBuilderWizardPage() {
                   type="text"
                   value={customTitle}
                   onChange={(e) => setCustomTitle(e.target.value)}
-                  placeholder={`Đề Kiểm Tra Toán ${grade} (${textbook})`}
+                  placeholder={`Đề Kiểm Tra Toán ${grade} (${textbook}) - ${sourceMode !== 'BANK' ? 'Từ tài liệu' : 'Chuẩn'}`}
                   className="w-full rounded-xl border border-slate-300 px-3.5 py-2 text-sm"
                 />
               </div>
@@ -553,7 +803,7 @@ export default function ExamBuilderWizardPage() {
                   className="mt-0.5 h-4 w-4 rounded border-slate-300 text-indigo-600"
                 />
                 <div className="text-xs text-slate-700">
-                  <strong>Cho phép mượn từ mức độ kề cận ngay sát</strong> nếu một mức nhận thức bị thiếu câu hỏi đã duyệt (sẽ hiển thị ghi chú rõ ràng trên đề thi, tuyệt đối không lấy câu khác chương/khác lớp).
+                  <strong>Cho phép mượn từ mức độ kề cận</strong> nếu một mức nhận thức bị thiếu câu hỏi đã duyệt (chỉ mượn lên mức khó hơn, tuyệt đối không mượn xuống).
                 </div>
               </label>
 
@@ -626,11 +876,23 @@ export default function ExamBuilderWizardPage() {
               📋 Xem Trước Ma Trận Đề Trực Tiếp
             </h3>
             <p className="text-xs text-slate-500 mt-0.5">
-              Đối chiếu số câu cần lấy (Need) với số câu đã xác minh hiện có (Have)
+              Đối chiếu số câu cần lấy (Need) với số câu hiện có (Have)
             </p>
           </div>
 
           <div className="rounded-xl bg-slate-50 p-3 text-xs space-y-1 border border-slate-200/80">
+            <div className="flex justify-between">
+              <span className="text-slate-500">Nguồn học liệu:</span>
+              <span className="font-bold text-indigo-700">
+                {sourceMode === 'BANK'
+                  ? 'Ngân hàng chuẩn'
+                  : sourceMode === 'DOCS_REUSE'
+                  ? 'Dùng lại câu từ file (B-1)'
+                  : sourceMode === 'DOCS_SIMILAR'
+                  ? 'Sinh câu MỚI từ file (B-2)'
+                  : 'Kết hợp'}
+              </span>
+            </div>
             <div className="flex justify-between">
               <span className="text-slate-500">Khối / Bộ sách:</span>
               <span className="font-bold text-slate-800">
@@ -678,7 +940,7 @@ export default function ExamBuilderWizardPage() {
                         isShort ? 'text-rose-700' : 'text-emerald-700'
                       }`}
                     >
-                      Kho verified: {row.have} câu {isShort ? `(Thiếu ${row.missing})` : '✓'}
+                      Kho khả dụng: {row.have} câu {isShort ? `(Thiếu ${row.missing})` : '✓'}
                     </span>
                   </div>
                 </div>
@@ -686,7 +948,14 @@ export default function ExamBuilderWizardPage() {
             })}
           </div>
 
-          {matrixPreview.hasShortage ? (
+          {sourceMode === 'DOCS_REUSE' ? (
+            <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs text-amber-900 space-y-1">
+              <div className="font-bold text-amber-800">📌 Chế độ Dùng lại file (B-1)</div>
+              <p>
+                Hệ thống chỉ lấy đúng các câu hỏi có trong tài liệu của bạn. Nếu thiếu câu theo ma trận, hệ thống sẽ báo thiếu và không tự ý lấy câu từ ngân hàng chung.
+              </p>
+            </div>
+          ) : matrixPreview.hasShortage ? (
             <div className="rounded-xl border border-indigo-200 bg-indigo-50/80 p-3 text-xs text-indigo-900 space-y-1">
               <div className="font-bold flex items-center gap-1 text-indigo-800">
                 <span>⚡</span> Tự động bù đắp bằng Parametric Engine
@@ -697,11 +966,196 @@ export default function ExamBuilderWizardPage() {
             </div>
           ) : (
             <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-xs font-medium text-emerald-800">
-              ✅ Ngân hàng câu hỏi đã xác minh đáp ứng đủ 100% ma trận độ khó này!
+              ✅ Ngân hàng câu hỏi khả dụng đáp ứng đủ 100% ma trận độ khó này!
             </div>
           )}
         </div>
       </div>
+
+      {/* MODAL DUYỆT CÂU HỎI TỪ TÀI LIỆU (Review Drawer/Modal) */}
+      {reviewingDoc && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
+          <div className="flex flex-col max-h-[90vh] w-full max-w-4xl rounded-2xl bg-white shadow-2xl border border-slate-200 overflow-hidden">
+            <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4 bg-slate-50">
+              <div>
+                <h3 className="text-base font-bold text-slate-900">
+                  Duyệt Câu Hỏi Trích Xuất: {reviewingDoc.fileName}
+                </h3>
+                <p className="text-xs text-slate-500">
+                  {reviewItems.length} câu hỏi • Vui lòng kiểm tra lại công thức KaTeX, đáp án và mức độ nhận thức
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setReviewingDoc(null)}
+                className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-200 hover:text-slate-700"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto p-6 space-y-4">
+              {reviewItems.length === 0 ? (
+                <div className="text-center py-10 text-slate-500 text-sm">
+                  Tài liệu này không có câu hỏi nào được bóc tách.
+                </div>
+              ) : (
+                reviewItems.map((item, idx) => (
+                  <div
+                    key={item.id || idx}
+                    className="rounded-xl border border-slate-200 bg-white p-4 space-y-3 shadow-sm"
+                  >
+                    <div className="flex items-center justify-between flex-wrap gap-2">
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-xs text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded">
+                          Câu {idx + 1}
+                        </span>
+                        <CognitiveBadge level={item.cognitiveLevel || 'thong_hieu'} size="xs" />
+                        <span className="text-[11px] font-semibold text-slate-500">
+                          {item.chapterId}
+                        </span>
+                      </div>
+                      {item.needsReview && (
+                        <span className="rounded bg-amber-100 px-2 py-0.5 text-[11px] font-bold text-amber-800">
+                          ⚠️ {item.reviewReason || 'Cần duyệt'}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Nội dung câu hỏi hiển thị KaTeX */}
+                    <div className="rounded-lg bg-slate-50 p-3 text-xs text-slate-800 border border-slate-200/80">
+                      <MathText text={item.content} />
+                    </div>
+
+                    {/* Phương án trắc nghiệm nếu có */}
+                    {Array.isArray(item.options) && item.options.length > 0 && (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                        {item.options.map((opt: any) => (
+                          <div
+                            key={opt.label}
+                            className={`rounded-lg border p-2 flex items-center gap-2 ${
+                              opt.isCorrect
+                                ? 'border-emerald-500 bg-emerald-50/70 font-bold text-emerald-900'
+                                : 'border-slate-200 bg-white text-slate-700'
+                            }`}
+                          >
+                            <span className="rounded bg-slate-100 px-1.5 py-0.5 font-bold">
+                              {opt.label}
+                            </span>
+                            <MathText text={opt.content} />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Chỉnh sửa đáp án và mức độ nhận thức */}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1 text-xs">
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-600 mb-1">
+                          Đáp án đúng:
+                        </label>
+                        <input
+                          type="text"
+                          value={item.correctAnswer || ''}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setReviewItems((prev) =>
+                              prev.map((it, i) =>
+                                i === idx
+                                  ? {
+                                      ...it,
+                                      correctAnswer: val,
+                                      needsReview: !val,
+                                      options: it.options?.map((o: any) => ({
+                                        ...o,
+                                        isCorrect: o.label.toUpperCase() === val.toUpperCase(),
+                                      })),
+                                    }
+                                  : it
+                              )
+                            );
+                          }}
+                          placeholder="Ví dụ: A, B hoặc số/biểu thức"
+                          className="w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-xs font-semibold"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-600 mb-1">
+                          Mức nhận thức:
+                        </label>
+                        <select
+                          value={item.cognitiveLevel || 'thong_hieu'}
+                          onChange={(e) => {
+                            const val = e.target.value as CognitiveLevel;
+                            setReviewItems((prev) =>
+                              prev.map((it, i) => (i === idx ? { ...it, cognitiveLevel: val } : it))
+                            );
+                          }}
+                          className="w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-xs bg-white"
+                        >
+                          <option value="nhan_biet">Nhận biết</option>
+                          <option value="thong_hieu">Thông hiểu</option>
+                          <option value="van_dung">Vận dụng</option>
+                          <option value="van_dung_cao">Vận dụng cao</option>
+                        </select>
+                      </div>
+
+                      <div className="flex items-end">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setReviewItems((prev) =>
+                              prev.map((it, i) =>
+                                i === idx
+                                  ? {
+                                      ...it,
+                                      needsReview: false,
+                                      reviewReason: undefined,
+                                      verificationStatus: 'verified',
+                                    }
+                                  : it
+                              )
+                            );
+                          }}
+                          className="w-full rounded-lg bg-emerald-50 border border-emerald-300 px-3 py-1.5 text-xs font-bold text-emerald-700 hover:bg-emerald-100 transition"
+                        >
+                          ✓ Đánh dấu đã xác minh
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+
+            <div className="flex items-center justify-between border-t border-slate-200 px-6 py-3.5 bg-slate-50">
+              <span className="text-xs text-slate-500">
+                {reviewItems.filter((it) => it.needsReview).length > 0
+                  ? `Còn ${reviewItems.filter((it) => it.needsReview).length} câu chưa có đáp án`
+                  : '✓ Tất cả câu hỏi đã được xác nhận'}
+              </span>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => setReviewingDoc(null)}
+                  className="rounded-xl border border-slate-300 px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100"
+                >
+                  Đóng
+                </button>
+                <button
+                  type="button"
+                  onClick={handleSaveReviewItems}
+                  disabled={savingReview}
+                  className="rounded-xl bg-indigo-600 px-5 py-2 text-xs font-bold text-white hover:bg-indigo-700 shadow disabled:opacity-60"
+                >
+                  {savingReview ? 'Đang lưu...' : 'Lưu thay đổi'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </AppShell>
   );
 }

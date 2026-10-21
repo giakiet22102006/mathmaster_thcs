@@ -1,0 +1,10 @@
+ĐỀ KIỂM TRA TOÁN LỚP 8
+Bài 1. Cho biểu thức $M = 2x(x - 5)$. Khẳng định nào sau đây là đúng?
+A. $M = 2x^2 - 10x$   B. $M = 2x^2 - 5x$   C. $M = 2x^2 - 10$   D. $M = 2x - 10$
+
+2) Đơn thức nào sau đây đồng dạng với đơn thức $3x^2y$?
+A) $-5x^2y$   B) $3xy^2$   C) $3x^2$   D) $x^3y$
+
+BẢNG ĐÁP ÁN:
+1-A
+2-A

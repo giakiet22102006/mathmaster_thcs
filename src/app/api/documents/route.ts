@@ -1,14 +1,17 @@
 // ==============================================================================
 // MathMaster THCS - API Tải Lên & Trích Xuất Tài Liệu Học Tập (/api/documents)
+// Hỗ trợ lưu trữ đa môi trường (Local / Vercel Blob / Memory), bóc tách đa định dạng (DOCX, PDF, XLSX, TXT)
 // Bảo vệ bằng requireUser, lấy userId từ session, kiểm soát truy cập theo chủ sở hữu
 // ==============================================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import fs from 'node:fs';
-import path from 'node:path';
 import { requireUser, writeServerStateAsync } from '@/lib/prisma';
+import { saveDocumentFile } from '@/lib/documents/storage';
+import { extractTextFromDocument } from '@/lib/documents/extract';
+import { segmentQuestionsFromText } from '@/lib/documents/segment';
 
 export const dynamic = 'force-dynamic';
+export const maxDuration = 60; // Hỗ trợ xử lý tài liệu lớn tới 60 giây
 
 export async function GET(req: NextRequest) {
   try {
@@ -51,99 +54,170 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const file = formData.get('file') as File | null;
-    if (!file) {
+    // Hỗ trợ cả trường 'file' đơn lẻ và 'files' nhiều tệp
+    const files: File[] = [];
+    const singleFile = formData.get('file') as File | null;
+    if (singleFile) {
+      files.push(singleFile);
+    } else {
+      const allFiles = formData.getAll('files') as File[];
+      for (const f of allFiles) {
+        if (f && f.name) files.push(f);
+      }
+    }
+
+    if (files.length === 0) {
       return NextResponse.json({ ok: false, error: 'Không tìm thấy file tải lên.' }, { status: 400 });
     }
 
-    const maxMb = Number(process.env.MAX_UPLOAD_SIZE_MB || 15);
-    if (file.size > maxMb * 1024 * 1024) {
-      return NextResponse.json(
-        { ok: false, error: `File vượt quá giới hạn ${maxMb}MB.` },
-        { status: 400 }
-      );
-    }
-
-    const ext = (file.name.split('.').pop() || '').toUpperCase();
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-    fs.mkdirSync(uploadDir, { recursive: true });
-    const safeName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
-    const savedPath = path.join(uploadDir, safeName);
-    const arrayBuffer = await file.arrayBuffer();
-    fs.writeFileSync(savedPath, new Uint8Array(arrayBuffer));
-
+    const maxMb = Number(process.env.MAX_UPLOAD_SIZE_MB || 20);
     const grade = Number(formData.get('grade') || auth.user.currentGrade || 8);
     const textbook = String(formData.get('textbook') || auth.user.preferredBook || 'KNTT');
     const semester = Number(formData.get('semester') || 1);
     const chapterId = String(formData.get('chapterId') || `G${grade}_C1`);
 
-    // Nếu là file văn bản (.TXT, .MD, .CSV, .JSON) -> Đọc trực tiếp 100% không cần AI API
-    if (['TXT', 'MD', 'CSV', 'JSON'].includes(ext)) {
-      const extractedText = Buffer.from(arrayBuffer).toString('utf-8');
+    const createdDocuments: any[] = [];
+    const allWarnings: string[] = [];
+
+    for (const file of files) {
+      if (file.size > maxMb * 1024 * 1024) {
+        return NextResponse.json(
+          { ok: false, error: `File "${file.name}" (${(file.size / (1024 * 1024)).toFixed(1)}MB) vượt quá giới hạn ${maxMb}MB.` },
+          { status: 400 }
+        );
+      }
+
+      const ext = (file.name.split('.').pop() || '').toUpperCase();
+      const arrayBuffer = await file.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+
+      // 1. Lưu file bằng Storage Driver trừu tượng (an toàn trên Vercel read-only)
+      const storageResult = await saveDocumentFile(file.name, buffer, file.type || 'application/octet-stream');
+
+      // 2. Trích xuất văn bản theo định dạng
+      const extractResult = await extractTextFromDocument(file.name, buffer, file.type);
+
+      if (!extractResult.ok) {
+        if (extractResult.requiresApiKey) {
+          return NextResponse.json({
+            ok: false,
+            requiresApiKey: true,
+            fileName: file.name,
+            fileType: ext,
+            storagePath: storageResult.storagePath,
+            message: extractResult.errorMessage,
+            warnings: extractResult.warnings,
+          }, { status: 422 });
+        }
+
+        return NextResponse.json({
+          ok: false,
+          error: extractResult.errorMessage || 'Không thể trích xuất văn bản từ tài liệu.',
+          warnings: extractResult.warnings,
+        }, { status: 400 });
+      }
+
+      // 3. Bóc tách câu hỏi, phương án, đáp án và lời giải
+      const segmentResult = segmentQuestionsFromText(extractResult.text, {
+        grade,
+        chapterId,
+        defaultBook: textbook,
+      });
+
+      const docId = `DOC_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
       const docRecord = {
-        id: 'DOC_' + Date.now(),
+        id: docId,
         userId: auth.user.id,
         fileName: file.name,
         fileType: ext,
         fileSize: file.size,
+        storagePath: storageResult.storagePath,
+        publicUrl: storageResult.publicUrl,
+        driver: storageResult.driver,
         grade,
         textbook,
         semester,
         chapterId,
-        topic: 'Tài liệu cá nhân',
-        status: 'VERIFIED',
+        topic: segmentResult.items[0]?.topic || 'Tài liệu cá nhân',
+        status: segmentResult.items.length > 0 ? 'EXTRACTED' : 'FAILED',
         uploadedAt: new Date().toISOString().slice(0, 16).replace('T', ' '),
-        extractedText,
-        extractedQuestionsCount: 1,
+        extractedText: extractResult.text,
+        extractedQuestionsCount: segmentResult.items.length,
+        items: segmentResult.items,
+        parseWarnings: [...extractResult.warnings, ...segmentResult.warnings],
+        needsReviewCount: segmentResult.needsReviewCount,
         isSeed: false,
       };
+
+      // Thêm câu hỏi đã bóc tách vào ngân hàng cá nhân của người dùng trong state
+      if (!Array.isArray(auth.state.questions)) {
+        auth.state.questions = [];
+      }
+      for (const item of segmentResult.items) {
+        auth.state.questions.push({
+          id: item.id,
+          code: `DOC_Q_${item.order}_${docId.slice(-4)}`,
+          userId: auth.user.id,
+          sourceDocId: docId,
+          sourceLabel: `Tài liệu: ${file.name}`,
+          grade: item.grade,
+          chapterId: item.chapterId,
+          topic: item.topic || 'Tài liệu cá nhân',
+          problemType: item.problemType || 'Bài tập trích xuất',
+          type: item.type,
+          difficulty: item.difficulty,
+          cognitiveLevel: item.cognitiveLevel,
+          content: item.content,
+          options: item.options || [],
+          correctAnswer: item.correctAnswer,
+          solution: item.solution || '',
+          defaultPoints: item.defaultPoints,
+          verificationStatus: item.verificationStatus,
+          needsReview: item.needsReview,
+          reviewReason: item.reviewReason,
+          isSeed: false,
+          created_at: new Date().toISOString(),
+        });
+      }
+
+      // 4. Mở khóa thành tựu ACH_DOC_UPLOAD nếu trích xuất thành công ≥ 1 mục
+      if (segmentResult.items.length >= 1) {
+        if (!Array.isArray(auth.state.achievements)) auth.state.achievements = [];
+        const hasAch = auth.state.achievements.some(
+          (a: any) => a.userId === auth.user.id && (a.id === 'ACH_DOC_UPLOAD' || a.achievementId === 'ACH_DOC_UPLOAD')
+        );
+        if (!hasAch) {
+          auth.state.achievements.push({
+            id: 'ACH_DOC_UPLOAD',
+            achievementId: 'ACH_DOC_UPLOAD',
+            userId: auth.user.id,
+            unlockedAt: new Date().toISOString(),
+            title: 'Kho học liệu số',
+            description: 'Tải lên và bóc tách thành công tài liệu học tập đầu tiên.',
+          });
+        }
+      }
+
       auth.state.documents.unshift(docRecord);
-      await writeServerStateAsync(auth.state);
-
-      return NextResponse.json({
-        ok: true,
-        requiresApiKey: false,
-        document: docRecord,
-        fileName: file.name,
-        fileType: ext,
-        storagePath: `/uploads/${safeName}`,
-        extractedText,
-        notice: 'Đã đọc trực tiếp nội dung từ file văn bản (Không cần AI API).',
-      });
+      createdDocuments.push(docRecord);
+      allWarnings.push(...docRecord.parseWarnings);
     }
 
-    // Nếu là file nhị phân / ảnh scan (PDF, DOCX, PNG, JPG, XLSX) -> Kiểm tra GEMINI_API_KEY / MATHPIX_APP_KEY
-    const hasGemini = Boolean(
-      process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY.trim() !== ''
-    );
-    const hasMathpix = Boolean(
-      process.env.MATHPIX_APP_KEY && process.env.MATHPIX_APP_KEY.trim() !== ''
-    );
+    await writeServerStateAsync(auth.state);
 
-    if (!hasGemini && !hasMathpix) {
-      return NextResponse.json({
-        ok: false,
-        requiresApiKey: true,
-        fileName: file.name,
-        fileType: ext,
-        storagePath: `/uploads/${safeName}`,
-        extractedText: '',
-        message: `⚠️ Chưa cấu hình API Key OCR/AI (GEMINI_API_KEY hoặc MATHPIX_APP_KEY trong file .env). File "${file.name}" đã được lưu vào public/uploads/${safeName}, nhưng hệ thống KHÔNG giả lập trích xuất câu hỏi từ file ${ext} khi chưa có API Key. Vui lòng dùng file .TXT / .MD hoặc tự dán nội dung văn bản vào ô bên dưới.`,
-      });
-    }
-
+    const firstDoc = createdDocuments[0];
     return NextResponse.json({
       ok: true,
-      requiresApiKey: false,
-      fileName: file.name,
-      fileType: ext,
-      storagePath: `/uploads/${safeName}`,
-      extractedText: '',
-      notice: 'Đã lưu file và sẵn sàng kết nối OCR.',
+      document: firstDoc,
+      documents: createdDocuments,
+      items: firstDoc.items,
+      extractedQuestionsCount: firstDoc.extractedQuestionsCount,
+      warnings: allWarnings,
+      notice: `Đã trích xuất thành công ${firstDoc.extractedQuestionsCount} câu hỏi từ tài liệu.`,
     });
-  } catch {
+  } catch (err: any) {
     return NextResponse.json(
-      { ok: false, error: 'Đã xảy ra lỗi khi tải lên tài liệu.' },
+      { ok: false, error: err.message || 'Đã xảy ra lỗi khi tải lên tài liệu.' },
       { status: 500 }
     );
   }

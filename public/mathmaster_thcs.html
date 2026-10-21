@@ -1016,7 +1016,8 @@
       if (sourceMode === 'ONLY_DOCS') {
         pool = pool.filter(q => Boolean(q.sourceDocId));
         if (pool.length === 0) {
-          showToast('Chưa có câu hỏi nào từ tài liệu tải lên cho phạm vi này.', 'warning');
+          showToast('Chưa có câu hỏi nào từ tài liệu tải lên cho phạm vi này. Vui lòng chọn "Kết hợp tài liệu cá nhân" hoặc tải thêm tài liệu.', 'warning');
+          return null;
         }
       }
       if (semConstraint === 1 || semConstraint === 2) {
@@ -2772,16 +2773,24 @@
       const cleaned = String(rawText || '').trim();
       if (!cleaned) return [];
       const blocks = cleaned.split(/(?=Câu\s*\d+\s*:)/i).map(b => b.trim()).filter(b => /^Câu\s*\d+/i.test(b));
-      if (blocks.length === 0) return [{ content: cleaned.slice(0, 200), type: 'essay', correctAnswer: '1', solution: 'Giải theo tài liệu.' }];
+      if (blocks.length === 0) return [];
       return blocks.map(blk => {
         const lines = blk.split('\n').map(l => l.trim()).filter(Boolean);
         const qLine = (lines[0] || '').replace(/^Câu\s*\d+\s*:\s*/i, '');
-        let ans = '1', sol = 'Áp dụng kiến thức trong tài liệu.';
+        let ans = '', sol = 'Áp dụng kiến thức trong tài liệu.';
         lines.forEach(l => {
           if (/^Đáp án\s*:/i.test(l)) ans = l.replace(/^Đáp án\s*:\s*/i, '').replace(/\.$/, '').trim();
           if (/^Lời giải\s*:/i.test(l)) sol = l.replace(/^Lời giải\s*:\s*/i, '').trim();
         });
-        return { content: qLine, type: 'essay', correctAnswer: ans, solution: sol };
+        const needsReview = !ans;
+        return {
+          content: qLine,
+          type: 'essay',
+          correctAnswer: ans,
+          solution: sol,
+          needsReview,
+          reviewReason: needsReview ? 'Chưa có đáp án - Cần giáo viên duyệt' : ''
+        };
       });
     }
 
@@ -2823,11 +2832,18 @@
           id: 'Q_DOC_' + Date.now() + '_' + idx, code: 'DOC-M' + p.grade + '-' + (idx + 1),
           grade: Number(p.grade), textbooks: [p.textbook], semester: Number(p.semester), chapterId: p.chapterId,
           lesson: p.fileName, topic: newDoc.topic, problemType: 'Bài tập từ tài liệu',
-          type: 'essay', difficulty: 'medium', cognitiveLevel: 'van_dung', points: 2.0,
-          content: cq.content, options: [], correctAnswer: cq.correctAnswer, acceptedAnswers: [cq.correctAnswer],
-          solution: cq.solution, rubricSteps: [{ step: cq.solution, points: 2.0 }],
+          type: cq.type || 'essay',
+          difficulty: cq.needsReview ? 'MEDIUM' : 'HARD',
+          cognitiveLevel: cq.needsReview ? 'thong_hieu' : 'van_dung',
+          points: cq.needsReview ? 1.0 : 1.5,
+          content: cq.content, options: cq.options || [], correctAnswer: cq.correctAnswer, acceptedAnswers: cq.correctAnswer ? [cq.correctAnswer] : [],
+          solution: cq.solution, rubricSteps: [{ step: cq.solution, points: cq.needsReview ? 1.0 : 1.5 }],
           keyFormula: 'Theo tài liệu ' + p.fileName, commonMistake: 'Kiểm tra kỹ biến đổi.',
-          source: 'Tài liệu: ' + p.fileName, sourceDocId: docId, verificationStatus: 'verified', version: 1
+          source: 'Tài liệu: ' + p.fileName, sourceDocId: docId,
+          verificationStatus: cq.needsReview ? 'draft' : 'verified',
+          needsReview: Boolean(cq.needsReview),
+          reviewReason: cq.reviewReason || '',
+          version: 1
         });
       });
 

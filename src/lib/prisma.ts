@@ -1318,7 +1318,9 @@ export function buildScopedStateForUser(state: any, user: any, scope?: string | 
   const visibleQuestions = isAdminOrTeacher
     ? state.questions || []
     : (state.questions || []).filter(
-        (q: any) => !q.verificationStatus || q.verificationStatus === 'verified'
+        (q: any) =>
+          (!q.sourceDocId || q.userId === userId) &&
+          (!q.verificationStatus || q.verificationStatus === 'verified')
       );
 
   return {
