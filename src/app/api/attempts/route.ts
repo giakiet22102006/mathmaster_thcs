@@ -193,7 +193,7 @@ export async function POST(req: NextRequest) {
         if (isCorrect) {
           q.correctCount = Number(q.correctCount || 0) + 1;
         }
-        q.empiricalDifficulty = Number((q.correctCount / q.attemptCount).toFixed(3));
+        q.empiricalDifficulty = Number((1 - q.correctCount / q.attemptCount).toFixed(3));
 
         // Cập nhật topic_mastery của người dùng
         if (!Array.isArray(state.topicMastery)) state.topicMastery = [];

@@ -28,6 +28,11 @@ import { GET as sessionsGET, DELETE as sessionsDELETE } from '../src/app/api/ses
 import { GET as stateGET, POST as statePOST } from '../src/app/api/state/route';
 import { GET as examsGET, POST as examsPOST } from '../src/app/api/exams/route';
 import { GET as attemptsGET, POST as attemptsPOST } from '../src/app/api/attempts/route';
+import { GET as reviewGET, POST as reviewPOST } from '../src/app/api/review/route';
+import { GET as practiceGET, POST as practicePOST } from '../src/app/api/practice/route';
+import { GET as classroomsGET, POST as classroomsPOST } from '../src/app/api/classrooms/route';
+import { GET as questionsGET, POST as questionsPOST } from '../src/app/api/questions/route';
+import { GET as analyticsGET, POST as analyticsPOST } from '../src/app/api/analytics/route';
 import { runBankAudit } from './bank-audit.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -679,8 +684,262 @@ async function runTests() {
       `✓ [PASS] Test 11: Ngân hàng câu hỏi (${auditResult.totalQuestions} câu, ${auditResult.katexFormulasChecked} công thức KaTeX) đạt chuẩn 100%`
     );
 
+    // -------------------------------------------------------------------------
+    // Test 12: Sổ tay lỗi sai & Thuật toán Ôn tập ngắt quãng SM-2 + Tạo Mini-Đề ôn câu sai
+    // -------------------------------------------------------------------------
+    // Học sinh A bắt đầu và nộp 1 bài thi có câu sai -> tự động đẩy vào reviewQueue
+    const startAttRes = await attemptsPOST(
+      makeNextRequest('http://localhost:3000/api/attempts', {
+        method: 'POST',
+        cookieToken: tokenA_Dev3,
+        body: {
+          action: 'start',
+          examId: 'EXAM_SEED_G8_GK1',
+        },
+      })
+    );
+    assert.equal(startAttRes.status, 200);
+    const startAttData = await startAttRes.json();
+
+    const submitAttRes = await attemptsPOST(
+      makeNextRequest('http://localhost:3000/api/attempts', {
+        method: 'POST',
+        cookieToken: tokenA_Dev3,
+        body: {
+          action: 'submit',
+          attemptId: startAttData.attempt.id,
+          timeSpentSeconds: 300,
+          answers: {
+            Q8_001: { value: 'D', flagged: false }, // Sai (đúng là B)
+            Q8_002: { value: 'A', flagged: false }, // Đúng
+          },
+        },
+      })
+    );
+    assert.equal(submitAttRes.status, 200);
+
+    // Kiểm tra câu sai Q8_001 đã xuất hiện trong /api/review với nextReviewAt hợp lệ
+    const revGetRes = await reviewGET(
+      makeNextRequest('http://localhost:3000/api/review', {
+        method: 'GET',
+        cookieToken: tokenA_Dev3,
+      })
+    );
+    assert.equal(revGetRes.status, 200);
+    const revGetData = await revGetRes.json();
+    const q8001Rev = revGetData.reviewQueue.find((r) => r.questionId === 'Q8_001');
+    assert.ok(q8001Rev, 'Câu làm sai Q8_001 phải tự động được thêm vào review_queue');
+    assert.ok(q8001Rev.nextReviewAt, 'Phải có trường nextReviewAt hợp lệ');
+    assert.equal(q8001Rev.intervalDays, 1);
+    assert.equal(q8001Rev.repetitions, 0);
+
+    // Ôn tập đúng lần 1 -> repetitions = 1, intervalDays = 1
+    const sm2Step1 = await reviewPOST(
+      makeNextRequest('http://localhost:3000/api/review', {
+        method: 'POST',
+        cookieToken: tokenA_Dev3,
+        body: {
+          action: 'grade_card',
+          reviewId: q8001Rev.id,
+          answer: 'B', // Trả lời đúng
+        },
+      })
+    );
+    assert.equal(sm2Step1.status, 200);
+    const sm2Data1 = await sm2Step1.json();
+    assert.equal(sm2Data1.isAnswerCorrect, true);
+    assert.equal(sm2Data1.sm2.repetitions, 1);
+    assert.equal(sm2Data1.sm2.intervalDays, 1);
+
+    // Ôn tập đúng lần 2 -> repetitions = 2, intervalDays tăng lên 6 ngày theo chuẩn SM-2!
+    const sm2Step2 = await reviewPOST(
+      makeNextRequest('http://localhost:3000/api/review', {
+        method: 'POST',
+        cookieToken: tokenA_Dev3,
+        body: {
+          action: 'grade_card',
+          reviewId: q8001Rev.id,
+          quality: 5,
+        },
+      })
+    );
+    const sm2Data2 = await sm2Step2.json();
+    assert.equal(sm2Data2.sm2.repetitions, 2);
+    assert.equal(sm2Data2.sm2.intervalDays, 6, 'Ôn tập đúng lần 2 thì intervalDays phải tăng lên 6 theo chuẩn SM-2');
+
+    // Tạo Mini-Đề ôn lại câu sai từ reviewQueue
+    const miniExamRes = await reviewPOST(
+      makeNextRequest('http://localhost:3000/api/review', {
+        method: 'POST',
+        cookieToken: tokenA_Dev3,
+        body: {
+          action: 'create_wrong_mini_exam',
+          questionCount: 5,
+        },
+      })
+    );
+    assert.equal(miniExamRes.status, 200);
+    const miniExamData = await miniExamRes.json();
+    assert.ok(miniExamData.exam && miniExamData.exam.questionIds.length > 0);
+    console.log('✓ [PASS] Test 12: Sổ tay lỗi sai, thuật toán lặp lại ngắt quãng SM-2 & tạo Mini-Đề ôn câu sai hoạt động chính xác');
+
+    // -------------------------------------------------------------------------
+    // Test 13: Phân quyền Quản trị Ngân hàng Câu hỏi (STUDENT bị chặn 403, TEACHER/ADMIN duyệt draft -> verified)
+    // -------------------------------------------------------------------------
+    // Tài khoản STUDENT gọi API quản trị câu hỏi của TEACHER/ADMIN -> phải trả về 403
+    const studentApproveAttempt = await questionsPOST(
+      makeNextRequest('http://localhost:3000/api/questions', {
+        method: 'POST',
+        cookieToken: tokenA_Dev3,
+        body: {
+          action: 'approve',
+          questionId: 'Q8_TPL_001',
+        },
+      })
+    );
+    assert.equal(
+      studentApproveAttempt.status,
+      403,
+      'Tài khoản STUDENT gọi API quản trị câu hỏi của TEACHER/ADMIN bắt buộc phải trả 403'
+    );
+
+    const studentListDraftsAttempt = await questionsGET(
+      makeNextRequest('http://localhost:3000/api/questions?verificationStatus=draft', {
+        method: 'GET',
+        cookieToken: tokenA_Dev3,
+      })
+    );
+    assert.equal(
+      studentListDraftsAttempt.status,
+      403,
+      'Tài khoản STUDENT xem danh sách câu hỏi draft phải bị chặn 403'
+    );
+
+    // Đăng nhập tài khoản TEACHER mẫu và duyệt câu hỏi từ draft -> verified
+    const teacherLoginRes = await authPOST(
+      makeNextRequest('http://localhost:3000/api/auth', {
+        method: 'POST',
+        body: {
+          action: 'login',
+          identifier: 'giaovien.thcs@mathmaster.edu.vn',
+          password: 'Teacher123',
+        },
+      })
+    );
+    assert.equal(teacherLoginRes.status, 200, 'Đăng nhập tài khoản Giáo viên phải thành công');
+    const teacherToken = extractCookieToken(teacherLoginRes);
+
+    const teacherApproveRes = await questionsPOST(
+      makeNextRequest('http://localhost:3000/api/questions', {
+        method: 'POST',
+        cookieToken: teacherToken,
+        body: {
+          action: 'approve',
+          questionIds: ['Q8_TPL_001', 'Q8_TPL_002'],
+        },
+      })
+    );
+    assert.equal(teacherApproveRes.status, 200, 'Giáo viên duyệt câu hỏi draft -> verified phải trả 200');
+    const teacherApproveData = await teacherApproveRes.json();
+    assert.equal(teacherApproveData.updatedCount, 2);
+    assert.equal(teacherApproveData.verificationStatus, 'verified');
+    console.log('✓ [PASS] Test 13: Bảo vệ phân quyền 403 đối với STUDENT & duyệt câu hỏi draft -> verified cho TEACHER/ADMIN');
+
+    // -------------------------------------------------------------------------
+    // Test 14: Quản lý Lớp học (Tạo lớp, joinCode, Giao đề, Bảng điểm) & Chế độ Luyện tập / Đề thích ứng
+    // -------------------------------------------------------------------------
+    // Giáo viên tạo lớp học mới
+    const createClsRes = await classroomsPOST(
+      makeNextRequest('http://localhost:3000/api/classrooms', {
+        method: 'POST',
+        cookieToken: teacherToken,
+        body: {
+          action: 'create_classroom',
+          name: 'Lớp Toán 8 Chuyên Đề',
+          grade: 8,
+        },
+      })
+    );
+    assert.equal(createClsRes.status, 200);
+    const createClsData = await createClsRes.json();
+    const joinCode = createClsData.classroom.joinCode;
+    assert.equal(joinCode.length, 6, 'Mã lớp joinCode phải gồm 6 ký tự');
+
+    // Học sinh A tham gia lớp bằng joinCode
+    const joinClsRes = await classroomsPOST(
+      makeNextRequest('http://localhost:3000/api/classrooms', {
+        method: 'POST',
+        cookieToken: tokenA_Dev3,
+        body: {
+          action: 'join_classroom',
+          joinCode,
+        },
+      })
+    );
+    assert.equal(joinClsRes.status, 200);
+
+    // Giáo viên giao đề EXAM_SEED_G8_GK1 cho lớp
+    const assignRes = await classroomsPOST(
+      makeNextRequest('http://localhost:3000/api/classrooms', {
+        method: 'POST',
+        cookieToken: teacherToken,
+        body: {
+          action: 'assign_exam',
+          classroomId: createClsData.classroom.id,
+          examId: 'EXAM_SEED_G8_GK1',
+          title: 'Bài kiểm tra định kỳ HK1',
+        },
+      })
+    );
+    assert.equal(assignRes.status, 200);
+
+    // Giáo viên xem bảng điểm lớp & câu sai nhiều nhất
+    const teacherClsView = await classroomsGET(
+      makeNextRequest(
+        `http://localhost:3000/api/classrooms?classroomId=${createClsData.classroom.id}`,
+        {
+          method: 'GET',
+          cookieToken: teacherToken,
+        }
+      )
+    );
+    assert.equal(teacherClsView.status, 200);
+    const teacherClsData = await teacherClsView.json();
+    const clsInfo = teacherClsData.classrooms[0];
+    assert.equal(clsInfo.studentCount, 1);
+    assert.ok(Array.isArray(clsInfo.gradebook) && clsInfo.gradebook.length === 1);
+    assert.ok(Array.isArray(clsInfo.mostMissedQuestions));
+
+    // Học sinh A tạo Đề Thích Ứng "Luyện điểm yếu" và xem Analytics
+    const adaptiveRes = await practicePOST(
+      makeNextRequest('http://localhost:3000/api/practice', {
+        method: 'POST',
+        cookieToken: tokenA_Dev3,
+        body: {
+          action: 'create_adaptive_exam',
+          grade: 8,
+          questionCount: 5,
+        },
+      })
+    );
+    assert.equal(adaptiveRes.status, 200);
+    const adaptiveData = await adaptiveRes.json();
+    assert.ok(adaptiveData.exam && adaptiveData.exam.questionIds.length === 5);
+
+    const analyticsRes = await analyticsGET(
+      makeNextRequest('http://localhost:3000/api/analytics?grade=8', {
+        method: 'GET',
+        cookieToken: tokenA_Dev3,
+      })
+    );
+    assert.equal(analyticsRes.status, 200);
+    const analyticsData = await analyticsRes.json();
+    assert.ok(analyticsData.overview.completedExams >= 1);
+    assert.ok(Array.isArray(analyticsData.chapterMastery));
+    console.log('✓ [PASS] Test 14: Quản lý Lớp học (joinCode, giao đề, bảng điểm, câu sai nhiều nhất), Luyện điểm yếu & Analytics hoạt động chính xác');
+
     console.log('================================================================');
-    console.log('🎉 TẤT CẢ 11 BÀI KIỂM THỬ TỰ ĐỘNG ĐỀU ĐẠT (11/11 PASS)!');
+    console.log('🎉 TẤT CẢ 14 BÀI KIỂM THỬ TỰ ĐỘNG ĐỀU ĐẠT (14/14 PASS)!');
     console.log('================================================================');
   } finally {
     process.env.DATABASE_URL = savedDbUrl;
