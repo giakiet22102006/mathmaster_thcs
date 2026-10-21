@@ -528,3 +528,77 @@ model classroom_assignments {
   classroom    classrooms      @relation(fields: [classroom_id], references: [id], onDelete: Cascade)
   exam         generated_exams @relation(fields: [exam_id], references: [id], onDelete: Cascade)
 }
+
+// ==============================================================================
+// Bước 2.6 — Lưu trữ tách dữ liệu biến động khỏi JSONB mm_cloud_state
+// Mỗi bảng có cột khoá đã đánh chỉ mục + cột data JSONB giữ nguyên toàn bộ bản ghi.
+// Không có khoá ngoại sang users/exams vì 2 tập này vẫn nằm trong JSONB mm_cloud_state.
+// ==============================================================================
+
+model mm_cloud_state {
+  id         String   @id
+  payload    Json
+  updated_at DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model mm_state_meta {
+  id           String    @id
+  migrated_at  DateTime? @db.Timestamptz(6)
+  rows_version BigInt    @default(0)
+  updated_at   DateTime  @default(now()) @db.Timestamptz(6)
+}
+
+model mm_state_backups {
+  id         BigInt   @id @default(autoincrement())
+  reason     String
+  payload    Json
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model mm_user_sessions {
+  id         String    @id
+  user_id    String
+  expires_at DateTime? @db.Timestamptz(6)
+  revoked_at DateTime? @db.Timestamptz(6)
+  ord        Float     @default(0)
+  data       Json
+  updated_at DateTime  @default(now()) @db.Timestamptz(6)
+
+  @@index([user_id, revoked_at, expires_at])
+}
+
+model mm_exam_attempts {
+  id         String   @id
+  user_id    String
+  exam_id    String?
+  status     String?
+  ord        Float    @default(0)
+  data       Json
+  updated_at DateTime @default(now()) @db.Timestamptz(6)
+
+  @@index([user_id, status])
+  @@index([exam_id])
+}
+
+model mm_topic_mastery {
+  id         String   @id
+  user_id    String
+  ord        Float    @default(0)
+  data       Json
+  updated_at DateTime @default(now()) @db.Timestamptz(6)
+
+  @@index([user_id])
+}
+
+model mm_review_items {
+  id             String    @id
+  user_id        String
+  question_id    String?
+  resolved       Boolean   @default(false)
+  next_review_at DateTime? @db.Timestamptz(6)
+  ord            Float     @default(0)
+  data           Json
+  updated_at     DateTime  @default(now()) @db.Timestamptz(6)
+
+  @@index([user_id, resolved, next_review_at])
+}

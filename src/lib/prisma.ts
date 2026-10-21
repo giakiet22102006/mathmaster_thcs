@@ -14,6 +14,16 @@ import {
   sanitizeUserForClient,
   verifySessionToken,
 } from './auth';
+import {
+  hotDbFromPrisma,
+  computeHotDiff,
+  applyHotDiff,
+  loadHotRows,
+  mergeHotRowsIntoState,
+  HotTracker,
+  HOT_COLLECTIONS,
+  buildMainPayload,
+} from './hot-store';
 
 let prismaInstance: any = null;
 let cloudTableInitialized = false;
@@ -58,6 +68,9 @@ let cachedServerState: any = null;
 let cachedStateFileMtimeMs = -1;
 let cachedDbUpdatedAtMs = -1;
 let cachedDbLastCheckedAtMs = 0;
+let cachedMigratedAt: string | null = null;
+let cachedDbRowsVersion = -1;
+const hotTracker = new HotTracker();
 const DB_CACHE_TTL_MS = 5000; // Kiểm tra độ tươi updated_at tối đa 1 lần mỗi 5 giây
 let inFlightReadStatePromise: Promise<any> | null = null;
 
@@ -631,20 +644,64 @@ async function readServerStateInternalAsync(): Promise<any> {
         let dbQueries = 0;
         dbQueries += await ensureCloudStateTable(prisma);
 
-        // 2. Nếu đã có cachedServerState và hết TTL 5s, chỉ truy vấn siêu nhẹ updated_at (8 bytes)
+        // 2. Nếu đã có cachedServerState và hết TTL 5s, kiểm tra độ tươi qua updated_at & rows_version
         if (cachedServerState && cachedDbUpdatedAtMs > 0) {
           const tCheck0 = performance.now();
           totalDbQueriesCounter += 1;
           dbQueries += 1;
-          const metaRows: any[] = await prisma.$queryRawUnsafe(
-            `SELECT updated_at FROM mm_cloud_state WHERE id = 'main' LIMIT 1`
-          );
+          let metaRows: any[] = [];
+          try {
+            metaRows = await prisma.$queryRawUnsafe(
+              `SELECT c.updated_at, m.migrated_at, m.rows_version::float8 AS rows_version
+               FROM mm_cloud_state c
+               LEFT JOIN mm_state_meta m ON m.id = c.id
+               WHERE c.id = 'main' LIMIT 1`
+            );
+          } catch {
+            metaRows = await prisma.$queryRawUnsafe(
+              `SELECT updated_at FROM mm_cloud_state WHERE id = 'main' LIMIT 1`
+            );
+          }
           const checkMs = Number((performance.now() - tCheck0).toFixed(2));
           const remoteUpdatedMs = metaRows?.[0]?.updated_at
             ? new Date(metaRows[0].updated_at).getTime()
             : -1;
+          const remoteMigratedAt = metaRows?.[0]?.migrated_at
+            ? new Date(metaRows[0].migrated_at).toISOString()
+            : '';
+          const remoteRowsVersion =
+            metaRows?.[0]?.rows_version != null ? Number(metaRows[0].rows_version) : -1;
+
+          cachedMigratedAt = remoteMigratedAt;
 
           if (remoteUpdatedMs > 0 && remoteUpdatedMs === cachedDbUpdatedAtMs) {
+            // Khi ở chế độ tách bảng: nếu rows_version thay đổi thì nạp lại các dòng biến động
+            if (remoteMigratedAt && remoteRowsVersion !== cachedDbRowsVersion) {
+              const hotDb = hotDbFromPrisma(prisma);
+              const { rows: hotData, rowsVersion } = await loadHotRows(hotDb);
+              mergeHotRowsIntoState(cachedServerState, hotData);
+              for (const spec of HOT_COLLECTIONS) {
+                hotTracker.seedCollection(spec.key, hotData[spec.key] || []);
+              }
+              cachedDbRowsVersion = rowsVersion;
+              cachedDbLastCheckedAtMs = Date.now();
+              const totalMs = Number((performance.now() - tStart).toFixed(2));
+              lastPerfReadMetric = {
+                branch: 'db-revalidated',
+                dbQueries,
+                fetchMs: checkMs,
+                payloadKB: 0.1,
+                normalizeMs: 0,
+                totalMs,
+              };
+              if (perfLogEnabled) {
+                console.log(
+                  `[PERF_LOG] readServerStateAsync branch=db-revalidated (hot-rows) dbQueries=${dbQueries} fetchMs=${checkMs}ms totalMs=${totalMs}ms`
+                );
+              }
+              return cachedServerState;
+            }
+
             cachedDbLastCheckedAtMs = Date.now();
             const totalMs = Number((performance.now() - tStart).toFixed(2));
             lastPerfReadMetric = {
@@ -682,6 +739,27 @@ async function readServerStateInternalAsync(): Promise<any> {
           const tNorm0 = performance.now();
           const normalized = normalizeStateObject(cloudState);
           const normalizeMs = Number((performance.now() - tNorm0).toFixed(2));
+
+          // Kiểm tra xem đã chuyển đổi sang chế độ tách dòng biến động chưa
+          if (cachedMigratedAt === null) {
+            const meta: any[] = await prisma.$queryRawUnsafe(
+              `SELECT migrated_at, rows_version::float8 AS rows_version FROM mm_state_meta WHERE id = 'main' LIMIT 1`
+            ).catch(() => []);
+            cachedMigratedAt = meta?.[0]?.migrated_at ? new Date(meta[0].migrated_at).toISOString() : '';
+            cachedDbRowsVersion = meta?.[0]?.rows_version != null ? Number(meta[0].rows_version) : 0;
+          }
+
+          if (cachedMigratedAt) {
+            const hotDb = hotDbFromPrisma(prisma);
+            const { rows: hotData, rowsVersion } = await loadHotRows(hotDb);
+            mergeHotRowsIntoState(normalized, hotData);
+            for (const spec of HOT_COLLECTIONS) {
+              hotTracker.seedCollection(spec.key, hotData[spec.key] || []);
+            }
+            hotTracker.mainJson = JSON.stringify(buildMainPayload(normalized));
+            cachedDbRowsVersion = rowsVersion;
+          }
+
           cachedServerState = normalized;
           cachedDbUpdatedAtMs = rows[0].updated_at
             ? new Date(rows[0].updated_at).getTime()
@@ -826,6 +904,40 @@ export async function writeServerStateAsync(stateObj: any): Promise<boolean> {
       if (prisma) {
         await ensureCloudStateTable(prisma);
         const tW0 = performance.now();
+
+        // Kiểm tra xem đã bật chế độ tách bảng chưa
+        if (cachedMigratedAt === null) {
+          const meta: any[] = await prisma
+            .$queryRawUnsafe(
+              `SELECT migrated_at, rows_version::float8 AS rows_version FROM mm_state_meta WHERE id = 'main' LIMIT 1`
+            )
+            .catch(() => []);
+          cachedMigratedAt = meta?.[0]?.migrated_at ? new Date(meta[0].migrated_at).toISOString() : '';
+          cachedDbRowsVersion = meta?.[0]?.rows_version != null ? Number(meta[0].rows_version) : 0;
+        }
+
+        // Chế độ tách dòng biến động (Split-Hot): chỉ ghi đúng dòng thay đổi!
+        if (cachedMigratedAt) {
+          const hotDb = hotDbFromPrisma(prisma);
+          const diff = computeHotDiff(stateObj, hotTracker);
+          if (!diff.mainChanged && diff.rowChangeCount === 0) {
+            return true;
+          }
+          const res = await applyHotDiff(hotDb, diff, hotTracker);
+          totalDbQueriesCounter += res.statements;
+          if (res.mainUpdatedAtMs) cachedDbUpdatedAtMs = res.mainUpdatedAtMs;
+          if (res.rowsVersion != null) cachedDbRowsVersion = res.rowsVersion;
+          cachedDbLastCheckedAtMs = Date.now();
+          if (process.env.PERF_LOG === '1') {
+            const wMs = (performance.now() - tW0).toFixed(2);
+            console.log(
+              `[PERF_LOG] writeServerStateAsync mode=split-hot dbStatements=${res.statements} rowsChanged=${diff.rowChangeCount} mainChanged=${diff.mainChanged} bytesWritten=${res.bytesWritten} writeMs=${wMs}ms`
+            );
+          }
+          return true;
+        }
+
+        // Chế độ cũ (Legacy): ghi đè toàn bộ JSONB mm_cloud_state
         const jsonStr = JSON.stringify(stateObj);
         totalDbQueriesCounter += 1;
         const rows: any[] = await prisma.$queryRawUnsafe(
