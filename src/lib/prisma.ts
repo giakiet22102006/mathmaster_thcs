@@ -825,6 +825,7 @@ export async function writeServerStateAsync(stateObj: any): Promise<boolean> {
       const prisma = await getPrismaClient();
       if (prisma) {
         await ensureCloudStateTable(prisma);
+        const tW0 = performance.now();
         const jsonStr = JSON.stringify(stateObj);
         totalDbQueriesCounter += 1;
         const rows: any[] = await prisma.$queryRawUnsafe(
@@ -840,6 +841,13 @@ export async function writeServerStateAsync(stateObj: any): Promise<boolean> {
           cachedDbUpdatedAtMs = Date.now();
         }
         cachedDbLastCheckedAtMs = Date.now();
+        if (process.env.PERF_LOG === '1') {
+          console.log(
+            `[PERF_LOG] writeServerStateAsync mode=legacy dbStatements=1 bytesWritten=${Buffer.byteLength(
+              jsonStr
+            )} writeMs=${(performance.now() - tW0).toFixed(2)}ms`
+          );
+        }
         return true;
       }
     } catch {
