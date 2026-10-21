@@ -4,7 +4,12 @@
 // ==============================================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getQuestionByIdMap, requireUser, writeServerStateAsync } from '@/lib/prisma';
+import {
+  getQuestionByIdMap,
+  invalidateDashboardCache,
+  requireUser,
+  writeServerStateAsync,
+} from '@/lib/prisma';
 import { gradeExamAttempt } from '@/lib/math-grader';
 
 export const dynamic = 'force-dynamic';
@@ -301,6 +306,7 @@ export async function POST(req: NextRequest) {
         date: todayStr,
       });
 
+      invalidateDashboardCache(userId, true);
       await writeServerStateAsync(state);
       return NextResponse.json({ ok: true, attempt: att, earnedXp });
     }

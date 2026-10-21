@@ -33,6 +33,7 @@ import { GET as practiceGET, POST as practicePOST } from '../src/app/api/practic
 import { GET as classroomsGET, POST as classroomsPOST } from '../src/app/api/classrooms/route';
 import { GET as questionsGET, POST as questionsPOST } from '../src/app/api/questions/route';
 import { GET as analyticsGET, POST as analyticsPOST } from '../src/app/api/analytics/route';
+import { GET as dashboardGET, POST as dashboardPOST } from '../src/app/api/dashboard/route';
 import { runBankAudit } from './bank-audit.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -938,8 +939,114 @@ async function runTests() {
     assert.ok(Array.isArray(analyticsData.chapterMastery));
     console.log('✓ [PASS] Test 14: Quản lý Lớp học (joinCode, giao đề, bảng điểm, câu sai nhiều nhất), Luyện điểm yếu & Analytics hoạt động chính xác');
 
+    // -------------------------------------------------------------------------
+    // Test 15: Kiểm tra /api/dashboard (Cache theo User, Cô lập dữ liệu & Vô hiệu hóa Cache khi nộp bài)
+    // -------------------------------------------------------------------------
+    const dashA1Res = await dashboardGET(
+      makeNextRequest('http://localhost:3000/api/dashboard?grade=8', {
+        method: 'GET',
+        cookieToken: tokenA_Dev3,
+      })
+    );
+    assert.equal(dashA1Res.status, 200);
+    assert.ok(
+      String(dashA1Res.headers.get('cache-control') || '').includes('private') &&
+        String(dashA1Res.headers.get('cache-control') || '').includes('no-store'),
+      '/api/dashboard bắt buộc phải có Cache-Control: private, no-store'
+    );
+    const dashA1 = await dashA1Res.json();
+    assert.equal(dashA1.ok, true);
+    assert.equal(dashA1.user.id, regDataA.user.id);
+    assert.equal(dashA1.cached, false, 'Lần gọi đầu tiên sau khi tạo đề phải là cache MISS');
+
+    // Lần gọi thứ 2 liên tiếp của User A phải trả từ cache (cached = true)
+    const dashA2Res = await dashboardGET(
+      makeNextRequest('http://localhost:3000/api/dashboard?grade=8', {
+        method: 'GET',
+        cookieToken: tokenA_Dev3,
+      })
+    );
+    const dashA2 = await dashA2Res.json();
+    assert.equal(dashA2.cached, true, 'Lần gọi thứ 2 liên tiếp của User A phải là cache HIT');
+    assert.equal(dashA2.user.id, regDataA.user.id);
+
+    // User B gọi /api/dashboard tuyệt đối không được nhận dữ liệu của User A
+    const dashBRes = await dashboardGET(
+      makeNextRequest('http://localhost:3000/api/dashboard?grade=9', {
+        method: 'GET',
+        cookieToken: tokenB_Client2,
+      })
+    );
+    const dashB = await dashBRes.json();
+    assert.equal(dashB.user.id, regDataB.user.id, 'User B chỉ được thấy dữ liệu của chính User B');
+    assert.notEqual(dashB.user.id, dashA2.user.id, 'Tuyệt đối không rò rỉ cache giữa User A và User B');
+    assert.equal(dashB.overview.completedExams, 0, 'User B chưa nộp bài nào nên completedExams phải = 0');
+
+    // Khi User A nộp thêm 1 bài thi mới -> Cache của User A phải tự động bị xóa ngay lập tức
+    const prevCountA = dashA2.overview.completedExams;
+    const startNewAttRes = await attemptsPOST(
+      makeNextRequest('http://localhost:3000/api/attempts', {
+        method: 'POST',
+        cookieToken: tokenA_Dev3,
+        body: {
+          action: 'start',
+          examId: adaptiveData.exam.id,
+        },
+      })
+    );
+    assert.equal(startNewAttRes.status, 200);
+    const startNewAttData = await startNewAttRes.json();
+
+    const submitNewAttRes = await attemptsPOST(
+      makeNextRequest('http://localhost:3000/api/attempts', {
+        method: 'POST',
+        cookieToken: tokenA_Dev3,
+        body: {
+          action: 'submit',
+          attemptId: startNewAttData.attempt.id,
+          examId: adaptiveData.exam.id,
+          timeSpentSeconds: 180,
+          answers: {},
+        },
+      })
+    );
+    assert.equal(submitNewAttRes.status, 200);
+
+    const dashA3Res = await dashboardGET(
+      makeNextRequest('http://localhost:3000/api/dashboard?grade=8', {
+        method: 'GET',
+        cookieToken: tokenA_Dev3,
+      })
+    );
+    const dashA3 = await dashA3Res.json();
+    assert.equal(dashA3.cached, false, 'Sau khi nộp bài, cache của User A phải được vô hiệu hóa');
+    assert.equal(
+      dashA3.overview.completedExams,
+      prevCountA + 1,
+      'Số bài đã hoàn thành trên Dashboard phải tăng ngay lập tức sau khi nộp bài'
+    );
+
+    // Khi đổi cài đặt ẩn danh bảng xếp hạng -> Cache phải được vô hiệu hóa
+    const toggleAnonRes = await dashboardPOST(
+      makeNextRequest('http://localhost:3000/api/dashboard', {
+        method: 'POST',
+        cookieToken: tokenA_Dev3,
+        body: { action: 'toggle_anonymous_leaderboard', anonymous: true },
+      })
+    );
+    assert.equal(toggleAnonRes.status, 200);
+    const dashA4Res = await dashboardGET(
+      makeNextRequest('http://localhost:3000/api/dashboard?grade=8', {
+        method: 'GET',
+        cookieToken: tokenA_Dev3,
+      })
+    );
+    const dashA4 = await dashA4Res.json();
+    assert.equal(dashA4.overview.anonymousLeaderboard, true);
+    console.log('✓ [PASS] Test 15: API /api/dashboard hợp nhất, cô lập cache theo từng người dùng & tự động vô hiệu hóa cache hoạt động chính xác');
+
     console.log('================================================================');
-    console.log('🎉 TẤT CẢ 14 BÀI KIỂM THỬ TỰ ĐỘNG ĐỀU ĐẠT (14/14 PASS)!');
+    console.log('🎉 TẤT CẢ 15 BÀI KIỂM THỬ TỰ ĐỘNG ĐỀU ĐẠT (15/15 PASS)!');
     console.log('================================================================');
   } finally {
     process.env.DATABASE_URL = savedDbUrl;

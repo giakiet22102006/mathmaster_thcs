@@ -5,6 +5,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 const PROTECTED_API_PREFIXES = [
+  '/api/dashboard',
+  '/api/analytics',
   '/api/state',
   '/api/exams',
   '/api/attempts',

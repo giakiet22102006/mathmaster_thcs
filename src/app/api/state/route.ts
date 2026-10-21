@@ -7,6 +7,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import {
   buildScopedStateForUser,
   getPerfDiagnostics,
+  invalidateDashboardCache,
   requireUser,
   writeServerStateAsync,
 } from '@/lib/prisma';
@@ -145,6 +146,7 @@ export async function POST(req: NextRequest) {
       }
     }
 
+    invalidateDashboardCache(userId, true);
     await writeServerStateAsync(state);
     return NextResponse.json({
       ok: true,

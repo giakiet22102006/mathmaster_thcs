@@ -4,7 +4,12 @@
 // ==============================================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { requireUser, writeServerStateAsync } from '@/lib/prisma';
+import {
+  invalidateDashboardCache,
+  invalidateExamPoolCache,
+  requireUser,
+  writeServerStateAsync,
+} from '@/lib/prisma';
 import {
   checkMathEquivalence,
   classifyAnswerError,
@@ -193,6 +198,7 @@ export async function POST(req: NextRequest) {
         auth.user.level = Math.max(1, Math.floor(auth.user.xp / 200) + 1);
       }
 
+      invalidateDashboardCache(userId, isCorrect);
       await writeServerStateAsync(state);
       return NextResponse.json({
         ok: true,
@@ -304,6 +310,8 @@ export async function POST(req: NextRequest) {
       }
 
       state.exams.unshift(adaptiveResult);
+      invalidateExamPoolCache();
+      invalidateDashboardCache(userId);
       await writeServerStateAsync(state);
 
       return NextResponse.json({

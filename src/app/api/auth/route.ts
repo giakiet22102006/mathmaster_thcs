@@ -8,6 +8,7 @@ import {
   createDeviceSessionInState,
   getClientIp,
   getPrismaClient,
+  invalidateDashboardCache,
   readServerStateAsync,
   requireUser,
   revokeAllOtherSessionsInState,
@@ -370,6 +371,7 @@ export async function POST(req: NextRequest) {
       const auth = await requireUser(req, state);
       if (auth.ok) {
         revokeSessionInState(state, auth.user.id, auth.session.id);
+        invalidateDashboardCache(auth.user.id);
         await writeServerStateAsync(state);
       }
       const res = NextResponse.json({ ok: true, message: 'Đã đăng xuất thành công.' });

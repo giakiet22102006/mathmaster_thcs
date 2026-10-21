@@ -7,6 +7,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import {
   getPerfDiagnostics,
   getQuestionByIdMap,
+  invalidateDashboardCache,
+  invalidateExamPoolCache,
   requireUser,
   sanitizeQuestionForInProgressExam,
   writeServerStateAsync,
@@ -183,6 +185,8 @@ export async function POST(req: NextRequest) {
     }
 
     state.exams.unshift(newExam);
+    invalidateExamPoolCache();
+    invalidateDashboardCache(auth.user.id);
     await writeServerStateAsync(state);
     return NextResponse.json({ ok: true, exam: newExam });
   } catch {
