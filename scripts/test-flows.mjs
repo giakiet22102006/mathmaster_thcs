@@ -26,8 +26,9 @@ import {
 import { POST as authPOST, GET as authGET } from '../src/app/api/auth/route';
 import { GET as sessionsGET, DELETE as sessionsDELETE } from '../src/app/api/sessions/route';
 import { GET as stateGET, POST as statePOST } from '../src/app/api/state/route';
-import { GET as examsGET } from '../src/app/api/exams/route';
+import { GET as examsGET, POST as examsPOST } from '../src/app/api/exams/route';
 import { GET as attemptsGET, POST as attemptsPOST } from '../src/app/api/attempts/route';
+import { runBankAudit } from './bank-audit.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -457,7 +458,7 @@ async function runTests() {
     console.log('✓ [PASS] Test 7: Quản lý phiên theo thiết bị, thu hồi phiên độc lập & giới hạn MAX_SESSIONS_PER_USER hoạt động chính xác');
 
     // -------------------------------------------------------------------------
-    // Test 8: Tạo đề thi & Chấm điểm Toán học tương đương (Backward Compatibility + Core Engine)
+    // Test 8: Tạo đề thi đúng Ma trận Độ khó 4 mức & Tái lập đề qua Seed
     // -------------------------------------------------------------------------
     const seedData = JSON.parse(
       fs.readFileSync(path.join(rootDir, 'prisma', 'seed_data.json'), 'utf-8')
@@ -468,20 +469,160 @@ async function runTests() {
         textbook: 'KNTT',
         category: 'GIUA_KI_1',
         semester: 1,
-        difficulty: 'medium',
+        difficulty: 'trung_binh',
         format: 'combined',
         questionCount: 5,
         durationMinutes: 45,
         userId: 'user_minhanh_01',
+        seed: 20261021,
       },
       seedData.questions,
       seedData.exams
     );
+    assert.equal(newExam8.ok, true, 'Tạo đề Lớp 8 HK1 mức Trung bình 5 câu phải thành công');
     assert.equal(newExam8.grade, 8);
     assert.equal(newExam8.questionIds.length, 5);
+
+    // Kiểm tra mọi câu hỏi trong đề đều đúng Lớp 8, HK1 và đã verified
+    const selectedQuestions8 = newExam8.questionIds.map((id) =>
+      seedData.questions.find((q) => q.id === id)
+    );
+    for (const sq of selectedQuestions8) {
+      assert.ok(sq, 'Câu hỏi trong đề phải tồn tại trong ngân hàng');
+      assert.equal(sq.grade, 8, 'Câu hỏi phải đúng Lớp 8');
+      assert.equal(sq.semester, 1, 'Câu hỏi phải đúng Học kỳ 1');
+      assert.equal(sq.verificationStatus, 'verified', 'Chỉ được chọn câu hỏi đã verified');
+    }
+
+    // Kiểm tra phân phối mức độ nhận thức đúng 30% NB / 50% TH / 20% VD (1 NB, 3 TH, 1 VD, 0 VDC)
+    assert.deepEqual(
+      newExam8.composition.actualCounts,
+      { nhan_biet: 1, thong_hieu: 3, van_dung: 1, van_dung_cao: 0 },
+      'Số lượng câu hỏi từng mức nhận thức phải khớp 100% với ma trận Trung bình (30/50/20/0)'
+    );
+
+    // Kiểm tra tổng điểm đúng bằng 10.0
     const totalPts = Object.values(newExam8.questionPoints).reduce((a, b) => a + b, 0);
     assert.ok(Math.abs(totalPts - 10.0) < 0.01, 'Tổng điểm đề thi phải đúng bằng 10.0');
 
+    // Kiểm tra tính tái lập khi truyền cùng seed
+    const reproducedExam8 = generateExamFromPool(
+      {
+        grade: 8,
+        textbook: 'KNTT',
+        category: 'GIUA_KI_1',
+        semester: 1,
+        difficulty: 'trung_binh',
+        format: 'combined',
+        questionCount: 5,
+        durationMinutes: 45,
+        userId: 'user_minhanh_01',
+        seed: 20261021,
+      },
+      seedData.questions,
+      seedData.exams
+    );
+    assert.deepEqual(
+      reproducedExam8.questionIds,
+      newExam8.questionIds,
+      'Cùng seed PRNG phải tái lập chính xác danh sách câu hỏi của đề'
+    );
+    console.log('✓ [PASS] Test 8: Tạo đề theo Ma trận 4 mức độ nhận thức (Largest Remainder + Seeded PRNG) hoạt động chính xác');
+
+    // -------------------------------------------------------------------------
+    // Test 9: Kiểm tra báo lỗi INSUFFICIENT_QUESTIONS khi ngân hàng thiếu câu (Không âm thầm hạ cấp)
+    // -------------------------------------------------------------------------
+    const shortageRes = generateExamFromPool(
+      {
+        grade: 8,
+        textbook: 'KNTT',
+        semester: 1,
+        chapterIds: ['G8_C1'],
+        customMatrix: { nhan_biet: 0, thong_hieu: 0, van_dung: 0, van_dung_cao: 100 },
+        questionCount: 50,
+        allowBorrowAdjacent: false,
+        userId: regDataA.user.id,
+      },
+      seedData.questions,
+      []
+    );
+    assert.equal(shortageRes.ok, false, 'Khi thiếu câu hỏi và allowBorrowAdjacent=false phải trả về ok: false');
+    assert.equal(
+      shortageRes.code,
+      'INSUFFICIENT_QUESTIONS',
+      'Phải trả về mã lỗi INSUFFICIENT_QUESTIONS'
+    );
+    assert.equal(shortageRes.shortage.van_dung_cao.need, 50);
+    assert.ok(shortageRes.shortage.van_dung_cao.have < 50);
+    assert.ok(Array.isArray(shortageRes.suggestions) && shortageRes.suggestions.length > 0);
+
+    // Kiểm tra qua API POST /api/exams cũng trả HTTP 422 kèm shortage
+    const apiShortageRes = await examsPOST(
+      makeNextRequest('http://localhost:3000/api/exams', {
+        method: 'POST',
+        cookieToken: tokenA_Dev3,
+        body: {
+          grade: 8,
+          semester: 1,
+          chapterIds: ['G8_C1'],
+          customMatrix: { nhan_biet: 0, thong_hieu: 0, van_dung: 0, van_dung_cao: 100 },
+          questionCount: 50,
+          allowBorrowAdjacent: false,
+        },
+      })
+    );
+    assert.equal(apiShortageRes.status, 422, 'API /api/exams phải trả 422 khi thiếu câu hỏi');
+    const apiShortageData = await apiShortageRes.json();
+    assert.equal(apiShortageData.code, 'INSUFFICIENT_QUESTIONS');
+    console.log('✓ [PASS] Test 9: Báo lỗi minh bạch INSUFFICIENT_QUESTIONS kèm chi tiết shortage (không lấy bừa câu sai mức độ)');
+
+    // -------------------------------------------------------------------------
+    // Test 10: Chấm bài tự luận biểu thức tương đương (1/2, 0,5, \frac{1}{2}) & Chấm từng bước rubricSteps
+    // -------------------------------------------------------------------------
+    const fracQuestion = {
+      id: 'Q_FRAC_TEST',
+      type: 'essay',
+      points: 2.0,
+      correctAnswer: '1/2',
+      acceptedAnswers: ['0.5', '0,5', '\\frac{1}{2}'],
+      commonMistake: 'Sai dấu thành -1/2',
+      rubricSteps: [
+        { step: 'Rút gọn tử và mẫu được $\\frac{2}{4}$', points: 1.0 },
+        { step: 'Tối giản bằng $\\frac{1}{2}$', points: 1.0 },
+      ],
+    };
+    assert.equal(checkMathEquivalence('1/2', fracQuestion).isCorrect, true);
+    assert.equal(checkMathEquivalence('0,5', fracQuestion).isCorrect, true);
+    assert.equal(checkMathEquivalence('\\frac{1}{2}', fracQuestion).isCorrect, true);
+    assert.equal(checkMathEquivalence('-0,5', fracQuestion).errorCategory, 'SIGN_ERROR');
+
+    // Kiểm tra chấm điểm thành phần (Partial Credit) với câu Q6_004: 25 - (x - 7) = -12
+    // Bước 1: x - 7 = 37 (1.0đ), Bước 2: x = 44 (1.0đ)
+    const q6004 = seedData.questions.find((q) => q.id === 'Q6_004');
+    const partialExam = {
+      id: 'EXAM_PARTIAL_TEST',
+      questionIds: ['Q6_004'],
+      questionPoints: { Q6_004: 2.0 },
+    };
+    const partialAttempt = {
+      id: 'ATT_PARTIAL_01',
+      examId: 'EXAM_PARTIAL_TEST',
+      userId: regDataA.user.id,
+      answers: {
+        Q6_004: {
+          value: '40', // Kết quả cuối cùng tính nhẩm sai
+          workings: 'Bước 1: x - 7 = 25 - (-12) => x - 7 = 37. Bước 2: x = 40', // Nhưng bước 1 đúng!
+          flagged: false,
+        },
+      },
+    };
+    const partialGraded = gradeExamAttempt(partialAttempt, partialExam, seedData.questions);
+    assert.equal(partialGraded.answers.Q6_004.isCorrect, false);
+    assert.equal(partialGraded.answers.Q6_004.isPartial, true, 'Phải ghi nhận đạt điểm thành phần (isPartial = true)');
+    assert.equal(partialGraded.answers.Q6_004.points, 1.0, 'Đúng 1/2 bước rubric trên câu 2.0đ phải được 1.0đ');
+    assert.equal(partialGraded.essayScore, 1.0);
+
+    // Kiểm tra luồng chấm đề tổng hợp Lớp 8 và căn thức/tập nghiệm Lớp 9
     const simulatedAttempt = {
       id: 'ATT_TEST_FLOW_01',
       examId: 'EXAM_SEED_G8_GK1',
@@ -512,10 +653,34 @@ async function runTests() {
     assert.ok(checkMathEquivalence('\\sqrt{18}', qRadical).isCorrect);
     const qQuad = seedData.questions.find((q) => q.id === 'Q9_006');
     assert.ok(checkMathEquivalence('3; 2', qQuad).isCorrect);
-    console.log('✓ [PASS] Test 8: Luồng Tạo đề & Chấm điểm Toán học tương đương hoạt động chính xác');
+    const qCond = seedData.questions.find((q) => q.id === 'Q9_008');
+    assert.equal(
+      checkMathEquivalence('x = 4; x = -5', qCond).errorCategory,
+      'MISSING_CONDITION',
+      'Phải phát hiện lỗi MISSING_CONDITION từ dữ liệu commonMistake mà không cần hardcode ID'
+    );
+    console.log('✓ [PASS] Test 10: Chấm biểu thức tương đương, chấm từng phần rubricSteps & phân loại lỗi tự động chính xác');
+
+    // -------------------------------------------------------------------------
+    // Test 11: Kiểm định toàn bộ Ngân hàng câu hỏi (bank:audit >= 15 câu/mức/khối, 0 lỗi)
+    // -------------------------------------------------------------------------
+    const auditResult = runBankAudit({ silent: true });
+    assert.equal(auditResult.ok, true, 'bank:audit phải đạt 0 lỗi nghiêm trọng');
+    assert.ok(auditResult.totalQuestions >= 240, 'Tổng số câu hỏi toàn hệ thống phải >= 240 câu');
+    for (const g of [6, 7, 8, 9]) {
+      for (const lv of ['nhan_biet', 'thong_hieu', 'van_dung', 'van_dung_cao']) {
+        assert.ok(
+          auditResult.coverageByGradeLevel[g][lv].total >= 15,
+          `Khối ${g} mức ${lv} phải có tối thiểu 15 câu hỏi`
+        );
+      }
+    }
+    console.log(
+      `✓ [PASS] Test 11: Ngân hàng câu hỏi (${auditResult.totalQuestions} câu, ${auditResult.katexFormulasChecked} công thức KaTeX) đạt chuẩn 100%`
+    );
 
     console.log('================================================================');
-    console.log('🎉 TẤT CẢ 8 BÀI KIỂM THỬ TỰ ĐỘNG ĐỀU ĐẠT (8/8 PASS)!');
+    console.log('🎉 TẤT CẢ 11 BÀI KIỂM THỬ TỰ ĐỘNG ĐỀU ĐẠT (11/11 PASS)!');
     console.log('================================================================');
   } finally {
     process.env.DATABASE_URL = savedDbUrl;

@@ -1,0 +1,3713 @@
+{
+  "grade": 6,
+  "questions": [
+    {
+      "id": "Q6_TPL_001",
+      "code": "M6-HK1-C1-NB-01",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C1",
+      "lesson": "Lũy thừa với số mũ tự nhiên & ƯCLN - BCNN",
+      "topic": "Lũy thừa và thứ tự phép tính",
+      "problemType": "Tính giá trị biểu thức lũy thừa",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Thực hiện phép tính: $3^2 \\cdot 3^2 + 5$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$17$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$76$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$86$"
+        },
+        {
+          "label": "D",
+          "text": "$100$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "86"
+      ],
+      "solution": "Áp dụng công thức nhân hai lũy thừa cùng cơ số: $3^2 \\cdot 3^2 = 3^{4} = 81$. Khi đó $81 + 5 = 86$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $81 + 5 = 86$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$a^m \\cdot a^n = a^{m+n}$",
+      "commonMistake": "Nhầm công thức nhân hai lũy thừa thành nhân hai số mũ.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "3^2 * 3^2 + 5"
+    },
+    {
+      "id": "Q6_TPL_002",
+      "code": "M6-HK1-C1-NB-02",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C1",
+      "lesson": "Lũy thừa với số mũ tự nhiên & ƯCLN - BCNN",
+      "topic": "Lũy thừa và thứ tự phép tính",
+      "problemType": "Tính giá trị biểu thức lũy thừa",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Thực hiện phép tính: $4^2 \\cdot 4^1 + 8$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$72$"
+        },
+        {
+          "label": "B",
+          "text": "$24$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$20$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$56$",
+          "errorType": "SIGN_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "72"
+      ],
+      "solution": "Áp dụng công thức nhân hai lũy thừa cùng cơ số: $4^2 \\cdot 4^1 = 4^{3} = 64$. Khi đó $64 + 8 = 72$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $64 + 8 = 72$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$a^m \\cdot a^n = a^{m+n}$",
+      "commonMistake": "Nhầm công thức nhân hai lũy thừa thành nhân hai số mũ.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "4^2 * 4^1 + 8"
+    },
+    {
+      "id": "Q6_TPL_003",
+      "code": "M6-HK1-C1-NB-03",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C1",
+      "lesson": "Lũy thừa với số mũ tự nhiên & ƯCLN - BCNN",
+      "topic": "Lũy thừa và thứ tự phép tính",
+      "problemType": "Tính giá trị biểu thức lũy thừa",
+      "type": "essay",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 2,
+      "content": "Thực hiện phép tính: $2^2 \\cdot 2^2 + 11$.",
+      "options": [],
+      "correctAnswer": "27",
+      "acceptedAnswers": [
+        "27"
+      ],
+      "solution": "Áp dụng công thức nhân hai lũy thừa cùng cơ số: $2^2 \\cdot 2^2 = 2^{4} = 16$. Khi đó $16 + 11 = 27$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $2^2 \\cdot 2^2 = 16$",
+          "points": 1
+        },
+        {
+          "step": "Cộng 11 được kết quả $27$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$a^m \\cdot a^n = a^{m+n}$",
+      "commonMistake": "Nhầm công thức nhân hai lũy thừa thành nhân hai số mũ.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "2^2 * 2^2 + 11"
+    },
+    {
+      "id": "Q6_TPL_004",
+      "code": "M6-HK1-C1-TH-04",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C1",
+      "lesson": "Lũy thừa với số mũ tự nhiên & ƯCLN - BCNN",
+      "topic": "Lũy thừa và thứ tự phép tính",
+      "problemType": "Tính giá trị biểu thức lũy thừa",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Tính giá trị của biểu thức $A = 4^2 - 3^2$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$2$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$7$"
+        },
+        {
+          "label": "C",
+          "text": "$25$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$1$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "B",
+      "acceptedAnswers": [
+        "7",
+        "A=7"
+      ],
+      "solution": "Ta có $4^2 = 16$ và $3^2 = 9$. Suy ra $A = 16 - 9 = 7$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $A = 16 - 9 = 7$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$a^2 = a \\cdot a$",
+      "commonMistake": "Nhầm $a^2 = 2a$ hoặc $(a-b)^2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "4^2 - 3^2"
+    },
+    {
+      "id": "Q6_TPL_005",
+      "code": "M6-HK1-C1-TH-05",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C1",
+      "lesson": "Lũy thừa với số mũ tự nhiên & ƯCLN - BCNN",
+      "topic": "Lũy thừa và thứ tự phép tính",
+      "problemType": "Tính giá trị biểu thức lũy thừa",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Tính giá trị của biểu thức $A = 5^2 - 4^2$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$2$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$41$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$1$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$9$"
+        }
+      ],
+      "correctAnswer": "D",
+      "acceptedAnswers": [
+        "9",
+        "A=9"
+      ],
+      "solution": "Ta có $5^2 = 25$ và $4^2 = 16$. Suy ra $A = 25 - 16 = 9$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $A = 25 - 16 = 9$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$a^2 = a \\cdot a$",
+      "commonMistake": "Nhầm $a^2 = 2a$ hoặc $(a-b)^2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "5^2 - 4^2"
+    },
+    {
+      "id": "Q6_TPL_006",
+      "code": "M6-HK1-C1-TH-06",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C1",
+      "lesson": "Lũy thừa với số mũ tự nhiên & ƯCLN - BCNN",
+      "topic": "Lũy thừa và thứ tự phép tính",
+      "problemType": "Tính giá trị biểu thức lũy thừa",
+      "type": "essay",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 2,
+      "content": "Tính giá trị của biểu thức $A = 6^2 - 2^2$.",
+      "options": [],
+      "correctAnswer": "32",
+      "acceptedAnswers": [
+        "32",
+        "A=32"
+      ],
+      "solution": "Ta có $6^2 = 36$ và $2^2 = 4$. Suy ra $A = 36 - 4 = 32$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $6^2 = 36$ và $2^2 = 4$",
+          "points": 1
+        },
+        {
+          "step": "Trừ hai kết quả được $A = 32$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$a^2 = a \\cdot a$",
+      "commonMistake": "Nhầm $a^2 = 2a$ hoặc $(a-b)^2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "6^2 - 2^2"
+    },
+    {
+      "id": "Q6_TPL_007",
+      "code": "M6-HK1-C1-VD-07",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C1",
+      "lesson": "Lũy thừa với số mũ tự nhiên & ƯCLN - BCNN",
+      "topic": "Lũy thừa và thứ tự phép tính",
+      "problemType": "Bài toán thực tế ƯCLN - BCNN",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Có $24$ quyển vở và $36$ chiếc bút bi. Cô giáo muốn chia đều số vở và bút vào các phần thưởng sao cho số phần thưởng là nhiều nhất. Hỏi chia được nhiều nhất bao nhiêu phần thưởng?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$12$"
+        },
+        {
+          "label": "B",
+          "text": "$72$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$6$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$60$",
+          "errorType": "CONCEPT_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "12"
+      ],
+      "solution": "Số phần thưởng nhiều nhất chính là $\\text{ƯCLN}(24, 36) = 12$ (phần thưởng).",
+      "rubricSteps": [
+        {
+          "step": "Tìm đúng $\\text{ƯCLN}(24, 36) = 12$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\text{ƯCLN}(a, b)$",
+      "commonMistake": "Nhầm lẫn giữa ƯCLN và BCNN trong bài toán chia phần thưởng.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_008",
+      "code": "M6-HK1-C1-VD-08",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C1",
+      "lesson": "Lũy thừa với số mũ tự nhiên & ƯCLN - BCNN",
+      "topic": "Lũy thừa và thứ tự phép tính",
+      "problemType": "Bài toán thực tế ƯCLN - BCNN",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Có $32$ quyển vở và $48$ chiếc bút bi. Cô giáo muốn chia đều số vở và bút vào các phần thưởng sao cho số phần thưởng là nhiều nhất. Hỏi chia được nhiều nhất bao nhiêu phần thưởng?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$96$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$8$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$16$"
+        },
+        {
+          "label": "D",
+          "text": "$80$",
+          "errorType": "CONCEPT_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "16"
+      ],
+      "solution": "Số phần thưởng nhiều nhất chính là $\\text{ƯCLN}(32, 48) = 16$ (phần thưởng).",
+      "rubricSteps": [
+        {
+          "step": "Tìm đúng $\\text{ƯCLN}(32, 48) = 16$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\text{ƯCLN}(a, b)$",
+      "commonMistake": "Nhầm lẫn giữa ƯCLN và BCNN trong bài toán chia phần thưởng.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_009",
+      "code": "M6-HK1-C1-VD-09",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C1",
+      "lesson": "Lũy thừa với số mũ tự nhiên & ƯCLN - BCNN",
+      "topic": "Lũy thừa và thứ tự phép tính",
+      "problemType": "Bài toán thực tế ƯCLN - BCNN",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 2,
+      "content": "Có $40$ quyển vở và $60$ chiếc bút bi. Cô giáo muốn chia đều số vở và bút vào các phần thưởng sao cho số phần thưởng là nhiều nhất. Hỏi chia được nhiều nhất bao nhiêu phần thưởng?",
+      "options": [],
+      "correctAnswer": "20",
+      "acceptedAnswers": [
+        "20"
+      ],
+      "solution": "Số phần thưởng nhiều nhất chính là $\\text{ƯCLN}(40, 60) = 20$ (phần thưởng).",
+      "rubricSteps": [
+        {
+          "step": "Lập luận số phần thưởng là $\\text{ƯCLN}(40, 60)$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng $\\text{ƯCLN}(40, 60) = 20$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\text{ƯCLN}(a, b)$",
+      "commonMistake": "Nhầm lẫn giữa ƯCLN và BCNN trong bài toán chia phần thưởng.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_010",
+      "code": "M6-HK1-C1-VDC-10",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C1",
+      "lesson": "Lũy thừa với số mũ tự nhiên & ƯCLN - BCNN",
+      "topic": "Lũy thừa và thứ tự phép tính",
+      "problemType": "Bài toán thực tế ƯCLN - BCNN",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 1,
+      "content": "Tìm số tự nhiên $x$ nhỏ nhất lớn hơn $2$ sao cho khi chia $x$ cho $8$ và chia $x$ cho $12$ đều có số dư là $2$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$24$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "B",
+          "text": "$22$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$6$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$26$"
+        }
+      ],
+      "correctAnswer": "D",
+      "acceptedAnswers": [
+        "26",
+        "x=26"
+      ],
+      "solution": "Vì $x$ chia cho $8$ và $12$ đều dư $2$ nên $(x - 2) \\in \\text{BC}(8, 12)$. Để $x > 2$ nhỏ nhất thì $x - 2 = \\text{BCNN}(8, 12) = 24$, suy ra $x = 24 + 2 = 26$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $x = 24 + 2 = 26$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$x - r = \\text{BCNN}(a, b)$",
+      "commonMistake": "Quên cộng số dư sau khi tìm BCNN hoặc lấy ƯCLN.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_011",
+      "code": "M6-HK1-C1-VDC-11",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C1",
+      "lesson": "Lũy thừa với số mũ tự nhiên & ƯCLN - BCNN",
+      "topic": "Lũy thừa và thứ tự phép tính",
+      "problemType": "Bài toán thực tế ƯCLN - BCNN",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Tìm số tự nhiên $x$ nhỏ nhất lớn hơn $3$ sao cho khi chia $x$ cho $10$ và chia $x$ cho $9$ đều có số dư là $3$.",
+      "options": [],
+      "correctAnswer": "93",
+      "acceptedAnswers": [
+        "93",
+        "x=93"
+      ],
+      "solution": "Vì $x$ chia cho $10$ và $9$ đều dư $3$ nên $(x - 3) \\in \\text{BC}(10, 9)$. Để $x > 3$ nhỏ nhất thì $x - 3 = \\text{BCNN}(10, 9) = 90$, suy ra $x = 90 + 3 = 93$.",
+      "rubricSteps": [
+        {
+          "step": "Suy ra $x - 3 = \\text{BCNN}(10, 9) = 90$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng $x = 93$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$x - r = \\text{BCNN}(a, b)$",
+      "commonMistake": "Quên cộng số dư sau khi tìm BCNN hoặc lấy ƯCLN.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_012",
+      "code": "M6-HK1-C1-VDC-12",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C1",
+      "lesson": "Lũy thừa với số mũ tự nhiên & ƯCLN - BCNN",
+      "topic": "Lũy thừa và thứ tự phép tính",
+      "problemType": "Bài toán thực tế ƯCLN - BCNN",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Tìm số tự nhiên $x$ nhỏ nhất lớn hơn $1$ sao cho khi chia $x$ cho $6$ và chia $x$ cho $12$ đều có số dư là $1$.",
+      "options": [],
+      "correctAnswer": "13",
+      "acceptedAnswers": [
+        "13",
+        "x=13"
+      ],
+      "solution": "Vì $x$ chia cho $6$ và $12$ đều dư $1$ nên $(x - 1) \\in \\text{BC}(6, 12)$. Để $x > 1$ nhỏ nhất thì $x - 1 = \\text{BCNN}(6, 12) = 12$, suy ra $x = 12 + 1 = 13$.",
+      "rubricSteps": [
+        {
+          "step": "Suy ra $x - 1 = \\text{BCNN}(6, 12) = 12$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng $x = 13$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$x - r = \\text{BCNN}(a, b)$",
+      "commonMistake": "Quên cộng số dư sau khi tìm BCNN hoặc lấy ƯCLN.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_013",
+      "code": "M6-HK1-C2-NB-13",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C2",
+      "lesson": "Phép cộng, trừ, nhân số nguyên & Quy tắc dấu ngoặc",
+      "topic": "Các phép tính với số nguyên",
+      "problemType": "Thực hiện phép tính số nguyên",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Kết quả của phép tính $(- 15) + 7$ là:",
+      "options": [
+        {
+          "label": "A",
+          "text": "$8$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$-22$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$-8$"
+        },
+        {
+          "label": "D",
+          "text": "$22$",
+          "errorType": "SIGN_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "-8"
+      ],
+      "solution": "Ta có $(- 15) + 7 = -(15 - 7) = -8$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $(- 15) + 7 = -8$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$(-a) + b = -(a - b)$ với $a > b > 0$",
+      "commonMistake": "Cộng hai giá trị tuyệt đối hoặc đặt sai dấu của kết quả.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(-15) + 7"
+    },
+    {
+      "id": "Q6_TPL_014",
+      "code": "M6-HK1-C2-NB-14",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C2",
+      "lesson": "Phép cộng, trừ, nhân số nguyên & Quy tắc dấu ngoặc",
+      "topic": "Các phép tính với số nguyên",
+      "problemType": "Thực hiện phép tính số nguyên",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Kết quả của phép tính $(- 20) + 10$ là:",
+      "options": [
+        {
+          "label": "A",
+          "text": "$-10$"
+        },
+        {
+          "label": "B",
+          "text": "$10$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$-30$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$30$",
+          "errorType": "SIGN_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "-10"
+      ],
+      "solution": "Ta có $(- 20) + 10 = -(20 - 10) = -10$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $(- 20) + 10 = -10$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$(-a) + b = -(a - b)$ với $a > b > 0$",
+      "commonMistake": "Cộng hai giá trị tuyệt đối hoặc đặt sai dấu của kết quả.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(-20) + 10"
+    },
+    {
+      "id": "Q6_TPL_015",
+      "code": "M6-HK1-C2-NB-15",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C2",
+      "lesson": "Phép cộng, trừ, nhân số nguyên & Quy tắc dấu ngoặc",
+      "topic": "Các phép tính với số nguyên",
+      "problemType": "Thực hiện phép tính số nguyên",
+      "type": "essay",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 2,
+      "content": "Kết quả của phép tính $(- 25) + 13$ là:",
+      "options": [],
+      "correctAnswer": "-12",
+      "acceptedAnswers": [
+        "-12"
+      ],
+      "solution": "Ta có $(- 25) + 13 = -(25 - 13) = -12$.",
+      "rubricSteps": [
+        {
+          "step": "Đặt dấu trừ trước ngoặc $-(25 - 13)$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng kết quả bằng $-12$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$(-a) + b = -(a - b)$ với $a > b > 0$",
+      "commonMistake": "Cộng hai giá trị tuyệt đối hoặc đặt sai dấu của kết quả.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(-25) + 13"
+    },
+    {
+      "id": "Q6_TPL_016",
+      "code": "M6-HK1-C2-TH-16",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C2",
+      "lesson": "Phép cộng, trừ, nhân số nguyên & Quy tắc dấu ngoặc",
+      "topic": "Các phép tính với số nguyên",
+      "problemType": "Thực hiện phép tính số nguyên",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Tính hợp lý giá trị biểu thức $M = (-15) + 7 - (-15) + 7$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$-16$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$14$"
+        },
+        {
+          "label": "C",
+          "text": "$0$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$-14$",
+          "errorType": "SIGN_ERROR"
+        }
+      ],
+      "correctAnswer": "B",
+      "acceptedAnswers": [
+        "14",
+        "M=14"
+      ],
+      "solution": "Đổi dấu $-(-15) = +15$, nhóm $[(-15) + 15] + (7 + 7) = 0 + 14 = 14$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $M = 14$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$a - (-b) = a + b$",
+      "commonMistake": "Quên đổi dấu khi bỏ ngoặc có dấu trừ đằng trước.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(-15) + 7 - (-15) + 7"
+    },
+    {
+      "id": "Q6_TPL_017",
+      "code": "M6-HK1-C2-TH-17",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C2",
+      "lesson": "Phép cộng, trừ, nhân số nguyên & Quy tắc dấu ngoặc",
+      "topic": "Các phép tính với số nguyên",
+      "problemType": "Thực hiện phép tính số nguyên",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Tính hợp lý giá trị biểu thức $M = (-20) + 10 - (-20) + 9$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$-21$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$1$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$-19$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$19$"
+        }
+      ],
+      "correctAnswer": "D",
+      "acceptedAnswers": [
+        "19",
+        "M=19"
+      ],
+      "solution": "Đổi dấu $-(-20) = +20$, nhóm $[(-20) + 20] + (10 + 9) = 0 + 19 = 19$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $M = 19$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$a - (-b) = a + b$",
+      "commonMistake": "Quên đổi dấu khi bỏ ngoặc có dấu trừ đằng trước.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(-20) + 10 - (-20) + 9"
+    },
+    {
+      "id": "Q6_TPL_018",
+      "code": "M6-HK1-C2-TH-18",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C2",
+      "lesson": "Phép cộng, trừ, nhân số nguyên & Quy tắc dấu ngoặc",
+      "topic": "Các phép tính với số nguyên",
+      "problemType": "Thực hiện phép tính số nguyên",
+      "type": "essay",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 2,
+      "content": "Tính hợp lý giá trị biểu thức $M = (-25) + 13 - (-25) + 11$.",
+      "options": [],
+      "correctAnswer": "24",
+      "acceptedAnswers": [
+        "24",
+        "M=24"
+      ],
+      "solution": "Đổi dấu $-(-25) = +25$, nhóm $[(-25) + 25] + (13 + 11) = 0 + 24 = 24$.",
+      "rubricSteps": [
+        {
+          "step": "Đổi dấu $-(-25) = +25$ và nhóm $(- 25 + 25) = 0$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng $M = 13 + 11 = 24$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$a - (-b) = a + b$",
+      "commonMistake": "Quên đổi dấu khi bỏ ngoặc có dấu trừ đằng trước.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(-25) + 13 - (-25) + 11"
+    },
+    {
+      "id": "Q6_TPL_019",
+      "code": "M6-HK1-C2-VD-19",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C2",
+      "lesson": "Phép cộng, trừ, nhân số nguyên & Quy tắc dấu ngoặc",
+      "topic": "Các phép tính với số nguyên",
+      "problemType": "Tìm số nguyên x",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Tìm số nguyên $x$, biết: $15 - (x - 7) = -5$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$27$"
+        },
+        {
+          "label": "B",
+          "text": "$3$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$13$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$-27$",
+          "errorType": "SIGN_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "27",
+        "x=27"
+      ],
+      "solution": "Ta có $x - 7 = 15 - (-5) = 20 \\Rightarrow x = 20 + 7 = 27$.",
+      "rubricSteps": [
+        {
+          "step": "Tìm đúng $x = 27$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$A - (x - B) = C \\Leftrightarrow x - B = A - C$",
+      "commonMistake": "Phá ngoặc sai dấu thành $a - x - b$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_020",
+      "code": "M6-HK1-C2-VD-20",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C2",
+      "lesson": "Phép cộng, trừ, nhân số nguyên & Quy tắc dấu ngoặc",
+      "topic": "Các phép tính với số nguyên",
+      "problemType": "Tìm số nguyên x",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Tìm số nguyên $x$, biết: $20 - (x - 10) = -7$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$3$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$17$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$37$"
+        },
+        {
+          "label": "D",
+          "text": "$-37$",
+          "errorType": "SIGN_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "37",
+        "x=37"
+      ],
+      "solution": "Ta có $x - 10 = 20 - (-7) = 27 \\Rightarrow x = 27 + 10 = 37$.",
+      "rubricSteps": [
+        {
+          "step": "Tìm đúng $x = 37$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$A - (x - B) = C \\Leftrightarrow x - B = A - C$",
+      "commonMistake": "Phá ngoặc sai dấu thành $a - x - b$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_021",
+      "code": "M6-HK1-C2-VD-21",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C2",
+      "lesson": "Phép cộng, trừ, nhân số nguyên & Quy tắc dấu ngoặc",
+      "topic": "Các phép tính với số nguyên",
+      "problemType": "Tìm số nguyên x",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 2,
+      "content": "Tìm số nguyên $x$, biết: $25 - (x - 13) = -9$.",
+      "options": [],
+      "correctAnswer": "47",
+      "acceptedAnswers": [
+        "47",
+        "x=47"
+      ],
+      "solution": "Ta có $x - 13 = 25 - (-9) = 34 \\Rightarrow x = 34 + 13 = 47$.",
+      "rubricSteps": [
+        {
+          "step": "Biến đổi đúng $x - 13 = 34$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng $x = 47$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$A - (x - B) = C \\Leftrightarrow x - B = A - C$",
+      "commonMistake": "Phá ngoặc sai dấu thành $a - x - b$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_022",
+      "code": "M6-HK1-C2-VDC-22",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C2",
+      "lesson": "Phép cộng, trừ, nhân số nguyên & Quy tắc dấu ngoặc",
+      "topic": "Các phép tính với số nguyên",
+      "problemType": "Tìm số nguyên x",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 1,
+      "content": "Tìm tổng tất cả các số nguyên $x$ thỏa mãn $(x - 3)^2 = 4$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$5$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "B",
+          "text": "$1$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "C",
+          "text": "$0$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$6$"
+        }
+      ],
+      "correctAnswer": "D",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "solution": "Ta có $(x - 3)^2 = 4 \\Rightarrow x - 3 = 2$ hoặc $x - 3 = -2$. Suy ra $x = 5$ hoặc $x = 1$. Tổng các nghiệm là $5 + (1) = 6$.",
+      "rubricSteps": [
+        {
+          "step": "Tìm đủ 2 nghiệm và tính tổng bằng $6$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$A^2 = B^2 \\Leftrightarrow A = B$ hoặc $A = -B$",
+      "commonMistake": "Thiếu trường hợp căn âm khi giải phương trình bình phương (thiếu điều kiện 2 nhánh).",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_023",
+      "code": "M6-HK1-C2-VDC-23",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C2",
+      "lesson": "Phép cộng, trừ, nhân số nguyên & Quy tắc dấu ngoặc",
+      "topic": "Các phép tính với số nguyên",
+      "problemType": "Tìm số nguyên x",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Tìm tổng tất cả các số nguyên $x$ thỏa mãn $(x - 4)^2 = 9$.",
+      "options": [],
+      "correctAnswer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "solution": "Ta có $(x - 4)^2 = 9 \\Rightarrow x - 4 = 3$ hoặc $x - 4 = -3$. Suy ra $x = 7$ hoặc $x = 1$. Tổng các nghiệm là $7 + (1) = 8$.",
+      "rubricSteps": [
+        {
+          "step": "Xét đủ 2 trường hợp tìm được $x = 7$ và $x = 1$",
+          "points": 1
+        },
+        {
+          "step": "Tính tổng hai giá trị bằng $8$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$A^2 = B^2 \\Leftrightarrow A = B$ hoặc $A = -B$",
+      "commonMistake": "Thiếu trường hợp căn âm khi giải phương trình bình phương (thiếu điều kiện 2 nhánh).",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_024",
+      "code": "M6-HK1-C2-VDC-24",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C2",
+      "lesson": "Phép cộng, trừ, nhân số nguyên & Quy tắc dấu ngoặc",
+      "topic": "Các phép tính với số nguyên",
+      "problemType": "Tìm số nguyên x",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Tìm tổng tất cả các số nguyên $x$ thỏa mãn $(x - 5)^2 = 16$.",
+      "options": [],
+      "correctAnswer": "10",
+      "acceptedAnswers": [
+        "10"
+      ],
+      "solution": "Ta có $(x - 5)^2 = 16 \\Rightarrow x - 5 = 4$ hoặc $x - 5 = -4$. Suy ra $x = 9$ hoặc $x = 1$. Tổng các nghiệm là $9 + (1) = 10$.",
+      "rubricSteps": [
+        {
+          "step": "Xét đủ 2 trường hợp tìm được $x = 9$ và $x = 1$",
+          "points": 1
+        },
+        {
+          "step": "Tính tổng hai giá trị bằng $10$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$A^2 = B^2 \\Leftrightarrow A = B$ hoặc $A = -B$",
+      "commonMistake": "Thiếu trường hợp căn âm khi giải phương trình bình phương (thiếu điều kiện 2 nhánh).",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_025",
+      "code": "M6-HK1-C3-NB-25",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C3",
+      "lesson": "Chu vi và diện tích tứ giác",
+      "topic": "Chu vi và diện tích hình phẳng",
+      "problemType": "Tính diện tích và chu vi",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Một hình chữ nhật có chiều rộng $5\\text{ cm}$ và chiều dài $8\\text{ cm}$. Diện tích của hình chữ nhật đó bằng bao nhiêu $\\text{cm}^2$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$26$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$13$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$40$"
+        },
+        {
+          "label": "D",
+          "text": "$45$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "40",
+        "40 cm2"
+      ],
+      "solution": "Diện tích hình chữ nhật là $S = 5 \\cdot 8 = 40\\text{ (cm}^2\\text{)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng diện tích $S = 40\\text{ cm}^2$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Diện tích $S = a \\cdot b$",
+      "commonMistake": "Nhầm công thức diện tích sang công thức chu vi $2(a+b)$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "5 * 8"
+    },
+    {
+      "id": "Q6_TPL_026",
+      "code": "M6-HK1-C3-NB-26",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C3",
+      "lesson": "Chu vi và diện tích tứ giác",
+      "topic": "Chu vi và diện tích hình phẳng",
+      "problemType": "Tính diện tích và chu vi",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Một hình chữ nhật có chiều rộng $6\\text{ cm}$ và chiều dài $9\\text{ cm}$. Diện tích của hình chữ nhật đó bằng bao nhiêu $\\text{cm}^2$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$54$"
+        },
+        {
+          "label": "B",
+          "text": "$30$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$15$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$60$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "54",
+        "54 cm2"
+      ],
+      "solution": "Diện tích hình chữ nhật là $S = 6 \\cdot 9 = 54\\text{ (cm}^2\\text{)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng diện tích $S = 54\\text{ cm}^2$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Diện tích $S = a \\cdot b$",
+      "commonMistake": "Nhầm công thức diện tích sang công thức chu vi $2(a+b)$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "6 * 9"
+    },
+    {
+      "id": "Q6_TPL_027",
+      "code": "M6-HK1-C3-NB-27",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C3",
+      "lesson": "Chu vi và diện tích tứ giác",
+      "topic": "Chu vi và diện tích hình phẳng",
+      "problemType": "Tính diện tích và chu vi",
+      "type": "essay",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 2,
+      "content": "Một hình chữ nhật có chiều rộng $7\\text{ cm}$ và chiều dài $10\\text{ cm}$. Diện tích của hình chữ nhật đó bằng bao nhiêu $\\text{cm}^2$?",
+      "options": [],
+      "correctAnswer": "70",
+      "acceptedAnswers": [
+        "70",
+        "70 cm2"
+      ],
+      "solution": "Diện tích hình chữ nhật là $S = 7 \\cdot 10 = 70\\text{ (cm}^2\\text{)}$.",
+      "rubricSteps": [
+        {
+          "step": "Viết đúng công thức diện tích $S = a \\cdot b$",
+          "points": 1
+        },
+        {
+          "step": "Thay số tính được $S = 70\\text{ cm}^2$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Diện tích $S = a \\cdot b$",
+      "commonMistake": "Nhầm công thức diện tích sang công thức chu vi $2(a+b)$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "7 * 10"
+    },
+    {
+      "id": "Q6_TPL_028",
+      "code": "M6-HK1-C3-TH-28",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C3",
+      "lesson": "Chu vi và diện tích tứ giác",
+      "topic": "Chu vi và diện tích hình phẳng",
+      "problemType": "Tính diện tích và chu vi",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Tính diện tích của hình thoi có độ dài hai đường chéo lần lượt là $6\\text{ cm}$ và $12\\text{ cm}$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$72$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$36$"
+        },
+        {
+          "label": "C",
+          "text": "$18$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$100$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "B",
+      "acceptedAnswers": [
+        "36"
+      ],
+      "solution": "Diện tích hình thoi là $S = \\frac{1}{2} \\cdot 6 \\cdot 12 = 36\\text{ (cm}^2\\text{)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $S = 36\\text{ cm}^2$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Diện tích hình thoi: $S = \\frac{1}{2} d_1 d_2$",
+      "commonMistake": "Quên chia $2$ khi tính diện tích hình thoi theo hai đường chéo.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(6 * 12) / 2"
+    },
+    {
+      "id": "Q6_TPL_029",
+      "code": "M6-HK1-C3-TH-29",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C3",
+      "lesson": "Chu vi và diện tích tứ giác",
+      "topic": "Chu vi và diện tích hình phẳng",
+      "problemType": "Tính diện tích và chu vi",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Tính diện tích của hình thoi có độ dài hai đường chéo lần lượt là $8\\text{ cm}$ và $14\\text{ cm}$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$112$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$22$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$44$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$56$"
+        }
+      ],
+      "correctAnswer": "D",
+      "acceptedAnswers": [
+        "56"
+      ],
+      "solution": "Diện tích hình thoi là $S = \\frac{1}{2} \\cdot 8 \\cdot 14 = 56\\text{ (cm}^2\\text{)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $S = 56\\text{ cm}^2$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Diện tích hình thoi: $S = \\frac{1}{2} d_1 d_2$",
+      "commonMistake": "Quên chia $2$ khi tính diện tích hình thoi theo hai đường chéo.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(8 * 14) / 2"
+    },
+    {
+      "id": "Q6_TPL_030",
+      "code": "M6-HK1-C3-TH-30",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C3",
+      "lesson": "Chu vi và diện tích tứ giác",
+      "topic": "Chu vi và diện tích hình phẳng",
+      "problemType": "Tính diện tích và chu vi",
+      "type": "essay",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 2,
+      "content": "Tính diện tích của hình thoi có độ dài hai đường chéo lần lượt là $10\\text{ cm}$ và $16\\text{ cm}$.",
+      "options": [],
+      "correctAnswer": "80",
+      "acceptedAnswers": [
+        "80"
+      ],
+      "solution": "Diện tích hình thoi là $S = \\frac{1}{2} \\cdot 10 \\cdot 16 = 80\\text{ (cm}^2\\text{)}$.",
+      "rubricSteps": [
+        {
+          "step": "Áp dụng công thức $S = \\frac{1}{2} d_1 d_2$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng $S = 80\\text{ cm}^2$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Diện tích hình thoi: $S = \\frac{1}{2} d_1 d_2$",
+      "commonMistake": "Quên chia $2$ khi tính diện tích hình thoi theo hai đường chéo.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(10 * 16) / 2"
+    },
+    {
+      "id": "Q6_TPL_031",
+      "code": "M6-HK1-C3-VD-31",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C3",
+      "lesson": "Chu vi và diện tích tứ giác",
+      "topic": "Chu vi và diện tích hình phẳng",
+      "problemType": "Tính diện tích và chu vi",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Một mảnh vườn hình thang cân có đáy nhỏ $6\\text{ m}$, đáy lớn $10\\text{ m}$ và chiều cao $4\\text{ m}$. Tính diện tích mảnh vườn đó (đơn vị $\\text{m}^2$).",
+      "options": [
+        {
+          "label": "A",
+          "text": "$32$"
+        },
+        {
+          "label": "B",
+          "text": "$64$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$240$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$42$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "32"
+      ],
+      "solution": "Diện tích hình thang là $S = \\frac{(6 + 10) \\cdot 4}{2} = 32\\text{ (m}^2\\text{)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $S = 32\\text{ m}^2$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Diện tích hình thang: $S = \\frac{(a + b) \\cdot h}{2}$",
+      "commonMistake": "Quên chia đôi tổng hai đáy nhân chiều cao.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "((6 + 10) * 4) / 2"
+    },
+    {
+      "id": "Q6_TPL_032",
+      "code": "M6-HK1-C3-VD-32",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C3",
+      "lesson": "Chu vi và diện tích tứ giác",
+      "topic": "Chu vi và diện tích hình phẳng",
+      "problemType": "Tính diện tích và chu vi",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Một mảnh vườn hình thang cân có đáy nhỏ $7\\text{ m}$, đáy lớn $11\\text{ m}$ và chiều cao $4\\text{ m}$. Tính diện tích mảnh vườn đó (đơn vị $\\text{m}^2$).",
+      "options": [
+        {
+          "label": "A",
+          "text": "$72$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$308$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$36$"
+        },
+        {
+          "label": "D",
+          "text": "$46$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "36"
+      ],
+      "solution": "Diện tích hình thang là $S = \\frac{(7 + 11) \\cdot 4}{2} = 36\\text{ (m}^2\\text{)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $S = 36\\text{ m}^2$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Diện tích hình thang: $S = \\frac{(a + b) \\cdot h}{2}$",
+      "commonMistake": "Quên chia đôi tổng hai đáy nhân chiều cao.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "((7 + 11) * 4) / 2"
+    },
+    {
+      "id": "Q6_TPL_033",
+      "code": "M6-HK1-C3-VD-33",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C3",
+      "lesson": "Chu vi và diện tích tứ giác",
+      "topic": "Chu vi và diện tích hình phẳng",
+      "problemType": "Tính diện tích và chu vi",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 2,
+      "content": "Một mảnh vườn hình thang cân có đáy nhỏ $8\\text{ m}$, đáy lớn $12\\text{ m}$ và chiều cao $4\\text{ m}$. Tính diện tích mảnh vườn đó (đơn vị $\\text{m}^2$).",
+      "options": [],
+      "correctAnswer": "40",
+      "acceptedAnswers": [
+        "40"
+      ],
+      "solution": "Diện tích hình thang là $S = \\frac{(8 + 12) \\cdot 4}{2} = 40\\text{ (m}^2\\text{)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính tổng hai đáy $8 + 12 = 20\\text{ m}$",
+          "points": 1
+        },
+        {
+          "step": "Tính diện tích $S = 40\\text{ m}^2$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Diện tích hình thang: $S = \\frac{(a + b) \\cdot h}{2}$",
+      "commonMistake": "Quên chia đôi tổng hai đáy nhân chiều cao.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "((8 + 12) * 4) / 2"
+    },
+    {
+      "id": "Q6_TPL_034",
+      "code": "M6-HK1-C3-VDC-34",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C3",
+      "lesson": "Chu vi và diện tích tứ giác",
+      "topic": "Chu vi và diện tích hình phẳng",
+      "problemType": "Bài toán lát gạch và tính chi phí thực tế",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 1,
+      "content": "Một căn phòng hình chữ nhật có chiều rộng $4\\text{ m}$, chiều dài $6\\text{ m}$. Người ta lát kín nền phòng bằng các viên gạch hình vuông cạnh $50\\text{ cm}$ (coi mạch vữa không đáng kể). Hỏi cần bao nhiêu viên gạch?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$24$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$48$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$960$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$96$"
+        }
+      ],
+      "correctAnswer": "D",
+      "acceptedAnswers": [
+        "96"
+      ],
+      "solution": "Diện tích căn phòng là $S = 4 \\cdot 6 = 24\\text{ m}^2$. Mỗi viên gạch cạnh $0{,}5\\text{ m}$ có diện tích $0{,}25\\text{ m}^2$. Số viên gạch cần dùng là $24 : 0{,}25 = 96$ (viên).",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng số viên gạch là $96$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Số viên gạch: $N = S_1 : S_2$",
+      "commonMistake": "Không đổi đồng nhất đơn vị từ cm sang m trước khi chia diện tích.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_035",
+      "code": "M6-HK1-C3-VDC-35",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C3",
+      "lesson": "Chu vi và diện tích tứ giác",
+      "topic": "Chu vi và diện tích hình phẳng",
+      "problemType": "Bài toán lát gạch và tính chi phí thực tế",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Một căn phòng hình chữ nhật có chiều rộng $4\\text{ m}$, chiều dài $7\\text{ m}$. Người ta lát kín nền phòng bằng các viên gạch hình vuông cạnh $50\\text{ cm}$ (coi mạch vữa không đáng kể). Hỏi cần bao nhiêu viên gạch?",
+      "options": [],
+      "correctAnswer": "112",
+      "acceptedAnswers": [
+        "112"
+      ],
+      "solution": "Diện tích căn phòng là $S = 4 \\cdot 7 = 28\\text{ m}^2$. Mỗi viên gạch cạnh $0{,}5\\text{ m}$ có diện tích $0{,}25\\text{ m}^2$. Số viên gạch cần dùng là $28 : 0{,}25 = 112$ (viên).",
+      "rubricSteps": [
+        {
+          "step": "Tính diện tích nền phòng $S = 28\\text{ m}^2$ và diện tích 1 viên gạch $0{,}25\\text{ m}^2$",
+          "points": 1
+        },
+        {
+          "step": "Tính số viên gạch $28 : 0{,}25 = 112$ viên",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Số viên gạch: $N = S_1 : S_2$",
+      "commonMistake": "Không đổi đồng nhất đơn vị từ cm sang m trước khi chia diện tích.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_036",
+      "code": "M6-HK1-C3-VDC-36",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G6_C3",
+      "lesson": "Chu vi và diện tích tứ giác",
+      "topic": "Chu vi và diện tích hình phẳng",
+      "problemType": "Bài toán lát gạch và tính chi phí thực tế",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Một căn phòng hình chữ nhật có chiều rộng $4\\text{ m}$, chiều dài $8\\text{ m}$. Người ta lát kín nền phòng bằng các viên gạch hình vuông cạnh $50\\text{ cm}$ (coi mạch vữa không đáng kể). Hỏi cần bao nhiêu viên gạch?",
+      "options": [],
+      "correctAnswer": "128",
+      "acceptedAnswers": [
+        "128"
+      ],
+      "solution": "Diện tích căn phòng là $S = 4 \\cdot 8 = 32\\text{ m}^2$. Mỗi viên gạch cạnh $0{,}5\\text{ m}$ có diện tích $0{,}25\\text{ m}^2$. Số viên gạch cần dùng là $32 : 0{,}25 = 128$ (viên).",
+      "rubricSteps": [
+        {
+          "step": "Tính diện tích nền phòng $S = 32\\text{ m}^2$ và diện tích 1 viên gạch $0{,}25\\text{ m}^2$",
+          "points": 1
+        },
+        {
+          "step": "Tính số viên gạch $32 : 0{,}25 = 128$ viên",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Số viên gạch: $N = S_1 : S_2$",
+      "commonMistake": "Không đổi đồng nhất đơn vị từ cm sang m trước khi chia diện tích.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_037",
+      "code": "M6-HK2-C4-NB-37",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C4",
+      "lesson": "Các phép tính với phân số & Tỉ số phần trăm",
+      "topic": "Phép tính phân số & Tìm x",
+      "problemType": "Tính nhanh biểu thức phân số",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Tính tổng hai phân số cùng mẫu: $\\frac{2}{4} + \\frac{2}{4}$ (viết kết quả dưới dạng phân số hoặc số nguyên).",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\frac{4}{8}$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$\\frac{4}{4}$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$1$"
+        },
+        {
+          "label": "D",
+          "text": "$\\frac{0}{4}$",
+          "errorType": "SIGN_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "1",
+        "\\frac{4}{4}"
+      ],
+      "solution": "Cộng hai phân số cùng mẫu: $\\frac{2}{4} + \\frac{2}{4} = \\frac{2 + 2}{4} = \\frac{4}{4}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng kết quả $1$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\frac{a}{m} + \\frac{b}{m} = \\frac{a+b}{m}$",
+      "commonMistake": "Cộng cả tử với tử và mẫu với mẫu.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(2/4) + (2/4)"
+    },
+    {
+      "id": "Q6_TPL_038",
+      "code": "M6-HK2-C4-NB-38",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C4",
+      "lesson": "Các phép tính với phân số & Tỉ số phần trăm",
+      "topic": "Phép tính phân số & Tìm x",
+      "problemType": "Tính nhanh biểu thức phân số",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Tính tổng hai phân số cùng mẫu: $\\frac{3}{5} + \\frac{2}{5}$ (viết kết quả dưới dạng phân số hoặc số nguyên).",
+      "options": [
+        {
+          "label": "A",
+          "text": "$1$"
+        },
+        {
+          "label": "B",
+          "text": "$\\frac{5}{10}$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$\\frac{6}{5}$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$\\frac{1}{5}$",
+          "errorType": "SIGN_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "1",
+        "\\frac{5}{5}"
+      ],
+      "solution": "Cộng hai phân số cùng mẫu: $\\frac{3}{5} + \\frac{2}{5} = \\frac{3 + 2}{5} = \\frac{5}{5}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng kết quả $1$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\frac{a}{m} + \\frac{b}{m} = \\frac{a+b}{m}$",
+      "commonMistake": "Cộng cả tử với tử và mẫu với mẫu.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(3/5) + (2/5)"
+    },
+    {
+      "id": "Q6_TPL_039",
+      "code": "M6-HK2-C4-NB-39",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C4",
+      "lesson": "Các phép tính với phân số & Tỉ số phần trăm",
+      "topic": "Phép tính phân số & Tìm x",
+      "problemType": "Tính nhanh biểu thức phân số",
+      "type": "essay",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 2,
+      "content": "Tính tổng hai phân số cùng mẫu: $\\frac{4}{6} + \\frac{2}{6}$ (viết kết quả dưới dạng phân số hoặc số nguyên).",
+      "options": [],
+      "correctAnswer": "1",
+      "acceptedAnswers": [
+        "1",
+        "\\frac{6}{6}"
+      ],
+      "solution": "Cộng hai phân số cùng mẫu: $\\frac{4}{6} + \\frac{2}{6} = \\frac{4 + 2}{6} = \\frac{6}{6}$.",
+      "rubricSteps": [
+        {
+          "step": "Cộng tử số giữ nguyên mẫu số $\\frac{4 + 2}{6}$",
+          "points": 1
+        },
+        {
+          "step": "Rút gọn được kết quả $1$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\frac{a}{m} + \\frac{b}{m} = \\frac{a+b}{m}$",
+      "commonMistake": "Cộng cả tử với tử và mẫu với mẫu.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(4/6) + (2/6)"
+    },
+    {
+      "id": "Q6_TPL_040",
+      "code": "M6-HK2-C4-TH-40",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C4",
+      "lesson": "Các phép tính với phân số & Tỉ số phần trăm",
+      "topic": "Phép tính phân số & Tìm x",
+      "problemType": "Tìm một số biết giá trị phân số của nó",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Tìm một số biết $\\frac{3}{5}$ của số đó bằng $45$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$27$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$75$"
+        },
+        {
+          "label": "C",
+          "text": "$50$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$15$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "B",
+      "acceptedAnswers": [
+        "75"
+      ],
+      "solution": "Số cần tìm là $45 : \\frac{3}{5} = 45 \\cdot \\frac{5}{3} = 75$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng số cần tìm là $75$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Muốn tìm một số biết $\\frac{m}{n}$ của nó bằng $a$, ta tính $a : \\frac{m}{n}$.",
+      "commonMistake": "Nhầm sang bài toán tìm giá trị phân số của một số (lấy $a \\cdot \\frac{m}{n}$).",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_041",
+      "code": "M6-HK2-C4-TH-41",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C4",
+      "lesson": "Các phép tính với phân số & Tỉ số phần trăm",
+      "topic": "Phép tính phân số & Tìm x",
+      "problemType": "Tìm một số biết giá trị phân số của nó",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Tìm một số biết $\\frac{3}{5}$ của số đó bằng $60$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$36$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$65$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$20$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$100$"
+        }
+      ],
+      "correctAnswer": "D",
+      "acceptedAnswers": [
+        "100"
+      ],
+      "solution": "Số cần tìm là $60 : \\frac{3}{5} = 60 \\cdot \\frac{5}{3} = 100$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng số cần tìm là $100$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Muốn tìm một số biết $\\frac{m}{n}$ của nó bằng $a$, ta tính $a : \\frac{m}{n}$.",
+      "commonMistake": "Nhầm sang bài toán tìm giá trị phân số của một số (lấy $a \\cdot \\frac{m}{n}$).",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_042",
+      "code": "M6-HK2-C4-TH-42",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C4",
+      "lesson": "Các phép tính với phân số & Tỉ số phần trăm",
+      "topic": "Phép tính phân số & Tìm x",
+      "problemType": "Tìm một số biết giá trị phân số của nó",
+      "type": "essay",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 2,
+      "content": "Tìm một số biết $\\frac{3}{5}$ của số đó bằng $75$.",
+      "options": [],
+      "correctAnswer": "125",
+      "acceptedAnswers": [
+        "125"
+      ],
+      "solution": "Số cần tìm là $75 : \\frac{3}{5} = 75 \\cdot \\frac{5}{3} = 125$.",
+      "rubricSteps": [
+        {
+          "step": "Lập phép chia $75 : \\frac{3}{5}$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng kết quả bằng $125$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Muốn tìm một số biết $\\frac{m}{n}$ của nó bằng $a$, ta tính $a : \\frac{m}{n}$.",
+      "commonMistake": "Nhầm sang bài toán tìm giá trị phân số của một số (lấy $a \\cdot \\frac{m}{n}$).",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_043",
+      "code": "M6-HK2-C4-VD-43",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C4",
+      "lesson": "Các phép tính với phân số & Tỉ số phần trăm",
+      "topic": "Phép tính phân số & Tìm x",
+      "problemType": "Bài toán giảm giá phần trăm",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Một cuốn sách có giá bìa $300$ nghìn đồng. Nhân dịp khai giảng, nhà sách giảm giá $20\\%$. Hỏi giá bán cuốn sách sau khi giảm là bao nhiêu nghìn đồng?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$240$"
+        },
+        {
+          "label": "B",
+          "text": "$60$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "C",
+          "text": "$280$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$360$",
+          "errorType": "SIGN_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "240"
+      ],
+      "solution": "Giá sau khi giảm bằng $100\\% - 20\\% = 80\\%$ giá bìa, tức là $300 \\cdot 0{,}8 = 240$ (nghìn đồng).",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng giá sau giảm là $240$ nghìn đồng",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Giá sau giảm: $G = G_0 \\cdot (1 - p\\%)$",
+      "commonMistake": "Chỉ tính số tiền được giảm mà quên trừ vào giá gốc.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_044",
+      "code": "M6-HK2-C4-VD-44",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C4",
+      "lesson": "Các phép tính với phân số & Tỉ số phần trăm",
+      "topic": "Phép tính phân số & Tìm x",
+      "problemType": "Bài toán giảm giá phần trăm",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Một cuốn sách có giá bìa $400$ nghìn đồng. Nhân dịp khai giảng, nhà sách giảm giá $20\\%$. Hỏi giá bán cuốn sách sau khi giảm là bao nhiêu nghìn đồng?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$80$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "B",
+          "text": "$380$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$320$"
+        },
+        {
+          "label": "D",
+          "text": "$480$",
+          "errorType": "SIGN_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "320"
+      ],
+      "solution": "Giá sau khi giảm bằng $100\\% - 20\\% = 80\\%$ giá bìa, tức là $400 \\cdot 0{,}8 = 320$ (nghìn đồng).",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng giá sau giảm là $320$ nghìn đồng",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Giá sau giảm: $G = G_0 \\cdot (1 - p\\%)$",
+      "commonMistake": "Chỉ tính số tiền được giảm mà quên trừ vào giá gốc.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_045",
+      "code": "M6-HK2-C4-VD-45",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C4",
+      "lesson": "Các phép tính với phân số & Tỉ số phần trăm",
+      "topic": "Phép tính phân số & Tìm x",
+      "problemType": "Bài toán giảm giá phần trăm",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 2,
+      "content": "Một cuốn sách có giá bìa $500$ nghìn đồng. Nhân dịp khai giảng, nhà sách giảm giá $20\\%$. Hỏi giá bán cuốn sách sau khi giảm là bao nhiêu nghìn đồng?",
+      "options": [],
+      "correctAnswer": "400",
+      "acceptedAnswers": [
+        "400"
+      ],
+      "solution": "Giá sau khi giảm bằng $100\\% - 20\\% = 80\\%$ giá bìa, tức là $500 \\cdot 0{,}8 = 400$ (nghìn đồng).",
+      "rubricSteps": [
+        {
+          "step": "Tính số tiền được giảm $100$ nghìn đồng",
+          "points": 1
+        },
+        {
+          "step": "Tính giá sau giảm $400$ nghìn đồng",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Giá sau giảm: $G = G_0 \\cdot (1 - p\\%)$",
+      "commonMistake": "Chỉ tính số tiền được giảm mà quên trừ vào giá gốc.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_046",
+      "code": "M6-HK2-C4-VDC-46",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C4",
+      "lesson": "Các phép tính với phân số & Tỉ số phần trăm",
+      "topic": "Phép tính phân số & Tìm x",
+      "problemType": "Tính nhanh biểu thức phân số",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 1,
+      "content": "Tính giá trị biểu thức $S = \\frac{1}{1 \\cdot 2} + \\frac{1}{2 \\cdot 3} + \\dots + \\frac{1}{5 \\cdot 6}$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\frac{1}{6}$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$\\frac{4}{5}$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$1$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$\\frac{5}{6}$"
+        }
+      ],
+      "correctAnswer": "D",
+      "acceptedAnswers": [
+        "5/6",
+        "\\frac{5}{6}"
+      ],
+      "solution": "Áp dụng công thức $\\frac{1}{k(k+1)} = \\frac{1}{k} - \\frac{1}{k+1}$, ta khử liên tiếp được $S = 1 - \\frac{1}{6} = \\frac{5}{6}$.",
+      "rubricSteps": [
+        {
+          "step": "Rút gọn đúng $S = \\frac{5}{6}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\frac{1}{n(n+1)} = \\frac{1}{n} - \\frac{1}{n+1}$",
+      "commonMistake": "Quên quy đồng bước cuối $1 - \\frac{1}{n+1}$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_047",
+      "code": "M6-HK2-C4-VDC-47",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C4",
+      "lesson": "Các phép tính với phân số & Tỉ số phần trăm",
+      "topic": "Phép tính phân số & Tìm x",
+      "problemType": "Tính nhanh biểu thức phân số",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Tính giá trị biểu thức $S = \\frac{1}{1 \\cdot 2} + \\frac{1}{2 \\cdot 3} + \\dots + \\frac{1}{6 \\cdot 7}$.",
+      "options": [],
+      "correctAnswer": "6/7",
+      "acceptedAnswers": [
+        "6/7",
+        "\\frac{6}{7}"
+      ],
+      "solution": "Áp dụng công thức $\\frac{1}{k(k+1)} = \\frac{1}{k} - \\frac{1}{k+1}$, ta khử liên tiếp được $S = 1 - \\frac{1}{7} = \\frac{6}{7}$.",
+      "rubricSteps": [
+        {
+          "step": "Tách mỗi số hạng $\\frac{1}{k(k+1)} = \\frac{1}{k} - \\frac{1}{k+1}$",
+          "points": 1
+        },
+        {
+          "step": "Rút gọn $S = 1 - \\frac{1}{7} = \\frac{6}{7}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\frac{1}{n(n+1)} = \\frac{1}{n} - \\frac{1}{n+1}$",
+      "commonMistake": "Quên quy đồng bước cuối $1 - \\frac{1}{n+1}$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_048",
+      "code": "M6-HK2-C4-VDC-48",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C4",
+      "lesson": "Các phép tính với phân số & Tỉ số phần trăm",
+      "topic": "Phép tính phân số & Tìm x",
+      "problemType": "Tính nhanh biểu thức phân số",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Tính giá trị biểu thức $S = \\frac{1}{1 \\cdot 2} + \\frac{1}{2 \\cdot 3} + \\dots + \\frac{1}{7 \\cdot 8}$.",
+      "options": [],
+      "correctAnswer": "7/8",
+      "acceptedAnswers": [
+        "7/8",
+        "\\frac{7}{8}"
+      ],
+      "solution": "Áp dụng công thức $\\frac{1}{k(k+1)} = \\frac{1}{k} - \\frac{1}{k+1}$, ta khử liên tiếp được $S = 1 - \\frac{1}{8} = \\frac{7}{8}$.",
+      "rubricSteps": [
+        {
+          "step": "Tách mỗi số hạng $\\frac{1}{k(k+1)} = \\frac{1}{k} - \\frac{1}{k+1}$",
+          "points": 1
+        },
+        {
+          "step": "Rút gọn $S = 1 - \\frac{1}{8} = \\frac{7}{8}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\frac{1}{n(n+1)} = \\frac{1}{n} - \\frac{1}{n+1}$",
+      "commonMistake": "Quên quy đồng bước cuối $1 - \\frac{1}{n+1}$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_049",
+      "code": "M6-HK2-C5-NB-49",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C5",
+      "lesson": "Đoạn thẳng, Trung điểm của đoạn thẳng & Góc",
+      "topic": "Đoạn thẳng và trung điểm",
+      "problemType": "Tính độ dài đoạn thẳng và trung điểm",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Cho đoạn thẳng $AB = 8\\text{ cm}$. Gọi $M$ là trung điểm của đoạn thẳng $AB$. Độ dài đoạn thẳng $AM$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$16$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$8$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$4$"
+        },
+        {
+          "label": "D",
+          "text": "$3$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "4",
+        "4 cm"
+      ],
+      "solution": "Vì $M$ là trung điểm của $AB$ nên $AM = \\frac{AB}{2} = \\frac{8}{2} = 4\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $AM = 4\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$AM = MB = \\frac{AB}{2}$",
+      "commonMistake": "Nhân đôi độ dài đoạn thẳng thay vì chia đôi.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "8 / 2"
+    },
+    {
+      "id": "Q6_TPL_050",
+      "code": "M6-HK2-C5-NB-50",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C5",
+      "lesson": "Đoạn thẳng, Trung điểm của đoạn thẳng & Góc",
+      "topic": "Đoạn thẳng và trung điểm",
+      "problemType": "Tính độ dài đoạn thẳng và trung điểm",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Cho đoạn thẳng $AB = 10\\text{ cm}$. Gọi $M$ là trung điểm của đoạn thẳng $AB$. Độ dài đoạn thẳng $AM$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$5$"
+        },
+        {
+          "label": "B",
+          "text": "$20$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$10$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$4$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "5",
+        "5 cm"
+      ],
+      "solution": "Vì $M$ là trung điểm của $AB$ nên $AM = \\frac{AB}{2} = \\frac{10}{2} = 5\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $AM = 5\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$AM = MB = \\frac{AB}{2}$",
+      "commonMistake": "Nhân đôi độ dài đoạn thẳng thay vì chia đôi.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "10 / 2"
+    },
+    {
+      "id": "Q6_TPL_051",
+      "code": "M6-HK2-C5-NB-51",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C5",
+      "lesson": "Đoạn thẳng, Trung điểm của đoạn thẳng & Góc",
+      "topic": "Đoạn thẳng và trung điểm",
+      "problemType": "Tính độ dài đoạn thẳng và trung điểm",
+      "type": "essay",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 2,
+      "content": "Cho đoạn thẳng $AB = 12\\text{ cm}$. Gọi $M$ là trung điểm của đoạn thẳng $AB$. Độ dài đoạn thẳng $AM$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [],
+      "correctAnswer": "6",
+      "acceptedAnswers": [
+        "6",
+        "6 cm"
+      ],
+      "solution": "Vì $M$ là trung điểm của $AB$ nên $AM = \\frac{AB}{2} = \\frac{12}{2} = 6\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Nêu công thức trung điểm $AM = \\frac{AB}{2}$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng $AM = 6\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$AM = MB = \\frac{AB}{2}$",
+      "commonMistake": "Nhân đôi độ dài đoạn thẳng thay vì chia đôi.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "12 / 2"
+    },
+    {
+      "id": "Q6_TPL_052",
+      "code": "M6-HK2-C5-TH-52",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C5",
+      "lesson": "Đoạn thẳng, Trung điểm của đoạn thẳng & Góc",
+      "topic": "Đoạn thẳng và trung điểm",
+      "problemType": "Tính độ dài đoạn thẳng và trung điểm",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Trên tia $Ox$ lấy hai điểm $A$ và $B$ sao cho $OA = 3\\text{ cm}$, $OB = 8\\text{ cm}$. Tính độ dài đoạn thẳng $AB$ (đơn vị $\\text{cm}$).",
+      "options": [
+        {
+          "label": "A",
+          "text": "$11$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$5$"
+        },
+        {
+          "label": "C",
+          "text": "$16$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$7$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "B",
+      "acceptedAnswers": [
+        "5",
+        "5 cm"
+      ],
+      "solution": "Vì $A, B$ cùng thuộc tia $Ox$ và $OA < OB$ ($3 < 8$) nên điểm $A$ nằm giữa $O$ và $B$. Suy ra $AB = OB - OA = 8 - 3 = 5\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $AB = 5\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$OA + AB = OB \\Rightarrow AB = OB - OA$",
+      "commonMistake": "Cộng $OA + OB$ thay vì lấy $OB - OA$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "8 - 3"
+    },
+    {
+      "id": "Q6_TPL_053",
+      "code": "M6-HK2-C5-TH-53",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C5",
+      "lesson": "Đoạn thẳng, Trung điểm của đoạn thẳng & Góc",
+      "topic": "Đoạn thẳng và trung điểm",
+      "problemType": "Tính độ dài đoạn thẳng và trung điểm",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Trên tia $Ox$ lấy hai điểm $A$ và $B$ sao cho $OA = 4\\text{ cm}$, $OB = 10\\text{ cm}$. Tính độ dài đoạn thẳng $AB$ (đơn vị $\\text{cm}$).",
+      "options": [
+        {
+          "label": "A",
+          "text": "$14$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$20$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$8$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$6$"
+        }
+      ],
+      "correctAnswer": "D",
+      "acceptedAnswers": [
+        "6",
+        "6 cm"
+      ],
+      "solution": "Vì $A, B$ cùng thuộc tia $Ox$ và $OA < OB$ ($4 < 10$) nên điểm $A$ nằm giữa $O$ và $B$. Suy ra $AB = OB - OA = 10 - 4 = 6\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $AB = 6\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$OA + AB = OB \\Rightarrow AB = OB - OA$",
+      "commonMistake": "Cộng $OA + OB$ thay vì lấy $OB - OA$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "10 - 4"
+    },
+    {
+      "id": "Q6_TPL_054",
+      "code": "M6-HK2-C5-TH-54",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C5",
+      "lesson": "Đoạn thẳng, Trung điểm của đoạn thẳng & Góc",
+      "topic": "Đoạn thẳng và trung điểm",
+      "problemType": "Tính độ dài đoạn thẳng và trung điểm",
+      "type": "essay",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 2,
+      "content": "Trên tia $Ox$ lấy hai điểm $A$ và $B$ sao cho $OA = 5\\text{ cm}$, $OB = 12\\text{ cm}$. Tính độ dài đoạn thẳng $AB$ (đơn vị $\\text{cm}$).",
+      "options": [],
+      "correctAnswer": "7",
+      "acceptedAnswers": [
+        "7",
+        "7 cm"
+      ],
+      "solution": "Vì $A, B$ cùng thuộc tia $Ox$ và $OA < OB$ ($5 < 12$) nên điểm $A$ nằm giữa $O$ và $B$. Suy ra $AB = OB - OA = 12 - 5 = 7\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Chỉ ra điểm $A$ nằm giữa $O$ và $B$ do $OA < OB$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng $AB = 12 - 5 = 7\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$OA + AB = OB \\Rightarrow AB = OB - OA$",
+      "commonMistake": "Cộng $OA + OB$ thay vì lấy $OB - OA$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "12 - 5"
+    },
+    {
+      "id": "Q6_TPL_055",
+      "code": "M6-HK2-C5-VD-55",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C5",
+      "lesson": "Đoạn thẳng, Trung điểm của đoạn thẳng & Góc",
+      "topic": "Đoạn thẳng và trung điểm",
+      "problemType": "Tính độ dài đoạn thẳng và trung điểm",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Trên tia $Ox$ lấy hai điểm $A, B$ sao cho $OA = 4\\text{ cm}, OB = 10\\text{ cm}$. Gọi $M$ là trung điểm của đoạn thẳng $AB$. Tính độ dài đoạn thẳng $OM$ (đơn vị $\\text{cm}$).",
+      "options": [
+        {
+          "label": "A",
+          "text": "$7$"
+        },
+        {
+          "label": "B",
+          "text": "$3$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "C",
+          "text": "$6$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$14$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "7"
+      ],
+      "solution": "Ta có $AB = OB - OA = 10 - 4 = 6\\text{ cm}$. Vì $M$ là trung điểm của $AB$ nên $AM = 3\\text{ cm}$. Do $A$ nằm giữa $O$ và $M$ nên $OM = OA + AM = 4 + 3 = 7\\text{ cm}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $OM = 7\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$OM = \\frac{OA + OB}{2}$",
+      "commonMistake": "Dừng lại ở bước tính $AM$ mà quên cộng thêm $OA$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_056",
+      "code": "M6-HK2-C5-VD-56",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C5",
+      "lesson": "Đoạn thẳng, Trung điểm của đoạn thẳng & Góc",
+      "topic": "Đoạn thẳng và trung điểm",
+      "problemType": "Tính độ dài đoạn thẳng và trung điểm",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Trên tia $Ox$ lấy hai điểm $A, B$ sao cho $OA = 6\\text{ cm}, OB = 12\\text{ cm}$. Gọi $M$ là trung điểm của đoạn thẳng $AB$. Tính độ dài đoạn thẳng $OM$ (đơn vị $\\text{cm}$).",
+      "options": [
+        {
+          "label": "A",
+          "text": "$3$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "B",
+          "text": "$6$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$9$"
+        },
+        {
+          "label": "D",
+          "text": "$18$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "9"
+      ],
+      "solution": "Ta có $AB = OB - OA = 12 - 6 = 6\\text{ cm}$. Vì $M$ là trung điểm của $AB$ nên $AM = 3\\text{ cm}$. Do $A$ nằm giữa $O$ và $M$ nên $OM = OA + AM = 6 + 3 = 9\\text{ cm}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $OM = 9\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$OM = \\frac{OA + OB}{2}$",
+      "commonMistake": "Dừng lại ở bước tính $AM$ mà quên cộng thêm $OA$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_057",
+      "code": "M6-HK2-C5-VD-57",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C5",
+      "lesson": "Đoạn thẳng, Trung điểm của đoạn thẳng & Góc",
+      "topic": "Đoạn thẳng và trung điểm",
+      "problemType": "Tính độ dài đoạn thẳng và trung điểm",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 2,
+      "content": "Trên tia $Ox$ lấy hai điểm $A, B$ sao cho $OA = 8\\text{ cm}, OB = 14\\text{ cm}$. Gọi $M$ là trung điểm của đoạn thẳng $AB$. Tính độ dài đoạn thẳng $OM$ (đơn vị $\\text{cm}$).",
+      "options": [],
+      "correctAnswer": "11",
+      "acceptedAnswers": [
+        "11"
+      ],
+      "solution": "Ta có $AB = OB - OA = 14 - 8 = 6\\text{ cm}$. Vì $M$ là trung điểm của $AB$ nên $AM = 3\\text{ cm}$. Do $A$ nằm giữa $O$ và $M$ nên $OM = OA + AM = 8 + 3 = 11\\text{ cm}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $AB = 6\\text{ cm}$ và $AM = 3\\text{ cm}$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng $OM = OA + AM = 11\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$OM = \\frac{OA + OB}{2}$",
+      "commonMistake": "Dừng lại ở bước tính $AM$ mà quên cộng thêm $OA$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_058",
+      "code": "M6-HK2-C5-VDC-58",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C5",
+      "lesson": "Đoạn thẳng, Trung điểm của đoạn thẳng & Góc",
+      "topic": "Đoạn thẳng và trung điểm",
+      "problemType": "Tính độ dài đoạn thẳng và trung điểm",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 1,
+      "content": "Cho $6$ điểm phân biệt cùng nằm trên một đường thẳng. Hỏi có tất cả bao nhiêu đoạn thẳng có hai đầu mút là hai trong $6$ điểm đã cho?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$30$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$5$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$12$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$15$"
+        }
+      ],
+      "correctAnswer": "D",
+      "acceptedAnswers": [
+        "15"
+      ],
+      "solution": "Mỗi điểm nối với $5$ điểm còn lại tạo thành đoạn thẳng, nhưng mỗi đoạn được tính $2$ lần nên số đoạn thẳng là $\\frac{6 \\cdot (6 - 1)}{2} = 15$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng số đoạn thẳng là $15$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Số đoạn thẳng: $N = \\frac{n(n-1)}{2}$",
+      "commonMistake": "Quên chia $2$ dẫn đến đếm lặp mỗi đoạn thẳng $2$ lần.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(6 * (6 - 1)) / 2"
+    },
+    {
+      "id": "Q6_TPL_059",
+      "code": "M6-HK2-C5-VDC-59",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C5",
+      "lesson": "Đoạn thẳng, Trung điểm của đoạn thẳng & Góc",
+      "topic": "Đoạn thẳng và trung điểm",
+      "problemType": "Tính độ dài đoạn thẳng và trung điểm",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Cho $7$ điểm phân biệt cùng nằm trên một đường thẳng. Hỏi có tất cả bao nhiêu đoạn thẳng có hai đầu mút là hai trong $7$ điểm đã cho?",
+      "options": [],
+      "correctAnswer": "21",
+      "acceptedAnswers": [
+        "21"
+      ],
+      "solution": "Mỗi điểm nối với $6$ điểm còn lại tạo thành đoạn thẳng, nhưng mỗi đoạn được tính $2$ lần nên số đoạn thẳng là $\\frac{7 \\cdot (7 - 1)}{2} = 21$.",
+      "rubricSteps": [
+        {
+          "step": "Áp dụng công thức đếm đoạn thẳng $\\frac{n(n-1)}{2}$",
+          "points": 1
+        },
+        {
+          "step": "Thay $n = 7$ tính được $21$ đoạn thẳng",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Số đoạn thẳng: $N = \\frac{n(n-1)}{2}$",
+      "commonMistake": "Quên chia $2$ dẫn đến đếm lặp mỗi đoạn thẳng $2$ lần.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(7 * (7 - 1)) / 2"
+    },
+    {
+      "id": "Q6_TPL_060",
+      "code": "M6-HK2-C5-VDC-60",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C5",
+      "lesson": "Đoạn thẳng, Trung điểm của đoạn thẳng & Góc",
+      "topic": "Đoạn thẳng và trung điểm",
+      "problemType": "Tính độ dài đoạn thẳng và trung điểm",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Cho $8$ điểm phân biệt cùng nằm trên một đường thẳng. Hỏi có tất cả bao nhiêu đoạn thẳng có hai đầu mút là hai trong $8$ điểm đã cho?",
+      "options": [],
+      "correctAnswer": "28",
+      "acceptedAnswers": [
+        "28"
+      ],
+      "solution": "Mỗi điểm nối với $7$ điểm còn lại tạo thành đoạn thẳng, nhưng mỗi đoạn được tính $2$ lần nên số đoạn thẳng là $\\frac{8 \\cdot (8 - 1)}{2} = 28$.",
+      "rubricSteps": [
+        {
+          "step": "Áp dụng công thức đếm đoạn thẳng $\\frac{n(n-1)}{2}$",
+          "points": 1
+        },
+        {
+          "step": "Thay $n = 8$ tính được $28$ đoạn thẳng",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Số đoạn thẳng: $N = \\frac{n(n-1)}{2}$",
+      "commonMistake": "Quên chia $2$ dẫn đến đếm lặp mỗi đoạn thẳng $2$ lần.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(8 * (8 - 1)) / 2"
+    },
+    {
+      "id": "Q6_TPL_061",
+      "code": "M6-HK2-C6-NB-61",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C6",
+      "lesson": "Bảng thống kê & Xác suất thực nghiệm",
+      "topic": "Tính xác suất thực nghiệm",
+      "problemType": "Tính xác suất thực nghiệm qua phép thử",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Gieo một đồng xu cân đối $40$ lần liên tiếp, thấy có $10$ lần xuất hiện mặt Ngửa (N). Xác suất thực nghiệm xuất hiện mặt Ngửa bằng bao nhiêu?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\frac{3}{4}$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$\\frac{4}{1}$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$\\frac{1}{4}$"
+        },
+        {
+          "label": "D",
+          "text": "$\\frac{1}{40}$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "1/4",
+        "10/40",
+        "0.25"
+      ],
+      "solution": "Xác suất thực nghiệm xuất hiện mặt Ngửa là $\\frac{10}{40} = \\frac{1}{4}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng xác suất thực nghiệm $\\frac{1}{4}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$P = \\frac{n(A)}{n}$",
+      "commonMistake": "Lấy tổng số phép thử chia cho số lần xuất hiện sự kiện.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_062",
+      "code": "M6-HK2-C6-NB-62",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C6",
+      "lesson": "Bảng thống kê & Xác suất thực nghiệm",
+      "topic": "Tính xác suất thực nghiệm",
+      "problemType": "Tính xác suất thực nghiệm qua phép thử",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Gieo một đồng xu cân đối $60$ lần liên tiếp, thấy có $15$ lần xuất hiện mặt Ngửa (N). Xác suất thực nghiệm xuất hiện mặt Ngửa bằng bao nhiêu?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\frac{1}{4}$"
+        },
+        {
+          "label": "B",
+          "text": "$\\frac{3}{4}$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$\\frac{4}{1}$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$\\frac{1}{60}$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "1/4",
+        "15/60",
+        "0.25"
+      ],
+      "solution": "Xác suất thực nghiệm xuất hiện mặt Ngửa là $\\frac{15}{60} = \\frac{1}{4}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng xác suất thực nghiệm $\\frac{1}{4}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$P = \\frac{n(A)}{n}$",
+      "commonMistake": "Lấy tổng số phép thử chia cho số lần xuất hiện sự kiện.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_063",
+      "code": "M6-HK2-C6-NB-63",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C6",
+      "lesson": "Bảng thống kê & Xác suất thực nghiệm",
+      "topic": "Tính xác suất thực nghiệm",
+      "problemType": "Tính xác suất thực nghiệm qua phép thử",
+      "type": "essay",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 2,
+      "content": "Gieo một đồng xu cân đối $20$ lần liên tiếp, thấy có $5$ lần xuất hiện mặt Ngửa (N). Xác suất thực nghiệm xuất hiện mặt Ngửa bằng bao nhiêu?",
+      "options": [],
+      "correctAnswer": "1/4",
+      "acceptedAnswers": [
+        "1/4",
+        "5/20",
+        "0.25"
+      ],
+      "solution": "Xác suất thực nghiệm xuất hiện mặt Ngửa là $\\frac{5}{20} = \\frac{1}{4}$.",
+      "rubricSteps": [
+        {
+          "step": "Lập tỉ số $\\frac{n(A)}{n} = \\frac{5}{20}$",
+          "points": 1
+        },
+        {
+          "step": "Rút gọn phân số tối giản được $\\frac{1}{4}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$P = \\frac{n(A)}{n}$",
+      "commonMistake": "Lấy tổng số phép thử chia cho số lần xuất hiện sự kiện.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_064",
+      "code": "M6-HK2-C6-TH-64",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C6",
+      "lesson": "Bảng thống kê & Xác suất thực nghiệm",
+      "topic": "Tính xác suất thực nghiệm",
+      "problemType": "Tính xác suất thực nghiệm qua phép thử",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Gieo một đồng xu cân đối $40$ lần liên tiếp, thấy có $10$ lần xuất hiện mặt Ngửa (N). Xác suất thực nghiệm xuất hiện mặt Ngửa bằng bao nhiêu?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\frac{3}{4}$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$\\frac{1}{4}$"
+        },
+        {
+          "label": "C",
+          "text": "$\\frac{4}{1}$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$\\frac{1}{40}$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "B",
+      "acceptedAnswers": [
+        "1/4",
+        "10/40",
+        "0.25"
+      ],
+      "solution": "Xác suất thực nghiệm xuất hiện mặt Ngửa là $\\frac{10}{40} = \\frac{1}{4}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng xác suất thực nghiệm $\\frac{1}{4}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$P = \\frac{n(A)}{n}$",
+      "commonMistake": "Lấy tổng số phép thử chia cho số lần xuất hiện sự kiện.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_065",
+      "code": "M6-HK2-C6-TH-65",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C6",
+      "lesson": "Bảng thống kê & Xác suất thực nghiệm",
+      "topic": "Tính xác suất thực nghiệm",
+      "problemType": "Tính xác suất thực nghiệm qua phép thử",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Gieo một đồng xu cân đối $60$ lần liên tiếp, thấy có $15$ lần xuất hiện mặt Ngửa (N). Xác suất thực nghiệm xuất hiện mặt Ngửa bằng bao nhiêu?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\frac{3}{4}$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$\\frac{4}{1}$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$\\frac{1}{60}$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$\\frac{1}{4}$"
+        }
+      ],
+      "correctAnswer": "D",
+      "acceptedAnswers": [
+        "1/4",
+        "15/60",
+        "0.25"
+      ],
+      "solution": "Xác suất thực nghiệm xuất hiện mặt Ngửa là $\\frac{15}{60} = \\frac{1}{4}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng xác suất thực nghiệm $\\frac{1}{4}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$P = \\frac{n(A)}{n}$",
+      "commonMistake": "Lấy tổng số phép thử chia cho số lần xuất hiện sự kiện.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_066",
+      "code": "M6-HK2-C6-TH-66",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C6",
+      "lesson": "Bảng thống kê & Xác suất thực nghiệm",
+      "topic": "Tính xác suất thực nghiệm",
+      "problemType": "Tính xác suất thực nghiệm qua phép thử",
+      "type": "essay",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 2,
+      "content": "Gieo một đồng xu cân đối $20$ lần liên tiếp, thấy có $5$ lần xuất hiện mặt Ngửa (N). Xác suất thực nghiệm xuất hiện mặt Ngửa bằng bao nhiêu?",
+      "options": [],
+      "correctAnswer": "1/4",
+      "acceptedAnswers": [
+        "1/4",
+        "5/20",
+        "0.25"
+      ],
+      "solution": "Xác suất thực nghiệm xuất hiện mặt Ngửa là $\\frac{5}{20} = \\frac{1}{4}$.",
+      "rubricSteps": [
+        {
+          "step": "Lập tỉ số $\\frac{n(A)}{n} = \\frac{5}{20}$",
+          "points": 1
+        },
+        {
+          "step": "Rút gọn phân số tối giản được $\\frac{1}{4}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$P = \\frac{n(A)}{n}$",
+      "commonMistake": "Lấy tổng số phép thử chia cho số lần xuất hiện sự kiện.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_067",
+      "code": "M6-HK2-C6-VD-67",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C6",
+      "lesson": "Bảng thống kê & Xác suất thực nghiệm",
+      "topic": "Tính xác suất thực nghiệm",
+      "problemType": "Tính xác suất thực nghiệm qua phép thử",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Trong một hộp có các quả bóng xanh và đỏ. Lấy ngẫu nhiên một quả bóng, xem màu rồi trả lại hộp. Lặp lại phép thử $40$ lần thì thấy có $10$ lần lấy được bóng xanh. Tính xác suất thực nghiệm của sự kiện \"Lấy được quả bóng màu đỏ\".",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\frac{3}{4}$"
+        },
+        {
+          "label": "B",
+          "text": "$\\frac{1}{4}$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "C",
+          "text": "$\\frac{10}{30}$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$\\frac{1}{2}$",
+          "errorType": "CONCEPT_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "3/4",
+        "30/40",
+        "0.75"
+      ],
+      "solution": "Số lần lấy được bóng đỏ là $40 - 10 = 30$ (lần). Xác suất thực nghiệm lấy được bóng đỏ là $\\frac{30}{40} = \\frac{3}{4}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng xác suất $\\frac{3}{4}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$P(B) = \\frac{n - n(A)}{n}$",
+      "commonMistake": "Lấy nhầm số lần xuất hiện bóng xanh thay vì trừ đi để tìm số lần bóng đỏ.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_068",
+      "code": "M6-HK2-C6-VD-68",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C6",
+      "lesson": "Bảng thống kê & Xác suất thực nghiệm",
+      "topic": "Tính xác suất thực nghiệm",
+      "problemType": "Tính xác suất thực nghiệm qua phép thử",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Trong một hộp có các quả bóng xanh và đỏ. Lấy ngẫu nhiên một quả bóng, xem màu rồi trả lại hộp. Lặp lại phép thử $60$ lần thì thấy có $15$ lần lấy được bóng xanh. Tính xác suất thực nghiệm của sự kiện \"Lấy được quả bóng màu đỏ\".",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\frac{1}{4}$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "B",
+          "text": "$\\frac{15}{45}$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$\\frac{3}{4}$"
+        },
+        {
+          "label": "D",
+          "text": "$\\frac{1}{2}$",
+          "errorType": "CONCEPT_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "3/4",
+        "45/60",
+        "0.75"
+      ],
+      "solution": "Số lần lấy được bóng đỏ là $60 - 15 = 45$ (lần). Xác suất thực nghiệm lấy được bóng đỏ là $\\frac{45}{60} = \\frac{3}{4}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng xác suất $\\frac{3}{4}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$P(B) = \\frac{n - n(A)}{n}$",
+      "commonMistake": "Lấy nhầm số lần xuất hiện bóng xanh thay vì trừ đi để tìm số lần bóng đỏ.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_069",
+      "code": "M6-HK2-C6-VD-69",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C6",
+      "lesson": "Bảng thống kê & Xác suất thực nghiệm",
+      "topic": "Tính xác suất thực nghiệm",
+      "problemType": "Tính xác suất thực nghiệm qua phép thử",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 2,
+      "content": "Trong một hộp có các quả bóng xanh và đỏ. Lấy ngẫu nhiên một quả bóng, xem màu rồi trả lại hộp. Lặp lại phép thử $20$ lần thì thấy có $5$ lần lấy được bóng xanh. Tính xác suất thực nghiệm của sự kiện \"Lấy được quả bóng màu đỏ\".",
+      "options": [],
+      "correctAnswer": "3/4",
+      "acceptedAnswers": [
+        "3/4",
+        "15/20",
+        "0.75"
+      ],
+      "solution": "Số lần lấy được bóng đỏ là $20 - 5 = 15$ (lần). Xác suất thực nghiệm lấy được bóng đỏ là $\\frac{15}{20} = \\frac{3}{4}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính số lần xuất hiện bóng đỏ: $20 - 5 = 15$",
+          "points": 1
+        },
+        {
+          "step": "Tính xác suất thực nghiệm $\\frac{15}{20} = \\frac{3}{4}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$P(B) = \\frac{n - n(A)}{n}$",
+      "commonMistake": "Lấy nhầm số lần xuất hiện bóng xanh thay vì trừ đi để tìm số lần bóng đỏ.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_070",
+      "code": "M6-HK2-C6-VDC-70",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C6",
+      "lesson": "Bảng thống kê & Xác suất thực nghiệm",
+      "topic": "Tính xác suất thực nghiệm",
+      "problemType": "Tính xác suất thực nghiệm qua phép thử",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 1,
+      "content": "Trong một hộp có các quả bóng xanh và đỏ. Lấy ngẫu nhiên một quả bóng, xem màu rồi trả lại hộp. Lặp lại phép thử $40$ lần thì thấy có $10$ lần lấy được bóng xanh. Tính xác suất thực nghiệm của sự kiện \"Lấy được quả bóng màu đỏ\".",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\frac{1}{4}$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "B",
+          "text": "$\\frac{10}{30}$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$\\frac{1}{2}$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$\\frac{3}{4}$"
+        }
+      ],
+      "correctAnswer": "D",
+      "acceptedAnswers": [
+        "3/4",
+        "30/40",
+        "0.75"
+      ],
+      "solution": "Số lần lấy được bóng đỏ là $40 - 10 = 30$ (lần). Xác suất thực nghiệm lấy được bóng đỏ là $\\frac{30}{40} = \\frac{3}{4}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng xác suất $\\frac{3}{4}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$P(B) = \\frac{n - n(A)}{n}$",
+      "commonMistake": "Lấy nhầm số lần xuất hiện bóng xanh thay vì trừ đi để tìm số lần bóng đỏ.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_071",
+      "code": "M6-HK2-C6-VDC-71",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C6",
+      "lesson": "Bảng thống kê & Xác suất thực nghiệm",
+      "topic": "Tính xác suất thực nghiệm",
+      "problemType": "Tính xác suất thực nghiệm qua phép thử",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Trong một hộp có các quả bóng xanh và đỏ. Lấy ngẫu nhiên một quả bóng, xem màu rồi trả lại hộp. Lặp lại phép thử $60$ lần thì thấy có $15$ lần lấy được bóng xanh. Tính xác suất thực nghiệm của sự kiện \"Lấy được quả bóng màu đỏ\".",
+      "options": [],
+      "correctAnswer": "3/4",
+      "acceptedAnswers": [
+        "3/4",
+        "45/60",
+        "0.75"
+      ],
+      "solution": "Số lần lấy được bóng đỏ là $60 - 15 = 45$ (lần). Xác suất thực nghiệm lấy được bóng đỏ là $\\frac{45}{60} = \\frac{3}{4}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính số lần xuất hiện bóng đỏ: $60 - 15 = 45$",
+          "points": 1
+        },
+        {
+          "step": "Tính xác suất thực nghiệm $\\frac{45}{60} = \\frac{3}{4}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$P(B) = \\frac{n - n(A)}{n}$",
+      "commonMistake": "Lấy nhầm số lần xuất hiện bóng xanh thay vì trừ đi để tìm số lần bóng đỏ.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q6_TPL_072",
+      "code": "M6-HK2-C6-VDC-72",
+      "grade": 6,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G6_C6",
+      "lesson": "Bảng thống kê & Xác suất thực nghiệm",
+      "topic": "Tính xác suất thực nghiệm",
+      "problemType": "Tính xác suất thực nghiệm qua phép thử",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Trong một hộp có các quả bóng xanh và đỏ. Lấy ngẫu nhiên một quả bóng, xem màu rồi trả lại hộp. Lặp lại phép thử $20$ lần thì thấy có $5$ lần lấy được bóng xanh. Tính xác suất thực nghiệm của sự kiện \"Lấy được quả bóng màu đỏ\".",
+      "options": [],
+      "correctAnswer": "3/4",
+      "acceptedAnswers": [
+        "3/4",
+        "15/20",
+        "0.75"
+      ],
+      "solution": "Số lần lấy được bóng đỏ là $20 - 5 = 15$ (lần). Xác suất thực nghiệm lấy được bóng đỏ là $\\frac{15}{20} = \\frac{3}{4}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính số lần xuất hiện bóng đỏ: $20 - 5 = 15$",
+          "points": 1
+        },
+        {
+          "step": "Tính xác suất thực nghiệm $\\frac{15}{20} = \\frac{3}{4}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$P(B) = \\frac{n - n(A)}{n}$",
+      "commonMistake": "Lấy nhầm số lần xuất hiện bóng xanh thay vì trừ đi để tìm số lần bóng đỏ.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    }
+  ]
+}

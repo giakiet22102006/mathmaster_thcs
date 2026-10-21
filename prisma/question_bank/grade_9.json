@@ -1,0 +1,3749 @@
+{
+  "grade": 9,
+  "questions": [
+    {
+      "id": "Q9_TPL_001",
+      "code": "M9-HK1-C1-NB-01",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C1",
+      "lesson": "Hệ hai phương trình bậc nhất hai ẩn",
+      "topic": "Hệ hai phương trình bậc nhất hai ẩn",
+      "problemType": "Giải hệ phương trình bằng phương pháp thế / cộng đại số",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Cho hệ phương trình $\\begin{cases} x + y = 4 \\\\ x - y = 2 \\end{cases}$. Giá trị của nghiệm $x$ bằng bao nhiêu?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$1$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$6$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$3$"
+        },
+        {
+          "label": "D",
+          "text": "$-3$",
+          "errorType": "SIGN_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "3",
+        "x=3"
+      ],
+      "solution": "Cộng từng vế hai phương trình của hệ ta được $2x = 6 \\Leftrightarrow x = 3$ (suy ra $y = 1$).",
+      "rubricSteps": [
+        {
+          "step": "Tìm đúng $x = 3$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Phương pháp cộng đại số khử ẩn $y$.",
+      "commonMistake": "Cộng hai vế được $2x$ nhưng quên chia cho $2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(4 + 2) / 2"
+    },
+    {
+      "id": "Q9_TPL_002",
+      "code": "M9-HK1-C1-NB-02",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C1",
+      "lesson": "Hệ hai phương trình bậc nhất hai ẩn",
+      "topic": "Hệ hai phương trình bậc nhất hai ẩn",
+      "problemType": "Giải hệ phương trình bằng phương pháp thế / cộng đại số",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Cho hệ phương trình $\\begin{cases} x + y = 6 \\\\ x - y = 2 \\end{cases}$. Giá trị của nghiệm $x$ bằng bao nhiêu?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$4$"
+        },
+        {
+          "label": "B",
+          "text": "$2$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$8$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$-4$",
+          "errorType": "SIGN_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "4",
+        "x=4"
+      ],
+      "solution": "Cộng từng vế hai phương trình của hệ ta được $2x = 8 \\Leftrightarrow x = 4$ (suy ra $y = 2$).",
+      "rubricSteps": [
+        {
+          "step": "Tìm đúng $x = 4$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Phương pháp cộng đại số khử ẩn $y$.",
+      "commonMistake": "Cộng hai vế được $2x$ nhưng quên chia cho $2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(6 + 2) / 2"
+    },
+    {
+      "id": "Q9_TPL_003",
+      "code": "M9-HK1-C1-NB-03",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C1",
+      "lesson": "Hệ hai phương trình bậc nhất hai ẩn",
+      "topic": "Hệ hai phương trình bậc nhất hai ẩn",
+      "problemType": "Giải hệ phương trình bằng phương pháp thế / cộng đại số",
+      "type": "essay",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 2,
+      "content": "Cho hệ phương trình $\\begin{cases} x + y = 8 \\\\ x - y = 2 \\end{cases}$. Giá trị của nghiệm $x$ bằng bao nhiêu?",
+      "options": [],
+      "correctAnswer": "5",
+      "acceptedAnswers": [
+        "5",
+        "x=5"
+      ],
+      "solution": "Cộng từng vế hai phương trình của hệ ta được $2x = 10 \\Leftrightarrow x = 5$ (suy ra $y = 3$).",
+      "rubricSteps": [
+        {
+          "step": "Cộng hai vế thu được $2x = 10$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng $x = 5$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Phương pháp cộng đại số khử ẩn $y$.",
+      "commonMistake": "Cộng hai vế được $2x$ nhưng quên chia cho $2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(8 + 2) / 2"
+    },
+    {
+      "id": "Q9_TPL_004",
+      "code": "M9-HK1-C1-TH-04",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C1",
+      "lesson": "Hệ hai phương trình bậc nhất hai ẩn",
+      "topic": "Hệ hai phương trình bậc nhất hai ẩn",
+      "problemType": "Giải hệ phương trình bằng phương pháp thế / cộng đại số",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Cho hệ phương trình $\\begin{cases} x + y = 4 \\\\ x - y = 2 \\end{cases}$. Giá trị của nghiệm $x$ bằng bao nhiêu?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$1$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$3$"
+        },
+        {
+          "label": "C",
+          "text": "$6$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$-3$",
+          "errorType": "SIGN_ERROR"
+        }
+      ],
+      "correctAnswer": "B",
+      "acceptedAnswers": [
+        "3",
+        "x=3"
+      ],
+      "solution": "Cộng từng vế hai phương trình của hệ ta được $2x = 6 \\Leftrightarrow x = 3$ (suy ra $y = 1$).",
+      "rubricSteps": [
+        {
+          "step": "Tìm đúng $x = 3$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Phương pháp cộng đại số khử ẩn $y$.",
+      "commonMistake": "Cộng hai vế được $2x$ nhưng quên chia cho $2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(4 + 2) / 2"
+    },
+    {
+      "id": "Q9_TPL_005",
+      "code": "M9-HK1-C1-TH-05",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C1",
+      "lesson": "Hệ hai phương trình bậc nhất hai ẩn",
+      "topic": "Hệ hai phương trình bậc nhất hai ẩn",
+      "problemType": "Giải hệ phương trình bằng phương pháp thế / cộng đại số",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Cho hệ phương trình $\\begin{cases} x + y = 6 \\\\ x - y = 2 \\end{cases}$. Giá trị của nghiệm $x$ bằng bao nhiêu?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$2$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$8$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$-4$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$4$"
+        }
+      ],
+      "correctAnswer": "D",
+      "acceptedAnswers": [
+        "4",
+        "x=4"
+      ],
+      "solution": "Cộng từng vế hai phương trình của hệ ta được $2x = 8 \\Leftrightarrow x = 4$ (suy ra $y = 2$).",
+      "rubricSteps": [
+        {
+          "step": "Tìm đúng $x = 4$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Phương pháp cộng đại số khử ẩn $y$.",
+      "commonMistake": "Cộng hai vế được $2x$ nhưng quên chia cho $2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(6 + 2) / 2"
+    },
+    {
+      "id": "Q9_TPL_006",
+      "code": "M9-HK1-C1-TH-06",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C1",
+      "lesson": "Hệ hai phương trình bậc nhất hai ẩn",
+      "topic": "Hệ hai phương trình bậc nhất hai ẩn",
+      "problemType": "Giải hệ phương trình bằng phương pháp thế / cộng đại số",
+      "type": "essay",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 2,
+      "content": "Cho hệ phương trình $\\begin{cases} x + y = 8 \\\\ x - y = 2 \\end{cases}$. Giá trị của nghiệm $x$ bằng bao nhiêu?",
+      "options": [],
+      "correctAnswer": "5",
+      "acceptedAnswers": [
+        "5",
+        "x=5"
+      ],
+      "solution": "Cộng từng vế hai phương trình của hệ ta được $2x = 10 \\Leftrightarrow x = 5$ (suy ra $y = 3$).",
+      "rubricSteps": [
+        {
+          "step": "Cộng hai vế thu được $2x = 10$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng $x = 5$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Phương pháp cộng đại số khử ẩn $y$.",
+      "commonMistake": "Cộng hai vế được $2x$ nhưng quên chia cho $2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(8 + 2) / 2"
+    },
+    {
+      "id": "Q9_TPL_007",
+      "code": "M9-HK1-C1-VD-07",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C1",
+      "lesson": "Hệ hai phương trình bậc nhất hai ẩn",
+      "topic": "Hệ hai phương trình bậc nhất hai ẩn",
+      "problemType": "Giải hệ phương trình bằng phương pháp thế / cộng đại số",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Cho hệ phương trình $\\begin{cases} x + y = 4 \\\\ x - y = 2 \\end{cases}$. Giá trị của nghiệm $x$ bằng bao nhiêu?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$3$"
+        },
+        {
+          "label": "B",
+          "text": "$1$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$6$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$-3$",
+          "errorType": "SIGN_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "3",
+        "x=3"
+      ],
+      "solution": "Cộng từng vế hai phương trình của hệ ta được $2x = 6 \\Leftrightarrow x = 3$ (suy ra $y = 1$).",
+      "rubricSteps": [
+        {
+          "step": "Tìm đúng $x = 3$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Phương pháp cộng đại số khử ẩn $y$.",
+      "commonMistake": "Cộng hai vế được $2x$ nhưng quên chia cho $2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(4 + 2) / 2"
+    },
+    {
+      "id": "Q9_TPL_008",
+      "code": "M9-HK1-C1-VD-08",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C1",
+      "lesson": "Hệ hai phương trình bậc nhất hai ẩn",
+      "topic": "Hệ hai phương trình bậc nhất hai ẩn",
+      "problemType": "Giải hệ phương trình bằng phương pháp thế / cộng đại số",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Cho hệ phương trình $\\begin{cases} x + y = 6 \\\\ x - y = 2 \\end{cases}$. Giá trị của nghiệm $x$ bằng bao nhiêu?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$2$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$8$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$4$"
+        },
+        {
+          "label": "D",
+          "text": "$-4$",
+          "errorType": "SIGN_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "4",
+        "x=4"
+      ],
+      "solution": "Cộng từng vế hai phương trình của hệ ta được $2x = 8 \\Leftrightarrow x = 4$ (suy ra $y = 2$).",
+      "rubricSteps": [
+        {
+          "step": "Tìm đúng $x = 4$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Phương pháp cộng đại số khử ẩn $y$.",
+      "commonMistake": "Cộng hai vế được $2x$ nhưng quên chia cho $2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(6 + 2) / 2"
+    },
+    {
+      "id": "Q9_TPL_009",
+      "code": "M9-HK1-C1-VD-09",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C1",
+      "lesson": "Hệ hai phương trình bậc nhất hai ẩn",
+      "topic": "Hệ hai phương trình bậc nhất hai ẩn",
+      "problemType": "Giải hệ phương trình bằng phương pháp thế / cộng đại số",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 2,
+      "content": "Cho hệ phương trình $\\begin{cases} x + y = 8 \\\\ x - y = 2 \\end{cases}$. Giá trị của nghiệm $x$ bằng bao nhiêu?",
+      "options": [],
+      "correctAnswer": "5",
+      "acceptedAnswers": [
+        "5",
+        "x=5"
+      ],
+      "solution": "Cộng từng vế hai phương trình của hệ ta được $2x = 10 \\Leftrightarrow x = 5$ (suy ra $y = 3$).",
+      "rubricSteps": [
+        {
+          "step": "Cộng hai vế thu được $2x = 10$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng $x = 5$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Phương pháp cộng đại số khử ẩn $y$.",
+      "commonMistake": "Cộng hai vế được $2x$ nhưng quên chia cho $2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(8 + 2) / 2"
+    },
+    {
+      "id": "Q9_TPL_010",
+      "code": "M9-HK1-C1-VDC-10",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C1",
+      "lesson": "Hệ hai phương trình bậc nhất hai ẩn",
+      "topic": "Hệ hai phương trình bậc nhất hai ẩn",
+      "problemType": "Giải hệ phương trình bằng phương pháp thế / cộng đại số",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 1,
+      "content": "Cho hệ phương trình $\\begin{cases} x + y = 4 \\\\ x - y = 2 \\end{cases}$. Giá trị của nghiệm $x$ bằng bao nhiêu?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$1$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$6$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$-3$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$3$"
+        }
+      ],
+      "correctAnswer": "D",
+      "acceptedAnswers": [
+        "3",
+        "x=3"
+      ],
+      "solution": "Cộng từng vế hai phương trình của hệ ta được $2x = 6 \\Leftrightarrow x = 3$ (suy ra $y = 1$).",
+      "rubricSteps": [
+        {
+          "step": "Tìm đúng $x = 3$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Phương pháp cộng đại số khử ẩn $y$.",
+      "commonMistake": "Cộng hai vế được $2x$ nhưng quên chia cho $2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(4 + 2) / 2"
+    },
+    {
+      "id": "Q9_TPL_011",
+      "code": "M9-HK1-C1-VDC-11",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C1",
+      "lesson": "Hệ hai phương trình bậc nhất hai ẩn",
+      "topic": "Hệ hai phương trình bậc nhất hai ẩn",
+      "problemType": "Giải hệ phương trình bằng phương pháp thế / cộng đại số",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Cho hệ phương trình $\\begin{cases} x + y = 6 \\\\ x - y = 2 \\end{cases}$. Giá trị của nghiệm $x$ bằng bao nhiêu?",
+      "options": [],
+      "correctAnswer": "4",
+      "acceptedAnswers": [
+        "4",
+        "x=4"
+      ],
+      "solution": "Cộng từng vế hai phương trình của hệ ta được $2x = 8 \\Leftrightarrow x = 4$ (suy ra $y = 2$).",
+      "rubricSteps": [
+        {
+          "step": "Cộng hai vế thu được $2x = 8$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng $x = 4$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Phương pháp cộng đại số khử ẩn $y$.",
+      "commonMistake": "Cộng hai vế được $2x$ nhưng quên chia cho $2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(6 + 2) / 2"
+    },
+    {
+      "id": "Q9_TPL_012",
+      "code": "M9-HK1-C1-VDC-12",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C1",
+      "lesson": "Hệ hai phương trình bậc nhất hai ẩn",
+      "topic": "Hệ hai phương trình bậc nhất hai ẩn",
+      "problemType": "Giải hệ phương trình bằng phương pháp thế / cộng đại số",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Cho hệ phương trình $\\begin{cases} x + y = 8 \\\\ x - y = 2 \\end{cases}$. Giá trị của nghiệm $x$ bằng bao nhiêu?",
+      "options": [],
+      "correctAnswer": "5",
+      "acceptedAnswers": [
+        "5",
+        "x=5"
+      ],
+      "solution": "Cộng từng vế hai phương trình của hệ ta được $2x = 10 \\Leftrightarrow x = 5$ (suy ra $y = 3$).",
+      "rubricSteps": [
+        {
+          "step": "Cộng hai vế thu được $2x = 10$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng $x = 5$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Phương pháp cộng đại số khử ẩn $y$.",
+      "commonMistake": "Cộng hai vế được $2x$ nhưng quên chia cho $2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(8 + 2) / 2"
+    },
+    {
+      "id": "Q9_TPL_013",
+      "code": "M9-HK1-C2-NB-13",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C2",
+      "lesson": "Căn bậc hai và Rút gọn biểu thức chứa căn",
+      "topic": "Điều kiện xác định và hằng đẳng thức căn bậc hai",
+      "problemType": "Rút gọn biểu thức chứa căn P và câu hỏi phụ",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Tính giá trị của biểu thức $A = \\sqrt{16x}$ tại $x = 4$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$32$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$6$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$8$"
+        },
+        {
+          "label": "D",
+          "text": "$-8$",
+          "errorType": "SIGN_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "8",
+        "A=8"
+      ],
+      "solution": "Với $x = 4 > 0$, ta có $A = \\sqrt{16} \\cdot \\sqrt{4} = 4 \\cdot 2 = 8$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $A = 8$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\sqrt{A \\cdot B} = \\sqrt{A} \\cdot \\sqrt{B}$ ($A, B \\ge 0$)",
+      "commonMistake": "Đưa thừa số ra ngoài dấu căn nhưng quên khai căn thừa số đó.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(16 * 4)"
+    },
+    {
+      "id": "Q9_TPL_014",
+      "code": "M9-HK1-C2-NB-14",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C2",
+      "lesson": "Căn bậc hai và Rút gọn biểu thức chứa căn",
+      "topic": "Điều kiện xác định và hằng đẳng thức căn bậc hai",
+      "problemType": "Rút gọn biểu thức chứa căn P và câu hỏi phụ",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Tính giá trị của biểu thức $A = \\sqrt{25x}$ tại $x = 9$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$15$"
+        },
+        {
+          "label": "B",
+          "text": "$75$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$8$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$-15$",
+          "errorType": "SIGN_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "15",
+        "A=15"
+      ],
+      "solution": "Với $x = 9 > 0$, ta có $A = \\sqrt{25} \\cdot \\sqrt{9} = 5 \\cdot 3 = 15$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $A = 15$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\sqrt{A \\cdot B} = \\sqrt{A} \\cdot \\sqrt{B}$ ($A, B \\ge 0$)",
+      "commonMistake": "Đưa thừa số ra ngoài dấu căn nhưng quên khai căn thừa số đó.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(25 * 9)"
+    },
+    {
+      "id": "Q9_TPL_015",
+      "code": "M9-HK1-C2-NB-15",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C2",
+      "lesson": "Căn bậc hai và Rút gọn biểu thức chứa căn",
+      "topic": "Điều kiện xác định và hằng đẳng thức căn bậc hai",
+      "problemType": "Rút gọn biểu thức chứa căn P và câu hỏi phụ",
+      "type": "essay",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 2,
+      "content": "Tính giá trị của biểu thức $A = \\sqrt{36x}$ tại $x = 16$.",
+      "options": [],
+      "correctAnswer": "24",
+      "acceptedAnswers": [
+        "24",
+        "A=24"
+      ],
+      "solution": "Với $x = 16 > 0$, ta có $A = \\sqrt{36} \\cdot \\sqrt{16} = 6 \\cdot 4 = 24$.",
+      "rubricSteps": [
+        {
+          "step": "Khai phương một tích $\\sqrt{36} \\cdot \\sqrt{16} = 6 \\cdot 4$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng kết quả $A = 24$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\sqrt{A \\cdot B} = \\sqrt{A} \\cdot \\sqrt{B}$ ($A, B \\ge 0$)",
+      "commonMistake": "Đưa thừa số ra ngoài dấu căn nhưng quên khai căn thừa số đó.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(36 * 16)"
+    },
+    {
+      "id": "Q9_TPL_016",
+      "code": "M9-HK1-C2-TH-16",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C2",
+      "lesson": "Căn bậc hai và Rút gọn biểu thức chứa căn",
+      "topic": "Điều kiện xác định và hằng đẳng thức căn bậc hai",
+      "problemType": "Rút gọn biểu thức chứa căn P và câu hỏi phụ",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Tính giá trị của biểu thức $A = \\sqrt{16x}$ tại $x = 4$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$32$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$8$"
+        },
+        {
+          "label": "C",
+          "text": "$6$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$-8$",
+          "errorType": "SIGN_ERROR"
+        }
+      ],
+      "correctAnswer": "B",
+      "acceptedAnswers": [
+        "8",
+        "A=8"
+      ],
+      "solution": "Với $x = 4 > 0$, ta có $A = \\sqrt{16} \\cdot \\sqrt{4} = 4 \\cdot 2 = 8$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $A = 8$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\sqrt{A \\cdot B} = \\sqrt{A} \\cdot \\sqrt{B}$ ($A, B \\ge 0$)",
+      "commonMistake": "Đưa thừa số ra ngoài dấu căn nhưng quên khai căn thừa số đó.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(16 * 4)"
+    },
+    {
+      "id": "Q9_TPL_017",
+      "code": "M9-HK1-C2-TH-17",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C2",
+      "lesson": "Căn bậc hai và Rút gọn biểu thức chứa căn",
+      "topic": "Điều kiện xác định và hằng đẳng thức căn bậc hai",
+      "problemType": "Rút gọn biểu thức chứa căn P và câu hỏi phụ",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Tính giá trị của biểu thức $A = \\sqrt{25x}$ tại $x = 9$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$75$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$8$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$-15$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$15$"
+        }
+      ],
+      "correctAnswer": "D",
+      "acceptedAnswers": [
+        "15",
+        "A=15"
+      ],
+      "solution": "Với $x = 9 > 0$, ta có $A = \\sqrt{25} \\cdot \\sqrt{9} = 5 \\cdot 3 = 15$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $A = 15$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\sqrt{A \\cdot B} = \\sqrt{A} \\cdot \\sqrt{B}$ ($A, B \\ge 0$)",
+      "commonMistake": "Đưa thừa số ra ngoài dấu căn nhưng quên khai căn thừa số đó.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(25 * 9)"
+    },
+    {
+      "id": "Q9_TPL_018",
+      "code": "M9-HK1-C2-TH-18",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C2",
+      "lesson": "Căn bậc hai và Rút gọn biểu thức chứa căn",
+      "topic": "Điều kiện xác định và hằng đẳng thức căn bậc hai",
+      "problemType": "Rút gọn biểu thức chứa căn P và câu hỏi phụ",
+      "type": "essay",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 2,
+      "content": "Tính giá trị của biểu thức $A = \\sqrt{36x}$ tại $x = 16$.",
+      "options": [],
+      "correctAnswer": "24",
+      "acceptedAnswers": [
+        "24",
+        "A=24"
+      ],
+      "solution": "Với $x = 16 > 0$, ta có $A = \\sqrt{36} \\cdot \\sqrt{16} = 6 \\cdot 4 = 24$.",
+      "rubricSteps": [
+        {
+          "step": "Khai phương một tích $\\sqrt{36} \\cdot \\sqrt{16} = 6 \\cdot 4$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng kết quả $A = 24$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\sqrt{A \\cdot B} = \\sqrt{A} \\cdot \\sqrt{B}$ ($A, B \\ge 0$)",
+      "commonMistake": "Đưa thừa số ra ngoài dấu căn nhưng quên khai căn thừa số đó.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(36 * 16)"
+    },
+    {
+      "id": "Q9_TPL_019",
+      "code": "M9-HK1-C2-VD-19",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C2",
+      "lesson": "Căn bậc hai và Rút gọn biểu thức chứa căn",
+      "topic": "Điều kiện xác định và hằng đẳng thức căn bậc hai",
+      "problemType": "Rút gọn biểu thức chứa căn P và câu hỏi phụ",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Tính giá trị của biểu thức $A = \\sqrt{16x}$ tại $x = 4$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$8$"
+        },
+        {
+          "label": "B",
+          "text": "$32$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$6$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$-8$",
+          "errorType": "SIGN_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "8",
+        "A=8"
+      ],
+      "solution": "Với $x = 4 > 0$, ta có $A = \\sqrt{16} \\cdot \\sqrt{4} = 4 \\cdot 2 = 8$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $A = 8$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\sqrt{A \\cdot B} = \\sqrt{A} \\cdot \\sqrt{B}$ ($A, B \\ge 0$)",
+      "commonMistake": "Đưa thừa số ra ngoài dấu căn nhưng quên khai căn thừa số đó.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(16 * 4)"
+    },
+    {
+      "id": "Q9_TPL_020",
+      "code": "M9-HK1-C2-VD-20",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C2",
+      "lesson": "Căn bậc hai và Rút gọn biểu thức chứa căn",
+      "topic": "Điều kiện xác định và hằng đẳng thức căn bậc hai",
+      "problemType": "Rút gọn biểu thức chứa căn P và câu hỏi phụ",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Tính giá trị của biểu thức $A = \\sqrt{25x}$ tại $x = 9$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$75$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$8$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$15$"
+        },
+        {
+          "label": "D",
+          "text": "$-15$",
+          "errorType": "SIGN_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "15",
+        "A=15"
+      ],
+      "solution": "Với $x = 9 > 0$, ta có $A = \\sqrt{25} \\cdot \\sqrt{9} = 5 \\cdot 3 = 15$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $A = 15$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\sqrt{A \\cdot B} = \\sqrt{A} \\cdot \\sqrt{B}$ ($A, B \\ge 0$)",
+      "commonMistake": "Đưa thừa số ra ngoài dấu căn nhưng quên khai căn thừa số đó.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(25 * 9)"
+    },
+    {
+      "id": "Q9_TPL_021",
+      "code": "M9-HK1-C2-VD-21",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C2",
+      "lesson": "Căn bậc hai và Rút gọn biểu thức chứa căn",
+      "topic": "Điều kiện xác định và hằng đẳng thức căn bậc hai",
+      "problemType": "Rút gọn biểu thức chứa căn P và câu hỏi phụ",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 2,
+      "content": "Tính giá trị của biểu thức $A = \\sqrt{36x}$ tại $x = 16$.",
+      "options": [],
+      "correctAnswer": "24",
+      "acceptedAnswers": [
+        "24",
+        "A=24"
+      ],
+      "solution": "Với $x = 16 > 0$, ta có $A = \\sqrt{36} \\cdot \\sqrt{16} = 6 \\cdot 4 = 24$.",
+      "rubricSteps": [
+        {
+          "step": "Khai phương một tích $\\sqrt{36} \\cdot \\sqrt{16} = 6 \\cdot 4$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng kết quả $A = 24$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\sqrt{A \\cdot B} = \\sqrt{A} \\cdot \\sqrt{B}$ ($A, B \\ge 0$)",
+      "commonMistake": "Đưa thừa số ra ngoài dấu căn nhưng quên khai căn thừa số đó.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(36 * 16)"
+    },
+    {
+      "id": "Q9_TPL_022",
+      "code": "M9-HK1-C2-VDC-22",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C2",
+      "lesson": "Căn bậc hai và Rút gọn biểu thức chứa căn",
+      "topic": "Điều kiện xác định và hằng đẳng thức căn bậc hai",
+      "problemType": "Rút gọn biểu thức chứa căn P và câu hỏi phụ",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 1,
+      "content": "Tính giá trị của biểu thức $A = \\sqrt{16x}$ tại $x = 4$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$32$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$6$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$-8$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$8$"
+        }
+      ],
+      "correctAnswer": "D",
+      "acceptedAnswers": [
+        "8",
+        "A=8"
+      ],
+      "solution": "Với $x = 4 > 0$, ta có $A = \\sqrt{16} \\cdot \\sqrt{4} = 4 \\cdot 2 = 8$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $A = 8$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\sqrt{A \\cdot B} = \\sqrt{A} \\cdot \\sqrt{B}$ ($A, B \\ge 0$)",
+      "commonMistake": "Đưa thừa số ra ngoài dấu căn nhưng quên khai căn thừa số đó.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(16 * 4)"
+    },
+    {
+      "id": "Q9_TPL_023",
+      "code": "M9-HK1-C2-VDC-23",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C2",
+      "lesson": "Căn bậc hai và Rút gọn biểu thức chứa căn",
+      "topic": "Điều kiện xác định và hằng đẳng thức căn bậc hai",
+      "problemType": "Rút gọn biểu thức chứa căn P và câu hỏi phụ",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Tính giá trị của biểu thức $A = \\sqrt{25x}$ tại $x = 9$.",
+      "options": [],
+      "correctAnswer": "15",
+      "acceptedAnswers": [
+        "15",
+        "A=15"
+      ],
+      "solution": "Với $x = 9 > 0$, ta có $A = \\sqrt{25} \\cdot \\sqrt{9} = 5 \\cdot 3 = 15$.",
+      "rubricSteps": [
+        {
+          "step": "Khai phương một tích $\\sqrt{25} \\cdot \\sqrt{9} = 5 \\cdot 3$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng kết quả $A = 15$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\sqrt{A \\cdot B} = \\sqrt{A} \\cdot \\sqrt{B}$ ($A, B \\ge 0$)",
+      "commonMistake": "Đưa thừa số ra ngoài dấu căn nhưng quên khai căn thừa số đó.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(25 * 9)"
+    },
+    {
+      "id": "Q9_TPL_024",
+      "code": "M9-HK1-C2-VDC-24",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C2",
+      "lesson": "Căn bậc hai và Rút gọn biểu thức chứa căn",
+      "topic": "Điều kiện xác định và hằng đẳng thức căn bậc hai",
+      "problemType": "Rút gọn biểu thức chứa căn P và câu hỏi phụ",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Tính giá trị của biểu thức $A = \\sqrt{36x}$ tại $x = 16$.",
+      "options": [],
+      "correctAnswer": "24",
+      "acceptedAnswers": [
+        "24",
+        "A=24"
+      ],
+      "solution": "Với $x = 16 > 0$, ta có $A = \\sqrt{36} \\cdot \\sqrt{16} = 6 \\cdot 4 = 24$.",
+      "rubricSteps": [
+        {
+          "step": "Khai phương một tích $\\sqrt{36} \\cdot \\sqrt{16} = 6 \\cdot 4$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng kết quả $A = 24$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\sqrt{A \\cdot B} = \\sqrt{A} \\cdot \\sqrt{B}$ ($A, B \\ge 0$)",
+      "commonMistake": "Đưa thừa số ra ngoài dấu căn nhưng quên khai căn thừa số đó.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(36 * 16)"
+    },
+    {
+      "id": "Q9_TPL_025",
+      "code": "M9-HK1-C3-NB-25",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C3",
+      "lesson": "Hệ thức lượng trong tam giác vuông & Tiếp tuyến của đường tròn",
+      "topic": "Tính chất hai tiếp tuyến cắt nhau và đường tròn",
+      "problemType": "Tính độ dài tiếp tuyến và chứng minh tiếp tuyến",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Từ điểm $M$ nằm ngoài đường tròn $(O; 6\\text{ cm})$ sao cho $OM = 10\\text{ cm}$, kẻ tiếp tuyến $MA$ với đường tròn ($A$ là tiếp điểm). Độ dài đoạn tiếp tuyến $MA$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$16$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$64$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "C",
+          "text": "$8$"
+        },
+        {
+          "label": "D",
+          "text": "$4$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "8",
+        "8 cm"
+      ],
+      "solution": "Vì $MA$ là tiếp tuyến của $(O)$ nên $MA \\perp OA$ tại $A$. Áp dụng định lí Pythagore trong $\\triangle OAM$ vuông tại $A$: $MA = \\sqrt{OM^2 - OA^2} = \\sqrt{10^2 - 6^2} = 8\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng độ dài tiếp tuyến $MA = 8\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$MA = \\sqrt{OM^2 - R^2}$",
+      "commonMistake": "Áp dụng nhầm công thức Pythagore thành cộng hai bình phương $OM^2 + R^2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(10^2 - 6^2)"
+    },
+    {
+      "id": "Q9_TPL_026",
+      "code": "M9-HK1-C3-NB-26",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C3",
+      "lesson": "Hệ thức lượng trong tam giác vuông & Tiếp tuyến của đường tròn",
+      "topic": "Tính chất hai tiếp tuyến cắt nhau và đường tròn",
+      "problemType": "Tính độ dài tiếp tuyến và chứng minh tiếp tuyến",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Từ điểm $M$ nằm ngoài đường tròn $(O; 9\\text{ cm})$ sao cho $OM = 15\\text{ cm}$, kẻ tiếp tuyến $MA$ với đường tròn ($A$ là tiếp điểm). Độ dài đoạn tiếp tuyến $MA$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$12$"
+        },
+        {
+          "label": "B",
+          "text": "$24$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$144$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "D",
+          "text": "$6$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "12",
+        "12 cm"
+      ],
+      "solution": "Vì $MA$ là tiếp tuyến của $(O)$ nên $MA \\perp OA$ tại $A$. Áp dụng định lí Pythagore trong $\\triangle OAM$ vuông tại $A$: $MA = \\sqrt{OM^2 - OA^2} = \\sqrt{15^2 - 9^2} = 12\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng độ dài tiếp tuyến $MA = 12\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$MA = \\sqrt{OM^2 - R^2}$",
+      "commonMistake": "Áp dụng nhầm công thức Pythagore thành cộng hai bình phương $OM^2 + R^2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(15^2 - 9^2)"
+    },
+    {
+      "id": "Q9_TPL_027",
+      "code": "M9-HK1-C3-NB-27",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C3",
+      "lesson": "Hệ thức lượng trong tam giác vuông & Tiếp tuyến của đường tròn",
+      "topic": "Tính chất hai tiếp tuyến cắt nhau và đường tròn",
+      "problemType": "Tính độ dài tiếp tuyến và chứng minh tiếp tuyến",
+      "type": "essay",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 2,
+      "content": "Từ điểm $M$ nằm ngoài đường tròn $(O; 3\\text{ cm})$ sao cho $OM = 5\\text{ cm}$, kẻ tiếp tuyến $MA$ với đường tròn ($A$ là tiếp điểm). Độ dài đoạn tiếp tuyến $MA$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [],
+      "correctAnswer": "4",
+      "acceptedAnswers": [
+        "4",
+        "4 cm"
+      ],
+      "solution": "Vì $MA$ là tiếp tuyến của $(O)$ nên $MA \\perp OA$ tại $A$. Áp dụng định lí Pythagore trong $\\triangle OAM$ vuông tại $A$: $MA = \\sqrt{OM^2 - OA^2} = \\sqrt{5^2 - 3^2} = 4\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Chứng minh $\\triangle OAM$ vuông tại $A$, viết $MA^2 = OM^2 - OA^2 = 16$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng $MA = 4\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$MA = \\sqrt{OM^2 - R^2}$",
+      "commonMistake": "Áp dụng nhầm công thức Pythagore thành cộng hai bình phương $OM^2 + R^2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(5^2 - 3^2)"
+    },
+    {
+      "id": "Q9_TPL_028",
+      "code": "M9-HK1-C3-TH-28",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C3",
+      "lesson": "Hệ thức lượng trong tam giác vuông & Tiếp tuyến của đường tròn",
+      "topic": "Tính chất hai tiếp tuyến cắt nhau và đường tròn",
+      "problemType": "Tính độ dài tiếp tuyến và chứng minh tiếp tuyến",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Từ điểm $M$ nằm ngoài đường tròn $(O; 6\\text{ cm})$ sao cho $OM = 10\\text{ cm}$, kẻ tiếp tuyến $MA$ với đường tròn ($A$ là tiếp điểm). Độ dài đoạn tiếp tuyến $MA$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$16$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$8$"
+        },
+        {
+          "label": "C",
+          "text": "$64$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "D",
+          "text": "$4$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "B",
+      "acceptedAnswers": [
+        "8",
+        "8 cm"
+      ],
+      "solution": "Vì $MA$ là tiếp tuyến của $(O)$ nên $MA \\perp OA$ tại $A$. Áp dụng định lí Pythagore trong $\\triangle OAM$ vuông tại $A$: $MA = \\sqrt{OM^2 - OA^2} = \\sqrt{10^2 - 6^2} = 8\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng độ dài tiếp tuyến $MA = 8\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$MA = \\sqrt{OM^2 - R^2}$",
+      "commonMistake": "Áp dụng nhầm công thức Pythagore thành cộng hai bình phương $OM^2 + R^2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(10^2 - 6^2)"
+    },
+    {
+      "id": "Q9_TPL_029",
+      "code": "M9-HK1-C3-TH-29",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C3",
+      "lesson": "Hệ thức lượng trong tam giác vuông & Tiếp tuyến của đường tròn",
+      "topic": "Tính chất hai tiếp tuyến cắt nhau và đường tròn",
+      "problemType": "Tính độ dài tiếp tuyến và chứng minh tiếp tuyến",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Từ điểm $M$ nằm ngoài đường tròn $(O; 9\\text{ cm})$ sao cho $OM = 15\\text{ cm}$, kẻ tiếp tuyến $MA$ với đường tròn ($A$ là tiếp điểm). Độ dài đoạn tiếp tuyến $MA$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$24$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$144$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "C",
+          "text": "$6$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$12$"
+        }
+      ],
+      "correctAnswer": "D",
+      "acceptedAnswers": [
+        "12",
+        "12 cm"
+      ],
+      "solution": "Vì $MA$ là tiếp tuyến của $(O)$ nên $MA \\perp OA$ tại $A$. Áp dụng định lí Pythagore trong $\\triangle OAM$ vuông tại $A$: $MA = \\sqrt{OM^2 - OA^2} = \\sqrt{15^2 - 9^2} = 12\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng độ dài tiếp tuyến $MA = 12\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$MA = \\sqrt{OM^2 - R^2}$",
+      "commonMistake": "Áp dụng nhầm công thức Pythagore thành cộng hai bình phương $OM^2 + R^2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(15^2 - 9^2)"
+    },
+    {
+      "id": "Q9_TPL_030",
+      "code": "M9-HK1-C3-TH-30",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C3",
+      "lesson": "Hệ thức lượng trong tam giác vuông & Tiếp tuyến của đường tròn",
+      "topic": "Tính chất hai tiếp tuyến cắt nhau và đường tròn",
+      "problemType": "Tính độ dài tiếp tuyến và chứng minh tiếp tuyến",
+      "type": "essay",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 2,
+      "content": "Từ điểm $M$ nằm ngoài đường tròn $(O; 3\\text{ cm})$ sao cho $OM = 5\\text{ cm}$, kẻ tiếp tuyến $MA$ với đường tròn ($A$ là tiếp điểm). Độ dài đoạn tiếp tuyến $MA$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [],
+      "correctAnswer": "4",
+      "acceptedAnswers": [
+        "4",
+        "4 cm"
+      ],
+      "solution": "Vì $MA$ là tiếp tuyến của $(O)$ nên $MA \\perp OA$ tại $A$. Áp dụng định lí Pythagore trong $\\triangle OAM$ vuông tại $A$: $MA = \\sqrt{OM^2 - OA^2} = \\sqrt{5^2 - 3^2} = 4\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Chứng minh $\\triangle OAM$ vuông tại $A$, viết $MA^2 = OM^2 - OA^2 = 16$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng $MA = 4\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$MA = \\sqrt{OM^2 - R^2}$",
+      "commonMistake": "Áp dụng nhầm công thức Pythagore thành cộng hai bình phương $OM^2 + R^2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(5^2 - 3^2)"
+    },
+    {
+      "id": "Q9_TPL_031",
+      "code": "M9-HK1-C3-VD-31",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C3",
+      "lesson": "Hệ thức lượng trong tam giác vuông & Tiếp tuyến của đường tròn",
+      "topic": "Tính chất hai tiếp tuyến cắt nhau và đường tròn",
+      "problemType": "Tính độ dài tiếp tuyến và chứng minh tiếp tuyến",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Từ điểm $M$ nằm ngoài đường tròn $(O; 6\\text{ cm})$ sao cho $OM = 10\\text{ cm}$, kẻ tiếp tuyến $MA$ với đường tròn ($A$ là tiếp điểm). Độ dài đoạn tiếp tuyến $MA$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$8$"
+        },
+        {
+          "label": "B",
+          "text": "$16$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$64$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "D",
+          "text": "$4$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "8",
+        "8 cm"
+      ],
+      "solution": "Vì $MA$ là tiếp tuyến của $(O)$ nên $MA \\perp OA$ tại $A$. Áp dụng định lí Pythagore trong $\\triangle OAM$ vuông tại $A$: $MA = \\sqrt{OM^2 - OA^2} = \\sqrt{10^2 - 6^2} = 8\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng độ dài tiếp tuyến $MA = 8\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$MA = \\sqrt{OM^2 - R^2}$",
+      "commonMistake": "Áp dụng nhầm công thức Pythagore thành cộng hai bình phương $OM^2 + R^2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(10^2 - 6^2)"
+    },
+    {
+      "id": "Q9_TPL_032",
+      "code": "M9-HK1-C3-VD-32",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C3",
+      "lesson": "Hệ thức lượng trong tam giác vuông & Tiếp tuyến của đường tròn",
+      "topic": "Tính chất hai tiếp tuyến cắt nhau và đường tròn",
+      "problemType": "Tính độ dài tiếp tuyến và chứng minh tiếp tuyến",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Từ điểm $M$ nằm ngoài đường tròn $(O; 9\\text{ cm})$ sao cho $OM = 15\\text{ cm}$, kẻ tiếp tuyến $MA$ với đường tròn ($A$ là tiếp điểm). Độ dài đoạn tiếp tuyến $MA$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$24$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$144$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "C",
+          "text": "$12$"
+        },
+        {
+          "label": "D",
+          "text": "$6$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "12",
+        "12 cm"
+      ],
+      "solution": "Vì $MA$ là tiếp tuyến của $(O)$ nên $MA \\perp OA$ tại $A$. Áp dụng định lí Pythagore trong $\\triangle OAM$ vuông tại $A$: $MA = \\sqrt{OM^2 - OA^2} = \\sqrt{15^2 - 9^2} = 12\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng độ dài tiếp tuyến $MA = 12\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$MA = \\sqrt{OM^2 - R^2}$",
+      "commonMistake": "Áp dụng nhầm công thức Pythagore thành cộng hai bình phương $OM^2 + R^2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(15^2 - 9^2)"
+    },
+    {
+      "id": "Q9_TPL_033",
+      "code": "M9-HK1-C3-VD-33",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C3",
+      "lesson": "Hệ thức lượng trong tam giác vuông & Tiếp tuyến của đường tròn",
+      "topic": "Tính chất hai tiếp tuyến cắt nhau và đường tròn",
+      "problemType": "Tính độ dài tiếp tuyến và chứng minh tiếp tuyến",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 2,
+      "content": "Từ điểm $M$ nằm ngoài đường tròn $(O; 3\\text{ cm})$ sao cho $OM = 5\\text{ cm}$, kẻ tiếp tuyến $MA$ với đường tròn ($A$ là tiếp điểm). Độ dài đoạn tiếp tuyến $MA$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [],
+      "correctAnswer": "4",
+      "acceptedAnswers": [
+        "4",
+        "4 cm"
+      ],
+      "solution": "Vì $MA$ là tiếp tuyến của $(O)$ nên $MA \\perp OA$ tại $A$. Áp dụng định lí Pythagore trong $\\triangle OAM$ vuông tại $A$: $MA = \\sqrt{OM^2 - OA^2} = \\sqrt{5^2 - 3^2} = 4\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Chứng minh $\\triangle OAM$ vuông tại $A$, viết $MA^2 = OM^2 - OA^2 = 16$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng $MA = 4\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$MA = \\sqrt{OM^2 - R^2}$",
+      "commonMistake": "Áp dụng nhầm công thức Pythagore thành cộng hai bình phương $OM^2 + R^2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(5^2 - 3^2)"
+    },
+    {
+      "id": "Q9_TPL_034",
+      "code": "M9-HK1-C3-VDC-34",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C3",
+      "lesson": "Hệ thức lượng trong tam giác vuông & Tiếp tuyến của đường tròn",
+      "topic": "Tính chất hai tiếp tuyến cắt nhau và đường tròn",
+      "problemType": "Tính độ dài tiếp tuyến và chứng minh tiếp tuyến",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 1,
+      "content": "Từ điểm $M$ nằm ngoài đường tròn $(O; 6\\text{ cm})$ sao cho $OM = 10\\text{ cm}$, kẻ tiếp tuyến $MA$ với đường tròn ($A$ là tiếp điểm). Độ dài đoạn tiếp tuyến $MA$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$16$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$64$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "C",
+          "text": "$4$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$8$"
+        }
+      ],
+      "correctAnswer": "D",
+      "acceptedAnswers": [
+        "8",
+        "8 cm"
+      ],
+      "solution": "Vì $MA$ là tiếp tuyến của $(O)$ nên $MA \\perp OA$ tại $A$. Áp dụng định lí Pythagore trong $\\triangle OAM$ vuông tại $A$: $MA = \\sqrt{OM^2 - OA^2} = \\sqrt{10^2 - 6^2} = 8\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng độ dài tiếp tuyến $MA = 8\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$MA = \\sqrt{OM^2 - R^2}$",
+      "commonMistake": "Áp dụng nhầm công thức Pythagore thành cộng hai bình phương $OM^2 + R^2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(10^2 - 6^2)"
+    },
+    {
+      "id": "Q9_TPL_035",
+      "code": "M9-HK1-C3-VDC-35",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C3",
+      "lesson": "Hệ thức lượng trong tam giác vuông & Tiếp tuyến của đường tròn",
+      "topic": "Tính chất hai tiếp tuyến cắt nhau và đường tròn",
+      "problemType": "Tính độ dài tiếp tuyến và chứng minh tiếp tuyến",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Từ điểm $M$ nằm ngoài đường tròn $(O; 9\\text{ cm})$ sao cho $OM = 15\\text{ cm}$, kẻ tiếp tuyến $MA$ với đường tròn ($A$ là tiếp điểm). Độ dài đoạn tiếp tuyến $MA$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [],
+      "correctAnswer": "12",
+      "acceptedAnswers": [
+        "12",
+        "12 cm"
+      ],
+      "solution": "Vì $MA$ là tiếp tuyến của $(O)$ nên $MA \\perp OA$ tại $A$. Áp dụng định lí Pythagore trong $\\triangle OAM$ vuông tại $A$: $MA = \\sqrt{OM^2 - OA^2} = \\sqrt{15^2 - 9^2} = 12\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Chứng minh $\\triangle OAM$ vuông tại $A$, viết $MA^2 = OM^2 - OA^2 = 144$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng $MA = 12\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$MA = \\sqrt{OM^2 - R^2}$",
+      "commonMistake": "Áp dụng nhầm công thức Pythagore thành cộng hai bình phương $OM^2 + R^2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(15^2 - 9^2)"
+    },
+    {
+      "id": "Q9_TPL_036",
+      "code": "M9-HK1-C3-VDC-36",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G9_C3",
+      "lesson": "Hệ thức lượng trong tam giác vuông & Tiếp tuyến của đường tròn",
+      "topic": "Tính chất hai tiếp tuyến cắt nhau và đường tròn",
+      "problemType": "Tính độ dài tiếp tuyến và chứng minh tiếp tuyến",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Từ điểm $M$ nằm ngoài đường tròn $(O; 3\\text{ cm})$ sao cho $OM = 5\\text{ cm}$, kẻ tiếp tuyến $MA$ với đường tròn ($A$ là tiếp điểm). Độ dài đoạn tiếp tuyến $MA$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [],
+      "correctAnswer": "4",
+      "acceptedAnswers": [
+        "4",
+        "4 cm"
+      ],
+      "solution": "Vì $MA$ là tiếp tuyến của $(O)$ nên $MA \\perp OA$ tại $A$. Áp dụng định lí Pythagore trong $\\triangle OAM$ vuông tại $A$: $MA = \\sqrt{OM^2 - OA^2} = \\sqrt{5^2 - 3^2} = 4\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Chứng minh $\\triangle OAM$ vuông tại $A$, viết $MA^2 = OM^2 - OA^2 = 16$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng $MA = 4\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$MA = \\sqrt{OM^2 - R^2}$",
+      "commonMistake": "Áp dụng nhầm công thức Pythagore thành cộng hai bình phương $OM^2 + R^2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(5^2 - 3^2)"
+    },
+    {
+      "id": "Q9_TPL_037",
+      "code": "M9-HK2-C4-NB-37",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C4",
+      "lesson": "Phương trình bậc hai một ẩn & Định lí Viète",
+      "topic": "Hệ thức Viète và bài toán tham số m",
+      "problemType": "Tìm m để phương trình có hai nghiệm thỏa mãn hệ thức Viète",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Gọi $x_1, x_2$ là hai nghiệm của phương trình bậc hai $x^2 - 5x + 4 = 0$. Không giải phương trình, hãy tính giá trị của biểu thức $T = x_1^2 + x_2^2$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$25$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$33$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$17$"
+        },
+        {
+          "label": "D",
+          "text": "$9$",
+          "errorType": "CONCEPT_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "17",
+        "T=17"
+      ],
+      "solution": "Theo định lí Viète, ta có $x_1 + x_2 = 5$ và $x_1 x_2 = 4$. Khi đó $T = x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2 = 5^2 - 2 \\cdot 4 = 17$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $T = 17$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2$",
+      "commonMistake": "Lấy dấu sai của tổng hai nghiệm $x_1 + x_2 = b/a$ hoặc quên trừ $2x_1 x_2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "5^2 - 2 * 4"
+    },
+    {
+      "id": "Q9_TPL_038",
+      "code": "M9-HK2-C4-NB-38",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C4",
+      "lesson": "Phương trình bậc hai một ẩn & Định lí Viète",
+      "topic": "Hệ thức Viète và bài toán tham số m",
+      "problemType": "Tìm m để phương trình có hai nghiệm thỏa mãn hệ thức Viète",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Gọi $x_1, x_2$ là hai nghiệm của phương trình bậc hai $x^2 - 7x + 10 = 0$. Không giải phương trình, hãy tính giá trị của biểu thức $T = x_1^2 + x_2^2$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$29$"
+        },
+        {
+          "label": "B",
+          "text": "$49$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$69$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$17$",
+          "errorType": "CONCEPT_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "29",
+        "T=29"
+      ],
+      "solution": "Theo định lí Viète, ta có $x_1 + x_2 = 7$ và $x_1 x_2 = 10$. Khi đó $T = x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2 = 7^2 - 2 \\cdot 10 = 29$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $T = 29$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2$",
+      "commonMistake": "Lấy dấu sai của tổng hai nghiệm $x_1 + x_2 = b/a$ hoặc quên trừ $2x_1 x_2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "7^2 - 2 * 10"
+    },
+    {
+      "id": "Q9_TPL_039",
+      "code": "M9-HK2-C4-NB-39",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C4",
+      "lesson": "Phương trình bậc hai một ẩn & Định lí Viète",
+      "topic": "Hệ thức Viète và bài toán tham số m",
+      "problemType": "Tìm m để phương trình có hai nghiệm thỏa mãn hệ thức Viète",
+      "type": "essay",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 2,
+      "content": "Gọi $x_1, x_2$ là hai nghiệm của phương trình bậc hai $x^2 - 9x + 18 = 0$. Không giải phương trình, hãy tính giá trị của biểu thức $T = x_1^2 + x_2^2$.",
+      "options": [],
+      "correctAnswer": "45",
+      "acceptedAnswers": [
+        "45",
+        "T=45"
+      ],
+      "solution": "Theo định lí Viète, ta có $x_1 + x_2 = 9$ và $x_1 x_2 = 18$. Khi đó $T = x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2 = 9^2 - 2 \\cdot 18 = 45$.",
+      "rubricSteps": [
+        {
+          "step": "Viết đúng hệ thức Viète $x_1 + x_2 = 9$ và $x_1 x_2 = 18$",
+          "points": 1
+        },
+        {
+          "step": "Thay vào $T = (x_1 + x_2)^2 - 2x_1 x_2 = 45$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2$",
+      "commonMistake": "Lấy dấu sai của tổng hai nghiệm $x_1 + x_2 = b/a$ hoặc quên trừ $2x_1 x_2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "9^2 - 2 * 18"
+    },
+    {
+      "id": "Q9_TPL_040",
+      "code": "M9-HK2-C4-TH-40",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C4",
+      "lesson": "Phương trình bậc hai một ẩn & Định lí Viète",
+      "topic": "Hệ thức Viète và bài toán tham số m",
+      "problemType": "Tìm m để phương trình có hai nghiệm thỏa mãn hệ thức Viète",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Gọi $x_1, x_2$ là hai nghiệm của phương trình bậc hai $x^2 - 5x + 4 = 0$. Không giải phương trình, hãy tính giá trị của biểu thức $T = x_1^2 + x_2^2$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$25$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$17$"
+        },
+        {
+          "label": "C",
+          "text": "$33$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$9$",
+          "errorType": "CONCEPT_ERROR"
+        }
+      ],
+      "correctAnswer": "B",
+      "acceptedAnswers": [
+        "17",
+        "T=17"
+      ],
+      "solution": "Theo định lí Viète, ta có $x_1 + x_2 = 5$ và $x_1 x_2 = 4$. Khi đó $T = x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2 = 5^2 - 2 \\cdot 4 = 17$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $T = 17$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2$",
+      "commonMistake": "Lấy dấu sai của tổng hai nghiệm $x_1 + x_2 = b/a$ hoặc quên trừ $2x_1 x_2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "5^2 - 2 * 4"
+    },
+    {
+      "id": "Q9_TPL_041",
+      "code": "M9-HK2-C4-TH-41",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C4",
+      "lesson": "Phương trình bậc hai một ẩn & Định lí Viète",
+      "topic": "Hệ thức Viète và bài toán tham số m",
+      "problemType": "Tìm m để phương trình có hai nghiệm thỏa mãn hệ thức Viète",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Gọi $x_1, x_2$ là hai nghiệm của phương trình bậc hai $x^2 - 7x + 10 = 0$. Không giải phương trình, hãy tính giá trị của biểu thức $T = x_1^2 + x_2^2$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$49$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$69$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$17$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$29$"
+        }
+      ],
+      "correctAnswer": "D",
+      "acceptedAnswers": [
+        "29",
+        "T=29"
+      ],
+      "solution": "Theo định lí Viète, ta có $x_1 + x_2 = 7$ và $x_1 x_2 = 10$. Khi đó $T = x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2 = 7^2 - 2 \\cdot 10 = 29$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $T = 29$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2$",
+      "commonMistake": "Lấy dấu sai của tổng hai nghiệm $x_1 + x_2 = b/a$ hoặc quên trừ $2x_1 x_2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "7^2 - 2 * 10"
+    },
+    {
+      "id": "Q9_TPL_042",
+      "code": "M9-HK2-C4-TH-42",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C4",
+      "lesson": "Phương trình bậc hai một ẩn & Định lí Viète",
+      "topic": "Hệ thức Viète và bài toán tham số m",
+      "problemType": "Tìm m để phương trình có hai nghiệm thỏa mãn hệ thức Viète",
+      "type": "essay",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 2,
+      "content": "Gọi $x_1, x_2$ là hai nghiệm của phương trình bậc hai $x^2 - 9x + 18 = 0$. Không giải phương trình, hãy tính giá trị của biểu thức $T = x_1^2 + x_2^2$.",
+      "options": [],
+      "correctAnswer": "45",
+      "acceptedAnswers": [
+        "45",
+        "T=45"
+      ],
+      "solution": "Theo định lí Viète, ta có $x_1 + x_2 = 9$ và $x_1 x_2 = 18$. Khi đó $T = x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2 = 9^2 - 2 \\cdot 18 = 45$.",
+      "rubricSteps": [
+        {
+          "step": "Viết đúng hệ thức Viète $x_1 + x_2 = 9$ và $x_1 x_2 = 18$",
+          "points": 1
+        },
+        {
+          "step": "Thay vào $T = (x_1 + x_2)^2 - 2x_1 x_2 = 45$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2$",
+      "commonMistake": "Lấy dấu sai của tổng hai nghiệm $x_1 + x_2 = b/a$ hoặc quên trừ $2x_1 x_2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "9^2 - 2 * 18"
+    },
+    {
+      "id": "Q9_TPL_043",
+      "code": "M9-HK2-C4-VD-43",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C4",
+      "lesson": "Phương trình bậc hai một ẩn & Định lí Viète",
+      "topic": "Hệ thức Viète và bài toán tham số m",
+      "problemType": "Tìm m để phương trình có hai nghiệm thỏa mãn hệ thức Viète",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Gọi $x_1, x_2$ là hai nghiệm của phương trình bậc hai $x^2 - 5x + 4 = 0$. Không giải phương trình, hãy tính giá trị của biểu thức $T = x_1^2 + x_2^2$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$17$"
+        },
+        {
+          "label": "B",
+          "text": "$25$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$33$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$9$",
+          "errorType": "CONCEPT_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "17",
+        "T=17"
+      ],
+      "solution": "Theo định lí Viète, ta có $x_1 + x_2 = 5$ và $x_1 x_2 = 4$. Khi đó $T = x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2 = 5^2 - 2 \\cdot 4 = 17$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $T = 17$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2$",
+      "commonMistake": "Lấy dấu sai của tổng hai nghiệm $x_1 + x_2 = b/a$ hoặc quên trừ $2x_1 x_2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "5^2 - 2 * 4"
+    },
+    {
+      "id": "Q9_TPL_044",
+      "code": "M9-HK2-C4-VD-44",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C4",
+      "lesson": "Phương trình bậc hai một ẩn & Định lí Viète",
+      "topic": "Hệ thức Viète và bài toán tham số m",
+      "problemType": "Tìm m để phương trình có hai nghiệm thỏa mãn hệ thức Viète",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Gọi $x_1, x_2$ là hai nghiệm của phương trình bậc hai $x^2 - 7x + 10 = 0$. Không giải phương trình, hãy tính giá trị của biểu thức $T = x_1^2 + x_2^2$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$49$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$69$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$29$"
+        },
+        {
+          "label": "D",
+          "text": "$17$",
+          "errorType": "CONCEPT_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "29",
+        "T=29"
+      ],
+      "solution": "Theo định lí Viète, ta có $x_1 + x_2 = 7$ và $x_1 x_2 = 10$. Khi đó $T = x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2 = 7^2 - 2 \\cdot 10 = 29$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $T = 29$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2$",
+      "commonMistake": "Lấy dấu sai của tổng hai nghiệm $x_1 + x_2 = b/a$ hoặc quên trừ $2x_1 x_2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "7^2 - 2 * 10"
+    },
+    {
+      "id": "Q9_TPL_045",
+      "code": "M9-HK2-C4-VD-45",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C4",
+      "lesson": "Phương trình bậc hai một ẩn & Định lí Viète",
+      "topic": "Hệ thức Viète và bài toán tham số m",
+      "problemType": "Tìm m để phương trình có hai nghiệm thỏa mãn hệ thức Viète",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 2,
+      "content": "Gọi $x_1, x_2$ là hai nghiệm của phương trình bậc hai $x^2 - 9x + 18 = 0$. Không giải phương trình, hãy tính giá trị của biểu thức $T = x_1^2 + x_2^2$.",
+      "options": [],
+      "correctAnswer": "45",
+      "acceptedAnswers": [
+        "45",
+        "T=45"
+      ],
+      "solution": "Theo định lí Viète, ta có $x_1 + x_2 = 9$ và $x_1 x_2 = 18$. Khi đó $T = x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2 = 9^2 - 2 \\cdot 18 = 45$.",
+      "rubricSteps": [
+        {
+          "step": "Viết đúng hệ thức Viète $x_1 + x_2 = 9$ và $x_1 x_2 = 18$",
+          "points": 1
+        },
+        {
+          "step": "Thay vào $T = (x_1 + x_2)^2 - 2x_1 x_2 = 45$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2$",
+      "commonMistake": "Lấy dấu sai của tổng hai nghiệm $x_1 + x_2 = b/a$ hoặc quên trừ $2x_1 x_2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "9^2 - 2 * 18"
+    },
+    {
+      "id": "Q9_TPL_046",
+      "code": "M9-HK2-C4-VDC-46",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C4",
+      "lesson": "Phương trình bậc hai một ẩn & Định lí Viète",
+      "topic": "Hệ thức Viète và bài toán tham số m",
+      "problemType": "Tìm m để phương trình có hai nghiệm thỏa mãn hệ thức Viète",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 1,
+      "content": "Gọi $x_1, x_2$ là hai nghiệm của phương trình bậc hai $x^2 - 5x + 4 = 0$. Không giải phương trình, hãy tính giá trị của biểu thức $T = x_1^2 + x_2^2$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$25$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$33$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$9$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$17$"
+        }
+      ],
+      "correctAnswer": "D",
+      "acceptedAnswers": [
+        "17",
+        "T=17"
+      ],
+      "solution": "Theo định lí Viète, ta có $x_1 + x_2 = 5$ và $x_1 x_2 = 4$. Khi đó $T = x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2 = 5^2 - 2 \\cdot 4 = 17$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $T = 17$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2$",
+      "commonMistake": "Lấy dấu sai của tổng hai nghiệm $x_1 + x_2 = b/a$ hoặc quên trừ $2x_1 x_2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "5^2 - 2 * 4"
+    },
+    {
+      "id": "Q9_TPL_047",
+      "code": "M9-HK2-C4-VDC-47",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C4",
+      "lesson": "Phương trình bậc hai một ẩn & Định lí Viète",
+      "topic": "Hệ thức Viète và bài toán tham số m",
+      "problemType": "Tìm m để phương trình có hai nghiệm thỏa mãn hệ thức Viète",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Gọi $x_1, x_2$ là hai nghiệm của phương trình bậc hai $x^2 - 7x + 10 = 0$. Không giải phương trình, hãy tính giá trị của biểu thức $T = x_1^2 + x_2^2$.",
+      "options": [],
+      "correctAnswer": "29",
+      "acceptedAnswers": [
+        "29",
+        "T=29"
+      ],
+      "solution": "Theo định lí Viète, ta có $x_1 + x_2 = 7$ và $x_1 x_2 = 10$. Khi đó $T = x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2 = 7^2 - 2 \\cdot 10 = 29$.",
+      "rubricSteps": [
+        {
+          "step": "Viết đúng hệ thức Viète $x_1 + x_2 = 7$ và $x_1 x_2 = 10$",
+          "points": 1
+        },
+        {
+          "step": "Thay vào $T = (x_1 + x_2)^2 - 2x_1 x_2 = 29$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2$",
+      "commonMistake": "Lấy dấu sai của tổng hai nghiệm $x_1 + x_2 = b/a$ hoặc quên trừ $2x_1 x_2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "7^2 - 2 * 10"
+    },
+    {
+      "id": "Q9_TPL_048",
+      "code": "M9-HK2-C4-VDC-48",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C4",
+      "lesson": "Phương trình bậc hai một ẩn & Định lí Viète",
+      "topic": "Hệ thức Viète và bài toán tham số m",
+      "problemType": "Tìm m để phương trình có hai nghiệm thỏa mãn hệ thức Viète",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Gọi $x_1, x_2$ là hai nghiệm của phương trình bậc hai $x^2 - 9x + 18 = 0$. Không giải phương trình, hãy tính giá trị của biểu thức $T = x_1^2 + x_2^2$.",
+      "options": [],
+      "correctAnswer": "45",
+      "acceptedAnswers": [
+        "45",
+        "T=45"
+      ],
+      "solution": "Theo định lí Viète, ta có $x_1 + x_2 = 9$ và $x_1 x_2 = 18$. Khi đó $T = x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2 = 9^2 - 2 \\cdot 18 = 45$.",
+      "rubricSteps": [
+        {
+          "step": "Viết đúng hệ thức Viète $x_1 + x_2 = 9$ và $x_1 x_2 = 18$",
+          "points": 1
+        },
+        {
+          "step": "Thay vào $T = (x_1 + x_2)^2 - 2x_1 x_2 = 45$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2$",
+      "commonMistake": "Lấy dấu sai của tổng hai nghiệm $x_1 + x_2 = b/a$ hoặc quên trừ $2x_1 x_2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "9^2 - 2 * 18"
+    },
+    {
+      "id": "Q9_TPL_049",
+      "code": "M9-HK2-C5-NB-49",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C5",
+      "lesson": "Góc nội tiếp, Tứ giác nội tiếp & Hình trụ, Hình nón, Hình cầu",
+      "topic": "Góc nội tiếp và Tứ giác nội tiếp",
+      "problemType": "Chứng minh tứ giác nội tiếp và tính góc",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Cho tứ giác $ABCD$ nội tiếp đường tròn $(O)$, biết số đo góc $\\widehat{A} = 70^\\circ$. Số đo góc đối diện $\\widehat{C}$ bằng bao nhiêu độ?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$70$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$290$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$110$"
+        },
+        {
+          "label": "D",
+          "text": "$35$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "110"
+      ],
+      "solution": "Vì tứ giác $ABCD$ nội tiếp đường tròn nên tổng hai góc đối bằng $180^\\circ$. Suy ra $\\widehat{C} = 180^\\circ - \\widehat{A} = 180^\\circ - 70^\\circ = 110^\\circ$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $\\widehat{C} = 110^\\circ$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\widehat{A} + \\widehat{C} = 180^\\circ$ (tứ giác nội tiếp)",
+      "commonMistake": "Cho hai góc đối của tứ giác nội tiếp bằng nhau.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "180 - 70"
+    },
+    {
+      "id": "Q9_TPL_050",
+      "code": "M9-HK2-C5-NB-50",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C5",
+      "lesson": "Góc nội tiếp, Tứ giác nội tiếp & Hình trụ, Hình nón, Hình cầu",
+      "topic": "Góc nội tiếp và Tứ giác nội tiếp",
+      "problemType": "Chứng minh tứ giác nội tiếp và tính góc",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Cho tứ giác $ABCD$ nội tiếp đường tròn $(O)$, biết số đo góc $\\widehat{A} = 75^\\circ$. Số đo góc đối diện $\\widehat{C}$ bằng bao nhiêu độ?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$105$"
+        },
+        {
+          "label": "B",
+          "text": "$75$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$285$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$37.5$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "105"
+      ],
+      "solution": "Vì tứ giác $ABCD$ nội tiếp đường tròn nên tổng hai góc đối bằng $180^\\circ$. Suy ra $\\widehat{C} = 180^\\circ - \\widehat{A} = 180^\\circ - 75^\\circ = 105^\\circ$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $\\widehat{C} = 105^\\circ$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\widehat{A} + \\widehat{C} = 180^\\circ$ (tứ giác nội tiếp)",
+      "commonMistake": "Cho hai góc đối của tứ giác nội tiếp bằng nhau.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "180 - 75"
+    },
+    {
+      "id": "Q9_TPL_051",
+      "code": "M9-HK2-C5-NB-51",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C5",
+      "lesson": "Góc nội tiếp, Tứ giác nội tiếp & Hình trụ, Hình nón, Hình cầu",
+      "topic": "Góc nội tiếp và Tứ giác nội tiếp",
+      "problemType": "Chứng minh tứ giác nội tiếp và tính góc",
+      "type": "essay",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 2,
+      "content": "Cho tứ giác $ABCD$ nội tiếp đường tròn $(O)$, biết số đo góc $\\widehat{A} = 80^\\circ$. Số đo góc đối diện $\\widehat{C}$ bằng bao nhiêu độ?",
+      "options": [],
+      "correctAnswer": "100",
+      "acceptedAnswers": [
+        "100"
+      ],
+      "solution": "Vì tứ giác $ABCD$ nội tiếp đường tròn nên tổng hai góc đối bằng $180^\\circ$. Suy ra $\\widehat{C} = 180^\\circ - \\widehat{A} = 180^\\circ - 80^\\circ = 100^\\circ$.",
+      "rubricSteps": [
+        {
+          "step": "Nêu tính chất tứ giác nội tiếp $\\widehat{A} + \\widehat{C} = 180^\\circ$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng $\\widehat{C} = 100^\\circ$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\widehat{A} + \\widehat{C} = 180^\\circ$ (tứ giác nội tiếp)",
+      "commonMistake": "Cho hai góc đối của tứ giác nội tiếp bằng nhau.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "180 - 80"
+    },
+    {
+      "id": "Q9_TPL_052",
+      "code": "M9-HK2-C5-TH-52",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C5",
+      "lesson": "Góc nội tiếp, Tứ giác nội tiếp & Hình trụ, Hình nón, Hình cầu",
+      "topic": "Góc nội tiếp và Tứ giác nội tiếp",
+      "problemType": "Chứng minh tứ giác nội tiếp và tính góc",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Cho tứ giác $ABCD$ nội tiếp đường tròn $(O)$, biết số đo góc $\\widehat{A} = 70^\\circ$. Số đo góc đối diện $\\widehat{C}$ bằng bao nhiêu độ?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$70$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$110$"
+        },
+        {
+          "label": "C",
+          "text": "$290$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$35$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "B",
+      "acceptedAnswers": [
+        "110"
+      ],
+      "solution": "Vì tứ giác $ABCD$ nội tiếp đường tròn nên tổng hai góc đối bằng $180^\\circ$. Suy ra $\\widehat{C} = 180^\\circ - \\widehat{A} = 180^\\circ - 70^\\circ = 110^\\circ$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $\\widehat{C} = 110^\\circ$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\widehat{A} + \\widehat{C} = 180^\\circ$ (tứ giác nội tiếp)",
+      "commonMistake": "Cho hai góc đối của tứ giác nội tiếp bằng nhau.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "180 - 70"
+    },
+    {
+      "id": "Q9_TPL_053",
+      "code": "M9-HK2-C5-TH-53",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C5",
+      "lesson": "Góc nội tiếp, Tứ giác nội tiếp & Hình trụ, Hình nón, Hình cầu",
+      "topic": "Góc nội tiếp và Tứ giác nội tiếp",
+      "problemType": "Chứng minh tứ giác nội tiếp và tính góc",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Cho tứ giác $ABCD$ nội tiếp đường tròn $(O)$, biết số đo góc $\\widehat{A} = 75^\\circ$. Số đo góc đối diện $\\widehat{C}$ bằng bao nhiêu độ?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$75$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$285$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$37.5$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$105$"
+        }
+      ],
+      "correctAnswer": "D",
+      "acceptedAnswers": [
+        "105"
+      ],
+      "solution": "Vì tứ giác $ABCD$ nội tiếp đường tròn nên tổng hai góc đối bằng $180^\\circ$. Suy ra $\\widehat{C} = 180^\\circ - \\widehat{A} = 180^\\circ - 75^\\circ = 105^\\circ$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $\\widehat{C} = 105^\\circ$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\widehat{A} + \\widehat{C} = 180^\\circ$ (tứ giác nội tiếp)",
+      "commonMistake": "Cho hai góc đối của tứ giác nội tiếp bằng nhau.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "180 - 75"
+    },
+    {
+      "id": "Q9_TPL_054",
+      "code": "M9-HK2-C5-TH-54",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C5",
+      "lesson": "Góc nội tiếp, Tứ giác nội tiếp & Hình trụ, Hình nón, Hình cầu",
+      "topic": "Góc nội tiếp và Tứ giác nội tiếp",
+      "problemType": "Chứng minh tứ giác nội tiếp và tính góc",
+      "type": "essay",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 2,
+      "content": "Cho tứ giác $ABCD$ nội tiếp đường tròn $(O)$, biết số đo góc $\\widehat{A} = 80^\\circ$. Số đo góc đối diện $\\widehat{C}$ bằng bao nhiêu độ?",
+      "options": [],
+      "correctAnswer": "100",
+      "acceptedAnswers": [
+        "100"
+      ],
+      "solution": "Vì tứ giác $ABCD$ nội tiếp đường tròn nên tổng hai góc đối bằng $180^\\circ$. Suy ra $\\widehat{C} = 180^\\circ - \\widehat{A} = 180^\\circ - 80^\\circ = 100^\\circ$.",
+      "rubricSteps": [
+        {
+          "step": "Nêu tính chất tứ giác nội tiếp $\\widehat{A} + \\widehat{C} = 180^\\circ$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng $\\widehat{C} = 100^\\circ$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\widehat{A} + \\widehat{C} = 180^\\circ$ (tứ giác nội tiếp)",
+      "commonMistake": "Cho hai góc đối của tứ giác nội tiếp bằng nhau.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "180 - 80"
+    },
+    {
+      "id": "Q9_TPL_055",
+      "code": "M9-HK2-C5-VD-55",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C5",
+      "lesson": "Góc nội tiếp, Tứ giác nội tiếp & Hình trụ, Hình nón, Hình cầu",
+      "topic": "Góc nội tiếp và Tứ giác nội tiếp",
+      "problemType": "Chứng minh tứ giác nội tiếp và tính góc",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Cho tứ giác $ABCD$ nội tiếp đường tròn $(O)$, biết số đo góc $\\widehat{A} = 70^\\circ$. Số đo góc đối diện $\\widehat{C}$ bằng bao nhiêu độ?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$110$"
+        },
+        {
+          "label": "B",
+          "text": "$70$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$290$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$35$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "110"
+      ],
+      "solution": "Vì tứ giác $ABCD$ nội tiếp đường tròn nên tổng hai góc đối bằng $180^\\circ$. Suy ra $\\widehat{C} = 180^\\circ - \\widehat{A} = 180^\\circ - 70^\\circ = 110^\\circ$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $\\widehat{C} = 110^\\circ$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\widehat{A} + \\widehat{C} = 180^\\circ$ (tứ giác nội tiếp)",
+      "commonMistake": "Cho hai góc đối của tứ giác nội tiếp bằng nhau.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "180 - 70"
+    },
+    {
+      "id": "Q9_TPL_056",
+      "code": "M9-HK2-C5-VD-56",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C5",
+      "lesson": "Góc nội tiếp, Tứ giác nội tiếp & Hình trụ, Hình nón, Hình cầu",
+      "topic": "Góc nội tiếp và Tứ giác nội tiếp",
+      "problemType": "Chứng minh tứ giác nội tiếp và tính góc",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Cho tứ giác $ABCD$ nội tiếp đường tròn $(O)$, biết số đo góc $\\widehat{A} = 75^\\circ$. Số đo góc đối diện $\\widehat{C}$ bằng bao nhiêu độ?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$75$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$285$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$105$"
+        },
+        {
+          "label": "D",
+          "text": "$37.5$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "105"
+      ],
+      "solution": "Vì tứ giác $ABCD$ nội tiếp đường tròn nên tổng hai góc đối bằng $180^\\circ$. Suy ra $\\widehat{C} = 180^\\circ - \\widehat{A} = 180^\\circ - 75^\\circ = 105^\\circ$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $\\widehat{C} = 105^\\circ$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\widehat{A} + \\widehat{C} = 180^\\circ$ (tứ giác nội tiếp)",
+      "commonMistake": "Cho hai góc đối của tứ giác nội tiếp bằng nhau.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "180 - 75"
+    },
+    {
+      "id": "Q9_TPL_057",
+      "code": "M9-HK2-C5-VD-57",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C5",
+      "lesson": "Góc nội tiếp, Tứ giác nội tiếp & Hình trụ, Hình nón, Hình cầu",
+      "topic": "Góc nội tiếp và Tứ giác nội tiếp",
+      "problemType": "Chứng minh tứ giác nội tiếp và tính góc",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 2,
+      "content": "Cho tứ giác $ABCD$ nội tiếp đường tròn $(O)$, biết số đo góc $\\widehat{A} = 80^\\circ$. Số đo góc đối diện $\\widehat{C}$ bằng bao nhiêu độ?",
+      "options": [],
+      "correctAnswer": "100",
+      "acceptedAnswers": [
+        "100"
+      ],
+      "solution": "Vì tứ giác $ABCD$ nội tiếp đường tròn nên tổng hai góc đối bằng $180^\\circ$. Suy ra $\\widehat{C} = 180^\\circ - \\widehat{A} = 180^\\circ - 80^\\circ = 100^\\circ$.",
+      "rubricSteps": [
+        {
+          "step": "Nêu tính chất tứ giác nội tiếp $\\widehat{A} + \\widehat{C} = 180^\\circ$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng $\\widehat{C} = 100^\\circ$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\widehat{A} + \\widehat{C} = 180^\\circ$ (tứ giác nội tiếp)",
+      "commonMistake": "Cho hai góc đối của tứ giác nội tiếp bằng nhau.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "180 - 80"
+    },
+    {
+      "id": "Q9_TPL_058",
+      "code": "M9-HK2-C5-VDC-58",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C5",
+      "lesson": "Góc nội tiếp, Tứ giác nội tiếp & Hình trụ, Hình nón, Hình cầu",
+      "topic": "Góc nội tiếp và Tứ giác nội tiếp",
+      "problemType": "Chứng minh tứ giác nội tiếp và tính góc",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 1,
+      "content": "Cho tứ giác $ABCD$ nội tiếp đường tròn $(O)$, biết số đo góc $\\widehat{A} = 70^\\circ$. Số đo góc đối diện $\\widehat{C}$ bằng bao nhiêu độ?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$70$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$290$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$35$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$110$"
+        }
+      ],
+      "correctAnswer": "D",
+      "acceptedAnswers": [
+        "110"
+      ],
+      "solution": "Vì tứ giác $ABCD$ nội tiếp đường tròn nên tổng hai góc đối bằng $180^\\circ$. Suy ra $\\widehat{C} = 180^\\circ - \\widehat{A} = 180^\\circ - 70^\\circ = 110^\\circ$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $\\widehat{C} = 110^\\circ$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\widehat{A} + \\widehat{C} = 180^\\circ$ (tứ giác nội tiếp)",
+      "commonMistake": "Cho hai góc đối của tứ giác nội tiếp bằng nhau.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "180 - 70"
+    },
+    {
+      "id": "Q9_TPL_059",
+      "code": "M9-HK2-C5-VDC-59",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C5",
+      "lesson": "Góc nội tiếp, Tứ giác nội tiếp & Hình trụ, Hình nón, Hình cầu",
+      "topic": "Góc nội tiếp và Tứ giác nội tiếp",
+      "problemType": "Chứng minh tứ giác nội tiếp và tính góc",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Cho tứ giác $ABCD$ nội tiếp đường tròn $(O)$, biết số đo góc $\\widehat{A} = 75^\\circ$. Số đo góc đối diện $\\widehat{C}$ bằng bao nhiêu độ?",
+      "options": [],
+      "correctAnswer": "105",
+      "acceptedAnswers": [
+        "105"
+      ],
+      "solution": "Vì tứ giác $ABCD$ nội tiếp đường tròn nên tổng hai góc đối bằng $180^\\circ$. Suy ra $\\widehat{C} = 180^\\circ - \\widehat{A} = 180^\\circ - 75^\\circ = 105^\\circ$.",
+      "rubricSteps": [
+        {
+          "step": "Nêu tính chất tứ giác nội tiếp $\\widehat{A} + \\widehat{C} = 180^\\circ$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng $\\widehat{C} = 105^\\circ$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\widehat{A} + \\widehat{C} = 180^\\circ$ (tứ giác nội tiếp)",
+      "commonMistake": "Cho hai góc đối của tứ giác nội tiếp bằng nhau.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "180 - 75"
+    },
+    {
+      "id": "Q9_TPL_060",
+      "code": "M9-HK2-C5-VDC-60",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C5",
+      "lesson": "Góc nội tiếp, Tứ giác nội tiếp & Hình trụ, Hình nón, Hình cầu",
+      "topic": "Góc nội tiếp và Tứ giác nội tiếp",
+      "problemType": "Chứng minh tứ giác nội tiếp và tính góc",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Cho tứ giác $ABCD$ nội tiếp đường tròn $(O)$, biết số đo góc $\\widehat{A} = 80^\\circ$. Số đo góc đối diện $\\widehat{C}$ bằng bao nhiêu độ?",
+      "options": [],
+      "correctAnswer": "100",
+      "acceptedAnswers": [
+        "100"
+      ],
+      "solution": "Vì tứ giác $ABCD$ nội tiếp đường tròn nên tổng hai góc đối bằng $180^\\circ$. Suy ra $\\widehat{C} = 180^\\circ - \\widehat{A} = 180^\\circ - 80^\\circ = 100^\\circ$.",
+      "rubricSteps": [
+        {
+          "step": "Nêu tính chất tứ giác nội tiếp $\\widehat{A} + \\widehat{C} = 180^\\circ$",
+          "points": 1
+        },
+        {
+          "step": "Tính đúng $\\widehat{C} = 100^\\circ$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\widehat{A} + \\widehat{C} = 180^\\circ$ (tứ giác nội tiếp)",
+      "commonMistake": "Cho hai góc đối của tứ giác nội tiếp bằng nhau.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "180 - 80"
+    },
+    {
+      "id": "Q9_TPL_061",
+      "code": "M9-HK2-C6-NB-61",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C6",
+      "lesson": "Chuyên đề Tổng hợp Luyện thi vào Lớp 10",
+      "topic": "Tổng hợp Đại số thi vào 10",
+      "problemType": "Đề thi thử vào lớp 10 cấu trúc chuẩn Sở GD&ĐT",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Trong mặt phẳng tọa độ $Oxy$, cho Parabol $(P): y = x^2$ và đường thẳng $(d): y = 6x - 9$. Tìm hoành độ tiếp điểm của $(d)$ và $(P)$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$-3$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$9$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$3$"
+        },
+        {
+          "label": "D",
+          "text": "$6$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "3",
+        "x=3"
+      ],
+      "solution": "Phương trình hoành độ giao điểm của $(P)$ và $(d)$ là $x^2 - 6x + 9 = 0 \\Leftrightarrow (x - 3)^2 = 0 \\Leftrightarrow x = 3$.",
+      "rubricSteps": [
+        {
+          "step": "Tìm đúng hoành độ tiếp điểm $x = 3$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Phương trình hoành độ giao điểm $x^2 = mx + n$.",
+      "commonMistake": "Chuyển vế sai dấu khi lập phương trình hoành độ giao điểm.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q9_TPL_062",
+      "code": "M9-HK2-C6-NB-62",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C6",
+      "lesson": "Chuyên đề Tổng hợp Luyện thi vào Lớp 10",
+      "topic": "Tổng hợp Đại số thi vào 10",
+      "problemType": "Đề thi thử vào lớp 10 cấu trúc chuẩn Sở GD&ĐT",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Trong mặt phẳng tọa độ $Oxy$, cho Parabol $(P): y = x^2$ và đường thẳng $(d): y = 8x - 16$. Tìm hoành độ tiếp điểm của $(d)$ và $(P)$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$4$"
+        },
+        {
+          "label": "B",
+          "text": "$-4$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$16$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$8$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "4",
+        "x=4"
+      ],
+      "solution": "Phương trình hoành độ giao điểm của $(P)$ và $(d)$ là $x^2 - 8x + 16 = 0 \\Leftrightarrow (x - 4)^2 = 0 \\Leftrightarrow x = 4$.",
+      "rubricSteps": [
+        {
+          "step": "Tìm đúng hoành độ tiếp điểm $x = 4$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Phương trình hoành độ giao điểm $x^2 = mx + n$.",
+      "commonMistake": "Chuyển vế sai dấu khi lập phương trình hoành độ giao điểm.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q9_TPL_063",
+      "code": "M9-HK2-C6-NB-63",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C6",
+      "lesson": "Chuyên đề Tổng hợp Luyện thi vào Lớp 10",
+      "topic": "Tổng hợp Đại số thi vào 10",
+      "problemType": "Đề thi thử vào lớp 10 cấu trúc chuẩn Sở GD&ĐT",
+      "type": "essay",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 2,
+      "content": "Trong mặt phẳng tọa độ $Oxy$, cho Parabol $(P): y = x^2$ và đường thẳng $(d): y = 10x - 25$. Tìm hoành độ tiếp điểm của $(d)$ và $(P)$.",
+      "options": [],
+      "correctAnswer": "5",
+      "acceptedAnswers": [
+        "5",
+        "x=5"
+      ],
+      "solution": "Phương trình hoành độ giao điểm của $(P)$ và $(d)$ là $x^2 - 10x + 25 = 0 \\Leftrightarrow (x - 5)^2 = 0 \\Leftrightarrow x = 5$.",
+      "rubricSteps": [
+        {
+          "step": "Lập phương trình hoành độ giao điểm $x^2 - 10x + 25 = 0$",
+          "points": 1
+        },
+        {
+          "step": "Giải phương trình tìm được nghiệm kép $x = 5$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Phương trình hoành độ giao điểm $x^2 = mx + n$.",
+      "commonMistake": "Chuyển vế sai dấu khi lập phương trình hoành độ giao điểm.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q9_TPL_064",
+      "code": "M9-HK2-C6-TH-64",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C6",
+      "lesson": "Chuyên đề Tổng hợp Luyện thi vào Lớp 10",
+      "topic": "Tổng hợp Đại số thi vào 10",
+      "problemType": "Đề thi thử vào lớp 10 cấu trúc chuẩn Sở GD&ĐT",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Trong mặt phẳng tọa độ $Oxy$, cho Parabol $(P): y = x^2$ và đường thẳng $(d): y = 6x - 9$. Tìm hoành độ tiếp điểm của $(d)$ và $(P)$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$-3$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$3$"
+        },
+        {
+          "label": "C",
+          "text": "$9$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$6$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "B",
+      "acceptedAnswers": [
+        "3",
+        "x=3"
+      ],
+      "solution": "Phương trình hoành độ giao điểm của $(P)$ và $(d)$ là $x^2 - 6x + 9 = 0 \\Leftrightarrow (x - 3)^2 = 0 \\Leftrightarrow x = 3$.",
+      "rubricSteps": [
+        {
+          "step": "Tìm đúng hoành độ tiếp điểm $x = 3$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Phương trình hoành độ giao điểm $x^2 = mx + n$.",
+      "commonMistake": "Chuyển vế sai dấu khi lập phương trình hoành độ giao điểm.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q9_TPL_065",
+      "code": "M9-HK2-C6-TH-65",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C6",
+      "lesson": "Chuyên đề Tổng hợp Luyện thi vào Lớp 10",
+      "topic": "Tổng hợp Đại số thi vào 10",
+      "problemType": "Đề thi thử vào lớp 10 cấu trúc chuẩn Sở GD&ĐT",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Trong mặt phẳng tọa độ $Oxy$, cho Parabol $(P): y = x^2$ và đường thẳng $(d): y = 8x - 16$. Tìm hoành độ tiếp điểm của $(d)$ và $(P)$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$-4$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$16$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$8$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$4$"
+        }
+      ],
+      "correctAnswer": "D",
+      "acceptedAnswers": [
+        "4",
+        "x=4"
+      ],
+      "solution": "Phương trình hoành độ giao điểm của $(P)$ và $(d)$ là $x^2 - 8x + 16 = 0 \\Leftrightarrow (x - 4)^2 = 0 \\Leftrightarrow x = 4$.",
+      "rubricSteps": [
+        {
+          "step": "Tìm đúng hoành độ tiếp điểm $x = 4$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Phương trình hoành độ giao điểm $x^2 = mx + n$.",
+      "commonMistake": "Chuyển vế sai dấu khi lập phương trình hoành độ giao điểm.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q9_TPL_066",
+      "code": "M9-HK2-C6-TH-66",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C6",
+      "lesson": "Chuyên đề Tổng hợp Luyện thi vào Lớp 10",
+      "topic": "Tổng hợp Đại số thi vào 10",
+      "problemType": "Đề thi thử vào lớp 10 cấu trúc chuẩn Sở GD&ĐT",
+      "type": "essay",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 2,
+      "content": "Trong mặt phẳng tọa độ $Oxy$, cho Parabol $(P): y = x^2$ và đường thẳng $(d): y = 10x - 25$. Tìm hoành độ tiếp điểm của $(d)$ và $(P)$.",
+      "options": [],
+      "correctAnswer": "5",
+      "acceptedAnswers": [
+        "5",
+        "x=5"
+      ],
+      "solution": "Phương trình hoành độ giao điểm của $(P)$ và $(d)$ là $x^2 - 10x + 25 = 0 \\Leftrightarrow (x - 5)^2 = 0 \\Leftrightarrow x = 5$.",
+      "rubricSteps": [
+        {
+          "step": "Lập phương trình hoành độ giao điểm $x^2 - 10x + 25 = 0$",
+          "points": 1
+        },
+        {
+          "step": "Giải phương trình tìm được nghiệm kép $x = 5$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Phương trình hoành độ giao điểm $x^2 = mx + n$.",
+      "commonMistake": "Chuyển vế sai dấu khi lập phương trình hoành độ giao điểm.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q9_TPL_067",
+      "code": "M9-HK2-C6-VD-67",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C6",
+      "lesson": "Chuyên đề Tổng hợp Luyện thi vào Lớp 10",
+      "topic": "Tổng hợp Đại số thi vào 10",
+      "problemType": "Đề thi thử vào lớp 10 cấu trúc chuẩn Sở GD&ĐT",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Trong mặt phẳng tọa độ $Oxy$, cho Parabol $(P): y = x^2$ và đường thẳng $(d): y = 6x - 9$. Tìm hoành độ tiếp điểm của $(d)$ và $(P)$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$3$"
+        },
+        {
+          "label": "B",
+          "text": "$-3$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$9$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$6$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "3",
+        "x=3"
+      ],
+      "solution": "Phương trình hoành độ giao điểm của $(P)$ và $(d)$ là $x^2 - 6x + 9 = 0 \\Leftrightarrow (x - 3)^2 = 0 \\Leftrightarrow x = 3$.",
+      "rubricSteps": [
+        {
+          "step": "Tìm đúng hoành độ tiếp điểm $x = 3$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Phương trình hoành độ giao điểm $x^2 = mx + n$.",
+      "commonMistake": "Chuyển vế sai dấu khi lập phương trình hoành độ giao điểm.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q9_TPL_068",
+      "code": "M9-HK2-C6-VD-68",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C6",
+      "lesson": "Chuyên đề Tổng hợp Luyện thi vào Lớp 10",
+      "topic": "Tổng hợp Đại số thi vào 10",
+      "problemType": "Đề thi thử vào lớp 10 cấu trúc chuẩn Sở GD&ĐT",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Trong mặt phẳng tọa độ $Oxy$, cho Parabol $(P): y = x^2$ và đường thẳng $(d): y = 8x - 16$. Tìm hoành độ tiếp điểm của $(d)$ và $(P)$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$-4$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$16$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$4$"
+        },
+        {
+          "label": "D",
+          "text": "$8$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "4",
+        "x=4"
+      ],
+      "solution": "Phương trình hoành độ giao điểm của $(P)$ và $(d)$ là $x^2 - 8x + 16 = 0 \\Leftrightarrow (x - 4)^2 = 0 \\Leftrightarrow x = 4$.",
+      "rubricSteps": [
+        {
+          "step": "Tìm đúng hoành độ tiếp điểm $x = 4$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Phương trình hoành độ giao điểm $x^2 = mx + n$.",
+      "commonMistake": "Chuyển vế sai dấu khi lập phương trình hoành độ giao điểm.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q9_TPL_069",
+      "code": "M9-HK2-C6-VD-69",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C6",
+      "lesson": "Chuyên đề Tổng hợp Luyện thi vào Lớp 10",
+      "topic": "Tổng hợp Đại số thi vào 10",
+      "problemType": "Đề thi thử vào lớp 10 cấu trúc chuẩn Sở GD&ĐT",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 2,
+      "content": "Trong mặt phẳng tọa độ $Oxy$, cho Parabol $(P): y = x^2$ và đường thẳng $(d): y = 10x - 25$. Tìm hoành độ tiếp điểm của $(d)$ và $(P)$.",
+      "options": [],
+      "correctAnswer": "5",
+      "acceptedAnswers": [
+        "5",
+        "x=5"
+      ],
+      "solution": "Phương trình hoành độ giao điểm của $(P)$ và $(d)$ là $x^2 - 10x + 25 = 0 \\Leftrightarrow (x - 5)^2 = 0 \\Leftrightarrow x = 5$.",
+      "rubricSteps": [
+        {
+          "step": "Lập phương trình hoành độ giao điểm $x^2 - 10x + 25 = 0$",
+          "points": 1
+        },
+        {
+          "step": "Giải phương trình tìm được nghiệm kép $x = 5$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Phương trình hoành độ giao điểm $x^2 = mx + n$.",
+      "commonMistake": "Chuyển vế sai dấu khi lập phương trình hoành độ giao điểm.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q9_TPL_070",
+      "code": "M9-HK2-C6-VDC-70",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C6",
+      "lesson": "Chuyên đề Tổng hợp Luyện thi vào Lớp 10",
+      "topic": "Tổng hợp Đại số thi vào 10",
+      "problemType": "Đề thi thử vào lớp 10 cấu trúc chuẩn Sở GD&ĐT",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 1,
+      "content": "Trong mặt phẳng tọa độ $Oxy$, cho Parabol $(P): y = x^2$ và đường thẳng $(d): y = 6x - 9$. Tìm hoành độ tiếp điểm của $(d)$ và $(P)$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$-3$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$9$",
+          "errorType": "CALCULATION_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$6$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$3$"
+        }
+      ],
+      "correctAnswer": "D",
+      "acceptedAnswers": [
+        "3",
+        "x=3"
+      ],
+      "solution": "Phương trình hoành độ giao điểm của $(P)$ và $(d)$ là $x^2 - 6x + 9 = 0 \\Leftrightarrow (x - 3)^2 = 0 \\Leftrightarrow x = 3$.",
+      "rubricSteps": [
+        {
+          "step": "Tìm đúng hoành độ tiếp điểm $x = 3$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Phương trình hoành độ giao điểm $x^2 = mx + n$.",
+      "commonMistake": "Chuyển vế sai dấu khi lập phương trình hoành độ giao điểm.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q9_TPL_071",
+      "code": "M9-HK2-C6-VDC-71",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C6",
+      "lesson": "Chuyên đề Tổng hợp Luyện thi vào Lớp 10",
+      "topic": "Tổng hợp Đại số thi vào 10",
+      "problemType": "Đề thi thử vào lớp 10 cấu trúc chuẩn Sở GD&ĐT",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Trong mặt phẳng tọa độ $Oxy$, cho Parabol $(P): y = x^2$ và đường thẳng $(d): y = 8x - 16$. Tìm hoành độ tiếp điểm của $(d)$ và $(P)$.",
+      "options": [],
+      "correctAnswer": "4",
+      "acceptedAnswers": [
+        "4",
+        "x=4"
+      ],
+      "solution": "Phương trình hoành độ giao điểm của $(P)$ và $(d)$ là $x^2 - 8x + 16 = 0 \\Leftrightarrow (x - 4)^2 = 0 \\Leftrightarrow x = 4$.",
+      "rubricSteps": [
+        {
+          "step": "Lập phương trình hoành độ giao điểm $x^2 - 8x + 16 = 0$",
+          "points": 1
+        },
+        {
+          "step": "Giải phương trình tìm được nghiệm kép $x = 4$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Phương trình hoành độ giao điểm $x^2 = mx + n$.",
+      "commonMistake": "Chuyển vế sai dấu khi lập phương trình hoành độ giao điểm.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q9_TPL_072",
+      "code": "M9-HK2-C6-VDC-72",
+      "grade": 9,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G9_C6",
+      "lesson": "Chuyên đề Tổng hợp Luyện thi vào Lớp 10",
+      "topic": "Tổng hợp Đại số thi vào 10",
+      "problemType": "Đề thi thử vào lớp 10 cấu trúc chuẩn Sở GD&ĐT",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Trong mặt phẳng tọa độ $Oxy$, cho Parabol $(P): y = x^2$ và đường thẳng $(d): y = 10x - 25$. Tìm hoành độ tiếp điểm của $(d)$ và $(P)$.",
+      "options": [],
+      "correctAnswer": "5",
+      "acceptedAnswers": [
+        "5",
+        "x=5"
+      ],
+      "solution": "Phương trình hoành độ giao điểm của $(P)$ và $(d)$ là $x^2 - 10x + 25 = 0 \\Leftrightarrow (x - 5)^2 = 0 \\Leftrightarrow x = 5$.",
+      "rubricSteps": [
+        {
+          "step": "Lập phương trình hoành độ giao điểm $x^2 - 10x + 25 = 0$",
+          "points": 1
+        },
+        {
+          "step": "Giải phương trình tìm được nghiệm kép $x = 5$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "Phương trình hoành độ giao điểm $x^2 = mx + n$.",
+      "commonMistake": "Chuyển vế sai dấu khi lập phương trình hoành độ giao điểm.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 9 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    }
+  ]
+}

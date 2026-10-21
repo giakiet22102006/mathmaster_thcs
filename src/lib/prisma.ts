@@ -221,6 +221,20 @@ function normalizeStateObject(state: any): any {
     }
   }
 
+  // Chuẩn hoá tính nhất quán giữa cognitiveLevel và difficulty cho toàn bộ câu hỏi
+  const cogToDiffMap: Record<string, string> = {
+    nhan_biet: 'easy',
+    thong_hieu: 'medium',
+    van_dung: 'hard',
+    van_dung_cao: 'hard',
+  };
+  for (const q of state.questions) {
+    const expectedDiff = cogToDiffMap[String(q.cognitiveLevel || '').toLowerCase()];
+    if (expectedDiff && q.difficulty !== expectedDiff && q.difficulty !== 'very_hard') {
+      q.difficulty = expectedDiff;
+    }
+  }
+
   // Chuẩn hoá thông số SM-2 cho reviewQueue
   for (const rev of state.reviewQueue) {
     if (rev.easeFactor === undefined) rev.easeFactor = 2.5;

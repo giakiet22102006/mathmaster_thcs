@@ -1,0 +1,4221 @@
+{
+  "grade": 8,
+  "questions": [
+    {
+      "id": "Q8_TPL_001",
+      "code": "M8-HK1-C1-NB-01",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C1",
+      "lesson": "Bảy hằng đẳng thức đáng nhớ & Phân tích đa thức thành nhân tử",
+      "topic": "Bảy hằng đẳng thức đáng nhớ",
+      "problemType": "Rút gọn biểu thức bằng hằng đẳng thức",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Tính nhanh giá trị của biểu thức $P = x^2 - 20x + 100$ tại $x = 60$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$4900$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$100$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$2500$"
+        },
+        {
+          "label": "D",
+          "text": "$2400$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "2500",
+        "P=2500"
+      ],
+      "solution": "Ta có $P = (x - 10)^2$. Thay $x = 60$ vào được $P = (60 - 10)^2 = 50^2 = 2500$.",
+      "rubricSteps": [
+        {
+          "step": "Rút gọn và tính đúng $P = 2500$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$a^2 - 2ab + b^2 = (a - b)^2$",
+      "commonMistake": "Nhầm dấu hằng đẳng thức thành $(x + a)^2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(60 - 10)^2"
+    },
+    {
+      "id": "Q8_TPL_002",
+      "code": "M8-HK1-C1-NB-02",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C1",
+      "lesson": "Bảy hằng đẳng thức đáng nhớ & Phân tích đa thức thành nhân tử",
+      "topic": "Bảy hằng đẳng thức đáng nhớ",
+      "problemType": "Rút gọn biểu thức bằng hằng đẳng thức",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Tính nhanh giá trị của biểu thức $P = x^2 - 40x + 400$ tại $x = 70$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$2500$"
+        },
+        {
+          "label": "B",
+          "text": "$8100$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$100$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$2400$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "2500",
+        "P=2500"
+      ],
+      "solution": "Ta có $P = (x - 20)^2$. Thay $x = 70$ vào được $P = (70 - 20)^2 = 50^2 = 2500$.",
+      "rubricSteps": [
+        {
+          "step": "Rút gọn và tính đúng $P = 2500$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$a^2 - 2ab + b^2 = (a - b)^2$",
+      "commonMistake": "Nhầm dấu hằng đẳng thức thành $(x + a)^2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(70 - 20)^2"
+    },
+    {
+      "id": "Q8_TPL_003",
+      "code": "M8-HK1-C1-NB-03",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C1",
+      "lesson": "Bảy hằng đẳng thức đáng nhớ & Phân tích đa thức thành nhân tử",
+      "topic": "Bảy hằng đẳng thức đáng nhớ",
+      "problemType": "Rút gọn biểu thức bằng hằng đẳng thức",
+      "type": "essay",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 2,
+      "content": "Tính nhanh giá trị của biểu thức $P = x^2 - 60x + 900$ tại $x = 80$.",
+      "options": [],
+      "correctAnswer": "2500",
+      "acceptedAnswers": [
+        "2500",
+        "P=2500"
+      ],
+      "solution": "Ta có $P = (x - 30)^2$. Thay $x = 80$ vào được $P = (80 - 30)^2 = 50^2 = 2500$.",
+      "rubricSteps": [
+        {
+          "step": "Viết thành bình phương một hiệu $P = (x - 30)^2$",
+          "points": 1
+        },
+        {
+          "step": "Thay $x = 80$ tính được $P = 2500$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$a^2 - 2ab + b^2 = (a - b)^2$",
+      "commonMistake": "Nhầm dấu hằng đẳng thức thành $(x + a)^2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(80 - 30)^2"
+    },
+    {
+      "id": "Q8_TPL_004",
+      "code": "M8-HK1-C1-NB-04",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C1",
+      "lesson": "Bảy hằng đẳng thức đáng nhớ & Phân tích đa thức thành nhân tử",
+      "topic": "Bảy hằng đẳng thức đáng nhớ",
+      "problemType": "Rút gọn biểu thức bằng hằng đẳng thức",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Tính nhanh giá trị của biểu thức $P = x^2 - 80x + 1600$ tại $x = 90$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$2500$"
+        },
+        {
+          "label": "B",
+          "text": "$16900$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$100$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$2400$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "2500",
+        "P=2500"
+      ],
+      "solution": "Ta có $P = (x - 40)^2$. Thay $x = 90$ vào được $P = (90 - 40)^2 = 50^2 = 2500$.",
+      "rubricSteps": [
+        {
+          "step": "Rút gọn và tính đúng $P = 2500$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$a^2 - 2ab + b^2 = (a - b)^2$",
+      "commonMistake": "Nhầm dấu hằng đẳng thức thành $(x + a)^2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(90 - 40)^2"
+    },
+    {
+      "id": "Q8_TPL_005",
+      "code": "M8-HK1-C1-TH-05",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C1",
+      "lesson": "Bảy hằng đẳng thức đáng nhớ & Phân tích đa thức thành nhân tử",
+      "topic": "Bảy hằng đẳng thức đáng nhớ",
+      "problemType": "Rút gọn biểu thức bằng hằng đẳng thức",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Tính nhanh giá trị của biểu thức $P = x^2 - 20x + 100$ tại $x = 60$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$4900$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$100$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$2500$"
+        },
+        {
+          "label": "D",
+          "text": "$2400$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "2500",
+        "P=2500"
+      ],
+      "solution": "Ta có $P = (x - 10)^2$. Thay $x = 60$ vào được $P = (60 - 10)^2 = 50^2 = 2500$.",
+      "rubricSteps": [
+        {
+          "step": "Rút gọn và tính đúng $P = 2500$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$a^2 - 2ab + b^2 = (a - b)^2$",
+      "commonMistake": "Nhầm dấu hằng đẳng thức thành $(x + a)^2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(60 - 10)^2"
+    },
+    {
+      "id": "Q8_TPL_006",
+      "code": "M8-HK1-C1-TH-06",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C1",
+      "lesson": "Bảy hằng đẳng thức đáng nhớ & Phân tích đa thức thành nhân tử",
+      "topic": "Bảy hằng đẳng thức đáng nhớ",
+      "problemType": "Rút gọn biểu thức bằng hằng đẳng thức",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Tính nhanh giá trị của biểu thức $P = x^2 - 40x + 400$ tại $x = 70$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$2500$"
+        },
+        {
+          "label": "B",
+          "text": "$8100$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$100$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$2400$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "2500",
+        "P=2500"
+      ],
+      "solution": "Ta có $P = (x - 20)^2$. Thay $x = 70$ vào được $P = (70 - 20)^2 = 50^2 = 2500$.",
+      "rubricSteps": [
+        {
+          "step": "Rút gọn và tính đúng $P = 2500$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$a^2 - 2ab + b^2 = (a - b)^2$",
+      "commonMistake": "Nhầm dấu hằng đẳng thức thành $(x + a)^2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(70 - 20)^2"
+    },
+    {
+      "id": "Q8_TPL_007",
+      "code": "M8-HK1-C1-TH-07",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C1",
+      "lesson": "Bảy hằng đẳng thức đáng nhớ & Phân tích đa thức thành nhân tử",
+      "topic": "Bảy hằng đẳng thức đáng nhớ",
+      "problemType": "Rút gọn biểu thức bằng hằng đẳng thức",
+      "type": "essay",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 2,
+      "content": "Tính nhanh giá trị của biểu thức $P = x^2 - 60x + 900$ tại $x = 80$.",
+      "options": [],
+      "correctAnswer": "2500",
+      "acceptedAnswers": [
+        "2500",
+        "P=2500"
+      ],
+      "solution": "Ta có $P = (x - 30)^2$. Thay $x = 80$ vào được $P = (80 - 30)^2 = 50^2 = 2500$.",
+      "rubricSteps": [
+        {
+          "step": "Viết thành bình phương một hiệu $P = (x - 30)^2$",
+          "points": 1
+        },
+        {
+          "step": "Thay $x = 80$ tính được $P = 2500$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$a^2 - 2ab + b^2 = (a - b)^2$",
+      "commonMistake": "Nhầm dấu hằng đẳng thức thành $(x + a)^2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(80 - 30)^2"
+    },
+    {
+      "id": "Q8_TPL_008",
+      "code": "M8-HK1-C1-TH-08",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C1",
+      "lesson": "Bảy hằng đẳng thức đáng nhớ & Phân tích đa thức thành nhân tử",
+      "topic": "Bảy hằng đẳng thức đáng nhớ",
+      "problemType": "Rút gọn biểu thức bằng hằng đẳng thức",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Tính nhanh giá trị của biểu thức $P = x^2 - 80x + 1600$ tại $x = 90$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$2500$"
+        },
+        {
+          "label": "B",
+          "text": "$16900$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$100$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$2400$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "2500",
+        "P=2500"
+      ],
+      "solution": "Ta có $P = (x - 40)^2$. Thay $x = 90$ vào được $P = (90 - 40)^2 = 50^2 = 2500$.",
+      "rubricSteps": [
+        {
+          "step": "Rút gọn và tính đúng $P = 2500$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$a^2 - 2ab + b^2 = (a - b)^2$",
+      "commonMistake": "Nhầm dấu hằng đẳng thức thành $(x + a)^2$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(90 - 40)^2"
+    },
+    {
+      "id": "Q8_TPL_009",
+      "code": "M8-HK1-C1-VD-09",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C1",
+      "lesson": "Bảy hằng đẳng thức đáng nhớ & Phân tích đa thức thành nhân tử",
+      "topic": "Bảy hằng đẳng thức đáng nhớ",
+      "problemType": "Tìm GTNN / GTLN của đa thức bậc hai",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Tìm giá trị nhỏ nhất của đa thức $A = x^2 - 6x + 16$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$16$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$3$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$7$"
+        },
+        {
+          "label": "D",
+          "text": "$-7$",
+          "errorType": "SIGN_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "7",
+        "min A = 7"
+      ],
+      "solution": "Tách hằng đẳng thức: $A = (x^2 - 6x + 9) + 7 = (x - 3)^2 + 7 \\ge 7$ với mọi $x$. Dấu \"$=$\" xảy ra khi $x = 3$. Vậy $\\min A = 7$.",
+      "rubricSteps": [
+        {
+          "step": "Tìm đúng $\\min A = 7$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$x^2 - 2ax + c = (x - a)^2 + (c - a^2) \\ge c - a^2$",
+      "commonMistake": "Tách thiếu hạng tử $a^2$ hoặc lấy nhầm hệ số tự do làm GTNN.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q8_TPL_010",
+      "code": "M8-HK1-C1-VD-10",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C1",
+      "lesson": "Bảy hằng đẳng thức đáng nhớ & Phân tích đa thức thành nhân tử",
+      "topic": "Bảy hằng đẳng thức đáng nhớ",
+      "problemType": "Tìm GTNN / GTLN của đa thức bậc hai",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Tìm giá trị nhỏ nhất của đa thức $A = x^2 - 8x + 25$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$9$"
+        },
+        {
+          "label": "B",
+          "text": "$25$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$4$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$-9$",
+          "errorType": "SIGN_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "9",
+        "min A = 9"
+      ],
+      "solution": "Tách hằng đẳng thức: $A = (x^2 - 8x + 16) + 9 = (x - 4)^2 + 9 \\ge 9$ với mọi $x$. Dấu \"$=$\" xảy ra khi $x = 4$. Vậy $\\min A = 9$.",
+      "rubricSteps": [
+        {
+          "step": "Tìm đúng $\\min A = 9$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$x^2 - 2ax + c = (x - a)^2 + (c - a^2) \\ge c - a^2$",
+      "commonMistake": "Tách thiếu hạng tử $a^2$ hoặc lấy nhầm hệ số tự do làm GTNN.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q8_TPL_011",
+      "code": "M8-HK1-C1-VD-11",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C1",
+      "lesson": "Bảy hằng đẳng thức đáng nhớ & Phân tích đa thức thành nhân tử",
+      "topic": "Bảy hằng đẳng thức đáng nhớ",
+      "problemType": "Tìm GTNN / GTLN của đa thức bậc hai",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 2,
+      "content": "Tìm giá trị nhỏ nhất của đa thức $A = x^2 - 10x + 36$.",
+      "options": [],
+      "correctAnswer": "11",
+      "acceptedAnswers": [
+        "11",
+        "min A = 11"
+      ],
+      "solution": "Tách hằng đẳng thức: $A = (x^2 - 10x + 25) + 11 = (x - 5)^2 + 11 \\ge 11$ với mọi $x$. Dấu \"$=$\" xảy ra khi $x = 5$. Vậy $\\min A = 11$.",
+      "rubricSteps": [
+        {
+          "step": "Biến đổi $A = (x - 5)^2 + 11$",
+          "points": 1
+        },
+        {
+          "step": "Đánh giá $(x - 5)^2 \\ge 0$ và kết luận $\\min A = 11$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$x^2 - 2ax + c = (x - a)^2 + (c - a^2) \\ge c - a^2$",
+      "commonMistake": "Tách thiếu hạng tử $a^2$ hoặc lấy nhầm hệ số tự do làm GTNN.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q8_TPL_012",
+      "code": "M8-HK1-C1-VD-12",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C1",
+      "lesson": "Bảy hằng đẳng thức đáng nhớ & Phân tích đa thức thành nhân tử",
+      "topic": "Bảy hằng đẳng thức đáng nhớ",
+      "problemType": "Tìm GTNN / GTLN của đa thức bậc hai",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Tìm giá trị nhỏ nhất của đa thức $A = x^2 - 12x + 49$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$13$"
+        },
+        {
+          "label": "B",
+          "text": "$49$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$6$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$-13$",
+          "errorType": "SIGN_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "13",
+        "min A = 13"
+      ],
+      "solution": "Tách hằng đẳng thức: $A = (x^2 - 12x + 36) + 13 = (x - 6)^2 + 13 \\ge 13$ với mọi $x$. Dấu \"$=$\" xảy ra khi $x = 6$. Vậy $\\min A = 13$.",
+      "rubricSteps": [
+        {
+          "step": "Tìm đúng $\\min A = 13$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$x^2 - 2ax + c = (x - a)^2 + (c - a^2) \\ge c - a^2$",
+      "commonMistake": "Tách thiếu hạng tử $a^2$ hoặc lấy nhầm hệ số tự do làm GTNN.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q8_TPL_013",
+      "code": "M8-HK1-C1-VDC-13",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C1",
+      "lesson": "Bảy hằng đẳng thức đáng nhớ & Phân tích đa thức thành nhân tử",
+      "topic": "Bảy hằng đẳng thức đáng nhớ",
+      "problemType": "Tìm GTNN / GTLN của đa thức bậc hai",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 1,
+      "content": "Tìm giá trị nhỏ nhất của đa thức $A = x^2 - 6x + 16$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$16$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$3$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$7$"
+        },
+        {
+          "label": "D",
+          "text": "$-7$",
+          "errorType": "SIGN_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "7",
+        "min A = 7"
+      ],
+      "solution": "Tách hằng đẳng thức: $A = (x^2 - 6x + 9) + 7 = (x - 3)^2 + 7 \\ge 7$ với mọi $x$. Dấu \"$=$\" xảy ra khi $x = 3$. Vậy $\\min A = 7$.",
+      "rubricSteps": [
+        {
+          "step": "Tìm đúng $\\min A = 7$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$x^2 - 2ax + c = (x - a)^2 + (c - a^2) \\ge c - a^2$",
+      "commonMistake": "Tách thiếu hạng tử $a^2$ hoặc lấy nhầm hệ số tự do làm GTNN.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q8_TPL_014",
+      "code": "M8-HK1-C1-VDC-14",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C1",
+      "lesson": "Bảy hằng đẳng thức đáng nhớ & Phân tích đa thức thành nhân tử",
+      "topic": "Bảy hằng đẳng thức đáng nhớ",
+      "problemType": "Tìm GTNN / GTLN của đa thức bậc hai",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Tìm giá trị nhỏ nhất của đa thức $A = x^2 - 8x + 25$.",
+      "options": [],
+      "correctAnswer": "9",
+      "acceptedAnswers": [
+        "9",
+        "min A = 9"
+      ],
+      "solution": "Tách hằng đẳng thức: $A = (x^2 - 8x + 16) + 9 = (x - 4)^2 + 9 \\ge 9$ với mọi $x$. Dấu \"$=$\" xảy ra khi $x = 4$. Vậy $\\min A = 9$.",
+      "rubricSteps": [
+        {
+          "step": "Biến đổi $A = (x - 4)^2 + 9$",
+          "points": 1
+        },
+        {
+          "step": "Đánh giá $(x - 4)^2 \\ge 0$ và kết luận $\\min A = 9$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$x^2 - 2ax + c = (x - a)^2 + (c - a^2) \\ge c - a^2$",
+      "commonMistake": "Tách thiếu hạng tử $a^2$ hoặc lấy nhầm hệ số tự do làm GTNN.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q8_TPL_015",
+      "code": "M8-HK1-C1-VDC-15",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C1",
+      "lesson": "Bảy hằng đẳng thức đáng nhớ & Phân tích đa thức thành nhân tử",
+      "topic": "Bảy hằng đẳng thức đáng nhớ",
+      "problemType": "Tìm GTNN / GTLN của đa thức bậc hai",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Tìm giá trị nhỏ nhất của đa thức $A = x^2 - 10x + 36$.",
+      "options": [],
+      "correctAnswer": "11",
+      "acceptedAnswers": [
+        "11",
+        "min A = 11"
+      ],
+      "solution": "Tách hằng đẳng thức: $A = (x^2 - 10x + 25) + 11 = (x - 5)^2 + 11 \\ge 11$ với mọi $x$. Dấu \"$=$\" xảy ra khi $x = 5$. Vậy $\\min A = 11$.",
+      "rubricSteps": [
+        {
+          "step": "Biến đổi $A = (x - 5)^2 + 11$",
+          "points": 1
+        },
+        {
+          "step": "Đánh giá $(x - 5)^2 \\ge 0$ và kết luận $\\min A = 11$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$x^2 - 2ax + c = (x - a)^2 + (c - a^2) \\ge c - a^2$",
+      "commonMistake": "Tách thiếu hạng tử $a^2$ hoặc lấy nhầm hệ số tự do làm GTNN.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q8_TPL_016",
+      "code": "M8-HK1-C1-VDC-16",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C1",
+      "lesson": "Bảy hằng đẳng thức đáng nhớ & Phân tích đa thức thành nhân tử",
+      "topic": "Bảy hằng đẳng thức đáng nhớ",
+      "problemType": "Tìm GTNN / GTLN của đa thức bậc hai",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Tìm giá trị nhỏ nhất của đa thức $A = x^2 - 12x + 49$.",
+      "options": [],
+      "correctAnswer": "13",
+      "acceptedAnswers": [
+        "13",
+        "min A = 13"
+      ],
+      "solution": "Tách hằng đẳng thức: $A = (x^2 - 12x + 36) + 13 = (x - 6)^2 + 13 \\ge 13$ với mọi $x$. Dấu \"$=$\" xảy ra khi $x = 6$. Vậy $\\min A = 13$.",
+      "rubricSteps": [
+        {
+          "step": "Biến đổi $A = (x - 6)^2 + 13$",
+          "points": 1
+        },
+        {
+          "step": "Đánh giá $(x - 6)^2 \\ge 0$ và kết luận $\\min A = 13$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$x^2 - 2ax + c = (x - a)^2 + (c - a^2) \\ge c - a^2$",
+      "commonMistake": "Tách thiếu hạng tử $a^2$ hoặc lấy nhầm hệ số tự do làm GTNN.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q8_TPL_017",
+      "code": "M8-HK1-C2-NB-17",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C2",
+      "lesson": "Rút gọn phân thức đại số & Các phép toán phân thức",
+      "topic": "Điều kiện xác định và rút gọn phân thức",
+      "problemType": "Tìm ĐKXĐ và rút gọn biểu thức phân thức",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Cho phân thức $M = \\frac{x^2 - 9}{x - 3}$ (với $x \\ne 3$). Tính giá trị của $M$ tại $x = 6$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$3$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$18$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$9$"
+        },
+        {
+          "label": "D",
+          "text": "$12$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "9",
+        "M=9"
+      ],
+      "solution": "Với $x \\ne 3$, ta có $M = \\frac{(x - 3)(x + 3)}{x - 3} = x + 3$. Thay $x = 6$ (thỏa mãn ĐKXĐ) được $M = 6 + 3 = 9$.",
+      "rubricSteps": [
+        {
+          "step": "Rút gọn và tính đúng $M = 9$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\frac{x^2 - a^2}{x - a} = x + a$ ($x \\ne a$)",
+      "commonMistake": "Rút gọn nhầm dấu thành $x - a$ hoặc quên kiểm tra điều kiện xác định.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "6 + 3"
+    },
+    {
+      "id": "Q8_TPL_018",
+      "code": "M8-HK1-C2-NB-18",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C2",
+      "lesson": "Rút gọn phân thức đại số & Các phép toán phân thức",
+      "topic": "Điều kiện xác định và rút gọn phân thức",
+      "problemType": "Tìm ĐKXĐ và rút gọn biểu thức phân thức",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Cho phân thức $M = \\frac{x^2 - 16}{x - 4}$ (với $x \\ne 4$). Tính giá trị của $M$ tại $x = 7$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$11$"
+        },
+        {
+          "label": "B",
+          "text": "$3$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$28$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$15$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "11",
+        "M=11"
+      ],
+      "solution": "Với $x \\ne 4$, ta có $M = \\frac{(x - 4)(x + 4)}{x - 4} = x + 4$. Thay $x = 7$ (thỏa mãn ĐKXĐ) được $M = 7 + 4 = 11$.",
+      "rubricSteps": [
+        {
+          "step": "Rút gọn và tính đúng $M = 11$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\frac{x^2 - a^2}{x - a} = x + a$ ($x \\ne a$)",
+      "commonMistake": "Rút gọn nhầm dấu thành $x - a$ hoặc quên kiểm tra điều kiện xác định.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "7 + 4"
+    },
+    {
+      "id": "Q8_TPL_019",
+      "code": "M8-HK1-C2-NB-19",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C2",
+      "lesson": "Rút gọn phân thức đại số & Các phép toán phân thức",
+      "topic": "Điều kiện xác định và rút gọn phân thức",
+      "problemType": "Tìm ĐKXĐ và rút gọn biểu thức phân thức",
+      "type": "essay",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 2,
+      "content": "Cho phân thức $M = \\frac{x^2 - 25}{x - 5}$ (với $x \\ne 5$). Tính giá trị của $M$ tại $x = 8$.",
+      "options": [],
+      "correctAnswer": "13",
+      "acceptedAnswers": [
+        "13",
+        "M=13"
+      ],
+      "solution": "Với $x \\ne 5$, ta có $M = \\frac{(x - 5)(x + 5)}{x - 5} = x + 5$. Thay $x = 8$ (thỏa mãn ĐKXĐ) được $M = 8 + 5 = 13$.",
+      "rubricSteps": [
+        {
+          "step": "Rút gọn đúng $M = x + 5$ (với $x \\ne 5$)",
+          "points": 1
+        },
+        {
+          "step": "Thay $x = 8$ tính được $M = 13$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\frac{x^2 - a^2}{x - a} = x + a$ ($x \\ne a$)",
+      "commonMistake": "Rút gọn nhầm dấu thành $x - a$ hoặc quên kiểm tra điều kiện xác định.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "8 + 5"
+    },
+    {
+      "id": "Q8_TPL_020",
+      "code": "M8-HK1-C2-NB-20",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C2",
+      "lesson": "Rút gọn phân thức đại số & Các phép toán phân thức",
+      "topic": "Điều kiện xác định và rút gọn phân thức",
+      "problemType": "Tìm ĐKXĐ và rút gọn biểu thức phân thức",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Cho phân thức $M = \\frac{x^2 - 36}{x - 6}$ (với $x \\ne 6$). Tính giá trị của $M$ tại $x = 9$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$15$"
+        },
+        {
+          "label": "B",
+          "text": "$3$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$54$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$21$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "15",
+        "M=15"
+      ],
+      "solution": "Với $x \\ne 6$, ta có $M = \\frac{(x - 6)(x + 6)}{x - 6} = x + 6$. Thay $x = 9$ (thỏa mãn ĐKXĐ) được $M = 9 + 6 = 15$.",
+      "rubricSteps": [
+        {
+          "step": "Rút gọn và tính đúng $M = 15$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\frac{x^2 - a^2}{x - a} = x + a$ ($x \\ne a$)",
+      "commonMistake": "Rút gọn nhầm dấu thành $x - a$ hoặc quên kiểm tra điều kiện xác định.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "9 + 6"
+    },
+    {
+      "id": "Q8_TPL_021",
+      "code": "M8-HK1-C2-TH-21",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C2",
+      "lesson": "Rút gọn phân thức đại số & Các phép toán phân thức",
+      "topic": "Điều kiện xác định và rút gọn phân thức",
+      "problemType": "Tìm ĐKXĐ và rút gọn biểu thức phân thức",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Cho phân thức $M = \\frac{x^2 - 9}{x - 3}$ (với $x \\ne 3$). Tính giá trị của $M$ tại $x = 6$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$3$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$18$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$9$"
+        },
+        {
+          "label": "D",
+          "text": "$12$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "9",
+        "M=9"
+      ],
+      "solution": "Với $x \\ne 3$, ta có $M = \\frac{(x - 3)(x + 3)}{x - 3} = x + 3$. Thay $x = 6$ (thỏa mãn ĐKXĐ) được $M = 6 + 3 = 9$.",
+      "rubricSteps": [
+        {
+          "step": "Rút gọn và tính đúng $M = 9$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\frac{x^2 - a^2}{x - a} = x + a$ ($x \\ne a$)",
+      "commonMistake": "Rút gọn nhầm dấu thành $x - a$ hoặc quên kiểm tra điều kiện xác định.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "6 + 3"
+    },
+    {
+      "id": "Q8_TPL_022",
+      "code": "M8-HK1-C2-TH-22",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C2",
+      "lesson": "Rút gọn phân thức đại số & Các phép toán phân thức",
+      "topic": "Điều kiện xác định và rút gọn phân thức",
+      "problemType": "Tìm ĐKXĐ và rút gọn biểu thức phân thức",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Cho phân thức $M = \\frac{x^2 - 16}{x - 4}$ (với $x \\ne 4$). Tính giá trị của $M$ tại $x = 7$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$11$"
+        },
+        {
+          "label": "B",
+          "text": "$3$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$28$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$15$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "11",
+        "M=11"
+      ],
+      "solution": "Với $x \\ne 4$, ta có $M = \\frac{(x - 4)(x + 4)}{x - 4} = x + 4$. Thay $x = 7$ (thỏa mãn ĐKXĐ) được $M = 7 + 4 = 11$.",
+      "rubricSteps": [
+        {
+          "step": "Rút gọn và tính đúng $M = 11$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\frac{x^2 - a^2}{x - a} = x + a$ ($x \\ne a$)",
+      "commonMistake": "Rút gọn nhầm dấu thành $x - a$ hoặc quên kiểm tra điều kiện xác định.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "7 + 4"
+    },
+    {
+      "id": "Q8_TPL_023",
+      "code": "M8-HK1-C2-TH-23",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C2",
+      "lesson": "Rút gọn phân thức đại số & Các phép toán phân thức",
+      "topic": "Điều kiện xác định và rút gọn phân thức",
+      "problemType": "Tìm ĐKXĐ và rút gọn biểu thức phân thức",
+      "type": "essay",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 2,
+      "content": "Cho phân thức $M = \\frac{x^2 - 25}{x - 5}$ (với $x \\ne 5$). Tính giá trị của $M$ tại $x = 8$.",
+      "options": [],
+      "correctAnswer": "13",
+      "acceptedAnswers": [
+        "13",
+        "M=13"
+      ],
+      "solution": "Với $x \\ne 5$, ta có $M = \\frac{(x - 5)(x + 5)}{x - 5} = x + 5$. Thay $x = 8$ (thỏa mãn ĐKXĐ) được $M = 8 + 5 = 13$.",
+      "rubricSteps": [
+        {
+          "step": "Rút gọn đúng $M = x + 5$ (với $x \\ne 5$)",
+          "points": 1
+        },
+        {
+          "step": "Thay $x = 8$ tính được $M = 13$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\frac{x^2 - a^2}{x - a} = x + a$ ($x \\ne a$)",
+      "commonMistake": "Rút gọn nhầm dấu thành $x - a$ hoặc quên kiểm tra điều kiện xác định.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "8 + 5"
+    },
+    {
+      "id": "Q8_TPL_024",
+      "code": "M8-HK1-C2-TH-24",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C2",
+      "lesson": "Rút gọn phân thức đại số & Các phép toán phân thức",
+      "topic": "Điều kiện xác định và rút gọn phân thức",
+      "problemType": "Tìm ĐKXĐ và rút gọn biểu thức phân thức",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Cho phân thức $M = \\frac{x^2 - 36}{x - 6}$ (với $x \\ne 6$). Tính giá trị của $M$ tại $x = 9$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$15$"
+        },
+        {
+          "label": "B",
+          "text": "$3$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$54$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$21$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "15",
+        "M=15"
+      ],
+      "solution": "Với $x \\ne 6$, ta có $M = \\frac{(x - 6)(x + 6)}{x - 6} = x + 6$. Thay $x = 9$ (thỏa mãn ĐKXĐ) được $M = 9 + 6 = 15$.",
+      "rubricSteps": [
+        {
+          "step": "Rút gọn và tính đúng $M = 15$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\frac{x^2 - a^2}{x - a} = x + a$ ($x \\ne a$)",
+      "commonMistake": "Rút gọn nhầm dấu thành $x - a$ hoặc quên kiểm tra điều kiện xác định.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "9 + 6"
+    },
+    {
+      "id": "Q8_TPL_025",
+      "code": "M8-HK1-C2-VD-25",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C2",
+      "lesson": "Rút gọn phân thức đại số & Các phép toán phân thức",
+      "topic": "Điều kiện xác định và rút gọn phân thức",
+      "problemType": "Tìm ĐKXĐ và rút gọn biểu thức phân thức",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Cho phân thức $M = \\frac{x^2 - 9}{x - 3}$ (với $x \\ne 3$). Tính giá trị của $M$ tại $x = 6$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$3$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$18$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$9$"
+        },
+        {
+          "label": "D",
+          "text": "$12$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "9",
+        "M=9"
+      ],
+      "solution": "Với $x \\ne 3$, ta có $M = \\frac{(x - 3)(x + 3)}{x - 3} = x + 3$. Thay $x = 6$ (thỏa mãn ĐKXĐ) được $M = 6 + 3 = 9$.",
+      "rubricSteps": [
+        {
+          "step": "Rút gọn và tính đúng $M = 9$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\frac{x^2 - a^2}{x - a} = x + a$ ($x \\ne a$)",
+      "commonMistake": "Rút gọn nhầm dấu thành $x - a$ hoặc quên kiểm tra điều kiện xác định.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "6 + 3"
+    },
+    {
+      "id": "Q8_TPL_026",
+      "code": "M8-HK1-C2-VD-26",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C2",
+      "lesson": "Rút gọn phân thức đại số & Các phép toán phân thức",
+      "topic": "Điều kiện xác định và rút gọn phân thức",
+      "problemType": "Tìm ĐKXĐ và rút gọn biểu thức phân thức",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Cho phân thức $M = \\frac{x^2 - 16}{x - 4}$ (với $x \\ne 4$). Tính giá trị của $M$ tại $x = 7$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$11$"
+        },
+        {
+          "label": "B",
+          "text": "$3$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$28$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$15$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "11",
+        "M=11"
+      ],
+      "solution": "Với $x \\ne 4$, ta có $M = \\frac{(x - 4)(x + 4)}{x - 4} = x + 4$. Thay $x = 7$ (thỏa mãn ĐKXĐ) được $M = 7 + 4 = 11$.",
+      "rubricSteps": [
+        {
+          "step": "Rút gọn và tính đúng $M = 11$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\frac{x^2 - a^2}{x - a} = x + a$ ($x \\ne a$)",
+      "commonMistake": "Rút gọn nhầm dấu thành $x - a$ hoặc quên kiểm tra điều kiện xác định.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "7 + 4"
+    },
+    {
+      "id": "Q8_TPL_027",
+      "code": "M8-HK1-C2-VD-27",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C2",
+      "lesson": "Rút gọn phân thức đại số & Các phép toán phân thức",
+      "topic": "Điều kiện xác định và rút gọn phân thức",
+      "problemType": "Tìm ĐKXĐ và rút gọn biểu thức phân thức",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 2,
+      "content": "Cho phân thức $M = \\frac{x^2 - 25}{x - 5}$ (với $x \\ne 5$). Tính giá trị của $M$ tại $x = 8$.",
+      "options": [],
+      "correctAnswer": "13",
+      "acceptedAnswers": [
+        "13",
+        "M=13"
+      ],
+      "solution": "Với $x \\ne 5$, ta có $M = \\frac{(x - 5)(x + 5)}{x - 5} = x + 5$. Thay $x = 8$ (thỏa mãn ĐKXĐ) được $M = 8 + 5 = 13$.",
+      "rubricSteps": [
+        {
+          "step": "Rút gọn đúng $M = x + 5$ (với $x \\ne 5$)",
+          "points": 1
+        },
+        {
+          "step": "Thay $x = 8$ tính được $M = 13$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\frac{x^2 - a^2}{x - a} = x + a$ ($x \\ne a$)",
+      "commonMistake": "Rút gọn nhầm dấu thành $x - a$ hoặc quên kiểm tra điều kiện xác định.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "8 + 5"
+    },
+    {
+      "id": "Q8_TPL_028",
+      "code": "M8-HK1-C2-VD-28",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C2",
+      "lesson": "Rút gọn phân thức đại số & Các phép toán phân thức",
+      "topic": "Điều kiện xác định và rút gọn phân thức",
+      "problemType": "Tìm ĐKXĐ và rút gọn biểu thức phân thức",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Cho phân thức $M = \\frac{x^2 - 36}{x - 6}$ (với $x \\ne 6$). Tính giá trị của $M$ tại $x = 9$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$15$"
+        },
+        {
+          "label": "B",
+          "text": "$3$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$54$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$21$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "15",
+        "M=15"
+      ],
+      "solution": "Với $x \\ne 6$, ta có $M = \\frac{(x - 6)(x + 6)}{x - 6} = x + 6$. Thay $x = 9$ (thỏa mãn ĐKXĐ) được $M = 9 + 6 = 15$.",
+      "rubricSteps": [
+        {
+          "step": "Rút gọn và tính đúng $M = 15$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\frac{x^2 - a^2}{x - a} = x + a$ ($x \\ne a$)",
+      "commonMistake": "Rút gọn nhầm dấu thành $x - a$ hoặc quên kiểm tra điều kiện xác định.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "9 + 6"
+    },
+    {
+      "id": "Q8_TPL_029",
+      "code": "M8-HK1-C2-VDC-29",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C2",
+      "lesson": "Rút gọn phân thức đại số & Các phép toán phân thức",
+      "topic": "Điều kiện xác định và rút gọn phân thức",
+      "problemType": "Tìm ĐKXĐ và rút gọn biểu thức phân thức",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 1,
+      "content": "Cho phân thức $M = \\frac{x^2 - 9}{x - 3}$ (với $x \\ne 3$). Tính giá trị của $M$ tại $x = 6$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$3$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$18$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$9$"
+        },
+        {
+          "label": "D",
+          "text": "$12$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "9",
+        "M=9"
+      ],
+      "solution": "Với $x \\ne 3$, ta có $M = \\frac{(x - 3)(x + 3)}{x - 3} = x + 3$. Thay $x = 6$ (thỏa mãn ĐKXĐ) được $M = 6 + 3 = 9$.",
+      "rubricSteps": [
+        {
+          "step": "Rút gọn và tính đúng $M = 9$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\frac{x^2 - a^2}{x - a} = x + a$ ($x \\ne a$)",
+      "commonMistake": "Rút gọn nhầm dấu thành $x - a$ hoặc quên kiểm tra điều kiện xác định.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "6 + 3"
+    },
+    {
+      "id": "Q8_TPL_030",
+      "code": "M8-HK1-C2-VDC-30",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C2",
+      "lesson": "Rút gọn phân thức đại số & Các phép toán phân thức",
+      "topic": "Điều kiện xác định và rút gọn phân thức",
+      "problemType": "Tìm ĐKXĐ và rút gọn biểu thức phân thức",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Cho phân thức $M = \\frac{x^2 - 16}{x - 4}$ (với $x \\ne 4$). Tính giá trị của $M$ tại $x = 7$.",
+      "options": [],
+      "correctAnswer": "11",
+      "acceptedAnswers": [
+        "11",
+        "M=11"
+      ],
+      "solution": "Với $x \\ne 4$, ta có $M = \\frac{(x - 4)(x + 4)}{x - 4} = x + 4$. Thay $x = 7$ (thỏa mãn ĐKXĐ) được $M = 7 + 4 = 11$.",
+      "rubricSteps": [
+        {
+          "step": "Rút gọn đúng $M = x + 4$ (với $x \\ne 4$)",
+          "points": 1
+        },
+        {
+          "step": "Thay $x = 7$ tính được $M = 11$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\frac{x^2 - a^2}{x - a} = x + a$ ($x \\ne a$)",
+      "commonMistake": "Rút gọn nhầm dấu thành $x - a$ hoặc quên kiểm tra điều kiện xác định.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "7 + 4"
+    },
+    {
+      "id": "Q8_TPL_031",
+      "code": "M8-HK1-C2-VDC-31",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C2",
+      "lesson": "Rút gọn phân thức đại số & Các phép toán phân thức",
+      "topic": "Điều kiện xác định và rút gọn phân thức",
+      "problemType": "Tìm ĐKXĐ và rút gọn biểu thức phân thức",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Cho phân thức $M = \\frac{x^2 - 25}{x - 5}$ (với $x \\ne 5$). Tính giá trị của $M$ tại $x = 8$.",
+      "options": [],
+      "correctAnswer": "13",
+      "acceptedAnswers": [
+        "13",
+        "M=13"
+      ],
+      "solution": "Với $x \\ne 5$, ta có $M = \\frac{(x - 5)(x + 5)}{x - 5} = x + 5$. Thay $x = 8$ (thỏa mãn ĐKXĐ) được $M = 8 + 5 = 13$.",
+      "rubricSteps": [
+        {
+          "step": "Rút gọn đúng $M = x + 5$ (với $x \\ne 5$)",
+          "points": 1
+        },
+        {
+          "step": "Thay $x = 8$ tính được $M = 13$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\frac{x^2 - a^2}{x - a} = x + a$ ($x \\ne a$)",
+      "commonMistake": "Rút gọn nhầm dấu thành $x - a$ hoặc quên kiểm tra điều kiện xác định.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "8 + 5"
+    },
+    {
+      "id": "Q8_TPL_032",
+      "code": "M8-HK1-C2-VDC-32",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C2",
+      "lesson": "Rút gọn phân thức đại số & Các phép toán phân thức",
+      "topic": "Điều kiện xác định và rút gọn phân thức",
+      "problemType": "Tìm ĐKXĐ và rút gọn biểu thức phân thức",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Cho phân thức $M = \\frac{x^2 - 36}{x - 6}$ (với $x \\ne 6$). Tính giá trị của $M$ tại $x = 9$.",
+      "options": [],
+      "correctAnswer": "15",
+      "acceptedAnswers": [
+        "15",
+        "M=15"
+      ],
+      "solution": "Với $x \\ne 6$, ta có $M = \\frac{(x - 6)(x + 6)}{x - 6} = x + 6$. Thay $x = 9$ (thỏa mãn ĐKXĐ) được $M = 9 + 6 = 15$.",
+      "rubricSteps": [
+        {
+          "step": "Rút gọn đúng $M = x + 6$ (với $x \\ne 6$)",
+          "points": 1
+        },
+        {
+          "step": "Thay $x = 9$ tính được $M = 15$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$\\frac{x^2 - a^2}{x - a} = x + a$ ($x \\ne a$)",
+      "commonMistake": "Rút gọn nhầm dấu thành $x - a$ hoặc quên kiểm tra điều kiện xác định.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "9 + 6"
+    },
+    {
+      "id": "Q8_TPL_033",
+      "code": "M8-HK1-C3-NB-33",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C3",
+      "lesson": "Định lí Pythagore và Tứ giác đặc biệt",
+      "topic": "Định lí Pythagore trong tam giác vuông",
+      "problemType": "Tính độ dài cạnh bằng định lí Pythagore",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Cho tam giác $ABC$ vuông tại $A$ có hai cạnh góc vuông $AB = 6\\text{ cm}$ và $AC = 8\\text{ cm}$. Độ dài cạnh huyền $BC$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$14$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$100$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "C",
+          "text": "$10$"
+        },
+        {
+          "label": "D",
+          "text": "$2$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "10",
+        "10 cm"
+      ],
+      "solution": "Áp dụng định lí Pythagore trong $\\triangle ABC$ vuông tại $A$: $BC = \\sqrt{AB^2 + AC^2} = \\sqrt{6^2 + 8^2} = \\sqrt{100} = 10\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng cạnh huyền $BC = 10\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$BC^2 = AB^2 + AC^2$",
+      "commonMistake": "Tính được $BC^2$ nhưng quên lấy căn bậc hai.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(6^2 + 8^2)"
+    },
+    {
+      "id": "Q8_TPL_034",
+      "code": "M8-HK1-C3-NB-34",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C3",
+      "lesson": "Định lí Pythagore và Tứ giác đặc biệt",
+      "topic": "Định lí Pythagore trong tam giác vuông",
+      "problemType": "Tính độ dài cạnh bằng định lí Pythagore",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Cho tam giác $ABC$ vuông tại $A$ có hai cạnh góc vuông $AB = 9\\text{ cm}$ và $AC = 12\\text{ cm}$. Độ dài cạnh huyền $BC$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$15$"
+        },
+        {
+          "label": "B",
+          "text": "$21$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$225$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "D",
+          "text": "$3$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "15",
+        "15 cm"
+      ],
+      "solution": "Áp dụng định lí Pythagore trong $\\triangle ABC$ vuông tại $A$: $BC = \\sqrt{AB^2 + AC^2} = \\sqrt{9^2 + 12^2} = \\sqrt{225} = 15\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng cạnh huyền $BC = 15\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$BC^2 = AB^2 + AC^2$",
+      "commonMistake": "Tính được $BC^2$ nhưng quên lấy căn bậc hai.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(9^2 + 12^2)"
+    },
+    {
+      "id": "Q8_TPL_035",
+      "code": "M8-HK1-C3-NB-35",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C3",
+      "lesson": "Định lí Pythagore và Tứ giác đặc biệt",
+      "topic": "Định lí Pythagore trong tam giác vuông",
+      "problemType": "Tính độ dài cạnh bằng định lí Pythagore",
+      "type": "essay",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 2,
+      "content": "Cho tam giác $ABC$ vuông tại $A$ có hai cạnh góc vuông $AB = 12\\text{ cm}$ và $AC = 16\\text{ cm}$. Độ dài cạnh huyền $BC$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [],
+      "correctAnswer": "20",
+      "acceptedAnswers": [
+        "20",
+        "20 cm"
+      ],
+      "solution": "Áp dụng định lí Pythagore trong $\\triangle ABC$ vuông tại $A$: $BC = \\sqrt{AB^2 + AC^2} = \\sqrt{12^2 + 16^2} = \\sqrt{400} = 20\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Viết hệ thức Pythagore $BC^2 = AB^2 + AC^2 = 400$",
+          "points": 1
+        },
+        {
+          "step": "Khai căn được $BC = 20\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$BC^2 = AB^2 + AC^2$",
+      "commonMistake": "Tính được $BC^2$ nhưng quên lấy căn bậc hai.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(12^2 + 16^2)"
+    },
+    {
+      "id": "Q8_TPL_036",
+      "code": "M8-HK1-C3-NB-36",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C3",
+      "lesson": "Định lí Pythagore và Tứ giác đặc biệt",
+      "topic": "Định lí Pythagore trong tam giác vuông",
+      "problemType": "Tính độ dài cạnh bằng định lí Pythagore",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Cho tam giác $ABC$ vuông tại $A$ có hai cạnh góc vuông $AB = 3\\text{ cm}$ và $AC = 4\\text{ cm}$. Độ dài cạnh huyền $BC$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$5$"
+        },
+        {
+          "label": "B",
+          "text": "$7$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$25$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "D",
+          "text": "$1$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "5",
+        "5 cm"
+      ],
+      "solution": "Áp dụng định lí Pythagore trong $\\triangle ABC$ vuông tại $A$: $BC = \\sqrt{AB^2 + AC^2} = \\sqrt{3^2 + 4^2} = \\sqrt{25} = 5\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng cạnh huyền $BC = 5\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$BC^2 = AB^2 + AC^2$",
+      "commonMistake": "Tính được $BC^2$ nhưng quên lấy căn bậc hai.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(3^2 + 4^2)"
+    },
+    {
+      "id": "Q8_TPL_037",
+      "code": "M8-HK1-C3-TH-37",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C3",
+      "lesson": "Định lí Pythagore và Tứ giác đặc biệt",
+      "topic": "Định lí Pythagore trong tam giác vuông",
+      "problemType": "Tính độ dài cạnh bằng định lí Pythagore",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Cho tam giác $ABC$ vuông tại $A$ có hai cạnh góc vuông $AB = 6\\text{ cm}$ và $AC = 8\\text{ cm}$. Độ dài cạnh huyền $BC$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$14$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$100$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "C",
+          "text": "$10$"
+        },
+        {
+          "label": "D",
+          "text": "$2$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "10",
+        "10 cm"
+      ],
+      "solution": "Áp dụng định lí Pythagore trong $\\triangle ABC$ vuông tại $A$: $BC = \\sqrt{AB^2 + AC^2} = \\sqrt{6^2 + 8^2} = \\sqrt{100} = 10\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng cạnh huyền $BC = 10\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$BC^2 = AB^2 + AC^2$",
+      "commonMistake": "Tính được $BC^2$ nhưng quên lấy căn bậc hai.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(6^2 + 8^2)"
+    },
+    {
+      "id": "Q8_TPL_038",
+      "code": "M8-HK1-C3-TH-38",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C3",
+      "lesson": "Định lí Pythagore và Tứ giác đặc biệt",
+      "topic": "Định lí Pythagore trong tam giác vuông",
+      "problemType": "Tính độ dài cạnh bằng định lí Pythagore",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Cho tam giác $ABC$ vuông tại $A$ có hai cạnh góc vuông $AB = 9\\text{ cm}$ và $AC = 12\\text{ cm}$. Độ dài cạnh huyền $BC$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$15$"
+        },
+        {
+          "label": "B",
+          "text": "$21$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$225$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "D",
+          "text": "$3$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "15",
+        "15 cm"
+      ],
+      "solution": "Áp dụng định lí Pythagore trong $\\triangle ABC$ vuông tại $A$: $BC = \\sqrt{AB^2 + AC^2} = \\sqrt{9^2 + 12^2} = \\sqrt{225} = 15\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng cạnh huyền $BC = 15\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$BC^2 = AB^2 + AC^2$",
+      "commonMistake": "Tính được $BC^2$ nhưng quên lấy căn bậc hai.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(9^2 + 12^2)"
+    },
+    {
+      "id": "Q8_TPL_039",
+      "code": "M8-HK1-C3-TH-39",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C3",
+      "lesson": "Định lí Pythagore và Tứ giác đặc biệt",
+      "topic": "Định lí Pythagore trong tam giác vuông",
+      "problemType": "Tính độ dài cạnh bằng định lí Pythagore",
+      "type": "essay",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 2,
+      "content": "Cho tam giác $ABC$ vuông tại $A$ có hai cạnh góc vuông $AB = 12\\text{ cm}$ và $AC = 16\\text{ cm}$. Độ dài cạnh huyền $BC$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [],
+      "correctAnswer": "20",
+      "acceptedAnswers": [
+        "20",
+        "20 cm"
+      ],
+      "solution": "Áp dụng định lí Pythagore trong $\\triangle ABC$ vuông tại $A$: $BC = \\sqrt{AB^2 + AC^2} = \\sqrt{12^2 + 16^2} = \\sqrt{400} = 20\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Viết hệ thức Pythagore $BC^2 = AB^2 + AC^2 = 400$",
+          "points": 1
+        },
+        {
+          "step": "Khai căn được $BC = 20\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$BC^2 = AB^2 + AC^2$",
+      "commonMistake": "Tính được $BC^2$ nhưng quên lấy căn bậc hai.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(12^2 + 16^2)"
+    },
+    {
+      "id": "Q8_TPL_040",
+      "code": "M8-HK1-C3-TH-40",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C3",
+      "lesson": "Định lí Pythagore và Tứ giác đặc biệt",
+      "topic": "Định lí Pythagore trong tam giác vuông",
+      "problemType": "Tính độ dài cạnh bằng định lí Pythagore",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Cho tam giác $ABC$ vuông tại $A$ có hai cạnh góc vuông $AB = 3\\text{ cm}$ và $AC = 4\\text{ cm}$. Độ dài cạnh huyền $BC$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$5$"
+        },
+        {
+          "label": "B",
+          "text": "$7$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$25$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "D",
+          "text": "$1$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "5",
+        "5 cm"
+      ],
+      "solution": "Áp dụng định lí Pythagore trong $\\triangle ABC$ vuông tại $A$: $BC = \\sqrt{AB^2 + AC^2} = \\sqrt{3^2 + 4^2} = \\sqrt{25} = 5\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng cạnh huyền $BC = 5\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$BC^2 = AB^2 + AC^2$",
+      "commonMistake": "Tính được $BC^2$ nhưng quên lấy căn bậc hai.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(3^2 + 4^2)"
+    },
+    {
+      "id": "Q8_TPL_041",
+      "code": "M8-HK1-C3-VD-41",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C3",
+      "lesson": "Định lí Pythagore và Tứ giác đặc biệt",
+      "topic": "Định lí Pythagore trong tam giác vuông",
+      "problemType": "Tính độ dài cạnh bằng định lí Pythagore",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Cho tam giác $ABC$ vuông tại $A$ có hai cạnh góc vuông $AB = 6\\text{ cm}$ và $AC = 8\\text{ cm}$. Độ dài cạnh huyền $BC$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$14$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$100$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "C",
+          "text": "$10$"
+        },
+        {
+          "label": "D",
+          "text": "$2$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "10",
+        "10 cm"
+      ],
+      "solution": "Áp dụng định lí Pythagore trong $\\triangle ABC$ vuông tại $A$: $BC = \\sqrt{AB^2 + AC^2} = \\sqrt{6^2 + 8^2} = \\sqrt{100} = 10\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng cạnh huyền $BC = 10\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$BC^2 = AB^2 + AC^2$",
+      "commonMistake": "Tính được $BC^2$ nhưng quên lấy căn bậc hai.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(6^2 + 8^2)"
+    },
+    {
+      "id": "Q8_TPL_042",
+      "code": "M8-HK1-C3-VD-42",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C3",
+      "lesson": "Định lí Pythagore và Tứ giác đặc biệt",
+      "topic": "Định lí Pythagore trong tam giác vuông",
+      "problemType": "Tính độ dài cạnh bằng định lí Pythagore",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Cho tam giác $ABC$ vuông tại $A$ có hai cạnh góc vuông $AB = 9\\text{ cm}$ và $AC = 12\\text{ cm}$. Độ dài cạnh huyền $BC$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$15$"
+        },
+        {
+          "label": "B",
+          "text": "$21$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$225$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "D",
+          "text": "$3$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "15",
+        "15 cm"
+      ],
+      "solution": "Áp dụng định lí Pythagore trong $\\triangle ABC$ vuông tại $A$: $BC = \\sqrt{AB^2 + AC^2} = \\sqrt{9^2 + 12^2} = \\sqrt{225} = 15\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng cạnh huyền $BC = 15\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$BC^2 = AB^2 + AC^2$",
+      "commonMistake": "Tính được $BC^2$ nhưng quên lấy căn bậc hai.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(9^2 + 12^2)"
+    },
+    {
+      "id": "Q8_TPL_043",
+      "code": "M8-HK1-C3-VD-43",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C3",
+      "lesson": "Định lí Pythagore và Tứ giác đặc biệt",
+      "topic": "Định lí Pythagore trong tam giác vuông",
+      "problemType": "Tính độ dài cạnh bằng định lí Pythagore",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 2,
+      "content": "Cho tam giác $ABC$ vuông tại $A$ có hai cạnh góc vuông $AB = 12\\text{ cm}$ và $AC = 16\\text{ cm}$. Độ dài cạnh huyền $BC$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [],
+      "correctAnswer": "20",
+      "acceptedAnswers": [
+        "20",
+        "20 cm"
+      ],
+      "solution": "Áp dụng định lí Pythagore trong $\\triangle ABC$ vuông tại $A$: $BC = \\sqrt{AB^2 + AC^2} = \\sqrt{12^2 + 16^2} = \\sqrt{400} = 20\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Viết hệ thức Pythagore $BC^2 = AB^2 + AC^2 = 400$",
+          "points": 1
+        },
+        {
+          "step": "Khai căn được $BC = 20\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$BC^2 = AB^2 + AC^2$",
+      "commonMistake": "Tính được $BC^2$ nhưng quên lấy căn bậc hai.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(12^2 + 16^2)"
+    },
+    {
+      "id": "Q8_TPL_044",
+      "code": "M8-HK1-C3-VD-44",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C3",
+      "lesson": "Định lí Pythagore và Tứ giác đặc biệt",
+      "topic": "Định lí Pythagore trong tam giác vuông",
+      "problemType": "Tính độ dài cạnh bằng định lí Pythagore",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Cho tam giác $ABC$ vuông tại $A$ có hai cạnh góc vuông $AB = 3\\text{ cm}$ và $AC = 4\\text{ cm}$. Độ dài cạnh huyền $BC$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$5$"
+        },
+        {
+          "label": "B",
+          "text": "$7$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$25$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "D",
+          "text": "$1$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "5",
+        "5 cm"
+      ],
+      "solution": "Áp dụng định lí Pythagore trong $\\triangle ABC$ vuông tại $A$: $BC = \\sqrt{AB^2 + AC^2} = \\sqrt{3^2 + 4^2} = \\sqrt{25} = 5\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng cạnh huyền $BC = 5\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$BC^2 = AB^2 + AC^2$",
+      "commonMistake": "Tính được $BC^2$ nhưng quên lấy căn bậc hai.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(3^2 + 4^2)"
+    },
+    {
+      "id": "Q8_TPL_045",
+      "code": "M8-HK1-C3-VDC-45",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C3",
+      "lesson": "Định lí Pythagore và Tứ giác đặc biệt",
+      "topic": "Định lí Pythagore trong tam giác vuông",
+      "problemType": "Tính độ dài cạnh bằng định lí Pythagore",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 1,
+      "content": "Cho tam giác $ABC$ vuông tại $A$ có hai cạnh góc vuông $AB = 6\\text{ cm}$ và $AC = 8\\text{ cm}$. Độ dài cạnh huyền $BC$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$14$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$100$",
+          "errorType": "MISSING_CONDITION"
+        },
+        {
+          "label": "C",
+          "text": "$10$"
+        },
+        {
+          "label": "D",
+          "text": "$2$",
+          "errorType": "FORMULA_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "10",
+        "10 cm"
+      ],
+      "solution": "Áp dụng định lí Pythagore trong $\\triangle ABC$ vuông tại $A$: $BC = \\sqrt{AB^2 + AC^2} = \\sqrt{6^2 + 8^2} = \\sqrt{100} = 10\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng cạnh huyền $BC = 10\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$BC^2 = AB^2 + AC^2$",
+      "commonMistake": "Tính được $BC^2$ nhưng quên lấy căn bậc hai.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(6^2 + 8^2)"
+    },
+    {
+      "id": "Q8_TPL_046",
+      "code": "M8-HK1-C3-VDC-46",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C3",
+      "lesson": "Định lí Pythagore và Tứ giác đặc biệt",
+      "topic": "Định lí Pythagore trong tam giác vuông",
+      "problemType": "Tính độ dài cạnh bằng định lí Pythagore",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Cho tam giác $ABC$ vuông tại $A$ có hai cạnh góc vuông $AB = 9\\text{ cm}$ và $AC = 12\\text{ cm}$. Độ dài cạnh huyền $BC$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [],
+      "correctAnswer": "15",
+      "acceptedAnswers": [
+        "15",
+        "15 cm"
+      ],
+      "solution": "Áp dụng định lí Pythagore trong $\\triangle ABC$ vuông tại $A$: $BC = \\sqrt{AB^2 + AC^2} = \\sqrt{9^2 + 12^2} = \\sqrt{225} = 15\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Viết hệ thức Pythagore $BC^2 = AB^2 + AC^2 = 225$",
+          "points": 1
+        },
+        {
+          "step": "Khai căn được $BC = 15\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$BC^2 = AB^2 + AC^2$",
+      "commonMistake": "Tính được $BC^2$ nhưng quên lấy căn bậc hai.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(9^2 + 12^2)"
+    },
+    {
+      "id": "Q8_TPL_047",
+      "code": "M8-HK1-C3-VDC-47",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C3",
+      "lesson": "Định lí Pythagore và Tứ giác đặc biệt",
+      "topic": "Định lí Pythagore trong tam giác vuông",
+      "problemType": "Tính độ dài cạnh bằng định lí Pythagore",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Cho tam giác $ABC$ vuông tại $A$ có hai cạnh góc vuông $AB = 12\\text{ cm}$ và $AC = 16\\text{ cm}$. Độ dài cạnh huyền $BC$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [],
+      "correctAnswer": "20",
+      "acceptedAnswers": [
+        "20",
+        "20 cm"
+      ],
+      "solution": "Áp dụng định lí Pythagore trong $\\triangle ABC$ vuông tại $A$: $BC = \\sqrt{AB^2 + AC^2} = \\sqrt{12^2 + 16^2} = \\sqrt{400} = 20\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Viết hệ thức Pythagore $BC^2 = AB^2 + AC^2 = 400$",
+          "points": 1
+        },
+        {
+          "step": "Khai căn được $BC = 20\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$BC^2 = AB^2 + AC^2$",
+      "commonMistake": "Tính được $BC^2$ nhưng quên lấy căn bậc hai.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(12^2 + 16^2)"
+    },
+    {
+      "id": "Q8_TPL_048",
+      "code": "M8-HK1-C3-VDC-48",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 1,
+      "chapterId": "G8_C3",
+      "lesson": "Định lí Pythagore và Tứ giác đặc biệt",
+      "topic": "Định lí Pythagore trong tam giác vuông",
+      "problemType": "Tính độ dài cạnh bằng định lí Pythagore",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Cho tam giác $ABC$ vuông tại $A$ có hai cạnh góc vuông $AB = 3\\text{ cm}$ và $AC = 4\\text{ cm}$. Độ dài cạnh huyền $BC$ bằng bao nhiêu $\\text{cm}$?",
+      "options": [],
+      "correctAnswer": "5",
+      "acceptedAnswers": [
+        "5",
+        "5 cm"
+      ],
+      "solution": "Áp dụng định lí Pythagore trong $\\triangle ABC$ vuông tại $A$: $BC = \\sqrt{AB^2 + AC^2} = \\sqrt{3^2 + 4^2} = \\sqrt{25} = 5\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Viết hệ thức Pythagore $BC^2 = AB^2 + AC^2 = 25$",
+          "points": 1
+        },
+        {
+          "step": "Khai căn được $BC = 5\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$BC^2 = AB^2 + AC^2$",
+      "commonMistake": "Tính được $BC^2$ nhưng quên lấy căn bậc hai.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "sqrt(3^2 + 4^2)"
+    },
+    {
+      "id": "Q8_TPL_049",
+      "code": "M8-HK2-C4-NB-49",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C4",
+      "lesson": "Phương trình bậc nhất một ẩn & Hàm số bậc nhất y = ax + b",
+      "topic": "Giải phương trình bậc nhất một ẩn",
+      "problemType": "Giải phương trình đưa về dạng ax + b = 0",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Giải phương trình bậc nhất một ẩn: $3x - 5 = 4$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$-3$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$-0.3333333333333333$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$3$"
+        },
+        {
+          "label": "D",
+          "text": "$9$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "3",
+        "x=3"
+      ],
+      "solution": "Ta có $3x - 5 = 4 \\Leftrightarrow 3x = 9 \\Leftrightarrow x = \\frac{9}{3} = 3$.",
+      "rubricSteps": [
+        {
+          "step": "Giải đúng nghiệm $x = 3$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$ ($a \\ne 0$)",
+      "commonMistake": "Chuyển vế $-5$ sang vế phải nhưng quên đổi dấu thành $+5$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q8_TPL_050",
+      "code": "M8-HK2-C4-NB-50",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C4",
+      "lesson": "Phương trình bậc nhất một ẩn & Hàm số bậc nhất y = ax + b",
+      "topic": "Giải phương trình bậc nhất một ẩn",
+      "problemType": "Giải phương trình đưa về dạng ax + b = 0",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Giải phương trình bậc nhất một ẩn: $4x - 5 = 11$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$4$"
+        },
+        {
+          "label": "B",
+          "text": "$-4$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$1.5$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$16$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "4",
+        "x=4"
+      ],
+      "solution": "Ta có $4x - 5 = 11 \\Leftrightarrow 4x = 16 \\Leftrightarrow x = \\frac{16}{4} = 4$.",
+      "rubricSteps": [
+        {
+          "step": "Giải đúng nghiệm $x = 4$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$ ($a \\ne 0$)",
+      "commonMistake": "Chuyển vế $-5$ sang vế phải nhưng quên đổi dấu thành $+5$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q8_TPL_051",
+      "code": "M8-HK2-C4-NB-51",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C4",
+      "lesson": "Phương trình bậc nhất một ẩn & Hàm số bậc nhất y = ax + b",
+      "topic": "Giải phương trình bậc nhất một ẩn",
+      "problemType": "Giải phương trình đưa về dạng ax + b = 0",
+      "type": "essay",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 2,
+      "content": "Giải phương trình bậc nhất một ẩn: $5x - 5 = 20$.",
+      "options": [],
+      "correctAnswer": "5",
+      "acceptedAnswers": [
+        "5",
+        "x=5"
+      ],
+      "solution": "Ta có $5x - 5 = 20 \\Leftrightarrow 5x = 25 \\Leftrightarrow x = \\frac{25}{5} = 5$.",
+      "rubricSteps": [
+        {
+          "step": "Chuyển vế thu gọn được $5x = 25$",
+          "points": 1
+        },
+        {
+          "step": "Chia hai vế cho $5$ được $x = 5$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$ ($a \\ne 0$)",
+      "commonMistake": "Chuyển vế $-5$ sang vế phải nhưng quên đổi dấu thành $+5$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q8_TPL_052",
+      "code": "M8-HK2-C4-NB-52",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C4",
+      "lesson": "Phương trình bậc nhất một ẩn & Hàm số bậc nhất y = ax + b",
+      "topic": "Giải phương trình bậc nhất một ẩn",
+      "problemType": "Giải phương trình đưa về dạng ax + b = 0",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Giải phương trình bậc nhất một ẩn: $2x - 5 = 7$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$6$"
+        },
+        {
+          "label": "B",
+          "text": "$-6$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$1$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$12$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "6",
+        "x=6"
+      ],
+      "solution": "Ta có $2x - 5 = 7 \\Leftrightarrow 2x = 12 \\Leftrightarrow x = \\frac{12}{2} = 6$.",
+      "rubricSteps": [
+        {
+          "step": "Giải đúng nghiệm $x = 6$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$ ($a \\ne 0$)",
+      "commonMistake": "Chuyển vế $-5$ sang vế phải nhưng quên đổi dấu thành $+5$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q8_TPL_053",
+      "code": "M8-HK2-C4-TH-53",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C4",
+      "lesson": "Phương trình bậc nhất một ẩn & Hàm số bậc nhất y = ax + b",
+      "topic": "Giải phương trình bậc nhất một ẩn",
+      "problemType": "Giải phương trình đưa về dạng ax + b = 0",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Giải phương trình bậc nhất một ẩn: $3x - 5 = 4$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$-3$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$-0.3333333333333333$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$3$"
+        },
+        {
+          "label": "D",
+          "text": "$9$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "3",
+        "x=3"
+      ],
+      "solution": "Ta có $3x - 5 = 4 \\Leftrightarrow 3x = 9 \\Leftrightarrow x = \\frac{9}{3} = 3$.",
+      "rubricSteps": [
+        {
+          "step": "Giải đúng nghiệm $x = 3$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$ ($a \\ne 0$)",
+      "commonMistake": "Chuyển vế $-5$ sang vế phải nhưng quên đổi dấu thành $+5$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q8_TPL_054",
+      "code": "M8-HK2-C4-TH-54",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C4",
+      "lesson": "Phương trình bậc nhất một ẩn & Hàm số bậc nhất y = ax + b",
+      "topic": "Giải phương trình bậc nhất một ẩn",
+      "problemType": "Giải phương trình đưa về dạng ax + b = 0",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Giải phương trình bậc nhất một ẩn: $4x - 5 = 11$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$4$"
+        },
+        {
+          "label": "B",
+          "text": "$-4$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$1.5$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$16$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "4",
+        "x=4"
+      ],
+      "solution": "Ta có $4x - 5 = 11 \\Leftrightarrow 4x = 16 \\Leftrightarrow x = \\frac{16}{4} = 4$.",
+      "rubricSteps": [
+        {
+          "step": "Giải đúng nghiệm $x = 4$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$ ($a \\ne 0$)",
+      "commonMistake": "Chuyển vế $-5$ sang vế phải nhưng quên đổi dấu thành $+5$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q8_TPL_055",
+      "code": "M8-HK2-C4-TH-55",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C4",
+      "lesson": "Phương trình bậc nhất một ẩn & Hàm số bậc nhất y = ax + b",
+      "topic": "Giải phương trình bậc nhất một ẩn",
+      "problemType": "Giải phương trình đưa về dạng ax + b = 0",
+      "type": "essay",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 2,
+      "content": "Giải phương trình bậc nhất một ẩn: $5x - 5 = 20$.",
+      "options": [],
+      "correctAnswer": "5",
+      "acceptedAnswers": [
+        "5",
+        "x=5"
+      ],
+      "solution": "Ta có $5x - 5 = 20 \\Leftrightarrow 5x = 25 \\Leftrightarrow x = \\frac{25}{5} = 5$.",
+      "rubricSteps": [
+        {
+          "step": "Chuyển vế thu gọn được $5x = 25$",
+          "points": 1
+        },
+        {
+          "step": "Chia hai vế cho $5$ được $x = 5$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$ ($a \\ne 0$)",
+      "commonMistake": "Chuyển vế $-5$ sang vế phải nhưng quên đổi dấu thành $+5$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q8_TPL_056",
+      "code": "M8-HK2-C4-TH-56",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C4",
+      "lesson": "Phương trình bậc nhất một ẩn & Hàm số bậc nhất y = ax + b",
+      "topic": "Giải phương trình bậc nhất một ẩn",
+      "problemType": "Giải phương trình đưa về dạng ax + b = 0",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Giải phương trình bậc nhất một ẩn: $2x - 5 = 7$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$6$"
+        },
+        {
+          "label": "B",
+          "text": "$-6$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$1$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$12$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "6",
+        "x=6"
+      ],
+      "solution": "Ta có $2x - 5 = 7 \\Leftrightarrow 2x = 12 \\Leftrightarrow x = \\frac{12}{2} = 6$.",
+      "rubricSteps": [
+        {
+          "step": "Giải đúng nghiệm $x = 6$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$ ($a \\ne 0$)",
+      "commonMistake": "Chuyển vế $-5$ sang vế phải nhưng quên đổi dấu thành $+5$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q8_TPL_057",
+      "code": "M8-HK2-C4-VD-57",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C4",
+      "lesson": "Phương trình bậc nhất một ẩn & Hàm số bậc nhất y = ax + b",
+      "topic": "Giải phương trình bậc nhất một ẩn",
+      "problemType": "Giải phương trình đưa về dạng ax + b = 0",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Giải phương trình bậc nhất một ẩn: $3x - 5 = 4$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$-3$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$-0.3333333333333333$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$3$"
+        },
+        {
+          "label": "D",
+          "text": "$9$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "3",
+        "x=3"
+      ],
+      "solution": "Ta có $3x - 5 = 4 \\Leftrightarrow 3x = 9 \\Leftrightarrow x = \\frac{9}{3} = 3$.",
+      "rubricSteps": [
+        {
+          "step": "Giải đúng nghiệm $x = 3$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$ ($a \\ne 0$)",
+      "commonMistake": "Chuyển vế $-5$ sang vế phải nhưng quên đổi dấu thành $+5$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q8_TPL_058",
+      "code": "M8-HK2-C4-VD-58",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C4",
+      "lesson": "Phương trình bậc nhất một ẩn & Hàm số bậc nhất y = ax + b",
+      "topic": "Giải phương trình bậc nhất một ẩn",
+      "problemType": "Giải phương trình đưa về dạng ax + b = 0",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Giải phương trình bậc nhất một ẩn: $4x - 5 = 11$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$4$"
+        },
+        {
+          "label": "B",
+          "text": "$-4$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$1.5$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$16$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "4",
+        "x=4"
+      ],
+      "solution": "Ta có $4x - 5 = 11 \\Leftrightarrow 4x = 16 \\Leftrightarrow x = \\frac{16}{4} = 4$.",
+      "rubricSteps": [
+        {
+          "step": "Giải đúng nghiệm $x = 4$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$ ($a \\ne 0$)",
+      "commonMistake": "Chuyển vế $-5$ sang vế phải nhưng quên đổi dấu thành $+5$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q8_TPL_059",
+      "code": "M8-HK2-C4-VD-59",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C4",
+      "lesson": "Phương trình bậc nhất một ẩn & Hàm số bậc nhất y = ax + b",
+      "topic": "Giải phương trình bậc nhất một ẩn",
+      "problemType": "Giải phương trình đưa về dạng ax + b = 0",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 2,
+      "content": "Giải phương trình bậc nhất một ẩn: $5x - 5 = 20$.",
+      "options": [],
+      "correctAnswer": "5",
+      "acceptedAnswers": [
+        "5",
+        "x=5"
+      ],
+      "solution": "Ta có $5x - 5 = 20 \\Leftrightarrow 5x = 25 \\Leftrightarrow x = \\frac{25}{5} = 5$.",
+      "rubricSteps": [
+        {
+          "step": "Chuyển vế thu gọn được $5x = 25$",
+          "points": 1
+        },
+        {
+          "step": "Chia hai vế cho $5$ được $x = 5$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$ ($a \\ne 0$)",
+      "commonMistake": "Chuyển vế $-5$ sang vế phải nhưng quên đổi dấu thành $+5$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q8_TPL_060",
+      "code": "M8-HK2-C4-VD-60",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C4",
+      "lesson": "Phương trình bậc nhất một ẩn & Hàm số bậc nhất y = ax + b",
+      "topic": "Giải phương trình bậc nhất một ẩn",
+      "problemType": "Giải phương trình đưa về dạng ax + b = 0",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Giải phương trình bậc nhất một ẩn: $2x - 5 = 7$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$6$"
+        },
+        {
+          "label": "B",
+          "text": "$-6$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$1$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$12$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "6",
+        "x=6"
+      ],
+      "solution": "Ta có $2x - 5 = 7 \\Leftrightarrow 2x = 12 \\Leftrightarrow x = \\frac{12}{2} = 6$.",
+      "rubricSteps": [
+        {
+          "step": "Giải đúng nghiệm $x = 6$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$ ($a \\ne 0$)",
+      "commonMistake": "Chuyển vế $-5$ sang vế phải nhưng quên đổi dấu thành $+5$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q8_TPL_061",
+      "code": "M8-HK2-C4-VDC-61",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C4",
+      "lesson": "Phương trình bậc nhất một ẩn & Hàm số bậc nhất y = ax + b",
+      "topic": "Giải phương trình bậc nhất một ẩn",
+      "problemType": "Giải phương trình đưa về dạng ax + b = 0",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 1,
+      "content": "Giải phương trình bậc nhất một ẩn: $3x - 5 = 4$.",
+      "options": [
+        {
+          "label": "A",
+          "text": "$-3$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$-0.3333333333333333$",
+          "errorType": "SIGN_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$3$"
+        },
+        {
+          "label": "D",
+          "text": "$9$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "3",
+        "x=3"
+      ],
+      "solution": "Ta có $3x - 5 = 4 \\Leftrightarrow 3x = 9 \\Leftrightarrow x = \\frac{9}{3} = 3$.",
+      "rubricSteps": [
+        {
+          "step": "Giải đúng nghiệm $x = 3$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$ ($a \\ne 0$)",
+      "commonMistake": "Chuyển vế $-5$ sang vế phải nhưng quên đổi dấu thành $+5$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q8_TPL_062",
+      "code": "M8-HK2-C4-VDC-62",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C4",
+      "lesson": "Phương trình bậc nhất một ẩn & Hàm số bậc nhất y = ax + b",
+      "topic": "Giải phương trình bậc nhất một ẩn",
+      "problemType": "Giải phương trình đưa về dạng ax + b = 0",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Giải phương trình bậc nhất một ẩn: $4x - 5 = 11$.",
+      "options": [],
+      "correctAnswer": "4",
+      "acceptedAnswers": [
+        "4",
+        "x=4"
+      ],
+      "solution": "Ta có $4x - 5 = 11 \\Leftrightarrow 4x = 16 \\Leftrightarrow x = \\frac{16}{4} = 4$.",
+      "rubricSteps": [
+        {
+          "step": "Chuyển vế thu gọn được $4x = 16$",
+          "points": 1
+        },
+        {
+          "step": "Chia hai vế cho $4$ được $x = 4$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$ ($a \\ne 0$)",
+      "commonMistake": "Chuyển vế $-5$ sang vế phải nhưng quên đổi dấu thành $+5$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q8_TPL_063",
+      "code": "M8-HK2-C4-VDC-63",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C4",
+      "lesson": "Phương trình bậc nhất một ẩn & Hàm số bậc nhất y = ax + b",
+      "topic": "Giải phương trình bậc nhất một ẩn",
+      "problemType": "Giải phương trình đưa về dạng ax + b = 0",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Giải phương trình bậc nhất một ẩn: $5x - 5 = 20$.",
+      "options": [],
+      "correctAnswer": "5",
+      "acceptedAnswers": [
+        "5",
+        "x=5"
+      ],
+      "solution": "Ta có $5x - 5 = 20 \\Leftrightarrow 5x = 25 \\Leftrightarrow x = \\frac{25}{5} = 5$.",
+      "rubricSteps": [
+        {
+          "step": "Chuyển vế thu gọn được $5x = 25$",
+          "points": 1
+        },
+        {
+          "step": "Chia hai vế cho $5$ được $x = 5$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$ ($a \\ne 0$)",
+      "commonMistake": "Chuyển vế $-5$ sang vế phải nhưng quên đổi dấu thành $+5$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q8_TPL_064",
+      "code": "M8-HK2-C4-VDC-64",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C4",
+      "lesson": "Phương trình bậc nhất một ẩn & Hàm số bậc nhất y = ax + b",
+      "topic": "Giải phương trình bậc nhất một ẩn",
+      "problemType": "Giải phương trình đưa về dạng ax + b = 0",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Giải phương trình bậc nhất một ẩn: $2x - 5 = 7$.",
+      "options": [],
+      "correctAnswer": "6",
+      "acceptedAnswers": [
+        "6",
+        "x=6"
+      ],
+      "solution": "Ta có $2x - 5 = 7 \\Leftrightarrow 2x = 12 \\Leftrightarrow x = \\frac{12}{2} = 6$.",
+      "rubricSteps": [
+        {
+          "step": "Chuyển vế thu gọn được $2x = 12$",
+          "points": 1
+        },
+        {
+          "step": "Chia hai vế cho $2$ được $x = 6$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$ ($a \\ne 0$)",
+      "commonMistake": "Chuyển vế $-5$ sang vế phải nhưng quên đổi dấu thành $+5$.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1
+    },
+    {
+      "id": "Q8_TPL_065",
+      "code": "M8-HK2-C5-NB-65",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C5",
+      "lesson": "Định lí Thalès trong tam giác & Tam giác đồng dạng",
+      "topic": "Định lí Thalès, đường trung bình, phân giác",
+      "problemType": "Tính độ dài đoạn thẳng bằng Định lí Thalès",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Cho tam giác $ABC$, đường thẳng $d$ song song với $BC$ cắt $AB, AC$ lần lượt tại $D, E$. Biết $AD = 3\\text{ cm}, DB = 6\\text{ cm}$ và $AE = 4\\text{ cm}$. Tính độ dài đoạn thẳng $EC$ (đơn vị $\\text{cm}$).",
+      "options": [
+        {
+          "label": "A",
+          "text": "$10$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$3$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$8$"
+        },
+        {
+          "label": "D",
+          "text": "$12$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "8",
+        "8 cm"
+      ],
+      "solution": "Vì $DE \\parallel BC$, theo định lí Thalès ta có $\\frac{AD}{DB} = \\frac{AE}{EC} \\Rightarrow EC = \\frac{DB \\cdot AE}{AD} = \\frac{6 \\cdot 4}{3} = 8\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $EC = 8\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$DE \\parallel BC \\Rightarrow \\frac{AD}{DB} = \\frac{AE}{EC}$",
+      "commonMistake": "Lập sai thứ tự tỉ số các đoạn thẳng tương ứng trên hai cạnh.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(6 * 4) / 3"
+    },
+    {
+      "id": "Q8_TPL_066",
+      "code": "M8-HK2-C5-NB-66",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C5",
+      "lesson": "Định lí Thalès trong tam giác & Tam giác đồng dạng",
+      "topic": "Định lí Thalès, đường trung bình, phân giác",
+      "problemType": "Tính độ dài đoạn thẳng bằng Định lí Thalès",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Cho tam giác $ABC$, đường thẳng $d$ song song với $BC$ cắt $AB, AC$ lần lượt tại $D, E$. Biết $AD = 4\\text{ cm}, DB = 8\\text{ cm}$ và $AE = 5\\text{ cm}$. Tính độ dài đoạn thẳng $EC$ (đơn vị $\\text{cm}$).",
+      "options": [
+        {
+          "label": "A",
+          "text": "$10$"
+        },
+        {
+          "label": "B",
+          "text": "$13$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$4$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$15$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "10",
+        "10 cm"
+      ],
+      "solution": "Vì $DE \\parallel BC$, theo định lí Thalès ta có $\\frac{AD}{DB} = \\frac{AE}{EC} \\Rightarrow EC = \\frac{DB \\cdot AE}{AD} = \\frac{8 \\cdot 5}{4} = 10\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $EC = 10\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$DE \\parallel BC \\Rightarrow \\frac{AD}{DB} = \\frac{AE}{EC}$",
+      "commonMistake": "Lập sai thứ tự tỉ số các đoạn thẳng tương ứng trên hai cạnh.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(8 * 5) / 4"
+    },
+    {
+      "id": "Q8_TPL_067",
+      "code": "M8-HK2-C5-NB-67",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C5",
+      "lesson": "Định lí Thalès trong tam giác & Tam giác đồng dạng",
+      "topic": "Định lí Thalès, đường trung bình, phân giác",
+      "problemType": "Tính độ dài đoạn thẳng bằng Định lí Thalès",
+      "type": "essay",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 2,
+      "content": "Cho tam giác $ABC$, đường thẳng $d$ song song với $BC$ cắt $AB, AC$ lần lượt tại $D, E$. Biết $AD = 5\\text{ cm}, DB = 10\\text{ cm}$ và $AE = 6\\text{ cm}$. Tính độ dài đoạn thẳng $EC$ (đơn vị $\\text{cm}$).",
+      "options": [],
+      "correctAnswer": "12",
+      "acceptedAnswers": [
+        "12",
+        "12 cm"
+      ],
+      "solution": "Vì $DE \\parallel BC$, theo định lí Thalès ta có $\\frac{AD}{DB} = \\frac{AE}{EC} \\Rightarrow EC = \\frac{DB \\cdot AE}{AD} = \\frac{10 \\cdot 6}{5} = 12\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Lập đúng tỉ lệ thức Thalès $\\frac{AD}{DB} = \\frac{AE}{EC}$",
+          "points": 1
+        },
+        {
+          "step": "Thay số tính được $EC = 12\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$DE \\parallel BC \\Rightarrow \\frac{AD}{DB} = \\frac{AE}{EC}$",
+      "commonMistake": "Lập sai thứ tự tỉ số các đoạn thẳng tương ứng trên hai cạnh.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(10 * 6) / 5"
+    },
+    {
+      "id": "Q8_TPL_068",
+      "code": "M8-HK2-C5-NB-68",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C5",
+      "lesson": "Định lí Thalès trong tam giác & Tam giác đồng dạng",
+      "topic": "Định lí Thalès, đường trung bình, phân giác",
+      "problemType": "Tính độ dài đoạn thẳng bằng Định lí Thalès",
+      "type": "mcq",
+      "difficulty": "easy",
+      "cognitiveLevel": "nhan_biet",
+      "points": 1,
+      "content": "Cho tam giác $ABC$, đường thẳng $d$ song song với $BC$ cắt $AB, AC$ lần lượt tại $D, E$. Biết $AD = 6\\text{ cm}, DB = 12\\text{ cm}$ và $AE = 7\\text{ cm}$. Tính độ dài đoạn thẳng $EC$ (đơn vị $\\text{cm}$).",
+      "options": [
+        {
+          "label": "A",
+          "text": "$14$"
+        },
+        {
+          "label": "B",
+          "text": "$19$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$6$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$21$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "14",
+        "14 cm"
+      ],
+      "solution": "Vì $DE \\parallel BC$, theo định lí Thalès ta có $\\frac{AD}{DB} = \\frac{AE}{EC} \\Rightarrow EC = \\frac{DB \\cdot AE}{AD} = \\frac{12 \\cdot 7}{6} = 14\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $EC = 14\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$DE \\parallel BC \\Rightarrow \\frac{AD}{DB} = \\frac{AE}{EC}$",
+      "commonMistake": "Lập sai thứ tự tỉ số các đoạn thẳng tương ứng trên hai cạnh.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(12 * 7) / 6"
+    },
+    {
+      "id": "Q8_TPL_069",
+      "code": "M8-HK2-C5-TH-69",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C5",
+      "lesson": "Định lí Thalès trong tam giác & Tam giác đồng dạng",
+      "topic": "Định lí Thalès, đường trung bình, phân giác",
+      "problemType": "Tính độ dài đoạn thẳng bằng Định lí Thalès",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Cho tam giác $ABC$, đường thẳng $d$ song song với $BC$ cắt $AB, AC$ lần lượt tại $D, E$. Biết $AD = 3\\text{ cm}, DB = 6\\text{ cm}$ và $AE = 4\\text{ cm}$. Tính độ dài đoạn thẳng $EC$ (đơn vị $\\text{cm}$).",
+      "options": [
+        {
+          "label": "A",
+          "text": "$10$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$3$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$8$"
+        },
+        {
+          "label": "D",
+          "text": "$12$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "8",
+        "8 cm"
+      ],
+      "solution": "Vì $DE \\parallel BC$, theo định lí Thalès ta có $\\frac{AD}{DB} = \\frac{AE}{EC} \\Rightarrow EC = \\frac{DB \\cdot AE}{AD} = \\frac{6 \\cdot 4}{3} = 8\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $EC = 8\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$DE \\parallel BC \\Rightarrow \\frac{AD}{DB} = \\frac{AE}{EC}$",
+      "commonMistake": "Lập sai thứ tự tỉ số các đoạn thẳng tương ứng trên hai cạnh.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(6 * 4) / 3"
+    },
+    {
+      "id": "Q8_TPL_070",
+      "code": "M8-HK2-C5-TH-70",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C5",
+      "lesson": "Định lí Thalès trong tam giác & Tam giác đồng dạng",
+      "topic": "Định lí Thalès, đường trung bình, phân giác",
+      "problemType": "Tính độ dài đoạn thẳng bằng Định lí Thalès",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Cho tam giác $ABC$, đường thẳng $d$ song song với $BC$ cắt $AB, AC$ lần lượt tại $D, E$. Biết $AD = 4\\text{ cm}, DB = 8\\text{ cm}$ và $AE = 5\\text{ cm}$. Tính độ dài đoạn thẳng $EC$ (đơn vị $\\text{cm}$).",
+      "options": [
+        {
+          "label": "A",
+          "text": "$10$"
+        },
+        {
+          "label": "B",
+          "text": "$13$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$4$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$15$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "10",
+        "10 cm"
+      ],
+      "solution": "Vì $DE \\parallel BC$, theo định lí Thalès ta có $\\frac{AD}{DB} = \\frac{AE}{EC} \\Rightarrow EC = \\frac{DB \\cdot AE}{AD} = \\frac{8 \\cdot 5}{4} = 10\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $EC = 10\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$DE \\parallel BC \\Rightarrow \\frac{AD}{DB} = \\frac{AE}{EC}$",
+      "commonMistake": "Lập sai thứ tự tỉ số các đoạn thẳng tương ứng trên hai cạnh.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(8 * 5) / 4"
+    },
+    {
+      "id": "Q8_TPL_071",
+      "code": "M8-HK2-C5-TH-71",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C5",
+      "lesson": "Định lí Thalès trong tam giác & Tam giác đồng dạng",
+      "topic": "Định lí Thalès, đường trung bình, phân giác",
+      "problemType": "Tính độ dài đoạn thẳng bằng Định lí Thalès",
+      "type": "essay",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 2,
+      "content": "Cho tam giác $ABC$, đường thẳng $d$ song song với $BC$ cắt $AB, AC$ lần lượt tại $D, E$. Biết $AD = 5\\text{ cm}, DB = 10\\text{ cm}$ và $AE = 6\\text{ cm}$. Tính độ dài đoạn thẳng $EC$ (đơn vị $\\text{cm}$).",
+      "options": [],
+      "correctAnswer": "12",
+      "acceptedAnswers": [
+        "12",
+        "12 cm"
+      ],
+      "solution": "Vì $DE \\parallel BC$, theo định lí Thalès ta có $\\frac{AD}{DB} = \\frac{AE}{EC} \\Rightarrow EC = \\frac{DB \\cdot AE}{AD} = \\frac{10 \\cdot 6}{5} = 12\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Lập đúng tỉ lệ thức Thalès $\\frac{AD}{DB} = \\frac{AE}{EC}$",
+          "points": 1
+        },
+        {
+          "step": "Thay số tính được $EC = 12\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$DE \\parallel BC \\Rightarrow \\frac{AD}{DB} = \\frac{AE}{EC}$",
+      "commonMistake": "Lập sai thứ tự tỉ số các đoạn thẳng tương ứng trên hai cạnh.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(10 * 6) / 5"
+    },
+    {
+      "id": "Q8_TPL_072",
+      "code": "M8-HK2-C5-TH-72",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C5",
+      "lesson": "Định lí Thalès trong tam giác & Tam giác đồng dạng",
+      "topic": "Định lí Thalès, đường trung bình, phân giác",
+      "problemType": "Tính độ dài đoạn thẳng bằng Định lí Thalès",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "content": "Cho tam giác $ABC$, đường thẳng $d$ song song với $BC$ cắt $AB, AC$ lần lượt tại $D, E$. Biết $AD = 6\\text{ cm}, DB = 12\\text{ cm}$ và $AE = 7\\text{ cm}$. Tính độ dài đoạn thẳng $EC$ (đơn vị $\\text{cm}$).",
+      "options": [
+        {
+          "label": "A",
+          "text": "$14$"
+        },
+        {
+          "label": "B",
+          "text": "$19$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$6$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$21$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "14",
+        "14 cm"
+      ],
+      "solution": "Vì $DE \\parallel BC$, theo định lí Thalès ta có $\\frac{AD}{DB} = \\frac{AE}{EC} \\Rightarrow EC = \\frac{DB \\cdot AE}{AD} = \\frac{12 \\cdot 7}{6} = 14\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $EC = 14\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$DE \\parallel BC \\Rightarrow \\frac{AD}{DB} = \\frac{AE}{EC}$",
+      "commonMistake": "Lập sai thứ tự tỉ số các đoạn thẳng tương ứng trên hai cạnh.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(12 * 7) / 6"
+    },
+    {
+      "id": "Q8_TPL_073",
+      "code": "M8-HK2-C5-VD-73",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C5",
+      "lesson": "Định lí Thalès trong tam giác & Tam giác đồng dạng",
+      "topic": "Định lí Thalès, đường trung bình, phân giác",
+      "problemType": "Tính độ dài đoạn thẳng bằng Định lí Thalès",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Cho tam giác $ABC$, đường thẳng $d$ song song với $BC$ cắt $AB, AC$ lần lượt tại $D, E$. Biết $AD = 3\\text{ cm}, DB = 6\\text{ cm}$ và $AE = 4\\text{ cm}$. Tính độ dài đoạn thẳng $EC$ (đơn vị $\\text{cm}$).",
+      "options": [
+        {
+          "label": "A",
+          "text": "$10$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$3$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$8$"
+        },
+        {
+          "label": "D",
+          "text": "$12$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "8",
+        "8 cm"
+      ],
+      "solution": "Vì $DE \\parallel BC$, theo định lí Thalès ta có $\\frac{AD}{DB} = \\frac{AE}{EC} \\Rightarrow EC = \\frac{DB \\cdot AE}{AD} = \\frac{6 \\cdot 4}{3} = 8\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $EC = 8\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$DE \\parallel BC \\Rightarrow \\frac{AD}{DB} = \\frac{AE}{EC}$",
+      "commonMistake": "Lập sai thứ tự tỉ số các đoạn thẳng tương ứng trên hai cạnh.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(6 * 4) / 3"
+    },
+    {
+      "id": "Q8_TPL_074",
+      "code": "M8-HK2-C5-VD-74",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C5",
+      "lesson": "Định lí Thalès trong tam giác & Tam giác đồng dạng",
+      "topic": "Định lí Thalès, đường trung bình, phân giác",
+      "problemType": "Tính độ dài đoạn thẳng bằng Định lí Thalès",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Cho tam giác $ABC$, đường thẳng $d$ song song với $BC$ cắt $AB, AC$ lần lượt tại $D, E$. Biết $AD = 4\\text{ cm}, DB = 8\\text{ cm}$ và $AE = 5\\text{ cm}$. Tính độ dài đoạn thẳng $EC$ (đơn vị $\\text{cm}$).",
+      "options": [
+        {
+          "label": "A",
+          "text": "$10$"
+        },
+        {
+          "label": "B",
+          "text": "$13$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$4$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$15$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "10",
+        "10 cm"
+      ],
+      "solution": "Vì $DE \\parallel BC$, theo định lí Thalès ta có $\\frac{AD}{DB} = \\frac{AE}{EC} \\Rightarrow EC = \\frac{DB \\cdot AE}{AD} = \\frac{8 \\cdot 5}{4} = 10\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $EC = 10\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$DE \\parallel BC \\Rightarrow \\frac{AD}{DB} = \\frac{AE}{EC}$",
+      "commonMistake": "Lập sai thứ tự tỉ số các đoạn thẳng tương ứng trên hai cạnh.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(8 * 5) / 4"
+    },
+    {
+      "id": "Q8_TPL_075",
+      "code": "M8-HK2-C5-VD-75",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C5",
+      "lesson": "Định lí Thalès trong tam giác & Tam giác đồng dạng",
+      "topic": "Định lí Thalès, đường trung bình, phân giác",
+      "problemType": "Tính độ dài đoạn thẳng bằng Định lí Thalès",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 2,
+      "content": "Cho tam giác $ABC$, đường thẳng $d$ song song với $BC$ cắt $AB, AC$ lần lượt tại $D, E$. Biết $AD = 5\\text{ cm}, DB = 10\\text{ cm}$ và $AE = 6\\text{ cm}$. Tính độ dài đoạn thẳng $EC$ (đơn vị $\\text{cm}$).",
+      "options": [],
+      "correctAnswer": "12",
+      "acceptedAnswers": [
+        "12",
+        "12 cm"
+      ],
+      "solution": "Vì $DE \\parallel BC$, theo định lí Thalès ta có $\\frac{AD}{DB} = \\frac{AE}{EC} \\Rightarrow EC = \\frac{DB \\cdot AE}{AD} = \\frac{10 \\cdot 6}{5} = 12\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Lập đúng tỉ lệ thức Thalès $\\frac{AD}{DB} = \\frac{AE}{EC}$",
+          "points": 1
+        },
+        {
+          "step": "Thay số tính được $EC = 12\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$DE \\parallel BC \\Rightarrow \\frac{AD}{DB} = \\frac{AE}{EC}$",
+      "commonMistake": "Lập sai thứ tự tỉ số các đoạn thẳng tương ứng trên hai cạnh.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(10 * 6) / 5"
+    },
+    {
+      "id": "Q8_TPL_076",
+      "code": "M8-HK2-C5-VD-76",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C5",
+      "lesson": "Định lí Thalès trong tam giác & Tam giác đồng dạng",
+      "topic": "Định lí Thalès, đường trung bình, phân giác",
+      "problemType": "Tính độ dài đoạn thẳng bằng Định lí Thalès",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "content": "Cho tam giác $ABC$, đường thẳng $d$ song song với $BC$ cắt $AB, AC$ lần lượt tại $D, E$. Biết $AD = 6\\text{ cm}, DB = 12\\text{ cm}$ và $AE = 7\\text{ cm}$. Tính độ dài đoạn thẳng $EC$ (đơn vị $\\text{cm}$).",
+      "options": [
+        {
+          "label": "A",
+          "text": "$14$"
+        },
+        {
+          "label": "B",
+          "text": "$19$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$6$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "D",
+          "text": "$21$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "14",
+        "14 cm"
+      ],
+      "solution": "Vì $DE \\parallel BC$, theo định lí Thalès ta có $\\frac{AD}{DB} = \\frac{AE}{EC} \\Rightarrow EC = \\frac{DB \\cdot AE}{AD} = \\frac{12 \\cdot 7}{6} = 14\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $EC = 14\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$DE \\parallel BC \\Rightarrow \\frac{AD}{DB} = \\frac{AE}{EC}$",
+      "commonMistake": "Lập sai thứ tự tỉ số các đoạn thẳng tương ứng trên hai cạnh.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(12 * 7) / 6"
+    },
+    {
+      "id": "Q8_TPL_077",
+      "code": "M8-HK2-C5-VDC-77",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C5",
+      "lesson": "Định lí Thalès trong tam giác & Tam giác đồng dạng",
+      "topic": "Định lí Thalès, đường trung bình, phân giác",
+      "problemType": "Tính độ dài đoạn thẳng bằng Định lí Thalès",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 1,
+      "content": "Cho tam giác $ABC$, đường thẳng $d$ song song với $BC$ cắt $AB, AC$ lần lượt tại $D, E$. Biết $AD = 3\\text{ cm}, DB = 6\\text{ cm}$ và $AE = 4\\text{ cm}$. Tính độ dài đoạn thẳng $EC$ (đơn vị $\\text{cm}$).",
+      "options": [
+        {
+          "label": "A",
+          "text": "$10$",
+          "errorType": "FORMULA_ERROR"
+        },
+        {
+          "label": "B",
+          "text": "$3$",
+          "errorType": "CONCEPT_ERROR"
+        },
+        {
+          "label": "C",
+          "text": "$8$"
+        },
+        {
+          "label": "D",
+          "text": "$12$",
+          "errorType": "CALCULATION_ERROR"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "8",
+        "8 cm"
+      ],
+      "solution": "Vì $DE \\parallel BC$, theo định lí Thalès ta có $\\frac{AD}{DB} = \\frac{AE}{EC} \\Rightarrow EC = \\frac{DB \\cdot AE}{AD} = \\frac{6 \\cdot 4}{3} = 8\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng $EC = 8\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$DE \\parallel BC \\Rightarrow \\frac{AD}{DB} = \\frac{AE}{EC}$",
+      "commonMistake": "Lập sai thứ tự tỉ số các đoạn thẳng tương ứng trên hai cạnh.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(6 * 4) / 3"
+    },
+    {
+      "id": "Q8_TPL_078",
+      "code": "M8-HK2-C5-VDC-78",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C5",
+      "lesson": "Định lí Thalès trong tam giác & Tam giác đồng dạng",
+      "topic": "Định lí Thalès, đường trung bình, phân giác",
+      "problemType": "Tính độ dài đoạn thẳng bằng Định lí Thalès",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Cho tam giác $ABC$, đường thẳng $d$ song song với $BC$ cắt $AB, AC$ lần lượt tại $D, E$. Biết $AD = 4\\text{ cm}, DB = 8\\text{ cm}$ và $AE = 5\\text{ cm}$. Tính độ dài đoạn thẳng $EC$ (đơn vị $\\text{cm}$).",
+      "options": [],
+      "correctAnswer": "10",
+      "acceptedAnswers": [
+        "10",
+        "10 cm"
+      ],
+      "solution": "Vì $DE \\parallel BC$, theo định lí Thalès ta có $\\frac{AD}{DB} = \\frac{AE}{EC} \\Rightarrow EC = \\frac{DB \\cdot AE}{AD} = \\frac{8 \\cdot 5}{4} = 10\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Lập đúng tỉ lệ thức Thalès $\\frac{AD}{DB} = \\frac{AE}{EC}$",
+          "points": 1
+        },
+        {
+          "step": "Thay số tính được $EC = 10\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$DE \\parallel BC \\Rightarrow \\frac{AD}{DB} = \\frac{AE}{EC}$",
+      "commonMistake": "Lập sai thứ tự tỉ số các đoạn thẳng tương ứng trên hai cạnh.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(8 * 5) / 4"
+    },
+    {
+      "id": "Q8_TPL_079",
+      "code": "M8-HK2-C5-VDC-79",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C5",
+      "lesson": "Định lí Thalès trong tam giác & Tam giác đồng dạng",
+      "topic": "Định lí Thalès, đường trung bình, phân giác",
+      "problemType": "Tính độ dài đoạn thẳng bằng Định lí Thalès",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Cho tam giác $ABC$, đường thẳng $d$ song song với $BC$ cắt $AB, AC$ lần lượt tại $D, E$. Biết $AD = 5\\text{ cm}, DB = 10\\text{ cm}$ và $AE = 6\\text{ cm}$. Tính độ dài đoạn thẳng $EC$ (đơn vị $\\text{cm}$).",
+      "options": [],
+      "correctAnswer": "12",
+      "acceptedAnswers": [
+        "12",
+        "12 cm"
+      ],
+      "solution": "Vì $DE \\parallel BC$, theo định lí Thalès ta có $\\frac{AD}{DB} = \\frac{AE}{EC} \\Rightarrow EC = \\frac{DB \\cdot AE}{AD} = \\frac{10 \\cdot 6}{5} = 12\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Lập đúng tỉ lệ thức Thalès $\\frac{AD}{DB} = \\frac{AE}{EC}$",
+          "points": 1
+        },
+        {
+          "step": "Thay số tính được $EC = 12\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$DE \\parallel BC \\Rightarrow \\frac{AD}{DB} = \\frac{AE}{EC}$",
+      "commonMistake": "Lập sai thứ tự tỉ số các đoạn thẳng tương ứng trên hai cạnh.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(10 * 6) / 5"
+    },
+    {
+      "id": "Q8_TPL_080",
+      "code": "M8-HK2-C5-VDC-80",
+      "grade": 8,
+      "textbooks": [
+        "KNTT",
+        "CD",
+        "CTST"
+      ],
+      "semester": 2,
+      "chapterId": "G8_C5",
+      "lesson": "Định lí Thalès trong tam giác & Tam giác đồng dạng",
+      "topic": "Định lí Thalès, đường trung bình, phân giác",
+      "problemType": "Tính độ dài đoạn thẳng bằng Định lí Thalès",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 2,
+      "content": "Cho tam giác $ABC$, đường thẳng $d$ song song với $BC$ cắt $AB, AC$ lần lượt tại $D, E$. Biết $AD = 6\\text{ cm}, DB = 12\\text{ cm}$ và $AE = 7\\text{ cm}$. Tính độ dài đoạn thẳng $EC$ (đơn vị $\\text{cm}$).",
+      "options": [],
+      "correctAnswer": "14",
+      "acceptedAnswers": [
+        "14",
+        "14 cm"
+      ],
+      "solution": "Vì $DE \\parallel BC$, theo định lí Thalès ta có $\\frac{AD}{DB} = \\frac{AE}{EC} \\Rightarrow EC = \\frac{DB \\cdot AE}{AD} = \\frac{12 \\cdot 7}{6} = 14\\text{ (cm)}$.",
+      "rubricSteps": [
+        {
+          "step": "Lập đúng tỉ lệ thức Thalès $\\frac{AD}{DB} = \\frac{AE}{EC}$",
+          "points": 1
+        },
+        {
+          "step": "Thay số tính được $EC = 14\\text{ cm}$",
+          "points": 1
+        }
+      ],
+      "keyFormula": "$DE \\parallel BC \\Rightarrow \\frac{AD}{DB} = \\frac{AE}{EC}$",
+      "commonMistake": "Lập sai thứ tự tỉ số các đoạn thẳng tương ứng trên hai cạnh.",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 8 GDPT 2018",
+      "verificationStatus": "draft",
+      "version": 1,
+      "mathExpressionToVerify": "(12 * 7) / 6"
+    }
+  ]
+}

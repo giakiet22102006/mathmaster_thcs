@@ -117,9 +117,13 @@ export async function POST(req: NextRequest) {
     }
 
     // Luôn lấy userId từ session xác thực, tuyệt đối không tin config.userId từ client
+    // Chỉ cho phép TEACHER / ADMIN bật includeDraft trong chế độ xem trước
     const safeConfig = {
       ...config,
       userId: auth.user.id,
+      includeDraft:
+        Boolean(config.includeDraft) &&
+        (auth.user.role === 'TEACHER' || auth.user.role === 'ADMIN'),
     };
 
     const userAttempts = (state.attempts || []).filter((a: any) => a.userId === auth.user.id);

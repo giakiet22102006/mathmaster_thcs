@@ -637,7 +637,7 @@
       "type": "mcq",
       "difficulty": "easy",
       "cognitiveLevel": "nhan_biet",
-      "points": 1.0,
+      "points": 1,
       "content": "Kết quả của phép tính $2^3 \\cdot 2^2 - 3^2$ bằng bao nhiêu?",
       "options": [
         {
@@ -693,9 +693,9 @@
       "topic": "Chia hết, ƯCLN và BCNN",
       "problemType": "Bài toán thực tế ƯCLN - BCNN",
       "type": "mcq",
-      "difficulty": "medium",
+      "difficulty": "hard",
       "cognitiveLevel": "van_dung",
-      "points": 1.0,
+      "points": 1,
       "content": "Tìm Ước chung lớn nhất $\\text{ƯCLN}(36, 48, 60)$.",
       "options": [
         {
@@ -751,9 +751,9 @@
       "topic": "Các phép tính với số nguyên",
       "problemType": "Thực hiện phép tính số nguyên",
       "type": "mcq",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "cognitiveLevel": "thong_hieu",
-      "points": 1.0,
+      "points": 1,
       "content": "Giá trị của biểu thức $A = (-15) + 28 - (-15) - 8$ là:",
       "options": [
         {
@@ -781,7 +781,7 @@
       "rubricSteps": [
         {
           "step": "Đổi dấu $-(-15) = +15$ và nhóm hợp lý bằng $20$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "$a - (-b) = a + b$",
@@ -805,9 +805,9 @@
       "topic": "Quy tắc dấu ngoặc & Tìm x",
       "problemType": "Tìm số nguyên x",
       "type": "essay",
-      "difficulty": "medium",
+      "difficulty": "hard",
       "cognitiveLevel": "van_dung",
-      "points": 2.0,
+      "points": 2,
       "content": "Tìm số nguyên $x$, biết: $25 - (x - 7) = -12$.",
       "options": [],
       "correctAnswer": "44",
@@ -820,11 +820,11 @@
       "rubricSteps": [
         {
           "step": "Biến đổi đúng $x - 7 = 37$",
-          "points": 1.0
+          "points": 1
         },
         {
           "step": "Tính đúng $x = 44$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "$A - (B - C) = A - B + C$",
@@ -848,9 +848,9 @@
       "topic": "Chu vi và diện tích hình phẳng",
       "problemType": "Tính diện tích và chu vi",
       "type": "mcq",
-      "difficulty": "medium",
+      "difficulty": "hard",
       "cognitiveLevel": "van_dung",
-      "points": 1.0,
+      "points": 1,
       "content": "Một hình thoi có độ dài hai đường chéo là $8\\text{ cm}$ và $10\\text{ cm}$. Diện tích hình thoi đó bằng:",
       "options": [
         {
@@ -879,7 +879,7 @@
       "rubricSteps": [
         {
           "step": "Áp dụng $S = \\frac{1}{2} d_1 d_2 = 40\\text{ cm}^2$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "$S_{\\text{hình thoi}} = \\frac{1}{2} d_1 d_2$",
@@ -903,9 +903,9 @@
       "topic": "Phép tính phân số & Tìm x",
       "problemType": "Tính nhanh biểu thức phân số",
       "type": "mcq",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "cognitiveLevel": "thong_hieu",
-      "points": 1.0,
+      "points": 1,
       "content": "Kết quả tối giản của phép tính $\\frac{3}{7} \\cdot \\frac{5}{9} + \\frac{3}{7} \\cdot \\frac{4}{9}$ là:",
       "options": [
         {
@@ -933,7 +933,7 @@
       "rubricSteps": [
         {
           "step": "Đặt $\\frac{3}{7}$ làm thừa số chung, tính tổng bằng $\\frac{3}{7}$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "$a \\cdot b + a \\cdot c = a(b + c)$",
@@ -957,9 +957,9 @@
       "topic": "Hai bài toán về phân số & Tỉ số phần trăm",
       "problemType": "Tìm một số biết giá trị phân số của nó",
       "type": "essay",
-      "difficulty": "medium",
+      "difficulty": "hard",
       "cognitiveLevel": "van_dung",
-      "points": 2.0,
+      "points": 2,
       "content": "Một lớp học có $24$ học sinh nữ, chiếm $\\frac{3}{5}$ số học sinh cả lớp. Tính tổng số học sinh của lớp đó.",
       "options": [],
       "correctAnswer": "40",
@@ -971,11 +971,11 @@
       "rubricSteps": [
         {
           "step": "Lập phép chia $24 : \\frac{3}{5}$",
-          "points": 1.0
+          "points": 1
         },
         {
           "step": "Tính đúng $40$ học sinh",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "Biết $\\frac{m}{n}$ của một số bằng $a$, số đó là $a : \\frac{m}{n}$.",
@@ -1001,7 +1001,7 @@
       "type": "mcq",
       "difficulty": "easy",
       "cognitiveLevel": "nhan_biet",
-      "points": 1.0,
+      "points": 1,
       "content": "Cho đoạn thẳng $AB = 12\\text{ cm}$, $M$ là trung điểm của $AB$. Độ dài đoạn thẳng $AM$ bằng:",
       "options": [
         {
@@ -1030,7 +1030,7 @@
       "rubricSteps": [
         {
           "step": "Tính $AM = 12 : 2 = 6\\text{ cm}$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "$MA = MB = \\frac{AB}{2}$",
@@ -1056,7 +1056,7 @@
       "type": "mcq",
       "difficulty": "hard",
       "cognitiveLevel": "van_dung_cao",
-      "points": 1.0,
+      "points": 1,
       "content": "Gieo một xúc xắc $20$ lần liên tiếp, mặt $6$ chấm xuất hiện $5$ lần. Xác suất thực nghiệm xuất hiện mặt $6$ chấm là:",
       "options": [
         {
@@ -1086,7 +1086,7 @@
       "rubricSteps": [
         {
           "step": "Lập tỉ số $\\frac{5}{20} = \\frac{1}{4}$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "$P = \\frac{n(A)}{N}$",
@@ -1112,7 +1112,7 @@
       "type": "mcq",
       "difficulty": "easy",
       "cognitiveLevel": "nhan_biet",
-      "points": 1.0,
+      "points": 1,
       "content": "Giá trị của lũy thừa $\\left(-\\frac{2}{3}\\right)^3$ bằng:",
       "options": [
         {
@@ -1140,7 +1140,7 @@
       "rubricSteps": [
         {
           "step": "Tính đúng $(-2)^3 / 3^3 = -8/27$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "$\\left(\\frac{a}{b}\\right)^n = \\frac{a^n}{b^n}$",
@@ -1166,7 +1166,7 @@
       "type": "mcq",
       "difficulty": "medium",
       "cognitiveLevel": "thong_hieu",
-      "points": 1.0,
+      "points": 1,
       "content": "Tính giá trị của biểu thức $M = \\sqrt{49} + |-3{,}5| - \\sqrt{16}$.",
       "options": [
         {
@@ -1196,7 +1196,7 @@
       "rubricSteps": [
         {
           "step": "Khai căn và bỏ trị tuyệt đối tính được $6{,}5$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "$\\sqrt{a^2} = a \\text{ } (a \\geq 0)$",
@@ -1220,9 +1220,9 @@
       "topic": "Dấu hiệu và tính chất hai đường thẳng song song",
       "problemType": "Tính số đo góc dựa vào song song",
       "type": "mcq",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "cognitiveLevel": "thong_hieu",
-      "points": 1.0,
+      "points": 1,
       "content": "Cho $a // b$, đường thẳng $c$ cắt $a, b$ lần lượt tại $A, B$. Biết $\\widehat{A_1} = 65^\\circ$, góc trong cùng phía với $\\widehat{A_1}$ tại đỉnh $B$ có số đo bằng:",
       "options": [
         {
@@ -1250,7 +1250,7 @@
       "rubricSteps": [
         {
           "step": "Lấy $180^\\circ - 65^\\circ = 115^\\circ$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "Hai đường thẳng song song thì hai góc trong cùng phía bù nhau ($180^\\circ$).",
@@ -1274,9 +1274,9 @@
       "topic": "Tỉ lệ thức và dãy tỉ số bằng nhau",
       "problemType": "Tìm x, y, z bằng tính chất dãy tỉ số bằng nhau",
       "type": "essay",
-      "difficulty": "medium",
+      "difficulty": "hard",
       "cognitiveLevel": "van_dung",
-      "points": 2.0,
+      "points": 2,
       "content": "Tìm hai số $x$ và $y$ biết $\\frac{x}{3} = \\frac{y}{5}$ và $x + y = 32$. (Nhập theo dạng `x=12; y=20`)",
       "options": [],
       "correctAnswer": "x=12; y=20",
@@ -1290,11 +1290,11 @@
       "rubricSteps": [
         {
           "step": "Lập tỉ số chung $\\frac{x+y}{3+5} = 4$",
-          "points": 1.0
+          "points": 1
         },
         {
           "step": "Tính đúng $x = 12; y = 20$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "$\\frac{x}{a} = \\frac{y}{b} = \\frac{x+y}{a+b}$",
@@ -1318,9 +1318,9 @@
       "topic": "Các phép tính đa thức & Tìm nghiệm",
       "problemType": "Tìm nghiệm của đa thức một biến",
       "type": "mcq",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "cognitiveLevel": "thong_hieu",
-      "points": 1.0,
+      "points": 1,
       "content": "Nghiệm của đa thức một biến $P(x) = 3x - 15$ là:",
       "options": [
         {
@@ -1349,7 +1349,7 @@
       "rubricSteps": [
         {
           "step": "Giải $3x - 15 = 0$ được $x = 5$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "$P(a) = 0 \\Leftrightarrow x = a$ là nghiệm.",
@@ -1373,9 +1373,9 @@
       "topic": "Tam giác cân và các đường đồng quy",
       "problemType": "Vận dụng tính chất trọng tâm tam giác",
       "type": "mcq",
-      "difficulty": "medium",
+      "difficulty": "hard",
       "cognitiveLevel": "van_dung",
-      "points": 1.0,
+      "points": 1,
       "content": "Cho $\\triangle ABC$ có đường trung tuyến $AM = 12\\text{ cm}$ và trọng tâm $G$. Độ dài đoạn thẳng $AG$ bằng:",
       "options": [
         {
@@ -1404,7 +1404,7 @@
       "rubricSteps": [
         {
           "step": "Áp dụng $AG = \\frac{2}{3} AM = 8\\text{ cm}$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "$AG = \\frac{2}{3} AM; \\quad GM = \\frac{1}{3} AM$",
@@ -1430,7 +1430,7 @@
       "type": "essay",
       "difficulty": "hard",
       "cognitiveLevel": "van_dung_cao",
-      "points": 1.0,
+      "points": 1,
       "content": "Tìm giá trị nhỏ nhất của biểu thức $A = |2x - 6| + 2025$.",
       "options": [],
       "correctAnswer": "2025",
@@ -1472,7 +1472,7 @@
       "type": "mcq",
       "difficulty": "easy",
       "cognitiveLevel": "nhan_biet",
-      "points": 1.0,
+      "points": 1,
       "content": "Khai triển hằng đẳng thức $(2x - 3)^2$ ta được kết quả là:",
       "options": [
         {
@@ -1500,7 +1500,7 @@
       "rubricSteps": [
         {
           "step": "Khai triển đúng $4x^2 - 12x + 9$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "$(A - B)^2 = A^2 - 2AB + B^2$",
@@ -1526,7 +1526,7 @@
       "type": "mcq",
       "difficulty": "medium",
       "cognitiveLevel": "thong_hieu",
-      "points": 1.0,
+      "points": 1,
       "content": "Phân tích đa thức $x^2 - 4x + 4 - y^2$ thành nhân tử ta được:",
       "options": [
         {
@@ -1554,7 +1554,7 @@
       "rubricSteps": [
         {
           "step": "Nhóm hằng đẳng thức và áp dụng hiệu hai bình phương",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "$A^2 - B^2 = (A - B)(A + B)$",
@@ -1578,9 +1578,9 @@
       "topic": "Điều kiện xác định và rút gọn phân thức",
       "problemType": "Tìm ĐKXĐ và rút gọn biểu thức phân thức",
       "type": "essay",
-      "difficulty": "medium",
+      "difficulty": "hard",
       "cognitiveLevel": "van_dung",
-      "points": 2.0,
+      "points": 2,
       "content": "Cho phân thức $P = \\frac{x^2 - 9}{x^2 + 6x + 9}$ (với $x \\neq -3$). Rút gọn $P$ và tính giá trị của $P$ tại $x = 7$. (Nhập phân số tối giản `2/5` hoặc số thập phân `0,4`)",
       "options": [],
       "correctAnswer": "2/5",
@@ -1595,11 +1595,11 @@
       "rubricSteps": [
         {
           "step": "Rút gọn $P = \\frac{x-3}{x+3}$",
-          "points": 1.0
+          "points": 1
         },
         {
           "step": "Thay $x = 7$ tính được $\\frac{2}{5} = 0{,}4$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "$\\frac{A^2 - B^2}{(A+B)^2} = \\frac{A-B}{A+B}$",
@@ -1623,9 +1623,9 @@
       "topic": "Định lí Pythagore trong tam giác vuông",
       "problemType": "Tính độ dài cạnh bằng định lí Pythagore",
       "type": "mcq",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "cognitiveLevel": "thong_hieu",
-      "points": 1.0,
+      "points": 1,
       "content": "Cho $\\triangle ABC$ vuông tại $A$ có $AB = 6\\text{ cm}, AC = 8\\text{ cm}$. Độ dài cạnh huyền $BC$ bằng:",
       "options": [
         {
@@ -1654,7 +1654,7 @@
       "rubricSteps": [
         {
           "step": "Tính $BC = \\sqrt{36 + 64} = 10\\text{ cm}$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "$BC^2 = AB^2 + AC^2$",
@@ -1678,9 +1678,9 @@
       "topic": "Giải phương trình bậc nhất một ẩn",
       "problemType": "Giải phương trình đưa về dạng ax + b = 0",
       "type": "essay",
-      "difficulty": "medium",
+      "difficulty": "hard",
       "cognitiveLevel": "van_dung",
-      "points": 2.0,
+      "points": 2,
       "content": "Giải phương trình bậc nhất một ẩn: $\\frac{2x - 1}{3} - \\frac{x + 2}{2} = 1$.",
       "options": [],
       "correctAnswer": "14",
@@ -1694,11 +1694,11 @@
       "rubricSteps": [
         {
           "step": "Quy đồng và khử mẫu $2(2x-1) - 3(x+2) = 6$",
-          "points": 1.0
+          "points": 1
         },
         {
           "step": "Phá ngoặc đổi dấu đúng tìm được $x = 14$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "$ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$",
@@ -1722,9 +1722,9 @@
       "topic": "Định lí Thalès, đường trung bình, phân giác",
       "problemType": "Tính độ dài đoạn thẳng bằng Định lí Thalès",
       "type": "mcq",
-      "difficulty": "medium",
+      "difficulty": "hard",
       "cognitiveLevel": "van_dung",
-      "points": 1.0,
+      "points": 1,
       "content": "Cho $\\triangle ABC$, $MN // BC$ ($M \\in AB, N \\in AC$). Biết $AM = 4\\text{ cm}, MB = 6\\text{ cm}, AN = 5\\text{ cm}$. Độ dài $NC$ bằng:",
       "options": [
         {
@@ -1754,7 +1754,7 @@
       "rubricSteps": [
         {
           "step": "Lập tỉ lệ Thalès tính được $NC = 7{,}5\\text{ cm}$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "$MN // BC \\Rightarrow \\frac{AM}{MB} = \\frac{AN}{NC}$",
@@ -1793,7 +1793,7 @@
       "rubricSteps": [
         {
           "step": "Biến đổi $Q = (x - 3)^2 + 6 \\geq 6$",
-          "points": 1.0
+          "points": 1
         },
         {
           "step": "Chỉ ra dấu bằng tại $x = 3$ và kết luận $\\min Q = 6$",
@@ -1823,7 +1823,7 @@
       "type": "mcq",
       "difficulty": "medium",
       "cognitiveLevel": "thong_hieu",
-      "points": 1.0,
+      "points": 1,
       "content": "Đường thẳng $d: y = (m - 1)x + 3$ song song với đường thẳng $d': y = 2x - 5$ khi $m$ bằng:",
       "options": [
         {
@@ -1852,7 +1852,7 @@
       "rubricSteps": [
         {
           "step": "Cho $m - 1 = 2 \\Leftrightarrow m = 3$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "$d // d' \\Leftrightarrow a = a' \\text{ và } b \\neq b'$",
@@ -1878,7 +1878,7 @@
       "type": "mcq",
       "difficulty": "easy",
       "cognitiveLevel": "nhan_biet",
-      "points": 1.0,
+      "points": 1,
       "content": "Điều kiện xác định của phân thức $\\frac{5x - 1}{x^2 - 4}$ là:",
       "options": [
         {
@@ -1906,7 +1906,7 @@
       "rubricSteps": [
         {
           "step": "Giải $x^2 - 4 \\neq 0 \\Leftrightarrow x \\neq \\pm 2$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "Phân thức $\\frac{A}{B}$ xác định $\\Leftrightarrow B \\neq 0$.",
@@ -1930,9 +1930,9 @@
       "topic": "Dấu hiệu nhận biết các tứ giác đặc biệt",
       "problemType": "Chứng minh tứ giác đặc biệt",
       "type": "mcq",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "cognitiveLevel": "thong_hieu",
-      "points": 1.0,
+      "points": 1,
       "content": "Hình bình hành $ABCD$ có thêm điều kiện nào sau đây thì trở thành hình chữ nhật?",
       "options": [
         {
@@ -1960,7 +1960,7 @@
       "rubricSteps": [
         {
           "step": "Chọn dấu hiệu hai đường chéo bằng nhau",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "Hình bình hành + $AC = BD \\Rightarrow$ Hình chữ nhật.",
@@ -1984,7 +1984,7 @@
       "topic": "Định lí Thalès, đường trung bình, phân giác",
       "problemType": "Tính độ dài đoạn thẳng bằng Định lí Thalès",
       "type": "essay",
-      "difficulty": "medium",
+      "difficulty": "hard",
       "cognitiveLevel": "van_dung",
       "points": 2.5,
       "content": "Cho $\\triangle ABC$ có $M, N$ lần lượt là trung điểm của $AB, AC$. Biết $MN = 6{,}5\\text{ cm}$. Tính độ dài cạnh $BC$ (theo $\\text{cm}$).",
@@ -2029,7 +2029,7 @@
       "type": "essay",
       "difficulty": "hard",
       "cognitiveLevel": "van_dung_cao",
-      "points": 2.0,
+      "points": 2,
       "content": "Một ô tô đi từ $A$ đến $B$ với vận tốc $50\\text{ km/h}$ rồi quay về $A$ với vận tốc $40\\text{ km/h}$. Tổng thời gian cả đi và về là $4{,}5$ giờ. Tính quãng đường $AB$ (theo $\\text{km}$).",
       "options": [],
       "correctAnswer": "100",
@@ -2042,11 +2042,11 @@
       "rubricSteps": [
         {
           "step": "Lập phương trình $\\frac{x}{50} + \\frac{x}{40} = 4{,}5$",
-          "points": 1.0
+          "points": 1
         },
         {
           "step": "Giải tìm được $x = 100\\text{ km}$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "$t = \\frac{S}{v}$",
@@ -2070,9 +2070,9 @@
       "topic": "Hệ hai phương trình bậc nhất hai ẩn",
       "problemType": "Giải hệ phương trình bằng phương pháp thế / cộng đại số",
       "type": "mcq",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "cognitiveLevel": "thong_hieu",
-      "points": 1.0,
+      "points": 1,
       "content": "Nghiệm $(x; y)$ của hệ phương trình $\\begin{cases} 2x + y = 7 \\\\ x - y = 2 \\end{cases}$ là:",
       "options": [
         {
@@ -2101,7 +2101,7 @@
       "rubricSteps": [
         {
           "step": "Giải hệ tìm được $(3; 1)$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "Phương pháp cộng đại số khử ẩn cùng hệ số.",
@@ -2127,7 +2127,7 @@
       "type": "mcq",
       "difficulty": "easy",
       "cognitiveLevel": "nhan_biet",
-      "points": 1.0,
+      "points": 1,
       "content": "Điều kiện xác định của căn thức $\\sqrt{2x - 6}$ là:",
       "options": [
         {
@@ -2155,7 +2155,7 @@
       "rubricSteps": [
         {
           "step": "Đặt $2x - 6 \\geq 0 \\Leftrightarrow x \\geq 3$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "$\\sqrt{A}$ xác định $\\Leftrightarrow A \\geq 0$.",
@@ -2179,7 +2179,7 @@
       "topic": "Rút gọn biểu thức chứa căn thức bậc hai",
       "problemType": "Rút gọn biểu thức chứa căn P và câu hỏi phụ",
       "type": "essay",
-      "difficulty": "medium",
+      "difficulty": "hard",
       "cognitiveLevel": "van_dung",
       "points": 1.5,
       "content": "Tính giá trị rút gọn của biểu thức $A = \\sqrt{50} - 3\\sqrt{8} + \\sqrt{32}$. (Có thể nhập `3\\sqrt{2}` hoặc `3*sqrt(2)`)",
@@ -2196,7 +2196,7 @@
       "rubricSteps": [
         {
           "step": "Đưa thừa số ra ngoài dấu căn: $5\\sqrt{2} - 6\\sqrt{2} + 4\\sqrt{2}$",
-          "points": 1.0
+          "points": 1
         },
         {
           "step": "Thu gọn được $3\\sqrt{2}$",
@@ -2224,9 +2224,9 @@
       "topic": "Tỉ số lượng giác và giải tam giác vuông",
       "problemType": "Tính tỉ số lượng giác và chiều cao thực tế",
       "type": "mcq",
-      "difficulty": "medium",
+      "difficulty": "hard",
       "cognitiveLevel": "van_dung",
-      "points": 1.0,
+      "points": 1,
       "content": "Cho $\\triangle ABC$ vuông tại $A$ có $AB = 6\\text{ cm}, BC = 10\\text{ cm}$. Khi đó $\\sin C$ bằng:",
       "options": [
         {
@@ -2256,7 +2256,7 @@
       "rubricSteps": [
         {
           "step": "Tính $\\sin C = \\frac{6}{10} = 0{,}6$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "$\\sin \\alpha = \\frac{\\text{đối}}{\\text{huyền}}$",
@@ -2282,7 +2282,7 @@
       "type": "mcq",
       "difficulty": "medium",
       "cognitiveLevel": "thong_hieu",
-      "points": 1.0,
+      "points": 1,
       "content": "Gọi $x_1, x_2$ là hai nghiệm của phương trình $x^2 - 7x + 10 = 0$. Giá trị của $S = x_1^2 + x_2^2$ bằng:",
       "options": [
         {
@@ -2310,7 +2310,7 @@
       "rubricSteps": [
         {
           "step": "Tính $(x_1+x_2)^2 - 2x_1x_2 = 29$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "$x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2x_1 x_2$",
@@ -2334,7 +2334,7 @@
       "topic": "Phương trình bậc hai và công thức nghiệm",
       "problemType": "Giải phương trình bậc hai",
       "type": "essay",
-      "difficulty": "medium",
+      "difficulty": "hard",
       "cognitiveLevel": "van_dung",
       "points": 1.5,
       "content": "Giải phương trình bậc hai: $x^2 - 5x + 6 = 0$. (Nhập các nghiệm cách nhau bởi dấu chấm phẩy, ví dụ: `2; 3`)",
@@ -2381,7 +2381,7 @@
       "type": "mcq",
       "difficulty": "easy",
       "cognitiveLevel": "nhan_biet",
-      "points": 1.0,
+      "points": 1,
       "content": "Cho tứ giác $ABCD$ nội tiếp đường tròn $(O)$. Biết $\\widehat{BAD} = 70^\\circ$, số đo góc $\\widehat{BCD}$ bằng:",
       "options": [
         {
@@ -2409,7 +2409,7 @@
       "rubricSteps": [
         {
           "step": "Lấy $180^\\circ - 70^\\circ = 110^\\circ$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "$\\widehat{A} + \\widehat{C} = 180^\\circ$",
@@ -2435,7 +2435,7 @@
       "type": "essay",
       "difficulty": "hard",
       "cognitiveLevel": "van_dung_cao",
-      "points": 1.0,
+      "points": 1,
       "content": "Cho phương trình $x^2 - 2(m + 1)x + m^2 + 2 = 0$. Tìm $m$ để phương trình có hai nghiệm phân biệt $x_1, x_2$ thỏa mãn $x_1^2 + x_2^2 = 10$.",
       "options": [],
       "correctAnswer": "1",
@@ -2476,9 +2476,9 @@
       "topic": "Tổng hợp Đại số thi vào 10",
       "problemType": "Đề thi thử vào lớp 10 cấu trúc chuẩn Sở GD&ĐT",
       "type": "mcq",
-      "difficulty": "medium",
+      "difficulty": "hard",
       "cognitiveLevel": "van_dung",
-      "points": 1.0,
+      "points": 1,
       "content": "Cho biểu thức $P = \\frac{\\sqrt{x} + 2}{\\sqrt{x} - 1}$ ($x \\geq 0, x \\neq 1$). Giá trị của $P$ khi $x = 9$ là:",
       "options": [
         {
@@ -2508,7 +2508,7 @@
       "rubricSteps": [
         {
           "step": "Thay $\\sqrt{9} = 3$ được $P = \\frac{5}{2}$",
-          "points": 1.0
+          "points": 1
         }
       ],
       "keyFormula": "Kiểm tra $x = 9$ thỏa mãn ĐKXĐ rồi thay $\\sqrt{9} = 3$.",
@@ -2708,7 +2708,7 @@
       "difficulty": "medium",
       "format": "combined",
       "durationMinutes": 45,
-      "maxScore": 10.0,
+      "maxScore": 10,
       "questionIds": [
         "Q8_001",
         "Q8_002",
@@ -2719,11 +2719,11 @@
         "Q8_007"
       ],
       "questionPoints": {
-        "Q8_001": 1.0,
+        "Q8_001": 1,
         "Q8_002": 1.5,
-        "Q8_009": 1.0,
+        "Q8_009": 1,
         "Q8_004": 1.5,
-        "Q8_010": 1.0,
+        "Q8_010": 1,
         "Q8_003": 2.5,
         "Q8_007": 1.5
       },
@@ -2744,7 +2744,7 @@
       "difficulty": "medium",
       "format": "combined",
       "durationMinutes": 60,
-      "maxScore": 10.0,
+      "maxScore": 10,
       "questionIds": [
         "Q8_008",
         "Q8_006",
@@ -2757,7 +2757,7 @@
         "Q8_006": 1.5,
         "Q8_005": 2.5,
         "Q8_011": 2.5,
-        "Q8_012": 2.0
+        "Q8_012": 2
       },
       "isFavorite": false,
       "isSeed": true,
@@ -2776,7 +2776,7 @@
       "difficulty": "easy",
       "format": "combined",
       "durationMinutes": 45,
-      "maxScore": 10.0,
+      "maxScore": 10,
       "questionIds": [
         "Q6_001",
         "Q6_002",
@@ -2785,11 +2785,11 @@
         "Q6_004"
       ],
       "questionPoints": {
-        "Q6_001": 2.0,
-        "Q6_002": 2.0,
-        "Q6_003": 2.0,
-        "Q6_005": 2.0,
-        "Q6_004": 2.0
+        "Q6_001": 2,
+        "Q6_002": 2,
+        "Q6_003": 2,
+        "Q6_005": 2,
+        "Q6_004": 2
       },
       "isFavorite": false,
       "isSeed": true,
@@ -2808,7 +2808,7 @@
       "difficulty": "medium",
       "format": "combined",
       "durationMinutes": 45,
-      "maxScore": 10.0,
+      "maxScore": 10,
       "questionIds": [
         "Q7_001",
         "Q7_002",
@@ -2817,9 +2817,9 @@
         "Q7_007"
       ],
       "questionPoints": {
-        "Q7_001": 2.0,
-        "Q7_002": 2.0,
-        "Q7_003": 2.0,
+        "Q7_001": 2,
+        "Q7_002": 2,
+        "Q7_003": 2,
         "Q7_004": 2.5,
         "Q7_007": 1.5
       },
@@ -2840,7 +2840,7 @@
       "difficulty": "hard",
       "format": "combined",
       "durationMinutes": 90,
-      "maxScore": 10.0,
+      "maxScore": 10,
       "questionIds": [
         "Q9_001",
         "Q9_002",
@@ -2853,15 +2853,15 @@
         "Q9_008"
       ],
       "questionPoints": {
-        "Q9_001": 1.0,
-        "Q9_002": 1.0,
-        "Q9_004": 1.0,
-        "Q9_005": 1.0,
-        "Q9_007": 1.0,
-        "Q9_012": 1.0,
+        "Q9_001": 1,
+        "Q9_002": 1,
+        "Q9_004": 1,
+        "Q9_005": 1,
+        "Q9_007": 1,
+        "Q9_012": 1,
         "Q9_003": 1.5,
         "Q9_006": 1.5,
-        "Q9_008": 1.0
+        "Q9_008": 1
       },
       "isFavorite": true,
       "isSeed": true,
@@ -2880,7 +2880,7 @@
       "timeSpentSeconds": 2040,
       "remainingSeconds": 660,
       "totalScore": 8.5,
-      "mcqScore": 6.0,
+      "mcqScore": 6,
       "essayScore": 2.5,
       "correctCount": 6,
       "wrongCount": 1,
@@ -2889,7 +2889,7 @@
         "Q8_001": {
           "value": "B",
           "isCorrect": true,
-          "points": 1.0,
+          "points": 1,
           "flagged": false
         },
         "Q8_002": {
@@ -2901,7 +2901,7 @@
         "Q8_009": {
           "value": "C",
           "isCorrect": true,
-          "points": 1.0,
+          "points": 1,
           "flagged": false
         },
         "Q8_004": {
@@ -2913,7 +2913,7 @@
         "Q8_010": {
           "value": "B",
           "isCorrect": true,
-          "points": 1.0,
+          "points": 1,
           "flagged": false
         },
         "Q8_003": {
@@ -2925,7 +2925,7 @@
         "Q8_007": {
           "value": "5",
           "isCorrect": false,
-          "points": 0.0,
+          "points": 0,
           "flagged": true,
           "errorCategory": "CALCULATION_ERROR"
         }
@@ -2941,9 +2941,9 @@
       "submittedAt": "2026-10-16 20:42",
       "timeSpentSeconds": 2520,
       "remainingSeconds": 1080,
-      "totalScore": 8.0,
-      "mcqScore": 3.0,
-      "essayScore": 5.0,
+      "totalScore": 8,
+      "mcqScore": 3,
+      "essayScore": 5,
       "correctCount": 4,
       "wrongCount": 1,
       "unansweredCount": 0,
@@ -2975,7 +2975,7 @@
         "Q8_012": {
           "value": "90",
           "isCorrect": false,
-          "points": 0.0,
+          "points": 0,
           "flagged": true,
           "errorCategory": "METHOD_ERROR"
         }
@@ -3022,9 +3022,9 @@
       "submittedAt": "2026-10-15 21:05",
       "timeSpentSeconds": 3900,
       "remainingSeconds": 1500,
-      "totalScore": 9.0,
-      "mcqScore": 6.0,
-      "essayScore": 3.0,
+      "totalScore": 9,
+      "mcqScore": 6,
+      "essayScore": 3,
       "correctCount": 8,
       "wrongCount": 1,
       "unansweredCount": 0,
@@ -3032,37 +3032,37 @@
         "Q9_001": {
           "value": "A",
           "isCorrect": true,
-          "points": 1.0,
+          "points": 1,
           "flagged": false
         },
         "Q9_002": {
           "value": "B",
           "isCorrect": true,
-          "points": 1.0,
+          "points": 1,
           "flagged": false
         },
         "Q9_004": {
           "value": "A",
           "isCorrect": true,
-          "points": 1.0,
+          "points": 1,
           "flagged": false
         },
         "Q9_005": {
           "value": "B",
           "isCorrect": true,
-          "points": 1.0,
+          "points": 1,
           "flagged": false
         },
         "Q9_007": {
           "value": "B",
           "isCorrect": true,
-          "points": 1.0,
+          "points": 1,
           "flagged": false
         },
         "Q9_012": {
           "value": "A",
           "isCorrect": true,
-          "points": 1.0,
+          "points": 1,
           "flagged": false
         },
         "Q9_003": {
@@ -3080,7 +3080,7 @@
         "Q9_008": {
           "value": "-5",
           "isCorrect": false,
-          "points": 0.0,
+          "points": 0,
           "flagged": true,
           "errorCategory": "MISSING_CONDITION"
         }
