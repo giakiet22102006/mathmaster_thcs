@@ -576,6 +576,8 @@ export function clearAllRateLimitsForTesting(): void {
 // PHÂN TÍCH TÊN THIẾT BỊ & INTERFACE GỬI EMAIL ĐẶT LẠI MẬT KHẨU
 // ==============================================================================
 
+import { sendPasswordResetEmail as mailerSendEmail, isSmtpConfigured } from './mailer';
+
 export function parseDeviceNameFromUserAgent(userAgent?: string | null): string {
   if (!userAgent) return 'Thiết bị Web';
   const ua = userAgent.toLowerCase();
@@ -596,6 +598,33 @@ export function parseDeviceNameFromUserAgent(userAgent?: string | null): string 
   return `${os} • ${browser}`;
 }
 
+/**
+ * Sinh mã khôi phục mật khẩu 6 chữ số ngẫu nhiên
+ */
+export function generateResetCode(): string {
+  return crypto.randomInt(0, 1_000_000).toString().padStart(6, '0');
+}
+
+/**
+ * Băm mã khôi phục 6 số bằng HMAC-SHA256 kết hợp AUTH_SECRET và userId
+ */
+export function hashResetCode(userId: string, code: string): string {
+  const secret = getAuthSecret();
+  return crypto.createHmac('sha256', secret).update(`${userId}:${code.trim()}`).digest('hex');
+}
+
+/**
+ * So sánh an toàn mã khôi phục bằng crypto.timingSafeEqual
+ */
+export function verifyResetCode(userId: string, inputCode: string, storedHash: string): boolean {
+  if (!userId || !inputCode || !storedHash) return false;
+  const computed = hashResetCode(userId, inputCode);
+  const compBuf = Buffer.from(computed, 'utf-8');
+  const storedBuf = Buffer.from(storedHash, 'utf-8');
+  if (compBuf.length !== storedBuf.length) return false;
+  return crypto.timingSafeEqual(new Uint8Array(compBuf), new Uint8Array(storedBuf));
+}
+
 export function hashResetToken(rawToken: string): string {
   return crypto.createHash('sha256').update(rawToken).digest('hex');
 }
@@ -604,20 +633,40 @@ export interface EmailService {
   sendPasswordResetEmail(params: {
     toEmail: string;
     fullName: string;
-    resetUrl: string;
-    expiresInMinutes: number;
-  }): Promise<{ sent: boolean; previewUrl?: string }>;
+    code?: string;
+    resetUrl?: string;
+    expiresInMinutes?: number;
+  }): Promise<{ sent: boolean; reason?: string; previewUrl?: string }>;
 }
 
 export const defaultEmailService: EmailService = {
-  async sendPasswordResetEmail({ toEmail, fullName, resetUrl, expiresInMinutes }) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.log('==============================================================');
-      console.log(`📧 [DEV EMAIL] Yêu cầu đặt lại mật khẩu cho: ${fullName} <${toEmail}>`);
-      console.log(`🔗 Link đặt lại mật khẩu (hiệu lực ${expiresInMinutes} phút): ${resetUrl}`);
-      console.log('==============================================================');
+  async sendPasswordResetEmail({ toEmail, fullName, code, resetUrl, expiresInMinutes = 15 }) {
+    if (code) {
+      const result = await mailerSendEmail({
+        toEmail,
+        fullName,
+        code,
+        resetUrl,
+        expiresInMinutes,
+      });
+
+      if (process.env.NODE_ENV !== 'production' && !result.sent) {
+        console.log('==============================================================');
+        console.log(`📧 [DEV EMAIL - SMTP CHƯA CẤU HÌNH] Cho: ${fullName} <${toEmail}>`);
+        console.log(`🔢 Mã khôi phục (6 số): ${code}`);
+        if (resetUrl) console.log(`🔗 Link đặt lại: ${resetUrl}`);
+        console.log('==============================================================');
+      }
+
+      return {
+        sent: result.sent,
+        reason: result.reason,
+        previewUrl: resetUrl,
+      };
     }
-    return { sent: true, previewUrl: resetUrl };
+
+    // Trường hợp dự phòng nếu chỉ truyền resetUrl
+    return { sent: false, reason: 'SMTP_NOT_CONFIGURED' };
   },
 };
 

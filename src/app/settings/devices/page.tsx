@@ -9,6 +9,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { AppShell } from '@/components/MathMasterShell';
+import { AUTH_ACTIONS } from '@/lib/auth-actions';
 
 export default function DevicesAndSecurityPage() {
   const router = useRouter();
@@ -98,7 +99,7 @@ export default function DevicesAndSecurityPage() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        action: 'change_password',
+        action: AUTH_ACTIONS.CHANGE_PASSWORD,
         currentPassword,
         newPassword,
       }),

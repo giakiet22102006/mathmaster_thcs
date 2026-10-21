@@ -35,6 +35,7 @@ import { GET as questionsGET, POST as questionsPOST } from '../src/app/api/quest
 import { GET as analyticsGET, POST as analyticsPOST } from '../src/app/api/analytics/route';
 import { GET as dashboardGET, POST as dashboardPOST } from '../src/app/api/dashboard/route';
 import { runBankAudit } from './bank-audit.mjs';
+import { runForgotPasswordTests } from './test-forgot-password.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -1045,8 +1046,14 @@ async function runTests() {
     assert.equal(dashA4.overview.anonymousLeaderboard, true);
     console.log('✓ [PASS] Test 15: API /api/dashboard hợp nhất, cô lập cache theo từng người dùng & tự động vô hiệu hóa cache hoạt động chính xác');
 
+    // -------------------------------------------------------------------------
+    // Test 16: Chức năng Quên mật khẩu, mã khôi phục 6 số & SMTP thật
+    // -------------------------------------------------------------------------
+    await runForgotPasswordTests();
+    console.log('✓ [PASS] Test 16: Chức năng Quên mật khẩu, mã 6 số HMAC-SHA256 & kiểm tra SMTP hoạt động chính xác (8/8)');
+
     console.log('================================================================');
-    console.log('🎉 TẤT CẢ 15 BÀI KIỂM THỬ TỰ ĐỘNG ĐỀU ĐẠT (15/15 PASS)!');
+    console.log('🎉 TẤT CẢ 16 BÀI KIỂM THỬ TỰ ĐỘNG ĐỀU ĐẠT (16/16 PASS)!');
     console.log('================================================================');
   } finally {
     process.env.DATABASE_URL = savedDbUrl;

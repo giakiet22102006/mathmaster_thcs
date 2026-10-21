@@ -19,7 +19,9 @@ import {
   changePasswordSchema,
   checkLoginRateLimit,
   defaultEmailService,
+  generateResetCode,
   hashPasswordAsync,
+  hashResetCode,
   hashResetToken,
   loginSchema,
   passwordPolicySchema,
@@ -29,8 +31,12 @@ import {
   sanitizeUserForClient,
   signSessionToken,
   verifyPasswordWithMigrationAsync,
+  verifyResetCode,
 } from '@/lib/auth';
+import { AUTH_ACTIONS, normalizeAuthAction } from '@/lib/auth-actions';
+import { isSmtpConfigured } from '@/lib/mailer';
 
+export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 function setSessionCookie(res: NextResponse, token: string, rememberMe = false) {
@@ -114,7 +120,8 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { action } = body || {};
+    const rawAction = body?.action || req.nextUrl.searchParams.get('action') || '';
+    const action = normalizeAuthAction(rawAction);
     const state = await readServerStateAsync();
     const ip = getClientIp(req);
     const userAgent = req.headers.get('user-agent') || 'Trình duyệt Web';
@@ -424,9 +431,9 @@ export async function POST(req: NextRequest) {
     }
 
     // -------------------------------------------------------------------------
-    // 5. QUÊN MẬT KHẨU (Tạo token một lần có hạn 30 phút)
+    // 5. QUÊN MẬT KHẨU (Gửi mã 6 chữ số có hạn 15 phút qua SMTP thật)
     // -------------------------------------------------------------------------
-    if (action === 'forgot-password') {
+    if (action === AUTH_ACTIONS.FORGOT_PASSWORD) {
       const emailInput = String(body.email || '').trim().toLowerCase();
       if (!emailInput) {
         return NextResponse.json(
@@ -435,65 +442,148 @@ export async function POST(req: NextRequest) {
         );
       }
 
+      // Rate limit theo IP + email (tối đa 5 lần / giờ)
+      const forgotRlKey = `forgot_${emailInput}`;
+      const forgotCheck = checkLoginRateLimit(ip, forgotRlKey, {
+        maxFailures: 5,
+        windowMs: 60 * 60 * 1000,
+        lockoutMs: 60 * 60 * 1000,
+      });
+      if (forgotCheck.locked) {
+        return NextResponse.json(
+          {
+            ok: false,
+            error: `Bạn đã yêu cầu đặt lại mật khẩu quá nhiều lần. Vui lòng thử lại sau ${forgotCheck.retryAfterSeconds} giây.`,
+          },
+          { status: 429 }
+        );
+      }
+
       const targetUser = (state.users || []).find(
         (u: any) => String(u.email || '').toLowerCase() === emailInput && !u.isGuest
       );
 
-      let devResetToken: string | undefined;
-      let devResetUrl: string | undefined;
+      let devCode: string | undefined;
 
       if (targetUser) {
-        const rawToken = crypto.randomBytes(32).toString('hex');
-        const tokenHash = hashResetToken(rawToken);
-        const expiresAt = new Date(Date.now() + 30 * 60 * 1000).toISOString(); // 30 phút
-
-        state.passwordResetTokens = (state.passwordResetTokens || []).filter(
-          (t: any) => t.userId !== targetUser.id || t.usedAt
+        // Kiểm tra cooldown 60 giây giữa 2 lần xin mã
+        const userTokens = (state.passwordResetTokens || []).filter(
+          (t: any) => t.userId === targetUser.id
         );
+        const lastToken = userTokens[userTokens.length - 1];
+        if (lastToken && lastToken.createdAt) {
+          const elapsedSec = (Date.now() - new Date(lastToken.createdAt).getTime()) / 1000;
+          if (elapsedSec < 60) {
+            const waitSec = Math.ceil(60 - elapsedSec);
+            return NextResponse.json(
+              {
+                ok: false,
+                error: `Vui lòng đợi thêm ${waitSec} giây trước khi yêu cầu mã mới.`,
+              },
+              { status: 429 }
+            );
+          }
+        }
+
+        const rawCode = generateResetCode();
+        const codeHash = hashResetCode(targetUser.id, rawCode);
+        const expiresAt = new Date(Date.now() + 15 * 60 * 1000).toISOString(); // 15 phút
+
+        // Vô hiệu hóa các mã chưa dùng cũ của user đó
+        state.passwordResetTokens = (state.passwordResetTokens || []).map((t: any) =>
+          t.userId === targetUser.id && !t.usedAt
+            ? { ...t, usedAt: new Date().toISOString() }
+            : t
+        );
+
         state.passwordResetTokens.push({
           id: `rst_${crypto.randomUUID()}`,
           userId: targetUser.id,
-          tokenHash,
+          email: targetUser.email,
+          codeHash,
           expiresAt,
           usedAt: null,
+          attempts: 0,
+          maxAttempts: 5,
           createdAt: new Date().toISOString(),
         });
 
         await writeServerStateAsync(state);
 
         const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-        const resetUrl = `${appUrl}/login?resetToken=${rawToken}`;
-        await defaultEmailService.sendPasswordResetEmail({
-          toEmail: targetUser.email,
-          fullName: targetUser.fullName,
-          resetUrl,
-          expiresInMinutes: 30,
-        });
+        const resetUrl = `${appUrl}/login?mode=reset&email=${encodeURIComponent(targetUser.email)}`;
 
-        if (process.env.NODE_ENV !== 'production') {
-          devResetToken = rawToken;
-          devResetUrl = resetUrl;
+        const forceStrictSmtp = req.headers.get('x-force-smtp-check') === 'true' || process.env.STRICT_SMTP === 'true';
+        const smtpReady = isSmtpConfigured();
+
+        if (!smtpReady) {
+          if (process.env.NODE_ENV === 'production' || forceStrictSmtp) {
+            return NextResponse.json(
+              {
+                ok: false,
+                code: 'SMTP_NOT_CONFIGURED',
+                error: 'Hệ thống chưa cấu hình dịch vụ gửi email (SMTP). Vui lòng liên hệ quản trị viên.',
+              },
+              { status: 503 }
+            );
+          }
+          // Ở môi trường dev/test, trả thêm devCode khi SMTP chưa cấu hình
+          devCode = rawCode;
+        } else {
+          const mailRes = await defaultEmailService.sendPasswordResetEmail({
+            toEmail: targetUser.email,
+            fullName: targetUser.fullName,
+            code: rawCode,
+            resetUrl,
+            expiresInMinutes: 15,
+          });
+
+          if (!mailRes.sent) {
+            return NextResponse.json(
+              {
+                ok: false,
+                code: mailRes.reason || 'SMTP_SEND_FAILED',
+                error: 'Không thể gửi email chứa mã khôi phục. Vui lòng thử lại sau hoặc liên hệ quản trị viên.',
+              },
+              { status: 503 }
+            );
+          }
         }
       }
 
+      // Thông báo chung chống dò tìm danh sách tài khoản
       return NextResponse.json({
         ok: true,
-        message:
-          'Nếu email tồn tại trong hệ thống, liên kết đặt lại mật khẩu (hiệu lực 30 phút) đã được gửi.',
-        ...(devResetToken ? { devResetToken, devResetUrl } : {}),
+        message: 'Nếu email tồn tại trong hệ thống, mã khôi phục (hiệu lực 15 phút) đã được gửi.',
+        ...(devCode && process.env.NODE_ENV !== 'production' ? { devCode } : {}),
       });
     }
 
     // -------------------------------------------------------------------------
-    // 6. ĐẶT LẠI MẬT KHẨU BẰNG TOKEN 1 LẦN
+    // 6. ĐẶT LẠI MẬT KHẨU BẰNG MÃ 6 SỐ
     // -------------------------------------------------------------------------
-    if (action === 'reset-password') {
-      const rawToken = String(body.token || '').trim();
+    if (action === AUTH_ACTIONS.RESET_PASSWORD) {
+      const emailInput = String(body.email || '').trim().toLowerCase();
+      const codeInput = String(body.code || body.token || '').trim();
       const newPassword = String(body.newPassword || '');
 
-      if (!rawToken) {
+      if (!emailInput) {
         return NextResponse.json(
-          { ok: false, error: 'Thiếu mã xác thực đặt lại mật khẩu.' },
+          { ok: false, error: 'Vui lòng cung cấp địa chỉ email.' },
+          { status: 400 }
+        );
+      }
+
+      if (!codeInput) {
+        return NextResponse.json(
+          { ok: false, error: 'Vui lòng nhập mã khôi phục 6 số.' },
+          { status: 400 }
+        );
+      }
+
+      if (!/^\d{6}$/.test(codeInput)) {
+        return NextResponse.json(
+          { ok: false, error: 'Mã khôi phục phải gồm đúng 6 chữ số.' },
           { status: 400 }
         );
       }
@@ -506,39 +596,84 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      const tokenHash = hashResetToken(rawToken);
-      const tokenRecord = (state.passwordResetTokens || []).find(
-        (t: any) => t.tokenHash === tokenHash
+      const targetUser = (state.users || []).find(
+        (u: any) => String(u.email || '').toLowerCase() === emailInput && !u.isGuest
       );
-
-      if (
-        !tokenRecord ||
-        tokenRecord.usedAt ||
-        new Date(tokenRecord.expiresAt).getTime() <= Date.now()
-      ) {
+      if (!targetUser) {
         return NextResponse.json(
-          { ok: false, error: 'Liên kết đặt lại mật khẩu không hợp lệ hoặc đã hết hạn (30 phút).' },
+          { ok: false, error: 'Mã khôi phục không hợp lệ hoặc tài khoản không tồn tại.' },
           { status: 400 }
         );
       }
 
-      const targetUser = (state.users || []).find((u: any) => u.id === tokenRecord.userId);
-      if (!targetUser) {
+      // Tìm token khả dụng mới nhất của user
+      const userTokens = (state.passwordResetTokens || [])
+        .filter((t: any) => t.userId === targetUser.id && !t.usedAt)
+        .sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+      const activeToken = userTokens[0];
+
+      if (!activeToken) {
         return NextResponse.json(
-          { ok: false, error: 'Tài khoản không tồn tại.' },
-          { status: 404 }
+          { ok: false, error: 'Mã khôi phục không hợp lệ hoặc đã được sử dụng.' },
+          { status: 400 }
         );
       }
 
-      tokenRecord.usedAt = new Date().toISOString();
+      // Kiểm tra hết hạn 15 phút
+      if (new Date(activeToken.expiresAt).getTime() <= Date.now()) {
+        activeToken.usedAt = new Date().toISOString();
+        await writeServerStateAsync(state);
+        return NextResponse.json(
+          { ok: false, error: 'Mã khôi phục đã hết hạn (15 phút). Vui lòng yêu cầu mã mới.' },
+          { status: 400 }
+        );
+      }
+
+      // Kiểm tra số lần nhập sai
+      if ((activeToken.attempts || 0) >= 5) {
+        activeToken.usedAt = new Date().toISOString();
+        await writeServerStateAsync(state);
+        return NextResponse.json(
+          { ok: false, error: 'Mã khôi phục đã bị khóa do nhập sai quá 5 lần. Vui lòng yêu cầu mã mới.' },
+          { status: 400 }
+        );
+      }
+
+      // Kiểm tra mã bằng crypto.timingSafeEqual
+      const isMatch = verifyResetCode(targetUser.id, codeInput, activeToken.codeHash);
+      if (!isMatch) {
+        activeToken.attempts = (activeToken.attempts || 0) + 1;
+        if (activeToken.attempts >= 5) {
+          activeToken.usedAt = new Date().toISOString();
+          await writeServerStateAsync(state);
+          return NextResponse.json(
+            { ok: false, error: 'Mã khôi phục đã bị khóa do nhập sai 5 lần. Vui lòng yêu cầu mã mới.' },
+            { status: 400 }
+          );
+        }
+        await writeServerStateAsync(state);
+        const remaining = 5 - activeToken.attempts;
+        return NextResponse.json(
+          { ok: false, error: `Mã khôi phục không đúng. Bạn còn ${remaining} lần thử.` },
+          { status: 400 }
+        );
+      }
+
+      // Mã đúng -> Cập nhật mật khẩu mới
+      activeToken.usedAt = new Date().toISOString();
       targetUser.passwordHash = await hashPasswordAsync(newPassword);
       targetUser.mustChangePassword = false;
       targetUser.passwordUpdatedAt = new Date().toISOString();
       targetUser.failedLoginCount = 0;
       targetUser.lockedUntil = null;
 
-      // Thu hồi toàn bộ phiên đăng nhập cũ của tài khoản
+      // Thu hồi toàn bộ phiên đăng nhập cũ
       revokeAllOtherSessionsInState(state, targetUser.id, null);
+      resetLoginRateLimit(ip, targetUser.email);
+      if (targetUser.username) {
+        resetLoginRateLimit(ip, targetUser.username);
+      }
       await writeServerStateAsync(state);
 
       return NextResponse.json({
