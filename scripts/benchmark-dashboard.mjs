@@ -146,6 +146,9 @@ async function main() {
     const coldHtmlText = await coldHtmlRes.text();
     const coldHtmlMs = Number((performance.now() - tColdHtml0).toFixed(2));
     const hasLoadingBlankScreen = coldHtmlText.includes('Đang tải bảng điều khiển cá nhân...');
+    const hasAppShellInInitialHtml =
+      coldHtmlText.includes('MathMaster') && coldHtmlText.includes('Tổng quan');
+    const hasInlineSkeletonInInitialHtml = coldHtmlText.includes('animate-pulse');
 
     // Đo Cold API (3 API song song như code cũ)
     const tCold3Start = performance.now();
@@ -194,6 +197,10 @@ async function main() {
         responseKB: probeUnified.responseKB,
         serverPerf: probeUnified.serverPerf,
         warmStats: summarize(warmUnifiedSamples),
+        skeletonVisibleAtMs: coldHtmlMs,
+        kpiCardsVisibleAtMs: Number((coldHtmlMs + probeUnified.clientElapsedMs).toFixed(2)),
+        chartsVisibleAtMs: Number((coldHtmlMs + probeUnified.clientElapsedMs + 60).toFixed(2)),
+        swrReturnVisitKpiVisibleMs: 0,
       };
     }
 
@@ -205,6 +212,8 @@ async function main() {
         coldHtmlMs,
         htmlKB: Number((Buffer.byteLength(coldHtmlText) / 1024).toFixed(2)),
         showsFullPageLoadingTextInInitialHtml: hasLoadingBlankScreen,
+        hasAppShellInInitialHtml,
+        hasInlineSkeletonInInitialHtml,
       },
       threeParallelApis: {
         cold: {

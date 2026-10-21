@@ -5,12 +5,20 @@
 // Kiểm tra định dạng email, mật khẩu >= 8 ký tự có chữ & số, khối lớp 6-9, bộ sách
 // ==============================================================================
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import {
+  clearDashboardClientCache,
+  warmupDashboardAfterLogin,
+} from '@/lib/dashboard-swr';
 
 export default function RegisterPage() {
   const router = useRouter();
+
+  useEffect(() => {
+    router.prefetch('/dashboard');
+  }, [router]);
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -55,6 +63,9 @@ export default function RegisterPage() {
         setError(data.error || 'Đăng ký không thành công.');
         return;
       }
+      clearDashboardClientCache();
+      warmupDashboardAfterLogin(data.user);
+      router.prefetch('/dashboard');
       router.push('/dashboard');
       router.refresh();
     } catch {

@@ -5,14 +5,22 @@
 // Xác thực mật khẩu bắt buộc (scrypt + JWT HttpOnly Cookie), không lộ danh sách tài khoản
 // ==============================================================================
 
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import {
+  clearDashboardClientCache,
+  warmupDashboardAfterLogin,
+} from '@/lib/dashboard-swr';
 
 function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectPath = searchParams.get('redirect') || '/dashboard';
+
+  useEffect(() => {
+    router.prefetch('/dashboard');
+  }, [router]);
 
   const [mode, setMode] = useState<'login' | 'forgot' | 'reset'>('login');
   const [identifier, setIdentifier] = useState('');
@@ -50,6 +58,9 @@ function LoginContent() {
         setError(data.error || 'Đăng nhập không thành công. Vui lòng kiểm tra lại thông tin.');
         return;
       }
+      clearDashboardClientCache();
+      warmupDashboardAfterLogin(data.user);
+      router.prefetch(redirectPath);
       router.push(redirectPath);
       router.refresh();
     } catch {
@@ -73,6 +84,9 @@ function LoginContent() {
         setError(data.error || 'Không thể khởi tạo phiên Khách.');
         return;
       }
+      clearDashboardClientCache();
+      warmupDashboardAfterLogin(data.user);
+      router.prefetch('/dashboard');
       router.push('/dashboard');
       router.refresh();
     } catch {

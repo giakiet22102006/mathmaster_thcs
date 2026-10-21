@@ -8,6 +8,7 @@
 import React, { memo, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { clearDashboardClientCache } from '@/lib/dashboard-swr';
 
 // Bộ nhớ đệm toàn cục cho module KaTeX (nạp động) và kết quả biên dịch HTML của công thức Toán
 let loadedKatexModule: any = null;
@@ -281,6 +282,7 @@ export function AppShell({
   ];
 
   async function handleLogout() {
+    clearDashboardClientCache();
     try {
       await fetch('/api/auth', {
         method: 'POST',
