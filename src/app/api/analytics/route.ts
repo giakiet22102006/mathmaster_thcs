@@ -5,12 +5,13 @@
 // ==============================================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { requireUser, writeServerStateAsync } from '@/lib/prisma';
+import { getPerfDiagnostics, requireUser, writeServerStateAsync } from '@/lib/prisma';
 import { resolveQuestionCognitiveLevel } from '@/lib/math-grader';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
+  const tRoute0 = performance.now();
   try {
     const auth = await requireUser(req);
     if (!auth.ok) {
@@ -155,7 +156,7 @@ export async function GET(req: NextRequest) {
         (!r.nextReviewAt || new Date(r.nextReviewAt).getTime() <= nowMs)
     ).length;
 
-    return NextResponse.json({
+    const res = NextResponse.json({
       ok: true,
       overview: {
         completedExams,
@@ -172,6 +173,20 @@ export async function GET(req: NextRequest) {
       weakestChapters,
       leaderboard,
     });
+    const routeMs = Number((performance.now() - tRoute0).toFixed(2));
+    if (process.env.PERF_LOG === '1') {
+      const diag = getPerfDiagnostics();
+      console.log(
+        `[PERF_LOG] GET /api/analytics routeMs=${routeMs}ms branch=${
+          diag.lastRead?.branch || 'unknown'
+        }`
+      );
+      res.headers.set(
+        'X-Perf-Metrics',
+        JSON.stringify({ route: '/api/analytics', routeMs, read: diag.lastRead, totalDbQueries: diag.totalDbQueries })
+      );
+    }
+    return res;
   } catch {
     return NextResponse.json(
       { ok: false, error: 'Không thể tải dữ liệu phân tích năng lực.' },

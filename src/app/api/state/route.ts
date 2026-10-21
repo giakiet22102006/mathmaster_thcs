@@ -6,6 +6,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import {
   buildScopedStateForUser,
+  getPerfDiagnostics,
   requireUser,
   writeServerStateAsync,
 } from '@/lib/prisma';
@@ -13,6 +14,7 @@ import {
 export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
+  const tRoute0 = performance.now();
   try {
     const auth = await requireUser(req);
     if (!auth.ok) {
@@ -21,7 +23,21 @@ export async function GET(req: NextRequest) {
 
     const scope = req.nextUrl.searchParams.get('scope');
     const scopedState = buildScopedStateForUser(auth.state, auth.user, scope);
-    return NextResponse.json({ ok: true, state: scopedState });
+    const routeMs = Number((performance.now() - tRoute0).toFixed(2));
+    const res = NextResponse.json({ ok: true, state: scopedState });
+    if (process.env.PERF_LOG === '1') {
+      const diag = getPerfDiagnostics();
+      console.log(
+        `[PERF_LOG] GET /api/state?scope=${scope || 'full'} routeMs=${routeMs}ms branch=${
+          diag.lastRead?.branch || 'unknown'
+        }`
+      );
+      res.headers.set(
+        'X-Perf-Metrics',
+        JSON.stringify({ route: '/api/state', routeMs, read: diag.lastRead, totalDbQueries: diag.totalDbQueries })
+      );
+    }
+    return res;
   } catch {
     return NextResponse.json(
       { ok: false, error: 'Không thể tải dữ liệu người dùng.' },

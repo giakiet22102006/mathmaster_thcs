@@ -59,6 +59,30 @@ let cachedStateFileMtimeMs = -1;
 let questionByIdCache: Map<string, any> | null = null;
 let questionPoolVersion = 1;
 
+export interface PerfReadMetric {
+  branch: 'db' | 'db-cache' | 'file' | 'file-cache';
+  dbQueries: number;
+  fetchMs: number;
+  payloadKB: number;
+  normalizeMs: number;
+  totalMs: number;
+}
+
+let lastPerfReadMetric: PerfReadMetric | null = null;
+let totalDbQueriesCounter = 0;
+
+export function getPerfDiagnostics() {
+  return {
+    lastRead: lastPerfReadMetric,
+    totalDbQueries: totalDbQueriesCounter,
+  };
+}
+
+export function resetPerfDiagnostics() {
+  lastPerfReadMetric = null;
+  totalDbQueriesCounter = 0;
+}
+
 export function invalidateQuestionPoolCache() {
   questionByIdCache = null;
   questionPoolVersion += 1;
@@ -435,7 +459,8 @@ async function flushPendingDiskWrite(): Promise<boolean> {
 }
 
 async function ensureCloudStateTable(prisma: any) {
-  if (cloudTableInitialized || !prisma) return;
+  if (cloudTableInitialized || !prisma) return 0;
+  totalDbQueriesCounter += 1;
   await prisma.$executeRawUnsafe(`
     CREATE TABLE IF NOT EXISTS mm_cloud_state (
       id TEXT PRIMARY KEY,
@@ -444,24 +469,53 @@ async function ensureCloudStateTable(prisma: any) {
     );
   `);
   cloudTableInitialized = true;
+  return 1;
 }
 
 export async function readServerStateAsync(): Promise<any> {
+  const tStart = performance.now();
+  const perfLogEnabled = process.env.PERF_LOG === '1';
+
   if (isDatabaseUrlConfigured()) {
     try {
       const prisma = await getPrismaClient();
       if (prisma) {
-        await ensureCloudStateTable(prisma);
+        let dbQueries = 0;
+        dbQueries += await ensureCloudStateTable(prisma);
+        const tFetch0 = performance.now();
+        totalDbQueriesCounter += 1;
+        dbQueries += 1;
         const rows: any[] = await prisma.$queryRawUnsafe(
           `SELECT payload FROM mm_cloud_state WHERE id = 'main' LIMIT 1`
         );
+        const fetchMs = performance.now() - tFetch0;
         if (rows && rows.length > 0 && rows[0].payload) {
+          const rawPayload = rows[0].payload;
+          const payloadStr =
+            typeof rawPayload === 'string' ? rawPayload : JSON.stringify(rawPayload);
+          const payloadKB = Number((Buffer.byteLength(payloadStr) / 1024).toFixed(2));
           const cloudState =
-            typeof rows[0].payload === 'string'
-              ? JSON.parse(rows[0].payload)
-              : rows[0].payload;
+            typeof rawPayload === 'string' ? JSON.parse(rawPayload) : rawPayload;
+          const tNorm0 = performance.now();
           const normalized = normalizeStateObject(cloudState);
+          const normalizeMs = Number((performance.now() - tNorm0).toFixed(2));
           cachedServerState = normalized;
+          const totalMs = Number((performance.now() - tStart).toFixed(2));
+          lastPerfReadMetric = {
+            branch: 'db',
+            dbQueries,
+            fetchMs: Number(fetchMs.toFixed(2)),
+            payloadKB,
+            normalizeMs,
+            totalMs,
+          };
+          if (perfLogEnabled) {
+            console.log(
+              `[PERF_LOG] readServerStateAsync branch=db dbQueries=${dbQueries} fetchMs=${fetchMs.toFixed(
+                2
+              )}ms payloadKB=${payloadKB}KB normalizeMs=${normalizeMs}ms totalMs=${totalMs}ms`
+            );
+          }
           return normalized;
         }
         const initial = readServerState() || loadDefaultSeedState();
@@ -480,20 +534,53 @@ export async function readServerStateAsync(): Promise<any> {
     const stat = await fs.promises.stat(stateFile).catch(() => null);
     if (stat) {
       if (cachedServerState && stat.mtimeMs === cachedStateFileMtimeMs) {
+        const totalMs = Number((performance.now() - tStart).toFixed(2));
+        lastPerfReadMetric = {
+          branch: 'file-cache',
+          dbQueries: 0,
+          fetchMs: 0,
+          payloadKB: 0,
+          normalizeMs: 0,
+          totalMs,
+        };
+        if (perfLogEnabled) {
+          console.log(
+            `[PERF_LOG] readServerStateAsync branch=file-cache dbQueries=0 totalMs=${totalMs}ms`
+          );
+        }
         return cachedServerState;
       }
+      const tFetch0 = performance.now();
       const rawText = await fs.promises.readFile(stateFile, 'utf-8');
+      const fetchMs = Number((performance.now() - tFetch0).toFixed(2));
+      const payloadKB = Number((Buffer.byteLength(rawText) / 1024).toFixed(2));
       const raw = JSON.parse(rawText);
       const hadCurrentUserId = 'currentUserId' in raw;
       const hadPlainSeed = (raw.users || []).some(
         (u: any) => u.passwordHash === 'pass123' || u.passwordHash === 'hashed'
       );
+      const tNorm0 = performance.now();
       const normalized = normalizeStateObject(raw);
+      const normalizeMs = Number((performance.now() - tNorm0).toFixed(2));
       cachedServerState = normalized;
       cachedStateFileMtimeMs = stat.mtimeMs;
       invalidateQuestionPoolCache();
       if (hadCurrentUserId || hadPlainSeed) {
         await writeServerStateAsync(normalized);
+      }
+      const totalMs = Number((performance.now() - tStart).toFixed(2));
+      lastPerfReadMetric = {
+        branch: 'file',
+        dbQueries: 0,
+        fetchMs,
+        payloadKB,
+        normalizeMs,
+        totalMs,
+      };
+      if (perfLogEnabled) {
+        console.log(
+          `[PERF_LOG] readServerStateAsync branch=file fetchMs=${fetchMs}ms payloadKB=${payloadKB}KB normalizeMs=${normalizeMs}ms totalMs=${totalMs}ms`
+        );
       }
       return normalized;
     }

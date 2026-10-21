@@ -5,6 +5,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import {
+  getPerfDiagnostics,
   getQuestionByIdMap,
   requireUser,
   sanitizeQuestionForInProgressExam,
@@ -15,6 +16,7 @@ import { generateExamFromPool } from '@/lib/math-grader';
 export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
+  const tRoute0 = performance.now();
   try {
     const auth = await requireUser(req);
     if (!auth.ok) {
@@ -95,7 +97,21 @@ export async function GET(req: NextRequest) {
     if (limitParam > 0) {
       exams = exams.slice(0, limitParam);
     }
-    return NextResponse.json({ ok: true, exams });
+    const res = NextResponse.json({ ok: true, exams });
+    const routeMs = Number((performance.now() - tRoute0).toFixed(2));
+    if (process.env.PERF_LOG === '1') {
+      const diag = getPerfDiagnostics();
+      console.log(
+        `[PERF_LOG] GET /api/exams routeMs=${routeMs}ms branch=${
+          diag.lastRead?.branch || 'unknown'
+        }`
+      );
+      res.headers.set(
+        'X-Perf-Metrics',
+        JSON.stringify({ route: '/api/exams', routeMs, read: diag.lastRead, totalDbQueries: diag.totalDbQueries })
+      );
+    }
+    return res;
   } catch {
     return NextResponse.json(
       { ok: false, error: 'Không thể tải danh sách đề thi.' },
