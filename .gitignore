@@ -9,3 +9,5 @@ public/uploads/*
 *.log
 *.tsbuildinfo
 .DS_Store
+
+.vercel
