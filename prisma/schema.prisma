@@ -23,6 +23,7 @@ enum Difficulty {
   EASY
   MEDIUM
   HARD
+  VERY_HARD
 }
 
 enum CognitiveLevel {
@@ -38,6 +39,7 @@ enum QuestionType {
 }
 
 enum VerificationStatus {
+  DRAFT
   VERIFIED
   PENDING_REVIEW
   REJECTED
@@ -66,24 +68,63 @@ enum MasteryLevel {
 }
 
 model users {
-  id                String              @id @default(uuid())
-  email             String              @unique
-  username          String              @unique
-  password_hash     String
-  role              Role                @default(STUDENT)
-  is_guest          Boolean             @default(false)
-  created_at        DateTime            @default(now())
-  updated_at        DateTime            @updatedAt
-  profile           user_profiles?
-  settings          user_settings?
-  source_documents  source_documents[]
-  generated_exams   generated_exams[]
-  exam_attempts     exam_attempts[]
-  topic_mastery     topic_mastery[]
-  review_queue      review_queue[]
-  study_sessions    study_sessions[]
-  user_achievements user_achievements[]
-  learning_goals    learning_goals[]
+  id                    String                  @id @default(uuid())
+  email                 String                  @unique
+  username              String                  @unique
+  password_hash         String
+  role                  Role                    @default(STUDENT)
+  is_guest              Boolean                 @default(false)
+  must_change_password  Boolean                 @default(false)
+  password_updated_at   DateTime?
+  failed_login_count    Int                     @default(0)
+  locked_until          DateTime?
+  anonymous_leaderboard Boolean                 @default(false)
+  favorite_question_ids String[]                @default([])
+  onboarding_completed  Boolean                 @default(false)
+  created_at            DateTime                @default(now())
+  updated_at            DateTime                @updatedAt
+  profile               user_profiles?
+  settings              user_settings?
+  sessions              sessions[]
+  password_reset_tokens password_reset_tokens[]
+  source_documents      source_documents[]
+  generated_exams       generated_exams[]
+  exam_attempts         exam_attempts[]
+  topic_mastery         topic_mastery[]
+  review_queue          review_queue[]
+  study_sessions        study_sessions[]
+  user_achievements     user_achievements[]
+  learning_goals        learning_goals[]
+  taught_classrooms     classrooms[]            @relation("TeacherClassrooms")
+  classroom_memberships classroom_members[]
+}
+
+model sessions {
+  id             String    @id @default(uuid())
+  user_id        String
+  device_name    String    @default("Trình duyệt Web")
+  user_agent     String?
+  ip_address     String?
+  remember_me    Boolean   @default(false)
+  created_at     DateTime  @default(now())
+  last_active_at DateTime  @default(now())
+  expires_at     DateTime
+  revoked_at     DateTime?
+  user           users     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+}
+
+model password_reset_tokens {
+  id         String    @id @default(uuid())
+  user_id    String
+  token_hash String    @unique
+  expires_at DateTime
+  used_at    DateTime?
+  created_at DateTime  @default(now())
+  user       users     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
 }
 
 model user_profiles {
@@ -121,14 +162,15 @@ model textbooks {
 }
 
 model grades {
-  id        Int               @id
-  name      String
-  tagline   String?
-  semesters semesters[]
-  chapters  chapters[]
-  questions questions[]
-  exams     generated_exams[]
-  formulas  math_formulas[]
+  id         Int               @id
+  name       String
+  tagline    String?
+  semesters  semesters[]
+  chapters   chapters[]
+  questions  questions[]
+  exams      generated_exams[]
+  formulas   math_formulas[]
+  classrooms classrooms[]
 }
 
 model semesters {
@@ -191,36 +233,41 @@ model source_documents {
 }
 
 model questions {
-  id                  String              @id
-  code                String              @unique
-  grade_id            Int
-  textbook_id         String
-  semester_number     Int
-  chapter_id          String
-  topic_id            String
-  lesson_title        String?
-  problem_type        String
-  question_type       QuestionType
-  difficulty          Difficulty
-  cognitive_level     CognitiveLevel
-  content             String
-  default_points      Float               @default(1.0)
-  source_doc_id       String?
-  source_label        String?
-  verification_status VerificationStatus  @default(VERIFIED)
-  version             Int                 @default(1)
-  is_seed_data        Boolean             @default(false)
-  created_at          DateTime            @default(now())
-  grade               grades              @relation(fields: [grade_id], references: [id])
-  textbook            textbooks           @relation(fields: [textbook_id], references: [id])
-  chapter             chapters            @relation(fields: [chapter_id], references: [id])
-  topic               topics              @relation(fields: [topic_id], references: [id])
-  source_doc          source_documents?   @relation(fields: [source_doc_id], references: [id], onDelete: SetNull)
-  options             question_options[]
-  solution            question_solutions?
-  exam_questions      exam_questions[]
-  student_answers     student_answers[]
-  review_items        review_queue[]
+  id                   String              @id
+  code                 String              @unique
+  grade_id             Int
+  textbook_id          String
+  textbooks            String[]            @default(["KNTT", "CD", "CTST"])
+  semester_number      Int
+  chapter_id           String
+  topic_id             String
+  lesson_title         String?
+  problem_type         String
+  question_type        QuestionType
+  difficulty           Difficulty
+  cognitive_level      CognitiveLevel
+  content              String
+  default_points       Float               @default(1.0)
+  source_doc_id        String?
+  source_label         String?
+  verification_status  VerificationStatus  @default(VERIFIED)
+  empirical_difficulty Float?
+  attempt_count        Int                 @default(0)
+  correct_count        Int                 @default(0)
+  template_id          String?
+  version              Int                 @default(1)
+  is_seed_data         Boolean             @default(false)
+  created_at           DateTime            @default(now())
+  grade                grades              @relation(fields: [grade_id], references: [id])
+  textbook             textbooks           @relation(fields: [textbook_id], references: [id])
+  chapter              chapters            @relation(fields: [chapter_id], references: [id])
+  topic                topics              @relation(fields: [topic_id], references: [id])
+  source_doc           source_documents?   @relation(fields: [source_doc_id], references: [id], onDelete: SetNull)
+  options              question_options[]
+  solution             question_solutions?
+  exam_questions       exam_questions[]
+  student_answers      student_answers[]
+  review_items         review_queue[]
 }
 
 model question_options {
@@ -261,10 +308,10 @@ model math_formulas {
 }
 
 model generated_exams {
-  id               String           @id @default(uuid())
+  id               String                  @id @default(uuid())
   user_id          String
   title            String
-  exam_code        String           @default("101")
+  exam_code        String                  @default("101")
   grade_id         Int
   textbook_id      String
   semester_number  Int
@@ -272,15 +319,20 @@ model generated_exams {
   difficulty       Difficulty
   format_type      String
   duration_minutes Int
-  max_score        Float            @default(10.0)
-  is_favorite      Boolean          @default(false)
-  is_seed_data     Boolean          @default(false)
-  created_at       DateTime         @default(now())
-  user             users            @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  grade            grades           @relation(fields: [grade_id], references: [id])
-  textbook         textbooks        @relation(fields: [textbook_id], references: [id])
+  max_score        Float                   @default(10.0)
+  seed             Int?
+  chapter_ids      String[]                @default([])
+  matrix_config    Json?
+  composition      Json?
+  is_favorite      Boolean                 @default(false)
+  is_seed_data     Boolean                 @default(false)
+  created_at       DateTime                @default(now())
+  user             users                   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  grade            grades                  @relation(fields: [grade_id], references: [id])
+  textbook         textbooks               @relation(fields: [textbook_id], references: [id])
   exam_questions   exam_questions[]
   exam_attempts    exam_attempts[]
+  assignments      classroom_assignments[]
 }
 
 model exam_questions {
@@ -364,16 +416,21 @@ model topic_mastery {
 }
 
 model review_queue {
-  id             String    @id @default(uuid())
-  user_id        String
-  question_id    String
-  wrong_attempts Int       @default(1)
-  last_wrong_ans String?
-  error_type     String?
-  resolved       Boolean   @default(false)
-  added_at       DateTime  @default(now())
-  user           users     @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  question       questions @relation(fields: [question_id], references: [id], onDelete: Cascade)
+  id               String    @id @default(uuid())
+  user_id          String
+  question_id      String
+  wrong_attempts   Int       @default(1)
+  last_wrong_ans   String?
+  error_type       String?
+  resolved         Boolean   @default(false)
+  ease_factor      Float     @default(2.5)
+  interval_days    Int       @default(1)
+  repetitions      Int       @default(0)
+  next_review_at   DateTime  @default(now())
+  last_reviewed_at DateTime?
+  added_at         DateTime  @default(now())
+  user             users     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  question         questions @relation(fields: [question_id], references: [id], onDelete: Cascade)
 
   @@unique([user_id, question_id])
 }
@@ -421,4 +478,40 @@ model learning_goals {
   unit          String   @default("đề")
   completed     Boolean  @default(false)
   user          users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model classrooms {
+  id          String                  @id @default(uuid())
+  teacher_id  String
+  name        String
+  grade_id    Int
+  join_code   String                  @unique
+  description String?
+  created_at  DateTime                @default(now())
+  teacher     users                   @relation("TeacherClassrooms", fields: [teacher_id], references: [id], onDelete: Cascade)
+  grade       grades                  @relation(fields: [grade_id], references: [id])
+  members     classroom_members[]
+  assignments classroom_assignments[]
+}
+
+model classroom_members {
+  id           String     @id @default(uuid())
+  classroom_id String
+  student_id   String
+  joined_at    DateTime   @default(now())
+  classroom    classrooms @relation(fields: [classroom_id], references: [id], onDelete: Cascade)
+  student      users      @relation(fields: [student_id], references: [id], onDelete: Cascade)
+
+  @@unique([classroom_id, student_id])
+}
+
+model classroom_assignments {
+  id           String          @id @default(uuid())
+  classroom_id String
+  exam_id      String
+  title        String
+  due_date     DateTime?
+  created_at   DateTime        @default(now())
+  classroom    classrooms      @relation(fields: [classroom_id], references: [id], onDelete: Cascade)
+  exam         generated_exams @relation(fields: [exam_id], references: [id], onDelete: Cascade)
 }

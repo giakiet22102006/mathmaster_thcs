@@ -4,12 +4,33 @@
 // Kiểm tra cấu trúc dữ liệu: node prisma/seed.mjs --verify-only
 // ==============================================================================
 
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+function hashSeedPassword(password) {
+  const salt = crypto.randomBytes(16).toString('hex');
+  const hash = crypto.scryptSync(password, salt, 64, { N: 16384, r: 8, p: 1 }).toString('hex');
+  return `scrypt$N=16384,r=8,p=1$${salt}$${hash}`;
+}
+
+function loadQuestionBankExtras() {
+  const qBankDir = path.join(__dirname, 'question_bank');
+  const extras = [];
+  if (fs.existsSync(qBankDir)) {
+    const files = fs.readdirSync(qBankDir).filter((f) => f.endsWith('.json')).sort();
+    for (const file of files) {
+      const raw = JSON.parse(fs.readFileSync(path.join(qBankDir, file), 'utf-8'));
+      if (Array.isArray(raw)) extras.push(...raw);
+      else if (raw && Array.isArray(raw.questions)) extras.push(...raw.questions);
+    }
+  }
+  return extras;
+}
 
 const seedFilePath = path.join(__dirname, 'seed_data.json');
 const rawJson = fs.readFileSync(seedFilePath, 'utf-8');
@@ -96,10 +117,86 @@ async function main() {
   const localDataDir = path.join(__dirname, '..', '.data');
   fs.mkdirSync(localDataDir, { recursive: true });
   const localStateFile = path.join(localDataDir, 'local_db_state.json');
+
+  const extraQuestions = loadQuestionBankExtras();
+  const mergedQuestions = [...seedData.questions];
+  const existingQIds = new Set(mergedQuestions.map((q) => q.id));
+  for (const eq of extraQuestions) {
+    if (!existingQIds.has(eq.id)) {
+      mergedQuestions.push(eq);
+      existingQIds.add(eq.id);
+    }
+  }
+
+  const seededUsers = [
+    ...seedData.users.map((u) => ({
+      ...u,
+      passwordHash:
+        u.passwordHash && String(u.passwordHash).startsWith('scrypt$')
+          ? u.passwordHash
+          : hashSeedPassword(u.passwordHash || 'pass123'),
+      mustChangePassword: true,
+      failedLoginCount: 0,
+      lockedUntil: null,
+      favoriteQuestionIds: [],
+      anonymousLeaderboard: false,
+      onboardingCompleted: true,
+    })),
+    {
+      id: 'user_teacher_01',
+      username: 'giaovien_toan',
+      email: 'giaovien.thcs@mathmaster.edu.vn',
+      passwordHash: hashSeedPassword('Teacher123'),
+      mustChangePassword: false,
+      fullName: 'Cô Nguyễn Thu Hà (Giáo viên Toán)',
+      role: 'TEACHER',
+      isGuest: false,
+      schoolName: 'THCS Chu Văn An',
+      currentGrade: 9,
+      preferredBook: 'KNTT',
+      xp: 1500,
+      level: 8,
+      streakDays: 15,
+      lastStudyDate: '2026-10-21',
+      theme: 'light',
+      failedLoginCount: 0,
+      lockedUntil: null,
+      favoriteQuestionIds: [],
+      anonymousLeaderboard: false,
+      onboardingCompleted: true,
+    },
+    {
+      id: 'user_admin_01',
+      username: 'admin_mathmaster',
+      email: 'admin.thcs@mathmaster.edu.vn',
+      passwordHash: hashSeedPassword('Admin12345'),
+      mustChangePassword: false,
+      fullName: 'Quản trị viên MathMaster',
+      role: 'ADMIN',
+      isGuest: false,
+      schoolName: 'Hệ thống MathMaster THCS',
+      currentGrade: 9,
+      preferredBook: 'KNTT',
+      xp: 2000,
+      level: 10,
+      streakDays: 30,
+      lastStudyDate: '2026-10-21',
+      theme: 'light',
+      failedLoginCount: 0,
+      lockedUntil: null,
+      favoriteQuestionIds: [],
+      anonymousLeaderboard: false,
+      onboardingCompleted: true,
+    },
+  ];
+
+  // Lưu ý: Không bao giờ lưu currentUserId vào state dùng chung trên server!
   fs.writeFileSync(localStateFile, JSON.stringify({
-    currentUserId: seedData.users[0].id,
-    users: seedData.users,
-    questions: seedData.questions,
+    curriculum: seedData.curriculum,
+    users: seededUsers,
+    sessions: [],
+    passwordResetTokens: [],
+    questions: mergedQuestions,
     exams: seedData.exams,
     attempts: seedData.attempts,
     documents: seedData.documents,
@@ -108,9 +205,39 @@ async function main() {
     achievements: seedData.achievements,
     userAchievements: seedData.userAchievements,
     learningGoals: seedData.learningGoals,
-    studySessions: seedData.studySessions
+    studySessions: seedData.studySessions,
+    topicMastery: [],
+    classrooms: [
+      {
+        id: 'CLASS_SEED_8A',
+        teacherId: 'user_teacher_01',
+        name: 'Lớp Toán 8A - Ôn thi Học kì',
+        grade: 8,
+        joinCode: 'TOAN8A',
+        description: 'Lớp ôn tập Toán 8 theo chương trình GDPT 2018',
+        createdAt: '2026-10-15T08:00:00.000Z',
+      },
+    ],
+    classroomMembers: [
+      {
+        id: 'CM_SEED_01',
+        classroomId: 'CLASS_SEED_8A',
+        studentId: 'user_minhanh_01',
+        joinedAt: '2026-10-15T09:00:00.000Z',
+      },
+    ],
+    classroomAssignments: [
+      {
+        id: 'ASN_SEED_01',
+        classroomId: 'CLASS_SEED_8A',
+        examId: 'EXAM_SEED_G8_GK1',
+        title: 'Bài kiểm tra Giữa kì I - Tuần 8',
+        dueDate: '2026-11-01T23:59:00.000Z',
+        createdAt: '2026-10-15T09:30:00.000Z',
+      },
+    ],
   }, null, 2), 'utf-8');
-  console.log('✓ Đã khởi tạo bộ nhớ đệm .data/local_db_state.json');
+  console.log('✓ Đã khởi tạo bộ nhớ đệm .data/local_db_state.json (không lưu currentUserId, mật khẩu đã băm scrypt)');
 
   if (process.argv.includes('--verify-only')) {
     console.log('✅ Chế độ --verify-only hoàn tất thành công!');
@@ -218,17 +345,25 @@ async function main() {
     console.log('  [3/9] Đã nạp bảng achievements');
 
     // 4. Users, Profiles, Settings
-    for (const u of seedData.users) {
+    for (const u of seededUsers) {
       await prisma.users.upsert({
         where: { id: u.id },
-        update: { email: u.email, username: u.username, is_guest: Boolean(u.isGuest) },
+        update: {
+          email: u.email,
+          username: u.username,
+          password_hash: u.passwordHash,
+          role: u.role || 'STUDENT',
+          is_guest: Boolean(u.isGuest),
+          must_change_password: Boolean(u.mustChangePassword),
+        },
         create: {
           id: u.id,
           email: u.email,
           username: u.username,
-          password_hash: u.passwordHash || 'pass123',
-          role: 'STUDENT',
-          is_guest: Boolean(u.isGuest)
+          password_hash: u.passwordHash,
+          role: u.role || 'STUDENT',
+          is_guest: Boolean(u.isGuest),
+          must_change_password: Boolean(u.mustChangePassword),
         }
       });
 
@@ -289,20 +424,22 @@ async function main() {
     console.log('  [5/9] Đã nạp bảng source_documents');
 
     // 6. Questions, Options, Solutions
-    for (const q of seedData.questions) {
+    for (const q of mergedQuestions) {
       const tpId = topicLookup.get(`${q.chapterId}::${q.topic}`) || topicLookup.get(`${q.chapterId}::DEFAULT`) || `${q.chapterId}_T1`;
+      const vStatus = String(q.verificationStatus || 'verified').toLowerCase() === 'draft' ? 'DRAFT' : 'VERIFIED';
       await prisma.questions.upsert({
         where: { id: q.id },
         update: {
           content: q.content,
           default_points: q.points || 1.0,
-          verification_status: 'VERIFIED'
+          textbooks: Array.isArray(q.textbooks) ? q.textbooks : ['KNTT', 'CD', 'CTST'],
+          verification_status: vStatus
         },
         create: {
           id: q.id,
           code: q.code,
           grade_id: q.grade,
-          textbooks: undefined,
+          textbooks: Array.isArray(q.textbooks) ? q.textbooks : ['KNTT', 'CD', 'CTST'],
           textbook_id: (q.textbooks && q.textbooks[0]) ? q.textbooks[0] : 'KNTT',
           semester_number: q.semester,
           chapter_id: q.chapterId,
@@ -315,7 +452,7 @@ async function main() {
           content: q.content,
           default_points: q.points || 1.0,
           source_label: q.source,
-          verification_status: 'VERIFIED',
+          verification_status: vStatus,
           version: q.version || 1,
           is_seed_data: true
         }

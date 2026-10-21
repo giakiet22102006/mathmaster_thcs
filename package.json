@@ -19,7 +19,8 @@
     "db:push": "prisma db push",
     "db:seed": "node prisma/seed.mjs",
     "db:studio": "prisma studio",
-    "test": "node scripts/test-flows.mjs",
+    "test": "tsx scripts/test-flows.mjs",
+    "bank:audit": "tsx scripts/bank-audit.mjs",
     "dev:lan": "node scripts/start-lan.mjs"
   },
   "prisma": {
@@ -27,9 +28,15 @@
   },
   "dependencies": {
     "@prisma/client": "5.22.0",
+    "@types/katex": "^0.16.8",
+    "chart.js": "^4.5.1",
+    "jose": "^6.2.13",
+    "katex": "^0.19.0",
+    "mathjs": "^15.2.0",
     "next": "14.2.15",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/node": "20.14.10",
@@ -39,6 +46,7 @@
     "postcss": "8.4.47",
     "prisma": "5.22.0",
     "tailwindcss": "3.4.14",
+    "tsx": "^4.23.15",
     "typescript": "5.6.3"
   }
 }
