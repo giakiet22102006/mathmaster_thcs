@@ -204,6 +204,27 @@ async function main() {
       };
     }
 
+    // Kiểm tra bộ Favicon & Web App Manifest (Phần C)
+    const iconPaths = [
+      '/icon.svg',
+      '/favicon.ico',
+      '/apple-icon.png',
+      '/manifest.webmanifest',
+      '/icon-192.png',
+      '/icon-512.png',
+      '/icon-maskable-512.png',
+    ];
+    const faviconChecks = {};
+    for (const p of iconPaths) {
+      const r = await fetch(`http://127.0.0.1:${PORT}${p}`);
+      const buf = Buffer.from(await r.arrayBuffer());
+      faviconChecks[p] = {
+        status: r.status,
+        contentType: r.headers.get('content-type') || '',
+        bytes: buf.length,
+      };
+    }
+
     const report = {
       timestamp: new Date().toISOString(),
       mode,
@@ -233,6 +254,7 @@ async function main() {
         },
       },
       unifiedDashboardApi: unifiedDashboardReport,
+      faviconChecks,
       samplePerfLogs: serverLogs.slice(0, 15),
     };
 

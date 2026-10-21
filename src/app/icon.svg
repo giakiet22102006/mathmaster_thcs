@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <defs>
+    <linearGradient id="mm-bg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="100%" stop-color="#3730a3" />
+    </linearGradient>
+  </defs>
+  <!-- Nền bo góc Indigo #4f46e5 chuẩn thương hiệu MathMaster THCS -->
+  <rect x="0" y="0" width="64" height="64" rx="14" fill="url(#mm-bg)" />
+  <!-- Điểm nhấn toán học (bậc luỹ thừa / ngôi sao tri thức) tách biệt rõ nét -->
+  <circle cx="52" cy="12.5" r="3.8" fill="#fbbf24" />
+  <!-- Chữ Pi (π) nét đậm, căn lưới pixel rõ nét ngay cả ở cỡ 16x16 -->
+  <path
+    d="M12 22.5C12 20.2909 13.7909 18.5 16 18.5H46.5C48.7091 18.5 50.5 20.2909 50.5 22.5C50.5 24.7091 48.7091 26.5 46.5 26.5H43V44.5C43 46.1569 44.3431 47.5 46 47.5H47.5C49.7091 47.5 51.5 49.2909 51.5 51.5C51.5 53.7091 49.7091 55.5 47.5 55.5H44.5C38.9772 55.5 35 51.5228 35 46V26.5H26V49.5C26 52.8137 23.3137 55.5 20 55.5C16.6863 55.5 14 52.8137 14 49.5V47.5C14 46.3954 14.8954 45.5 16 45.5C17.1046 45.5 18 44.6046 18 43.5V26.5H16C13.7909 26.5 12 24.7091 12 22.5Z"
+    fill="#ffffff"
+  />
+</svg>
