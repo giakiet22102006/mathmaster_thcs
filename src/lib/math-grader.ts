@@ -1031,3 +1031,44 @@ export function gradeExamAttempt(attempt: any, exam: any, allQuestions: any[]) {
     wrongItems,
   };
 }
+
+/**
+ * Thuật toán SuperMemo-2 (SM-2) chuẩn tính khoảng cách ôn tập tiếp theo
+ */
+export function computeSm2Schedule(
+  current: { easeFactor?: number; intervalDays?: number; repetitions?: number },
+  quality: number
+) {
+  const q = Math.max(0, Math.min(5, Math.round(Number(quality))));
+  let easeFactor = Number(current.easeFactor ?? 2.5);
+  let intervalDays = Number(current.intervalDays ?? 1);
+  let repetitions = Number(current.repetitions ?? 0);
+
+  if (q >= 3) {
+    if (repetitions === 0) {
+      intervalDays = 1;
+    } else if (repetitions === 1) {
+      intervalDays = 6;
+    } else {
+      intervalDays = Math.max(1, Math.round(intervalDays * easeFactor));
+    }
+    repetitions += 1;
+  } else {
+    repetitions = 0;
+    intervalDays = 1;
+  }
+
+  easeFactor = Math.max(
+    1.3,
+    Number((easeFactor + (0.1 - (5 - q) * (0.08 + (5 - q) * 0.02))).toFixed(2))
+  );
+
+  const nextReviewAt = new Date(Date.now() + intervalDays * 86400_000).toISOString();
+  return {
+    easeFactor,
+    intervalDays,
+    repetitions,
+    nextReviewAt,
+    resolved: repetitions >= 3,
+  };
+}

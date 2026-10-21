@@ -124,7 +124,7 @@ export function verifyPasswordWithMigration(
       if (derivedBuf.length !== expectedBuf.length) {
         return { valid: false, needsRehash: false, isDefaultSeedPassword: false };
       }
-      const valid = crypto.timingSafeEqual(derivedBuf, expectedBuf);
+      const valid = crypto.timingSafeEqual(new Uint8Array(derivedBuf), new Uint8Array(expectedBuf));
       return {
         valid,
         needsRehash: false,
@@ -140,7 +140,10 @@ export function verifyPasswordWithMigration(
     try {
       const expectedBuf = Buffer.from(storedHash, 'hex');
       const legacyBuf = crypto.scryptSync(password, LEGACY_FIXED_SALT, 32);
-      if (expectedBuf.length === legacyBuf.length && crypto.timingSafeEqual(legacyBuf, expectedBuf)) {
+      if (
+        expectedBuf.length === legacyBuf.length &&
+        crypto.timingSafeEqual(new Uint8Array(legacyBuf), new Uint8Array(expectedBuf))
+      ) {
         return {
           valid: true,
           needsRehash: true,
@@ -199,7 +202,7 @@ export function evaluatePasswordStrength(password: string): {
 // ==============================================================================
 
 export const passwordPolicySchema = z
-  .string({ required_error: 'Vui lòng nhập mật khẩu.' })
+  .string({ error: 'Vui lòng nhập mật khẩu.' })
   .min(8, 'Mật khẩu phải có ít nhất 8 ký tự.')
   .regex(/[a-zA-Z]/, 'Mật khẩu phải chứa ít nhất một chữ cái.')
   .regex(/[0-9]/, 'Mật khẩu phải chứa ít nhất một chữ số.');
@@ -207,12 +210,12 @@ export const passwordPolicySchema = z
 export const registerSchema = z
   .object({
     fullName: z
-      .string({ required_error: 'Vui lòng nhập họ và tên.' })
+      .string({ error: 'Vui lòng nhập họ và tên.' })
       .trim()
       .min(2, 'Họ và tên phải có ít nhất 2 ký tự.')
       .max(100, 'Họ và tên tối đa 100 ký tự.'),
     email: z
-      .string({ required_error: 'Vui lòng nhập địa chỉ email.' })
+      .string({ error: 'Vui lòng nhập địa chỉ email.' })
       .trim()
       .toLowerCase()
       .email('Địa chỉ email không hợp lệ.'),
@@ -232,7 +235,7 @@ export const registerSchema = z
       .default(8),
     preferredBook: z
       .enum(['KNTT', 'CD', 'CTST'], {
-        errorMap: () => ({ message: 'Bộ sách phải là KNTT, CD hoặc CTST.' }),
+        error: 'Bộ sách phải là KNTT, CD hoặc CTST.',
       })
       .default('KNTT'),
     schoolName: z.string().trim().max(120).optional().default('THCS Việt Nam'),
@@ -245,11 +248,11 @@ export const registerSchema = z
 
 export const loginSchema = z.object({
   identifier: z
-    .string({ required_error: 'Vui lòng nhập email hoặc tên đăng nhập.' })
+    .string({ error: 'Vui lòng nhập email hoặc tên đăng nhập.' })
     .trim()
     .min(1, 'Vui lòng nhập email hoặc tên đăng nhập.'),
   password: z
-    .string({ required_error: 'Vui lòng nhập mật khẩu.' })
+    .string({ error: 'Vui lòng nhập mật khẩu.' })
     .min(1, 'Vui lòng nhập mật khẩu.'),
   rememberMe: z.boolean().optional().default(false),
 });
@@ -340,7 +343,10 @@ export function verifySessionToken(token: string): SessionTokenPayload | null {
 
     const sigBuf = Buffer.from(sig, 'utf-8');
     const expectedBuf = Buffer.from(expectedSig, 'utf-8');
-    if (sigBuf.length !== expectedBuf.length || !crypto.timingSafeEqual(sigBuf, expectedBuf)) {
+    if (
+      sigBuf.length !== expectedBuf.length ||
+      !crypto.timingSafeEqual(new Uint8Array(sigBuf), new Uint8Array(expectedBuf))
+    ) {
       return null;
     }
 

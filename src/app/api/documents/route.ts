@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
     const safeName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
     const savedPath = path.join(uploadDir, safeName);
     const arrayBuffer = await file.arrayBuffer();
-    fs.writeFileSync(savedPath, Buffer.from(arrayBuffer));
+    fs.writeFileSync(savedPath, new Uint8Array(arrayBuffer));
 
     const grade = Number(formData.get('grade') || auth.user.currentGrade || 8);
     const textbook = String(formData.get('textbook') || auth.user.preferredBook || 'KNTT');

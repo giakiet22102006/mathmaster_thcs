@@ -1,4 +1,4 @@
-# HƯỚNG DẪN CÀI ĐẶT & CHẠY DỰ ÁN MATHMASTER THCS TRÊN WINDOWS (DÀNH CHO NGƯỜI MỚI)
+# HƯỚNG DẪN CÀI ĐẶT & CHẠY DỰ ÁN MATHMASTER THCS TRÊN WINDOWS (PHIÊN BẢN NÂNG CẤP v3.0)
 
 Tài liệu này hướng dẫn bạn từng bước từ con số 0 trên máy tính **Windows 10 / Windows 11**. Bạn không cần tự cài đặt máy chủ cơ sở dữ liệu phức tạp hay tự viết thêm bất kỳ đoạn mã nào.
 
@@ -24,15 +24,15 @@ Tài liệu này hướng dẫn bạn từng bước từ con số 0 trên máy 
 
 ## BƯỚC 2: Giải nén dự án và mở Terminal
 
-1. Giải nén file `mathmaster_thcs_fullstack_package.zip` ra một thư mục dễ nhớ, ví dụ: `D:\mathmaster-thcs`.
+1. Giải nén thư mục dự án ra một vị trí dễ nhớ, ví dụ: `D:\mathmaster-thcs`.
 2. Mở **VS Code**, chọn menu **File -> Open Folder...** và chọn thư mục `mathmaster-thcs` (thư mục bên trong có chứa trực tiếp file `package.json`).
 3. Trên thanh menu của VS Code, chọn **Terminal -> New Terminal** (hoặc nhấn tổ hợp phím `` Ctrl + ` ``).
 
 ---
 
-## BƯỚC 3: Lấy đường dẫn PostgreSQL miễn phí trên mây (Không cần cài PostgreSQL vào máy)
+## BƯỚC 3: Lấy đường dẫn PostgreSQL miễn phí trên mây (Tùy chọn — có sẵn chế độ Local JSON dự phòng)
 
-Thay vì phải tự cài đặt và cấu hình máy chủ PostgreSQL nặng nề trên Windows, bạn nên dùng dịch vụ PostgreSQL được quản lý miễn phí **Neon.tech** (chỉ mất 1 phút):
+Thay vì phải tự cài đặt và cấu hình máy chủ PostgreSQL nặng nề trên Windows, bạn có thể dùng dịch vụ PostgreSQL được quản lý miễn phí **Neon.tech** (chỉ mất 1 phút):
 
 1. Truy cập [https://neon.tech](https://neon.tech) và đăng nhập nhanh bằng tài khoản Google hoặc GitHub.
 2. Nhấn **Create a project**, đặt tên là `mathmaster-thcs`, chọn khu vực Singapore (`AWS Asia Pacific (Singapore)`) rồi nhấn **Create project**.
@@ -50,129 +50,106 @@ Thay vì phải tự cài đặt và cấu hình máy chủ PostgreSQL nặng n�
    ```powershell
    copy .env.example .env
    ```
-2. Mở file `.env` vừa được tạo ra trong VS Code.
-3. Thay thế giá trị của dòng `DATABASE_URL=` bằng chuỗi kết nối bạn vừa copy ở Bước 3:
-   ```env
-   DATABASE_URL="postgresql://neondb_owner:AbCdEf123456@ep-cool-math-123456.ap-southeast-1.aws.neon.tech/neondb?sslmode=require"
-   ```
-4. **Về lưu trữ file (`UPLOAD_STORAGE_DRIVER`):** Giữ nguyên `UPLOAD_STORAGE_DRIVER="local"`. Khi bạn upload tài liệu trên web, file sẽ được lưu thẳng vào thư mục `public/uploads/` ngay trong máy của bạn, không cần cài đặt S3 hay máy chủ lưu trữ riêng!
-5. **Về API Key AI (`GEMINI_API_KEY` và `MATHPIX_APP_KEY`):**
-   - Đây là các biến **TÙY CHỌN** (không bắt buộc). Bạn có thể để trống `GEMINI_API_KEY=""`.
-   - Khi để trống, toàn bộ các chức năng cốt lõi (Tạo đề theo ma trận, Làm bài, Chấm điểm Toán tương đương, Lưu lịch sử, Khôi phục bài thi dở dang, Tải file `.TXT`/`.MD`/`.CSV` để tách câu hỏi) vẫn hoạt động **100%**.
-   - Nếu bạn bấm vào tính năng cần AI (như đọc OCR từ file PDF scan/ảnh chụp), hệ thống sẽ hiển thị thông báo rõ ràng là chưa cấu hình API Key chứ không giả lập kết quả.
-6. Nhấn `Ctrl + S` để lưu file `.env`.
+2. Mở file `.env` vừa được tạo ra trong VS Code và kiểm tra các biến quan trọng:
+   - **`DATABASE_URL`**: Dán chuỗi kết nối PostgreSQL ở Bước 3 (nếu chưa có, hệ thống sẽ tự động lưu vào `.data/local_db_state.json`).
+   - **`AUTH_SECRET`**: Khóa bí mật ký JWT tối thiểu **32 ký tự** (Bắt buộc trong môi trường `production`). Bạn có thể sinh khóa ngẫu nhiên bằng lệnh:
+     ```powershell
+     node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+     ```
+   - **`MAX_SESSIONS_PER_USER`**: Số thiết bị tối đa được phép đăng nhập đồng thời trên mỗi tài khoản (mặc định: `5`).
+   - **`UPLOAD_STORAGE_DRIVER="local"`**: Khi upload tài liệu trên web, file sẽ được lưu thẳng vào thư mục `public/uploads/` ngay trong máy của bạn.
+   - **`GEMINI_API_KEY` và `MATHPIX_APP_KEY`**: Các biến **TÙY CHỌN** (không bắt buộc). Khi để trống, toàn bộ các chức năng cốt lõi (Tạo đề theo ma trận 4 mức độ nhận thức, Làm bài, Chấm điểm Toán tương đương & chấm từng bước tự luận, Ôn tập SM-2, Quản lý Lớp học, Tải file `.TXT`/`.MD`/`.CSV`) vẫn hoạt động **100%**.
+3. Nhấn `Ctrl + S` để lưu file `.env`.
 
 ---
 
-## BƯỚC 5: Cài đặt thư viện, Chạy Migration & Nạp dữ liệu mẫu
+## BƯỚC 5: Cài đặt thư viện, Chạy Migration & Nạp dữ liệu mẫu (333 câu hỏi)
 
-Chạy lần lượt 4 lệnh sau trong cửa sổ Terminal:
+Chạy lần lượt các lệnh sau trong cửa sổ Terminal:
 
 ```powershell
-# 1. Cài đặt các gói thư viện Next.js, React, Prisma (mất khoảng 1 - 2 phút)
+# 1. Cài đặt các gói thư viện Next.js, React, Prisma, Tailwind, KaTeX, Chart.js
 npm install
 
-# 2. Sinh mã Prisma Client tương thích với schema
+# 2. Sinh mã Prisma Client tương thích với schema (29 bảng)
 npx prisma generate
 
-# 3. Đẩy file migration thực tế lên PostgreSQL để tạo đủ 23 bảng dữ liệu
+# 3. Đẩy file migration thực tế lên PostgreSQL (nếu dùng PostgreSQL)
 npx prisma migrate deploy
 
-# 4. Chạy script nạp dữ liệu mẫu (Lớp 6, 7, 8, 9 + 3 bộ SGK + 36 câu hỏi + 5 đề thi mẫu)
+# 4. Nạp dữ liệu mẫu (Lớp 6, 7, 8, 9 + 3 bộ SGK + 333 câu hỏi + 4 tài khoản mẫu)
 npm run db:seed
 ```
 
-> **Lưu ý hữu ích:** Ngay cả khi bạn chưa kịp điền `DATABASE_URL` ở Bước 3, lệnh `npm run db:seed` vẫn sẽ tự động tạo file cơ sở dữ liệu cục bộ `.data/local_db_state.json` để bạn có thể chạy thử website ở Bước 6 ngay lập tức mà không bị báo lỗi dừng chương trình!
+### Danh sách Tài khoản Mẫu sau khi chạy `npm run db:seed`:
+| Vai trò | Họ và tên | Email / Tên đăng nhập | Mật khẩu mặc định |
+| :--- | :--- | :--- | :--- |
+| **Học sinh Lớp 8** | Nguyễn Minh Anh | `minhanh.thcs@mathmaster.edu.vn` (`minhanh_lop8`) | `pass123` |
+| **Học sinh Lớp 9** | Trần Hoàng Nam | `hoangnam.thcs@mathmaster.edu.vn` (`hoangnam_lop9`) | `pass123` |
+| **Giáo viên Toán** | Cô Lê Thị Mai Hương | `giaovien.thcs@mathmaster.edu.vn` (`gv_toanthcs`) | `Teacher123` |
+| **Quản trị viên** | Ban Quản Trị MathMaster | `admin.thcs@mathmaster.edu.vn` (`admin_mathmaster`) | `Admin12345` |
 
 ---
 
-## BƯỚC 6: Kiểm thử tự động và Khởi động Website
+## BƯỚC 6: Kiểm toán Ngân hàng Câu hỏi, Kiểm thử Tự động & Khởi động Website
 
-1. **Chạy kịch bản kiểm thử tự động các luồng nghiệp vụ:**
+1. **Chạy công cụ kiểm toán ngân hàng câu hỏi (333 câu, 4.062 công thức KaTeX):**
+   ```powershell
+   npm run bank:audit
+   ```
+2. **Chạy kịch bản 14 bài kiểm thử tự động toàn diện:**
    ```powershell
    npm run test
    ```
-   Bạn sẽ thấy thông báo `🎉 TẤT CẢ 6 BÀI KIỂM THỬ TỰ ĐỘNG ĐỀU ĐẠT (6/6 PASS)!`.
+   Bạn sẽ thấy thông báo: `🎉 TẤT CẢ 14 BÀI KIỂM THỬ TỰ ĐỘNG ĐỀU ĐẠT (14/14 PASS)!`.
 
-2. **Khởi động máy chủ Website:**
+3. **Khởi động máy chủ Website:**
    ```powershell
    npm run dev
    ```
-3. Mở trình duyệt (Chrome / Edge) và truy cập địa chỉ:
+4. Mở trình duyệt (Chrome / Edge) và truy cập địa chỉ:
    👉 **[http://localhost:3000](http://localhost:3000)**
 
 ---
 
-## BƯỚC 7: Danh sách Kiểm tra Chức năng Thực tế trên Trình duyệt
+## BƯỚC 7: Danh sách các Tuyến Trang (Next.js App Router) để Trải nghiệm
 
-Sau khi mở `http://localhost:3000`, bạn có thể kiểm tra từng luồng chức năng sau:
+Sau khi mở `http://localhost:3000`, bạn có thể kiểm tra trực tiếp các trang chức năng:
 
-1. **Kiểm tra Khôi phục bài thi đang làm dở (Luồng Resume):**
-   - Ngay tại trang **Tổng quan**, bạn sẽ thấy thẻ màu vàng: *"Đang làm dở — Đề Kiểm Tra Giữa Học Kì I - Toán 8 (Đã trả lời 3/7 câu)"*.
-   - Nhấn nút **"▶ Tiếp tục bài thi chưa hoàn thành"** -> Hệ thống mở lại đúng phòng thi với 3 câu đã chọn sẵn và đồng hồ đếm ngược tiếp tục chạy.
-2. **Kiểm tra Chấm điểm Toán học tương đương & Lưu lịch sử (Luồng Grading & History):**
-   - Trong phòng thi, chuyển tới Câu 6 (Tự luận rút gọn phân thức, đáp án chuẩn là `2/5`) -> Nhập `0,4` hoặc `2/5`.
-   - Nhấn **"✓ Nộp bài & Chấm điểm"** -> Hệ thống chấm điểm tự động ngay lập tức, công nhận `0,4 = 2/5`, lưu bài thi vào mục **Lịch sử làm bài** và đưa câu làm sai vào mục **Ôn tập kiến thức yếu**.
-3. **Kiểm tra Tạo đề thi mới theo Ma trận (Luồng Exam Generator):**
-   - Vào menu **Tạo đề thi** -> Chọn `Lớp 9`, bộ sách `Cánh Diều`, loại đề `Đề thi thử vào lớp 10` -> Nhấn **"🚀 Tạo đề & Làm bài ngay"**.
-4. **Kiểm tra Upload Tài liệu khi chưa có API Key (Luồng Document Upload):**
-   - Vào menu **Tài liệu của tôi**:
-     - Nhấn **"📄 Nạp thử file Đề cương (.TXT)"** (hoặc tải lên một file `.txt`/`.md` từ máy tính) -> Hệ thống đọc và tách câu hỏi trực tiếp **không cần AI**.
-     - Nhấn **"📕 Nạp thử file Đề thi (.PDF)"** (hoặc tải lên file `.pdf`/`.png` khi chưa điền `GEMINI_API_KEY`) -> Hệ thống hiển thị thông báo rõ ràng rằng chức năng OCR file PDF/Ảnh cần cấu hình API Key trong `.env`, tuyệt đối **không giả lập câu hỏi thành công**.
-5. **Kiểm tra Trạng thái Kết nối Backend:**
-   - Vào menu **Cài đặt** -> Kéo xuống mục **"3. Trạng thái Kết nối Backend Next.js, PostgreSQL & AI API"** -> Nhấn nút **"🔌 Kiểm tra Kết nối Backend (/api/health)"**.
-
+1. **Đăng nhập & Đăng ký (`/login`, `/register`):**
+   - Đăng nhập nhanh bằng các nút chọn tài khoản mẫu (Học sinh / Giáo viên / Quản trị viên) hoặc tự đăng ký tài khoản mới.
+2. **Tổng quan & Biểu đồ Năng lực (`/dashboard`):**
+   - Xem biểu đồ xu hướng điểm số 10 đề gần nhất và biểu đồ độ thành thạo từng chương (Chart.js cục bộ).
+   - Xem cảnh báo 2 chương yếu nhất và bấm tạo ngay đề **"Luyện điểm yếu"**.
+3. **Trình Tạo Đề 3 Bước theo Ma trận 4 Mức độ (`/exams/new`):**
+   - Bước 1: Chọn Khối lớp (6–9), Bộ sách (`KNTT`, `CD`, `CTST`), Học kỳ và các Chương muốn kiểm tra.
+   - Bước 2: Chọn Preset ma trận (**Cơ bản**, **Tiêu chuẩn**, **Nâng cao**, **Thi vào 10**) hoặc kéo thanh trượt tùy chỉnh tỷ lệ `% Nhận biết / Thông hiểu / Vận dụng / Vận dụng cao` kèm hiển thị số câu khả dụng trong ngân hàng theo thời gian thực.
+   - Bước 3: Xem trước cấu trúc đề và bắt đầu làm bài.
+4. **Phòng Làm Bài Thi Tập Trung & Xuất Đề In A4 (`/exams/[id]`):**
+   - Làm bài với đồng hồ đếm ngược, bảng màu câu hỏi, chỉ báo tự động lưu (`Đã lưu lúc HH:MM:SS`), bàn phím ký hiệu Toán học ($\sqrt{x}, x^2, \frac{a}{b}, \pi, \leq, \geq, \neq$) và nút **In đề PDF / In kèm đáp án** chuẩn khổ A4.
+5. **Kết Quả Chấm Điểm Từng Bước (`/exams/[id]/result`):**
+   - Xem điểm số theo từng mức độ nhận thức, bảng chấm điểm từng phần (`rubricSteps`) cho câu tự luận, phân loại lỗi sai và lời giải KaTeX.
+6. **Luyện Tập Từng Chương (`/practice`) & Sổ Tay Lỗi Sai SM-2 (`/review`):**
+   - Luyện từng câu không giới hạn thời gian với gợi ý 3 bước; ôn tập câu sai theo lịch lặp lại ngắt quãng SM-2 hoặc tạo **Mini-Đề ôn câu sai**.
+7. **Không Gian Giáo Viên (`/teacher`) & Quản Trị Ngân Hàng Câu Hỏi (`/admin/questions`):**
+   - Tạo lớp học có mã tham gia 6 ký tự (`joinCode`), giao đề thi cho lớp, xem bảng điểm và Top 5 câu học sinh sai nhiều nhất.
+   - Duyệt câu hỏi từ `draft` $\rightarrow$ `verified`, kiểm tra độ khó thực nghiệm (`empiricalDifficulty`) và nhập/xuất JSON.
+8. **Quản Lý Thiết Bị Đăng Nhập (`/settings/devices`):**
+   - Xem danh sách các thiết bị đang đăng nhập và thu hồi phiên từ xa.
 
 ---
 
 ## BƯỚC 8: HƯỚNG DẪN CHẠY WEB TRÊN NHIỀU MÁY KHÁC (ĐIỆN THOẠI, LAPTOP, MÁY TÍNH KHÁC)
-
-Có **3 cách** từ dễ nhất đến chuyên nghiệp nhất tùy theo nhu cầu của bạn:
 
 ### Cách 1: Chạy trên nhiều máy trong cùng mạng Wi-Fi / Mạng LAN (Gia đình, Phòng học)
 1. Trên máy tính chính của bạn, mở Terminal tại thư mục dự án và chạy lệnh:
    ```powershell
    npm run dev:lan
    ```
-   *(Hoặc `npm run dev` — dự án đã được cấu hình sẵn `-H 0.0.0.0 -p 3000` để mở kết nối cho mạng LAN).*
-2. Nhìn vào cửa sổ Terminal, hệ thống sẽ tự động in ra địa chỉ IPv4 Wi-Fi/LAN của máy bạn, ví dụ:
-   ```text
-   👉 Trên các máy tính, laptop, điện thoại khác CÙNG MẠNG WI-FI / LAN, hãy mở:
-      • http://192.168.1.15:3000   (Wi-Fi)
-   ```
-3. Mở trình duyệt Chrome/Safari trên máy tính hoặc điện thoại khác (đang bắt chung Wi-Fi) và nhập đúng địa chỉ `http://192.168.1.15:3000` (thay bằng số IP hiện trên máy bạn).
+2. Nhìn vào cửa sổ Terminal, hệ thống sẽ tự động in ra địa chỉ IPv4 Wi-Fi/LAN của máy bạn (ví dụ `http://192.168.1.15:3000`).
+3. Mở trình duyệt trên điện thoại hoặc laptop khác cùng mạng Wi-Fi để đăng nhập tài khoản riêng của từng học sinh (phiên đăng nhập của từng thiết bị được cô lập hoàn toàn).
 4. **Nếu máy khác không vào được do Tường lửa Windows (Windows Firewall):**
-   Mở **Windows PowerShell** bằng quyền Quản trị (**Run as Administrator**) trên máy chính và chạy đúng 1 lệnh sau để cho phép cổng `3000`:
+   Mở **Windows PowerShell (Run as Administrator)** trên máy chính và chạy lệnh:
    ```powershell
    netsh advfirewall firewall add rule name="MathMaster THCS Port 3000" dir=in action=allow protocol=TCP localport=3000
    ```
-
-### Cách 2: Chia sẻ nhanh qua Internet cho máy ở mạng khác (Không cùng Wi-Fi)
-Nếu bạn đang bật `npm run dev` trên máy mình và muốn gửi link cho bạn bè ở nhà khác truy cập ngay lập tức:
-1. Mở thêm 1 cửa sổ Terminal thứ hai trong VS Code.
-2. Chạy lệnh tạo đường hầm miễn phí:
-   ```powershell
-   npx localtunnel --port 3000
-   ```
-   *(Hoặc dùng Cloudflare Tunnel không cần tài khoản: `npx cloudflared tunnel --url http://localhost:3000`)*
-3. Hệ thống sẽ cấp cho bạn 1 đường link công khai dạng `https://....loca.lt` hoặc `https://....trycloudflare.com` để mở trên bất kỳ máy nào có Internet.
-
-### Cách 3: Đưa web lên Internet chạy 24/7 miễn phí (Không cần bật máy tính của bạn)
-1. Tạo tài khoản miễn phí tại [github.com](https://github.com) và đẩy thư mục `mathmaster-thcs` lên một Repository.
-2. Đăng nhập [vercel.com](https://vercel.com) bằng tài khoản GitHub -> Nhấn **Add New Project** -> Chọn Repository `mathmaster-thcs`.
-3. Ở mục **Environment Variables**, thêm biến `DATABASE_URL` (chuỗi PostgreSQL từ Neon.tech) và `AUTH_SECRET`.
-4. Nhấn **Deploy**. Sau 1 phút, bạn sẽ có địa chỉ cố định `https://mathmaster-thcs.vercel.app` hoạt động 24/7 trên mọi máy tính, điện thoại và đồng bộ chung 1 cơ sở dữ liệu PostgreSQL!
-
----
-
-## BƯỚC 9: HƯỚNG DẪN XÓA TÀI KHOẢN KHÔNG CÒN DÙNG
-
-Bạn có thể xóa bất kỳ tài khoản nào không còn sử dụng tại **2 vị trí** trên giao diện:
-1. **Cách 1 (Tại hộp thoại Tài khoản trên thanh Header):**
-   - Nhấn vào nút tên tài khoản ở góc trên bên phải màn hình.
-   - Ở danh sách các tài khoản, nhấn nút màu đỏ **`🗑️ Xóa`** bên cạnh tài khoản bạn muốn xóa.
-   - Hộp thoại xác nhận sẽ hiển thị thống kê số lượt làm bài và tài liệu của tài khoản đó -> Nhấn **`🗑️ Xác nhận xóa vĩnh viễn`**.
-2. **Cách 2 (Tại trang Cài đặt):**
-   - Vào mục **`Cài đặt`** ở thanh menu bên trái -> Nhìn sang khung **`2. Kiểm thử Phân quyền Tài khoản & Mạng`**.
-   - Nhấn nút **`🗑️ Xóa`** ở dòng tài khoản không còn dùng và xác nhận.
-   - *(Lưu ý an toàn: Nếu bạn xóa chính tài khoản đang đăng nhập, hệ thống sẽ tự động chuyển sang tài khoản còn lại; nếu xóa hết sạch mọi tài khoản, hệ thống tự động khởi tạo một tài khoản Học sinh Mới trống để ứng dụng luôn hoạt động ổn định).*
