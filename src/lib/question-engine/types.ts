@@ -4,6 +4,9 @@
 // ==============================================================================
 
 import type { PRNG } from './rng';
+import type { ComplexityMeta } from './difficulty-standard';
+
+export type { ComplexityMeta };
 
 export type TextbookCode = 'KNTT' | 'CD' | 'CTST';
 export type DifficultyLevel = 'easy' | 'medium' | 'hard';
@@ -50,6 +53,8 @@ export interface EngineQuestion {
   version: number;
   fingerprint?: string;
   mathExpressionToVerify?: string;
+  complexity?: ComplexityMeta;
+  difficultyScore?: number;
 }
 
 export interface QuestionTemplate {
@@ -64,6 +69,9 @@ export interface QuestionTemplate {
   cognitiveLevel: CognitiveLevel;
   type: QuestionType;
   books: TextbookCode[];
+  complexity?: ComplexityMeta;
+  isNonDegenerate?: (params: any) => boolean;
+  verifyFn?: (q: EngineQuestion) => boolean;
   generate: (rng: PRNG, book: TextbookCode) => Omit<EngineQuestion, 'id' | 'code' | 'source' | 'verificationStatus' | 'version'>;
 }
 

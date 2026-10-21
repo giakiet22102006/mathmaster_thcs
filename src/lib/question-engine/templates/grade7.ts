@@ -10,8 +10,9 @@ import { buildShuffledMcq, gcd, formatFraction } from '../template-helpers';
 import { KNTTContexts } from '../contexts/KNTT';
 import { CDContexts } from '../contexts/CD';
 import { CTSTContexts } from '../contexts/CTST';
+import { grade7VdcTemplates } from './grade7-vdc';
 
-export const grade7Templates: QuestionTemplate[] = [
+const baseGrade7Templates: QuestionTemplate[] = [
   // ----------------------------------------------------------------------------
   // CHƯƠNG 1: SỐ HỮU TỈ (G7_C1) - HK1
   // ----------------------------------------------------------------------------
@@ -274,7 +275,10 @@ export const grade7Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Chia hai lũy thừa cùng cơ số:\n$$\\left(-\\frac{2}{3}\\right)^5 : \\left(-\\frac{2}{3}\\right)^3 = \\left(-\\frac{2}{3}\\right)^{5-3} = \\left(-\\frac{2}{3}\\right)^2 = \\frac{(-2)^2}{3^2} = \\frac{4}{9}$$`,
-        rubricSteps: [{ step: 'Trừ số mũ ra bình phương và tính kết quả dương 4/9', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Nêu công thức và thiết lập các bước biến đổi ban đầu', points: 0.25 },
+          { step: 'Thực hiện phép tính và kết luận đáp án chính xác', points: 0.25 },
+        ],
         keyFormula: '$x^m : x^n = x^{m-n}$',
         commonMistake: 'Để kết quả là số âm khi lũy thừa với số mũ chẵn.',
       };
@@ -362,7 +366,10 @@ export const grade7Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Ta xét hai trường hợp:\n- TH1: $x - ${a} = ${b} \\implies x = ${a} + ${b} = ${x1}$\n- TH2: $x - ${a} = -${b} \\implies x = ${a} - ${b} = ${x2}$\nVậy $x \\in \\{${x2}; ${x1}\\}$.`,
-        rubricSteps: [{ step: 'Chia đủ 2 trường hợp và tìm ra cả 2 nghiệm', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Nêu công thức và thiết lập các bước biến đổi ban đầu', points: 0.25 },
+          { step: 'Thực hiện phép tính và kết luận đáp án chính xác', points: 0.25 },
+        ],
         keyFormula: '$|A| = m (m \\ge 0) \\iff A = m \\text{ hoặc } A = -m$',
         commonMistake: 'Chỉ giải trường hợp $x - a = b$ mà quên trường hợp âm.',
       };
@@ -380,6 +387,14 @@ export const grade7Templates: QuestionTemplate[] = [
     problemType: 'Tính chi phí xăng xe',
     difficulty: 'hard',
     cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -405,8 +420,9 @@ export const grade7Templates: QuestionTemplate[] = [
         acceptedAnswers: [String(totalCost), `${totalCost} dong`, `${totalCost} đồng`],
         solution: `Số lít xăng tiêu thụ cho $${distance}\\text{ km}$ là:\n$$V = \\frac{${distance}}{100} \\cdot 6{,}5 = ${liters.toFixed(2)}\\text{ lít}$$\nTổng số tiền xăng phải trả là:\n$$T = ${liters} \\cdot 24\\,000 = ${totalCost.toLocaleString('vi-VN')}\\text{ đồng}$$`,
         rubricSteps: [
-          { step: `Tính số lít xăng tiêu thụ là $${liters.toFixed(2)}$ lít`, points: 0.5 },
-          { step: `Nhân đơn giá ra số tiền $${totalCost}$ đồng`, points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: 'Nhiên liệu = (Quãng đường / 100) * Định mức.',
         commonMistake: 'Lấy quãng đường nhân trực tiếp với định mức mà không chia 100.',
@@ -423,6 +439,14 @@ export const grade7Templates: QuestionTemplate[] = [
     problemType: 'Giải phương trình lũy thừa',
     difficulty: 'hard',
     cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'mcq',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -455,7 +479,11 @@ export const grade7Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Ta đặt $2^x$ làm thừa số chung:\n$$2^x \\cdot (2 - 1) = ${val / 2} \\implies 2^x \\cdot 1 = 2^{${power - 1}} \\implies x = ${power - 1}$$`,
-        rubricSteps: [{ step: 'Đặt nhân tử chung $2^x$ và tìm ra $x$', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.15 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.18 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.17 },
+        ],
         keyFormula: '$a^{x+1} - a^x = a^x(a - 1)$',
         commonMistake: 'Trừ số mũ thành $2^{(x+1)-x} = 2^1$.',
       };
@@ -470,7 +498,15 @@ export const grade7Templates: QuestionTemplate[] = [
     topic: 'Dãy tổng lũy thừa hữu tỉ',
     problemType: 'Tính tổng S = 1/2 + 1/4 + 1/8 + ...',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -486,7 +522,7 @@ export const grade7Templates: QuestionTemplate[] = [
         problemType: 'Tính tổng S = 1/2 + 1/4 + 1/8 + ...',
         type: 'essay',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 1.0,
         textbooks: [book],
         content: `Tính tổng: $S = \\frac{1}{2} + \\frac{1}{2^2} + \\frac{1}{2^3} + \\dots + \\frac{1}{2^{${n}}}$`,
@@ -494,8 +530,9 @@ export const grade7Templates: QuestionTemplate[] = [
         acceptedAnswers: [`${num}/${den}`, `\\frac{${num}}{${den}}`, `${num / den}`],
         solution: `Nhân cả hai vế với $2$:\n$$2S = 1 + \\frac{1}{2} + \\frac{1}{2^2} + \\dots + \\frac{1}{2^{${n - 1}}}$$\nLấy $2S - S$ vế theo vế:\n$$S = 1 - \\frac{1}{2^{${n}}} = 1 - \\frac{1}{${den}} = \\frac{${num}}{${den}}$$`,
         rubricSteps: [
-          { step: 'Nhân 2 vào hai vế và thiết lập hiệu 2S - S', points: 0.5 },
-          { step: `Triệt tiêu các hạng tử và tính ra $\\frac{${num}}{${den}}$`, points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: '$S = 1 - \\frac{1}{2^n}$',
         commonMistake: 'Quy đồng từng phân số dẫn đến không thể tính nổi.',
@@ -511,7 +548,15 @@ export const grade7Templates: QuestionTemplate[] = [
     topic: 'Bất đẳng thức phân số',
     problemType: 'Chứng minh biểu thức luôn dương',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'mcq',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -535,7 +580,7 @@ export const grade7Templates: QuestionTemplate[] = [
         problemType: 'Chứng minh biểu thức luôn dương',
         type: 'mcq',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 0.5,
         textbooks: [book],
         content: `Biểu thức $P = \\left(x - \\frac{${a}}{2}\\right)^2 + \\frac{${b}}{${b + 1}}$ với mọi $x \\in \\mathbb{Q}$ sẽ:`,
@@ -543,7 +588,11 @@ export const grade7Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Vì bình phương của một số hữu tỉ luôn không âm: $\\left(x - \\frac{${a}}{2}\\right)^2 \\ge 0$ với mọi $x$.\nDo đó $P \\ge 0 + \\frac{${b}}{${b + 1}} = \\frac{${b}}{${b + 1}}$.`,
-        rubricSteps: [{ step: 'Đánh giá bình phương luôn không âm', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.15 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.18 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.17 },
+        ],
         keyFormula: '$A^2 \\ge 0 \\implies A^2 + c \\ge c$',
         commonMistake: 'Bỏ qua tính chất không âm của bình phương.',
       };
@@ -812,7 +861,10 @@ export const grade7Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Vì $${val} > 0$ nên $|x| = ${val} \\iff x = ${val}$ hoặc $x = -${val}$.`,
-        rubricSteps: [{ step: 'Xác định đủ 2 nghiệm đối nhau', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Nêu công thức và thiết lập các bước biến đổi ban đầu', points: 0.25 },
+          { step: 'Thực hiện phép tính và kết luận đáp án chính xác', points: 0.25 },
+        ],
         keyFormula: '$|x| = a (a > 0) \\iff x = \\pm a$',
         commonMistake: 'Quên nghiệm âm.',
       };
@@ -859,7 +911,10 @@ export const grade7Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Ta có $${n} = \\sqrt{${n * n}}$. Vì $${sqMinus} < ${n * n}$ nên $\\sqrt{${sqMinus}} < \\sqrt{${n * n}}$, tức là $\\sqrt{${sqMinus}} < ${n}$.`,
-        rubricSteps: [{ step: `Đưa $${n}$ về căn và so sánh hai biểu thức dưới căn`, points: 0.5 }],
+        rubricSteps: [
+          { step: 'Nêu công thức và thiết lập các bước biến đổi ban đầu', points: 0.25 },
+          { step: 'Thực hiện phép tính và kết luận đáp án chính xác', points: 0.25 },
+        ],
         keyFormula: '$a < b \\iff \\sqrt{a} < \\sqrt{b}$ với $a, b \\ge 0$.',
         commonMistake: 'Không bình phương để so sánh.',
       };
@@ -911,22 +966,37 @@ export const grade7Templates: QuestionTemplate[] = [
     semester: 1,
     chapterId: 'G7_C2',
     lesson: 'Căn bậc hai số học',
-    topic: 'Bài toán thực tế diện tích hình vuông',
-    problemType: 'Tính chiều dài cạnh từ diện tích',
+    topic: 'Bài toán thực tế diện tích và căn bậc hai số học',
+    problemType: 'Tính chi phí rào đất hình chữ nhật từ diện tích và tỉ lệ',
     difficulty: 'hard',
     cognitiveLevel: 'van_dung',
     type: 'mcq',
     books: ['KNTT', 'CD', 'CTST'],
+    complexity: {
+      steps: 4,
+      techniques: ['ti_le_thuc', 'can_bac_hai_so_hoc', 'chu_vi_hinh_chu_nhat', 'mo_hinh_hoa_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     generate(rng, book) {
-      const edge = rng.nextInt(12, 25);
-      const area = edge * edge;
+      const x = rng.nextInt(3, 6);
+      const width = 3 * x;
+      const length = 4 * x;
+      const area = length * width; // 12 * x^2
+      const perimeter = 2 * (length + width); // 14 * x
+      const fenceLength = perimeter - 2; // chừa cổng 2m
+      const unitPrice = 120; // nghìn đồng/m
+      const totalCost = fenceLength * unitPrice;
+
       const { options, correctAnswer } = buildShuffledMcq(
         rng,
-        `$${edge}\\text{ m}$`,
+        `$${totalCost}$ nghìn đồng`,
         [
-          { text: `$${area / 4}\\text{ m}$`, errorType: 'CHIA_BỐN_NHẦM_CHU_VI' },
-          { text: `$${edge * 2}\\text{ m}$`, errorType: 'GẤP_ĐÔI' },
-          { text: `$${edge + 2}\\text{ m}$`, errorType: 'TÍNH_NHẦM' },
+          { text: `$${perimeter * unitPrice}$ nghìn đồng`, errorType: 'QUÊN_TRỪ_CỔNG_VÀO' },
+          { text: `$${(fenceLength + 4) * unitPrice}$ nghìn đồng`, errorType: 'TÍNH_NHẦM_CHU_VI' },
+          { text: `$${Math.round(Math.sqrt(area)) * unitPrice}$ nghìn đồng`, errorType: 'NHẦM_VỚI_HÌNH_VUÔNG' },
         ]
       );
       return {
@@ -934,21 +1004,33 @@ export const grade7Templates: QuestionTemplate[] = [
         semester: 1,
         chapterId: 'G7_C2',
         lesson: 'Căn bậc hai số học',
-        topic: 'Bài toán thực tế diện tích hình vuông',
-        problemType: 'Tính chiều dài cạnh từ diện tích',
+        topic: 'Bài toán thực tế diện tích và căn bậc hai số học',
+        problemType: 'Tính chi phí rào đất hình chữ nhật từ diện tích và tỉ lệ',
         type: 'mcq',
         difficulty: 'hard',
         cognitiveLevel: 'van_dung',
-        points: 0.5,
+        points: 0.75,
         textbooks: [book],
-        content: `Một mảnh vườn hình vuông có diện tích bằng $${area}\\text{ m}^2$. Độ dài cạnh của mảnh vườn đó là:`,
+        complexity: {
+          steps: 4,
+          techniques: ['ti_le_thuc', 'can_bac_hai_so_hoc', 'chu_vi_hinh_chu_nhat', 'mo_hinh_hoa_thuc_te'],
+          crossTopic: false,
+          modeling: true,
+          needsCaseAnalysis: false,
+          estMinutes: 4,
+        },
+        content: `Một mảnh đất hình chữ nhật có tỉ lệ giữa chiều dài và chiều rộng là $4 : 3$ và diện tích bằng $${area}\\text{ m}^2$. Người ta làm hàng rào bao quanh mảnh đất, chừa lại một cổng vào rộng $2\\text{ m}$. Biết chi phí làm mỗi mét rào là $120$ nghìn đồng. Tổng chi phí làm hàng rào là:`,
         options,
         correctAnswer,
         acceptedAnswers: [correctAnswer],
-        solution: `Diện tích hình vuông $S = a^2 \\implies a = \\sqrt{S} = \\sqrt{${area}} = ${edge}\\text{ m}$.`,
-        rubricSteps: [{ step: 'Lấy căn bậc hai số học của diện tích tìm ra độ dài cạnh', points: 0.5 }],
-        keyFormula: '$a = \\sqrt{S}$',
-        commonMistake: 'Lấy diện tích chia cho 4 (nhầm chu vi với diện tích).',
+        solution: `Bước 1: Gọi chiều rộng mảnh đất là $3x$ (m) thì chiều dài là $4x$ (m) ($x > 0$).\nBước 2: Diện tích mảnh đất là $S = 4x \\cdot 3x = 12x^2 = ${area} \\implies x^2 = ${area} : 12 = ${x * x} \\implies x = \\sqrt{${x * x}} = ${x}\\text{ m}$.\nBước 3: Chiều dài là $4 \\cdot ${x} = ${length}\\text{ m}$, chiều rộng là $3 \\cdot ${x} = ${width}\\text{ m}$. Chu vi mảnh đất là $P = 2(${length} + ${width}) = ${perimeter}\\text{ m}$.\nBước 4: Chiều dài hàng rào thực tế (trừ cổng 2m) là $L = ${perimeter} - 2 = ${fenceLength}\\text{ m}$. Tổng chi phí rào đất là: $C = ${fenceLength} \\cdot 120 = ${totalCost}$ nghìn đồng.`,
+        rubricSteps: [
+          { step: 'Đặt ẩn theo tỉ số và lập phương trình diện tích', points: 0.2 },
+          { step: `Dùng căn bậc hai số học tìm ra x = ${x} m`, points: 0.2 },
+          { step: `Tính kích thước dài, rộng và chu vi mảnh đất là ${perimeter} m`, points: 0.2 },
+          { step: `Trừ 2m cổng và tính đúng chi phí ${totalCost} nghìn đồng`, points: 0.15 },
+        ],
+        keyFormula: '$S = 12x^2 \\implies x = \\sqrt{S/12}$.',
       };
     },
   },
@@ -961,7 +1043,15 @@ export const grade7Templates: QuestionTemplate[] = [
     topic: 'Tìm giá trị nhỏ nhất của tổng giá trị tuyệt đối',
     problemType: 'Cực trị chứa trị tuyệt đối',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -977,7 +1067,7 @@ export const grade7Templates: QuestionTemplate[] = [
         problemType: 'Cực trị chứa trị tuyệt đối',
         type: 'essay',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 1.0,
         textbooks: [book],
         content: `Tìm giá trị nhỏ nhất của biểu thức: $A = |x - ${a}| + |x - ${b}|$`,
@@ -985,8 +1075,9 @@ export const grade7Templates: QuestionTemplate[] = [
         acceptedAnswers: [String(minVal), `${minVal}`],
         solution: `Áp dụng bất đẳng thức $|A| + |B| \\ge |A - B|$:\n$$A = |x - ${a}| + |${b} - x| \\ge |(x - ${a}) + (${b} - x)| = |${b} - ${a}| = ${minVal}$$\nDấu bằng xảy ra khi $(${a} \\le x \\le ${b})$.\nVậy giá trị nhỏ nhất của $A$ là $${minVal}$.`,
         rubricSteps: [
-          { step: 'Đổi dấu biểu thức $|x - b| = |b - x|$', points: 0.5 },
-          { step: `Áp dụng BĐT trị tuyệt đối ra GTNN là $${minVal}$`, points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: '$|x - a| + |b - x| \\ge |b - a|$ với $a < b$.',
         commonMistake: 'Cho $x=0$ rồi cộng hai số lại.',
@@ -1003,6 +1094,14 @@ export const grade7Templates: QuestionTemplate[] = [
     problemType: 'Giải phương trình chứa căn bậc hai',
     difficulty: 'hard',
     cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'mcq',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -1035,7 +1134,11 @@ export const grade7Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Bình phương hai vế:\n$$x - ${offset} = ${root}^2 = ${root * root} \\implies x = ${root * root} + ${offset} = ${xAns}$$`,
-        rubricSteps: [{ step: `Bình phương 2 vế và chuyển vế tìm ra $x = ${xAns}$`, points: 0.5 }],
+        rubricSteps: [
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.15 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.18 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.17 },
+        ],
         keyFormula: '$\\sqrt{A} = m (m \\ge 0) \\iff A = m^2$',
         commonMistake: 'Không bình phương vế phải.',
       };
@@ -1050,7 +1153,15 @@ export const grade7Templates: QuestionTemplate[] = [
     topic: 'Chứng minh căn bậc hai là số vô tỉ',
     problemType: 'Chứng minh bằng phản chứng',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -1063,7 +1174,7 @@ export const grade7Templates: QuestionTemplate[] = [
         problemType: 'Chứng minh bằng phản chứng',
         type: 'essay',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 1.0,
         textbooks: [book],
         content: 'Chứng minh rằng $\\sqrt{2}$ là một số vô tỉ bằng phương pháp phản chứng.',
@@ -1071,8 +1182,9 @@ export const grade7Templates: QuestionTemplate[] = [
         acceptedAnswers: ['phan chung', 'phản chứng', 'vo ti', 'vô tỉ'],
         solution: `Giả sử $\\sqrt{2}$ là số hữu tỉ, tức là $\\sqrt{2} = \\frac{a}{b}$ với $a, b \\in \\mathbb{N}^*, \\text{ƯCLN}(a, b) = 1$.\nBình phương hai vế: $2 = \\frac{a^2}{b^2} \\implies a^2 = 2b^2$.\nDo đó $a^2$ chia hết cho $2 \\implies a$ chia hết cho $2$. Đặt $a = 2k$ ($k \\in \\mathbb{N}^*$).\nThay vào ta được: $(2k)^2 = 2b^2 \\implies 4k^2 = 2b^2 \\implies b^2 = 2k^2$.\nSuy ra $b^2 \\,\\vdots\\, 2 \\implies b \\,\\vdots\\, 2$.\nNhư vậy cả $a$ và $b$ cùng chia hết cho $2$, mâu thuẫn với giả thiết $\\text{ƯCLN}(a, b) = 1$.\nVậy $\\sqrt{2}$ phải là số vô tỉ.`,
         rubricSteps: [
-          { step: 'Giả thiết phản chứng $a/b$ tối giản và bình phương 2 vế', points: 0.5 },
-          { step: 'Chỉ ra cả a và b chia hết cho 2 dẫn đến mâu thuẫn', points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: 'Phương pháp phản chứng: giả sử điều ngược lại rồi suy ra mâu thuẫn.',
         commonMistake: 'Quên giả thiết phân số $a/b$ tối giản.',
@@ -1299,7 +1411,10 @@ export const grade7Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Hai góc trong cùng phía của hai đường thẳng song song thì bù nhau (tổng số đo bằng $180^\\circ$):\n$$\\widehat{B} = 180^\\circ - ${a}^\\circ = ${b}^\\circ$$`,
-        rubricSteps: [{ step: 'Áp dụng tính chất hai góc trong cùng phía bù nhau', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Nêu công thức và thiết lập các bước biến đổi ban đầu', points: 0.25 },
+          { step: 'Thực hiện phép tính và kết luận đáp án chính xác', points: 0.25 },
+        ],
         keyFormula: 'Hai góc trong cùng phía có tổng bằng $180^\\circ$.',
         commonMistake: 'Cho hai góc trong cùng phía bằng nhau như góc so le trong.',
       };
@@ -1383,7 +1498,10 @@ export const grade7Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: 'Hai đường thẳng phân biệt cùng vuông góc với một đường thẳng thứ ba thì chúng song song với nhau: $a \\parallel b$.',
-        rubricSteps: [{ step: 'Áp dụng định lý từ vuông góc đến song song', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Nêu công thức và thiết lập các bước biến đổi ban đầu', points: 0.25 },
+          { step: 'Thực hiện phép tính và kết luận đáp án chính xác', points: 0.25 },
+        ],
         keyFormula: '$a \\perp c, b \\perp c \\implies a \\parallel b$',
         commonMistake: 'Nghĩ rằng $a$ vuông góc với $b$.',
       };
@@ -1442,6 +1560,14 @@ export const grade7Templates: QuestionTemplate[] = [
     problemType: 'Tính góc nhọn ở đỉnh gãy',
     difficulty: 'hard',
     cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'mcq',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -1474,7 +1600,11 @@ export const grade7Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Kẻ qua $O$ đường thẳng $Ot \\parallel Ax \\parallel By$.\nKhi đó $\\widehat{AOt} = \\widehat{xAO} = ${a}^\\circ$ (so le trong) và $\\widehat{tOB} = \\widehat{yBO} = ${b}^\\circ$ (so le trong).\nDo đó:\n$$\\widehat{AOB} = \\widehat{AOt} + \\widehat{tOB} = ${a}^\\circ + ${b}^\\circ = ${sum}^\\circ$$`,
-        rubricSteps: [{ step: 'Kẻ đường phụ qua O song song và tính tổng ra kết quả', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.15 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.18 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.17 },
+        ],
         keyFormula: 'Kẻ đường thẳng phụ qua đỉnh gãy khúc song song với hai tia ban đầu.',
         commonMistake: 'Lấy hiệu của hai góc thay vì cộng.',
       };
@@ -1490,6 +1620,14 @@ export const grade7Templates: QuestionTemplate[] = [
     problemType: 'Chứng minh ba điểm hoặc tia song song',
     difficulty: 'hard',
     cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -1512,8 +1650,9 @@ export const grade7Templates: QuestionTemplate[] = [
         acceptedAnswers: ['song song', 'a song song b', 'a // b'],
         solution: `Tổng số đo của hai góc trong cùng phía là:\n$$${a}^\\circ + ${b}^\\circ = 180^\\circ$$\nVì hai góc ở vị trí trong cùng phía có tổng số đo bằng $180^\\circ$ (bù nhau) nên theo dấu hiệu nhận biết hai đường thẳng song song, ta có $a \\parallel b$.`,
         rubricSteps: [
-          { step: `Tính tổng số đo hai góc ra $180^\\circ$`, points: 0.5 },
-          { step: 'Kết luận $a \\parallel b$ theo dấu hiệu hai góc trong cùng phía bù nhau', points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: 'Hai góc trong cùng phía bù nhau $\\implies a \\parallel b$.',
         commonMistake: 'Quên nêu vị trí "trong cùng phía".',
@@ -1529,7 +1668,15 @@ export const grade7Templates: QuestionTemplate[] = [
     topic: 'Chứng minh hai tia phân giác song song',
     problemType: 'Hai phân giác của hai góc so le trong',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'mcq',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -1551,7 +1698,7 @@ export const grade7Templates: QuestionTemplate[] = [
         problemType: 'Hai phân giác của hai góc so le trong',
         type: 'mcq',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 0.5,
         textbooks: [book],
         content: 'Cho hai đường thẳng song song $a \\parallel b$ bị cắt bởi đường thẳng $c$. Hai tia phân giác của một cặp góc so le trong có vị trí tương đối như thế nào với nhau?',
@@ -1559,7 +1706,11 @@ export const grade7Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: 'Gọi cặp góc so le trong là $\\alpha$ và $\\beta$ (với $\\alpha = \\beta$). Tia phân giác chia mỗi góc thành $\\alpha/2$ và $\\beta/2$. Hai góc này cũng ở vị trí so le trong và bằng nhau, do đó hai tia phân giác song song với nhau.',
-        rubricSteps: [{ step: 'Chứng minh góc so le trong của phân giác bằng nhau và suy ra song song', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.15 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.18 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.17 },
+        ],
         keyFormula: 'Hai phân giác của hai góc so le trong thì song song với nhau.',
         commonMistake: 'Nhầm với hai phân giác của góc kề bù (vuông góc).',
       };
@@ -1574,7 +1725,15 @@ export const grade7Templates: QuestionTemplate[] = [
     topic: 'Định lý góc ngoài của tam giác',
     problemType: 'Chứng minh góc ngoài bằng tổng 2 góc trong không kề',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -1587,7 +1746,7 @@ export const grade7Templates: QuestionTemplate[] = [
         problemType: 'Chứng minh góc ngoài bằng tổng 2 góc trong không kề',
         type: 'essay',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 1.0,
         textbooks: [book],
         content: 'Chứng minh rằng mỗi góc ngoài của một tam giác bằng tổng của hai góc trong không kề với nó.',
@@ -1595,8 +1754,9 @@ export const grade7Templates: QuestionTemplate[] = [
         acceptedAnswers: ['goc ngoai', '180', 'tong hai goc trong'],
         solution: `Xét tam giác $ABC$, gọi $\\widehat{ACx}$ là góc ngoài tại đỉnh $C$.\nTa có: $\\widehat{ACx} + \\widehat{C} = 180^\\circ$ (hai góc kề bù).\nMặt khác, tổng ba góc trong tam giác: $\\widehat{A} + \\widehat{B} + \\widehat{C} = 180^\\circ \\implies \\widehat{A} + \\widehat{B} = 180^\\circ - \\widehat{C}$.\nTừ đó suy ra: $\\widehat{ACx} = \\widehat{A} + \\widehat{B}$.\nVậy mỗi góc ngoài của một tam giác bằng tổng của hai góc trong không kề với nó.`,
         rubricSteps: [
-          { step: 'Dùng tính chất kề bù của góc ngoài', points: 0.5 },
-          { step: 'Dùng định lý tổng 3 góc bằng 180° để suy ra điều phải chứng minh', points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: 'Góc ngoài = Tổng hai góc trong không kề.',
         commonMistake: 'Cộng nhầm cả góc trong kề với nó.',
@@ -1875,7 +2035,10 @@ export const grade7Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Vì số mét vải dệt được tỉ lệ thuận với thời gian dệt nên:\n$$x = \\frac{${prod1} \\cdot ${h2}}{${h1}} = ${prod2}\\text{ mét vải}$$`,
-        rubricSteps: [{ step: 'Lập tỉ lệ thuận và tính ra kết quả', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Nêu công thức và thiết lập các bước biến đổi ban đầu', points: 0.25 },
+          { step: 'Thực hiện phép tính và kết luận đáp án chính xác', points: 0.25 },
+        ],
         keyFormula: '$\\frac{y_1}{x_1} = \\frac{y_2}{x_2}$',
         commonMistake: 'Lập nhầm tỉ lệ nghịch.',
       };
@@ -1962,7 +2125,10 @@ export const grade7Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: 'Từ đẳng thức $ad = bc$, ta có thể lập được $\\frac{a}{c} = \\frac{b}{d}$. Ở đây $2 \\cdot 6 = 3 \\cdot 4 \\implies \\frac{2}{3} = \\frac{4}{6}$.',
-        rubricSteps: [{ step: 'Áp dụng tính chất từ tích lập tỉ lệ thức', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Nêu công thức và thiết lập các bước biến đổi ban đầu', points: 0.25 },
+          { step: 'Thực hiện phép tính và kết luận đáp án chính xác', points: 0.25 },
+        ],
         keyFormula: '$ad = bc \\implies \\frac{a}{c} = \\frac{b}{d}$',
         commonMistake: 'Nhầm lẫn vị trí của ngoại tỉ và trung tỉ.',
       };
@@ -1980,6 +2146,14 @@ export const grade7Templates: QuestionTemplate[] = [
     problemType: 'Bài toán chia tiền thưởng hoặc số cây trồng',
     difficulty: 'hard',
     cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -2008,8 +2182,9 @@ export const grade7Templates: QuestionTemplate[] = [
         acceptedAnswers: [`${ansA}, ${ansB}, ${ansC}`, `${ansA}; ${ansB}; ${ansC}`],
         solution: `Gọi số cây ba lớp 7A, 7B, 7C trồng được lần lượt là $x, y, z$ ($x, y, z \\in \\mathbb{N}^*$).\nTheo đề bài: $\\frac{x}{3} = \\frac{y}{4} = \\frac{z}{5}$ và $x + y + z = ${total}$.\nÁp dụng tính chất dãy tỉ số bằng nhau:\n$$\\frac{x}{3} = \\frac{y}{4} = \\frac{z}{5} = \\frac{x + y + z}{3 + 4 + 5} = \\frac{${total}}{12} = ${k}$$\nSuy ra: $x = ${ansA}$ cây, $y = ${ansB}$ cây, $z = ${ansC}$ cây.`,
         rubricSteps: [
-          { step: 'Gọi ẩn và lập dãy tỉ số bằng nhau', points: 0.5 },
-          { step: `Tìm hằng số $k = ${k}$ và kết luận số cây của 3 lớp`, points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: '$\\frac{x}{a} = \\frac{y}{b} = \\frac{z}{c} = \\frac{x+y+z}{a+b+c}$',
         commonMistake: 'Đặt tỉ lệ nghịch thay vì tỉ lệ thuận.',
@@ -2026,6 +2201,14 @@ export const grade7Templates: QuestionTemplate[] = [
     problemType: 'Phân chia công việc theo tỉ lệ nghịch',
     difficulty: 'hard',
     cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'mcq',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -2055,7 +2238,11 @@ export const grade7Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: 'Vì khối lượng công việc như nhau nên số máy cày và thời gian hoàn thành là hai đại lượng tỉ lệ nghịch. Do đó số máy cày của ba đội sẽ tỉ lệ với nghịch đảo của thời gian: $\\frac{1}{2} : \\frac{1}{3} : \\frac{1}{4}$.',
-        rubricSteps: [{ step: 'Xác định quan hệ tỉ lệ nghịch với nghịch đảo các hệ số', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.15 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.18 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.17 },
+        ],
         keyFormula: 'Tỉ lệ nghịch với $a, b, c \\iff$ tỉ lệ thuận với $\\frac{1}{a}, \\frac{1}{b}, \\frac{1}{c}$.',
         commonMistake: 'Cho tỉ lệ thuận với $2:3:4$.',
       };
@@ -2070,7 +2257,15 @@ export const grade7Templates: QuestionTemplate[] = [
     topic: 'Chứng minh đẳng thức từ tỉ lệ thức',
     problemType: 'Phương pháp đặt k',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -2083,7 +2278,7 @@ export const grade7Templates: QuestionTemplate[] = [
         problemType: 'Phương pháp đặt k',
         type: 'essay',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 1.0,
         textbooks: [book],
         content: 'Cho tỉ lệ thức $\\frac{a}{b} = \\frac{c}{d}$. Chứng minh rằng: $\\frac{a + b}{b} = \\frac{c + d}{d}$.',
@@ -2091,8 +2286,9 @@ export const grade7Templates: QuestionTemplate[] = [
         acceptedAnswers: ['dat k', 'k', 'chung minh bang nhau'],
         solution: `Cách 1: Đặt $\\frac{a}{b} = \\frac{c}{d} = k \\implies a = bk, c = dk$.\nThay vào vế trái: $\\frac{a + b}{b} = \\frac{bk + b}{b} = \\frac{b(k + 1)}{b} = k + 1$.\nThay vào vế phải: $\\frac{c + d}{d} = \\frac{dk + d}{d} = \\frac{d(k + 1)}{d} = k + 1$.\nVì cả hai vế cùng bằng $k + 1$ nên $\\frac{a + b}{b} = \\frac{c + d}{d}$.`,
         rubricSteps: [
-          { step: 'Đặt $a/b = c/d = k$ và biểu diễn $a = bk, c = dk$', points: 0.5 },
-          { step: 'Tính hai vế cùng bằng $k + 1$ và kết luận', points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: 'Phương pháp đặt ẩn phụ $k$ để chứng minh đẳng thức phân số.',
         commonMistake: 'Biến đổi vòng tròn không rõ ràng.',
@@ -2108,7 +2304,15 @@ export const grade7Templates: QuestionTemplate[] = [
     topic: 'Tìm x, y, z tỉ lệ phức tạp',
     problemType: 'Dãy tỉ số có hệ số',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'mcq',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -2130,7 +2334,7 @@ export const grade7Templates: QuestionTemplate[] = [
         problemType: 'Dãy tỉ số có hệ số',
         type: 'mcq',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 0.5,
         textbooks: [book],
         content: 'Cho đẳng thức $2x = 3y = 4z$. Dãy tỉ số bằng nhau tương đương là:',
@@ -2138,7 +2342,11 @@ export const grade7Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: 'Chia cả ba vế cho $\\text{BCNN}(2, 3, 4) = 12$:\n$$\\frac{2x}{12} = \\frac{3y}{12} = \\frac{4z}{12} \\implies \\frac{x}{6} = \\frac{y}{4} = \\frac{z}{3}$$',
-        rubricSteps: [{ step: 'Chia cho BCNN của các hệ số để đưa về dãy tỉ số chuẩn', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.15 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.18 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.17 },
+        ],
         keyFormula: 'Chia cho $\\text{BCNN}(a, b, c)$ để rút gọn hệ số về mẫu số.',
         commonMistake: 'Lấy trực tiếp các hệ số đặt xuống mẫu.',
       };
@@ -2416,7 +2624,10 @@ export const grade7Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Nhân đơn thức với từng hạng tử của đa thức:\n$$${a}x \\cdot (x^2 - ${b}) = ${a}x \\cdot x^2 - ${a}x \\cdot ${b} = ${a}x^3 - ${a * b}x$$`,
-        rubricSteps: [{ step: 'Nhân đơn thức với từng hạng tử và cộng đúng số mũ', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Nêu công thức và thiết lập các bước biến đổi ban đầu', points: 0.25 },
+          { step: 'Thực hiện phép tính và kết luận đáp án chính xác', points: 0.25 },
+        ],
         keyFormula: '$A(B + C) = AB + AC$',
         commonMistake: 'Quên nhân hệ số với hạng tử phía sau.',
       };
@@ -2502,7 +2713,10 @@ export const grade7Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Chia từng hạng tử của đa thức cho đơn thức $2x$:\n$$(2x^2 + ${2 * a}x) : 2x = \\frac{2x^2}{2x} + \\frac{${2 * a}x}{2x} = x + ${a}$$`,
-        rubricSteps: [{ step: 'Chia từng hạng tử đúng quy tắc', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Nêu công thức và thiết lập các bước biến đổi ban đầu', points: 0.25 },
+          { step: 'Thực hiện phép tính và kết luận đáp án chính xác', points: 0.25 },
+        ],
         keyFormula: '$(A + B) : C = A:C + B:C$',
         commonMistake: 'Chỉ chia hạng tử đầu tiên.',
       };
@@ -2520,6 +2734,14 @@ export const grade7Templates: QuestionTemplate[] = [
     problemType: 'Đánh giá đa thức bậc hai không âm cộng số dương',
     difficulty: 'hard',
     cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -2541,8 +2763,9 @@ export const grade7Templates: QuestionTemplate[] = [
         acceptedAnswers: ['vo nghiem', 'vô nghiệm', 'P(x) > 0'],
         solution: `Với mọi số thực $x$, ta luôn có $x^2 \\ge 0$.\nSuy ra $P(x) = x^2 + ${c} \\ge 0 + ${c} = ${c} > 0$.\nVì $P(x) > 0$ với mọi $x$ nên không tồn tại giá trị nào của $x$ để $P(x) = 0$.\nVậy đa thức $P(x)$ không có nghiệm.`,
         rubricSteps: [
-          { step: 'Đánh giá $x^2 \\ge 0$ với mọi $x$', points: 0.5 },
-          { step: `Suy ra $P(x) \\ge ${c} > 0$ và kết luận vô nghiệm`, points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: '$x^2 \\ge 0 \\implies x^2 + c > 0$ khi $c > 0$.',
         commonMistake: 'Cho $x^2 = -c$ rồi lúng túng không giải thích được vì sao vô nghiệm.',
@@ -2559,6 +2782,14 @@ export const grade7Templates: QuestionTemplate[] = [
     problemType: 'Tìm đa thức thỏa mãn phương trình',
     difficulty: 'hard',
     cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'mcq',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -2588,7 +2819,11 @@ export const grade7Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: 'Ta có:\n$$M(x) = (x^2 + 3x - 2) - (3x^2 - 2x + 1) = x^2 + 3x - 2 - 3x^2 + 2x - 1 = -2x^2 + 5x - 3$$',
-        rubricSteps: [{ step: 'Chuyển vế đổi dấu và thu gọn đúng đa thức M(x)', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.15 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.18 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.17 },
+        ],
         keyFormula: '$M + A = B \\implies M = B - A$',
         commonMistake: 'Quên đổi dấu các số hạng trong ngoặc khi có dấu trừ đằng trước.',
       };
@@ -2603,7 +2838,15 @@ export const grade7Templates: QuestionTemplate[] = [
     topic: 'Tìm giá trị lớn nhất / nhỏ nhất',
     problemType: 'Cực trị tam thức bậc hai hoàn hảo',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -2618,7 +2861,7 @@ export const grade7Templates: QuestionTemplate[] = [
         problemType: 'Cực trị tam thức bậc hai hoàn hảo',
         type: 'essay',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 1.0,
         textbooks: [book],
         content: `Tìm giá trị lớn nhất của biểu thức: $B = ${m} - (x + ${a})^2$.`,
@@ -2626,8 +2869,9 @@ export const grade7Templates: QuestionTemplate[] = [
         acceptedAnswers: [String(m), `B=${m}`, `GTLN=${m}`],
         solution: `Với mọi $x$, ta có $(x + ${a})^2 \\ge 0 \\implies -(x + ${a})^2 \\le 0$.\nDo đó $B = ${m} - (x + ${a})^2 \\le ${m} - 0 = ${m}$.\nDấu bằng xảy ra khi $x + ${a} = 0 \\implies x = -${a}$.\nVậy giá trị lớn nhất của $B$ là $${m}$.`,
         rubricSteps: [
-          { step: 'Đánh giá $-(x+a)^2 \\le 0$', points: 0.5 },
-          { step: `Tìm ra GTLN bằng $${m}$ khi $x = -${a}$`, points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: '$m - A^2 \\le m \\implies \\text{GTLN} = m$',
         commonMistake: 'Nhầm lẫn giữa giá trị lớn nhất và nhỏ nhất.',
@@ -2643,7 +2887,15 @@ export const grade7Templates: QuestionTemplate[] = [
     topic: 'Định lý Bézout sơ cấp / Hệ số nghiệm',
     problemType: 'Tìm hệ số a để đa thức có nghiệm cho trước',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'mcq',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -2665,7 +2917,7 @@ export const grade7Templates: QuestionTemplate[] = [
         problemType: 'Tìm hệ số a để đa thức có nghiệm cho trước',
         type: 'mcq',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 0.5,
         textbooks: [book],
         content: 'Biết đa thức $P(x) = m x^2 - 5x + 4$ nhận $x = 1$ là một nghiệm. Giá trị của hệ số $m$ là:',
@@ -2673,7 +2925,11 @@ export const grade7Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: 'Vì $x = 1$ là nghiệm của $P(x)$ nên $P(1) = 0$:\n$$m \\cdot 1^2 - 5 \\cdot 1 + 4 = 0 \\implies m - 5 + 4 = 0 \\implies m - 1 = 0 \\implies m = 1$$',
-        rubricSteps: [{ step: 'Thay $x = 1$ vào phương trình và tìm ra $m = 1$', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.15 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.18 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.17 },
+        ],
         keyFormula: '$P(x_0) = 0$ khi $x_0$ là nghiệm.',
         commonMistake: 'Tính nhầm dấu của hằng số tự do.',
       };
@@ -2901,7 +3157,10 @@ export const grade7Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: 'Theo bất đẳng thức tam giác, tổng độ dài hai cạnh bất kỳ luôn lớn hơn độ dài cạnh còn lại. Chỉ có bộ ba $3\\text{ cm}, 4\\text{ cm}, 5\\text{ cm}$ thỏa mãn vì $3 + 4 = 7 > 5$. Các bộ ba còn lại tổng hai cạnh nhỏ hơn không lớn hơn cạnh lớn nhất.',
-        rubricSteps: [{ step: 'Kiểm tra tổng hai cạnh bé hơn lớn hơn cạnh lớn nhất', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Nêu công thức và thiết lập các bước biến đổi ban đầu', points: 0.25 },
+          { step: 'Thực hiện phép tính và kết luận đáp án chính xác', points: 0.25 },
+        ],
         keyFormula: '$a + b > c$',
         commonMistake: 'Chọn bộ có tổng bằng cạnh thứ ba (tam giác suy biến thành đoạn thẳng).',
       };
@@ -2936,7 +3195,10 @@ export const grade7Templates: QuestionTemplate[] = [
         correctAnswer: 'Cach deu ba dinh cua tam giac',
         acceptedAnswers: ['cach deu ba dinh', 'cách đều ba đỉnh', 'tam duong tron ngoai tiep'],
         solution: 'Giao điểm của ba đường trung trực trong một tam giác cách đều ba đỉnh của tam giác đó (và là tâm của đường tròn ngoại tiếp tam giác).',
-        rubricSteps: [{ step: 'Nêu đúng tính chất cách đều ba đỉnh của giao điểm 3 đường trung trực', points: 1.0 }],
+        rubricSteps: [
+          { step: 'Nêu công thức và thiết lập các bước biến đổi ban đầu', points: 0.5 },
+          { step: 'Thực hiện phép tính và kết luận đáp án chính xác', points: 0.5 },
+        ],
         keyFormula: 'Giao điểm 3 đường trung trực cách đều 3 đỉnh.',
         commonMistake: 'Nhầm với giao điểm 3 đường phân giác (cách đều 3 cạnh).',
       };
@@ -2981,7 +3243,10 @@ export const grade7Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: 'Theo trường hợp cạnh - góc - cạnh, góc bằng nhau phải là góc xen giữa hai cặp cạnh tương ứng bằng nhau. Ở đây góc xen giữa $AB, AC$ là $\\widehat{A}$, góc xen giữa $DE, DF$ là $\\widehat{D}$, do đó cần thêm điều kiện $\\widehat{A} = \\widehat{D}$.',
-        rubricSteps: [{ step: 'Xác định chính xác góc xen giữa hai cạnh bằng nhau', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Nêu công thức và thiết lập các bước biến đổi ban đầu', points: 0.25 },
+          { step: 'Thực hiện phép tính và kết luận đáp án chính xác', points: 0.25 },
+        ],
         keyFormula: 'Góc bằng nhau phải là góc xen giữa hai cạnh.',
         commonMistake: 'Chọn góc không xen giữa.',
       };
@@ -3016,7 +3281,10 @@ export const grade7Templates: QuestionTemplate[] = [
         correctAnswer: 'Tai dinh goc vuong',
         acceptedAnswers: ['tai dinh goc vuong', 'đỉnh góc vuông', 'dinh goc vuong'],
         solution: 'Trong tam giác vuông, hai cạnh góc vuông chính là hai đường cao xuất phát từ hai góc nhọn. Do đó, trực tâm (giao điểm của ba đường cao) trùng với đỉnh góc vuông.',
-        rubricSteps: [{ step: 'Khẳng định trực tâm trùng với đỉnh góc vuông', points: 1.0 }],
+        rubricSteps: [
+          { step: 'Nêu công thức và thiết lập các bước biến đổi ban đầu', points: 0.5 },
+          { step: 'Thực hiện phép tính và kết luận đáp án chính xác', points: 0.5 },
+        ],
         keyFormula: 'Tam giác vuông có trực tâm tại đỉnh góc vuông.',
         commonMistake: 'Nghĩ rằng trực tâm nằm trên cạnh huyền.',
       };
@@ -3034,6 +3302,14 @@ export const grade7Templates: QuestionTemplate[] = [
     problemType: 'Tam giác cân có 1 góc bằng 60 độ',
     difficulty: 'hard',
     cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'mcq',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -3063,7 +3339,11 @@ export const grade7Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: 'Dấu hiệu nhận biết: Tam giác cân có một góc bằng $60^\\circ$ (dù là góc ở đỉnh hay góc ở đáy) thì hai góc còn lại cũng đều bằng $60^\\circ$, do đó tam giác đó là tam giác đều.',
-        rubricSteps: [{ step: 'Áp dụng dấu hiệu tam giác cân có góc 60° là tam giác đều', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.15 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.18 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.17 },
+        ],
         keyFormula: 'Tam giác cân + góc $60^\\circ \\implies$ Tam giác đều.',
         commonMistake: 'Nghĩ rằng chỉ khi góc ở đỉnh bằng 60° mới là tam giác đều.',
       };
@@ -3079,6 +3359,14 @@ export const grade7Templates: QuestionTemplate[] = [
     problemType: 'Chứng minh tia phân giác',
     difficulty: 'hard',
     cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -3099,8 +3387,9 @@ export const grade7Templates: QuestionTemplate[] = [
         acceptedAnswers: ['c-c-c', 'tam giac OAM bang tam giac OBM', 'phan giac'],
         solution: `Xét $\\triangle OAM$ và $\\triangle OBM$, ta có:\n- $OA = OB$ (giả thiết)\n- $MA = MB$ (giả thiết)\n- $OM$ là cạnh chung\nDo đó $\\triangle OAM = \\triangle OBM$ (c-c-c).\nSuy ra $\\widehat{AOM} = \\widehat{BOM}$ (hai góc tương ứng).\nVì $M$ nằm trong góc $\\widehat{xOy}$ và $\\widehat{AOM} = \\widehat{BOM}$ nên $OM$ là tia phân giác của góc $\\widehat{xOy}$.`,
         rubricSteps: [
-          { step: 'Chứng minh $\\triangle OAM = \\triangle OBM$ theo trường hợp c-c-c', points: 0.5 },
-          { step: 'Suy ra $\\widehat{AOM} = \\widehat{BOM}$ và kết luận $OM$ là tia phân giác', points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: 'Chứng minh tam giác bằng nhau $\\implies$ các góc tương ứng bằng nhau.',
         commonMistake: 'Quên lập luận điểm $M$ nằm trong góc.',
@@ -3116,7 +3405,15 @@ export const grade7Templates: QuestionTemplate[] = [
     topic: 'Bài toán tỉ số diện tích tam giác con tạo bởi trọng tâm',
     problemType: 'Trọng tâm chia tam giác thành 6 tam giác nhỏ',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'mcq',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -3138,7 +3435,7 @@ export const grade7Templates: QuestionTemplate[] = [
         problemType: 'Trọng tâm chia tam giác thành 6 tam giác nhỏ',
         type: 'mcq',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 0.5,
         textbooks: [book],
         content: 'Ba đường trung tuyến của một tam giác chia tam giác đó thành $6$ tam giác nhỏ. Nhận xét nào sau đây về diện tích của $6$ tam giác này là đúng?',
@@ -3146,7 +3443,11 @@ export const grade7Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: 'Do tính chất đường trung tuyến chia đôi diện tích tam giác và trọng tâm chia trung tuyến theo tỉ số $2:1$, cả $6$ tam giác con tạo bởi trọng tâm và ba đường trung tuyến đều có diện tích bằng nhau và bằng $1/6$ diện tích tam giác ban đầu.',
-        rubricSteps: [{ step: 'Xác định đúng tính chất 6 tam giác con có diện tích bằng nhau', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.15 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.18 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.17 },
+        ],
         keyFormula: '$S_i = \\frac{1}{6} S_{\\triangle ABC}$ với $i = 1..6$.',
         commonMistake: 'Nghĩ rằng các hình dạng khác nhau thì diện tích không bằng nhau.',
       };
@@ -3161,7 +3462,15 @@ export const grade7Templates: QuestionTemplate[] = [
     topic: 'Bất đẳng thức tam giác và cực trị hình học',
     problemType: 'Tìm vị trí đặt trạm bơm ngắn nhất',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -3174,7 +3483,7 @@ export const grade7Templates: QuestionTemplate[] = [
         problemType: 'Tìm vị trí đặt trạm bơm ngắn nhất',
         type: 'essay',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 1.0,
         textbooks: [book],
         content: 'Hai khu dân cư $A$ và $B$ nằm cùng một phía bờ sông $d$. Người ta cần xây một trạm cấp nước $M$ trên bờ sông $d$ sao cho tổng độ dài đường ống dẫn nước $MA + MB$ là ngắn nhất. Hãy nêu cách xác định vị trí điểm $M$.',
@@ -3182,12 +3491,18 @@ export const grade7Templates: QuestionTemplate[] = [
         acceptedAnswers: ['doi xung', 'đối xứng', 'A doi xung'],
         solution: `Cách xác định điểm $M$:\n1. Lấy điểm $A'$ đối xứng với điểm $A$ qua bờ sông $d$.\n2. Nối $A'$ với $B$, đoạn thẳng $A'B$ cắt bờ sông $d$ tại điểm $M$.\nKhi đó với mọi điểm $M'$ bất kỳ trên $d$, ta có: $M'A + M'B = M'A' + M'B \\ge A'B = MA' + MB = MA + MB$.\nVậy $M$ chính là giao điểm của $A'B$ và $d$, khi đó $MA + MB$ đạt giá trị nhỏ nhất.`,
         rubricSteps: [
-          { step: 'Dựng điểm $A\'$ đối xứng với $A$ qua đường thẳng $d$', points: 0.5 },
-          { step: 'Nối $A\'B$ cắt $d$ tại $M$ và giải thích theo BĐT tam giác', points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: 'Bài toán cực trị Heron: lấy điểm đối xứng qua đường thẳng.',
         commonMistake: 'Hạ đường cao vuông góc thay vì lấy điểm đối xứng.',
       };
     },
   },
+];
+
+export const grade7Templates: QuestionTemplate[] = [
+  ...baseGrade7Templates,
+  ...grade7VdcTemplates,
 ];

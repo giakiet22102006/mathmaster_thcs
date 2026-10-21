@@ -6,6 +6,7 @@
 import crypto from 'node:crypto';
 import { Mulberry32, type PRNG } from './rng';
 import { verifyQuestion, type VerificationResult } from './verify';
+import { computeDifficultyScore } from './difficulty-standard';
 import { grade6Templates } from './templates/grade6';
 import { grade7Templates } from './templates/grade7';
 import { grade8Templates } from './templates/grade8';
@@ -26,7 +27,7 @@ export { Mulberry32, createRNG } from './rng';
 export { verifyQuestion } from './verify';
 
 // Gom toàn bộ template 4 khối lớp
-const ALL_TEMPLATES: QuestionTemplate[] = [
+export const ALL_TEMPLATES: QuestionTemplate[] = [
   ...grade6Templates,
   ...grade7Templates,
   ...grade8Templates,
@@ -131,37 +132,64 @@ export function generateQuestions(options: GenerateQuestionsOptions): {
     }
   }
 
-  // Tìm các template thỏa mãn tiêu chí
+  // Tìm các template thỏa mãn tiêu chí (cognitiveLevel là nguồn sự thật tối cao)
   let candidateTemplates = ALL_TEMPLATES.filter((t) => {
     if (t.grade !== grade) return false;
     if (semester !== 0 && t.semester !== semester) return false;
     if (chapterIds && chapterIds.length > 0 && !chapterIds.includes(t.chapterId)) return false;
-    if (difficulty && t.difficulty !== difficulty) return false;
     if (cognitiveLevel && t.cognitiveLevel !== cognitiveLevel) return false;
+    if (difficulty && !cognitiveLevel && t.difficulty !== difficulty) return false;
     if (type !== 'ALL' && t.type !== type) return false;
     if (textbook !== 'ALL' && !t.books.includes(textbook)) return false;
     return true;
   });
 
-  // Nếu bộ lọc quá chặt không có template, nới lỏng dần để luôn có câu hỏi
-  if (candidateTemplates.length === 0) {
+  const relaxed: string[] = [];
+
+  // Nới lỏng an toàn (A.5.1): TUYỆT ĐỐI KHÔNG NỚI LỎNG cognitiveLevel hay grade!
+  // 1. Nếu không tìm thấy, thử nới lỏng textbook (nếu người dùng chỉ định 1 bộ sách nhưng thiếu)
+  if (candidateTemplates.length === 0 && textbook !== 'ALL') {
+    candidateTemplates = ALL_TEMPLATES.filter((t) => {
+      if (t.grade !== grade) return false;
+      if (semester !== 0 && t.semester !== semester) return false;
+      if (chapterIds && chapterIds.length > 0 && !chapterIds.includes(t.chapterId)) return false;
+      if (cognitiveLevel && t.cognitiveLevel !== cognitiveLevel) return false;
+      if (difficulty && !cognitiveLevel && t.difficulty !== difficulty) return false;
+      if (type !== 'ALL' && t.type !== type) return false;
+      return true;
+    });
+    if (candidateTemplates.length > 0) {
+      relaxed.push('textbook');
+    }
+  }
+
+  // 2. Nếu vẫn không có, thử nới lỏng semester (cho phép lấy template chương đó ở học kỳ khác nếu có)
+  if (candidateTemplates.length === 0 && semester !== 0) {
     candidateTemplates = ALL_TEMPLATES.filter((t) => {
       if (t.grade !== grade) return false;
       if (chapterIds && chapterIds.length > 0 && !chapterIds.includes(t.chapterId)) return false;
-      if (difficulty && t.difficulty !== difficulty) return false;
+      if (cognitiveLevel && t.cognitiveLevel !== cognitiveLevel) return false;
+      if (difficulty && !cognitiveLevel && t.difficulty !== difficulty) return false;
+      if (type !== 'ALL' && t.type !== type) return false;
       return true;
     });
+    if (candidateTemplates.length > 0) {
+      relaxed.push('semester');
+    }
   }
 
-  // Nếu vẫn không có, lấy bất kỳ template nào của khối lớp
-  if (candidateTemplates.length === 0) {
-    candidateTemplates = ALL_TEMPLATES.filter((t) => t.grade === grade);
-  }
-
+  // Nếu vẫn không có template đúng mức nhận thức và khối lớp, KHÔNG BAO GIỜ LẤY CÂU DỄ HƠN!
   if (candidateTemplates.length === 0) {
     return {
       questions: [],
-      stats: { requested: count, generated: 0, retries: 0, rejected: 0 },
+      stats: {
+        requested: count,
+        generated: 0,
+        retries: 0,
+        rejected: 0,
+        shortage: cognitiveLevel ? { [cognitiveLevel]: count } : undefined,
+        relaxed,
+      },
     };
   }
 
@@ -206,6 +234,9 @@ export function generateQuestions(options: GenerateQuestionsOptions): {
       const fullId = `Q_GEN_G${template.grade}_${template.chapterId}_${randomSuffix}`;
       const code = `GEN-${template.id}-${rng.nextInt(1000, 9999)}`;
 
+      const complexity = template.complexity || rawQ.complexity;
+      const difficultyScore = computeDifficultyScore(template.cognitiveLevel, complexity);
+
       const question: EngineQuestion = {
         ...rawQ,
         id: fullId,
@@ -216,11 +247,25 @@ export function generateQuestions(options: GenerateQuestionsOptions): {
         verifiedAt: new Date().toISOString(),
         version: 1,
         fingerprint: fp,
+        complexity,
+        difficultyScore,
       };
+
+      // Kiểm tra tính không suy biến nếu template định nghĩa
+      if (template.isNonDegenerate && !template.isNonDegenerate(question)) {
+        rejected++;
+        continue;
+      }
 
       // Thẩm định độc lập với verifyQuestion
       const verification = verifyQuestion(question);
       if (!verification.valid) {
+        rejected++;
+        continue;
+      }
+
+      // Kiểm tra độc lập bổ sung nếu có verifyFn
+      if (template.verifyFn && !template.verifyFn(question)) {
         rejected++;
         continue;
       }
@@ -240,6 +285,11 @@ export function generateQuestions(options: GenerateQuestionsOptions): {
       generated: generatedQuestions.length,
       retries,
       rejected,
+      shortage:
+        cognitiveLevel && generatedQuestions.length < count
+          ? { [cognitiveLevel]: count - generatedQuestions.length }
+          : undefined,
+      relaxed,
     },
   };
 }

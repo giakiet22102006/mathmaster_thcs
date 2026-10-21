@@ -1014,16 +1014,18 @@
 
       let pool = APP_STATE.questions.filter(q => Number(q.grade) === grade && q.verificationStatus === 'verified');
       if (sourceMode === 'ONLY_DOCS') {
-        const docPool = pool.filter(q => Boolean(q.sourceDocId));
-        if (docPool.length > 0) pool = docPool;
+        pool = pool.filter(q => Boolean(q.sourceDocId));
+        if (pool.length === 0) {
+          showToast('Chưa có câu hỏi nào từ tài liệu tải lên cho phạm vi này.', 'warning');
+        }
       }
       if (semConstraint === 1 || semConstraint === 2) {
         const semPool = pool.filter(q => Number(q.semester) === semConstraint);
-        if (semPool.length >= 3) pool = semPool;
+        if (semPool.length > 0) pool = semPool;
       }
       if (chapterFilter && chapterFilter !== 'ALL') {
         const chPool = pool.filter(q => q.chapterId === chapterFilter);
-        if (chPool.length >= 2) pool = chPool;
+        if (chPool.length > 0) pool = chPool;
       }
 
       const recentExams = APP_STATE.exams.filter(e => e.userId === user.id && Number(e.grade) === grade).slice(-2);
@@ -1047,26 +1049,16 @@
 
       if (format === 'mcq') {
         selected = mcqCandidates.slice(0, totalCount);
-        if (selected.length < totalCount) selected = selected.concat(essayCandidates.slice(0, totalCount - selected.length));
       } else if (format === 'essay') {
         selected = essayCandidates.slice(0, totalCount);
-        if (selected.length < totalCount) selected = selected.concat(mcqCandidates.slice(0, totalCount - selected.length));
       } else {
         const targetEssay = Math.max(1, Math.round(totalCount * 0.3));
         const targetMcq = Math.max(1, totalCount - targetEssay);
         selected = mcqCandidates.slice(0, targetMcq).concat(essayCandidates.slice(0, targetEssay));
       }
 
-      if (selected.length < Math.min(totalCount, 4)) {
-        const gradePool = APP_STATE.questions.filter(q => Number(q.grade) === grade && q.verificationStatus === 'verified');
-        const usedIds = new Set(selected.map(x => x.id));
-        for (const q of gradePool) {
-          if (!usedIds.has(q.id)) {
-            selected.push(q);
-            usedIds.add(q.id);
-            if (selected.length >= totalCount) break;
-          }
-        }
+      if (selected.length < totalCount && selected.length > 0) {
+        showToast('Chỉ tìm được ' + selected.length + ' câu hỏi thỏa mãn ma trận yêu cầu (không lấp câu sai độ khó).', 'info');
       }
 
       const questionPoints = {};

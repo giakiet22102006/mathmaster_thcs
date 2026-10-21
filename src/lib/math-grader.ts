@@ -675,13 +675,6 @@ export function generateExamFromPool(
   const generatedQuestions: any[] = [];
   for (const lv of COGNITIVE_LEVELS) {
     if (shortage[lv].missing > 0) {
-      const difficultyMap: Record<CognitiveLevel, 'easy' | 'medium' | 'hard'> = {
-        nhan_biet: 'easy',
-        thong_hieu: 'easy',
-        van_dung: 'medium',
-        van_dung_cao: 'hard',
-      };
-
       let reqType: 'mcq' | 'essay' | 'ALL' = 'ALL';
       if (format === 'mcq') reqType = 'mcq';
       else if (format === 'essay') reqType = 'essay';
@@ -694,7 +687,7 @@ export function generateExamFromPool(
         textbook: textbook && textbook !== 'ALL' ? (textbook as any) : undefined,
         chapterIds: chapterIds.length > 0 ? chapterIds : undefined,
         semester: semConstraint === 1 || semConstraint === 2 ? (semConstraint as any) : 0,
-        difficulty: difficultyMap[lv],
+        difficulty: COGNITIVE_TO_DIFFICULTY[lv],
         cognitiveLevel: lv,
         type: reqType,
         count: shortage[lv].missing,
@@ -748,12 +741,12 @@ export function generateExamFromPool(
       };
     }
 
-    // Cho phép mượn từ mức độ kề cận ngay sát (adjacent level)
+    // Cho phép mượn từ mức độ kề cận (sàn độ khó: chỉ được mượn LÊN mức cao hơn, tuyệt đối KHÔNG mượn xuống)
     const adjacentMap: Record<CognitiveLevel, CognitiveLevel[]> = {
       nhan_biet: ['thong_hieu'],
-      thong_hieu: ['nhan_biet', 'van_dung'],
-      van_dung: ['van_dung_cao', 'thong_hieu'],
-      van_dung_cao: ['van_dung'],
+      thong_hieu: ['van_dung'],
+      van_dung: ['van_dung_cao'],
+      van_dung_cao: [], // Tuyệt đối không mượn xuống câu dễ hơn!
     };
 
     const spareByLevel: Record<CognitiveLevel, number> = {
@@ -885,10 +878,13 @@ export function generateExamFromPool(
   };
   selected.sort((a, b) => {
     if (a.type !== b.type) return a.type === 'mcq' ? -1 : 1;
-    return (
+    const diffLevel =
       levelOrder[resolveQuestionCognitiveLevel(a)] -
-      levelOrder[resolveQuestionCognitiveLevel(b)]
-    );
+      levelOrder[resolveQuestionCognitiveLevel(b)];
+    if (diffLevel !== 0) return diffLevel;
+    const scoreA = Number(a.difficultyScore || 5);
+    const scoreB = Number(b.difficultyScore || 5);
+    return scoreA - scoreB;
   });
 
   // ============================================================================

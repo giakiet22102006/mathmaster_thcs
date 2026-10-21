@@ -10,8 +10,9 @@ import { buildShuffledMcq, gcd, lcm, formatFraction } from '../template-helpers'
 import { KNTTContexts } from '../contexts/KNTT';
 import { CDContexts } from '../contexts/CD';
 import { CTSTContexts } from '../contexts/CTST';
+import { grade6VdVdcTemplates } from './grade6-vd-vdc';
 
-export const grade6Templates: QuestionTemplate[] = [
+const rawGrade6Templates: QuestionTemplate[] = [
   // ============================================================================
   // CHƯƠNG 1: TẬP HỢP CÁC SỐ TỰ NHIÊN (G6_C1) - HK1
   // ============================================================================
@@ -345,8 +346,11 @@ export const grade6Templates: QuestionTemplate[] = [
         options,
         correctAnswer,
         acceptedAnswers: [correctAnswer],
-        solution: `Phân tích $${a}$ và $${b}$ ra thừa số nguyên tố, sau đó chọn các thừa số nguyên tố chung và riêng với số mũ lớn nhất: $\\text{BCNN}(${a}, ${b}) = ${l}$.`,
-        rubricSteps: [{ step: `Tính đúng BCNN là $${l}$`, points: 0.5 }],
+        solution: `Bước 1: Phân tích $${a}$ và $${b}$ ra thừa số nguyên tố.\\nBước 2: Chọn các thừa số nguyên tố chung và riêng với số mũ lớn nhất: $\\text{BCNN}(${a}, ${b}) = ${l}$.`,
+        rubricSteps: [
+          { step: 'Phân tích hai số ra thừa số nguyên tố', points: 0.25 },
+          { step: `Tìm BCNN là $${l}$`, points: 0.25 },
+        ],
         keyFormula: '$\\text{BCNN}(a, b) = \\frac{a \\cdot b}{\\text{ƯCLN}(a, b)}$',
         commonMistake: 'Lấy tích $a \\cdot b$ khi hai số chưa nguyên tố cùng nhau.',
       };
@@ -933,7 +937,10 @@ export const grade6Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Trong tập hợp số nguyên $\\mathbb{Z}$, ước của số nguyên tố $p$ bao gồm cả ước dương và ước âm: $\\{\\pm 1, \\pm ${p}\\}$. Vậy có tất cả $4$ ước.`,
-        rubricSteps: [{ step: 'Xác định đủ cả ước dương và ước âm trong Z', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Liệt kê các ước dương của số nguyên tố', points: 0.25 },
+          { step: 'Lấy thêm các số đối để có đủ 4 ước nguyên trong Z: +-1, +-p', points: 0.25 },
+        ],
         keyFormula: 'Ước nguyên của số nguyên tố $p$ gồm: $1, -1, p, -p$.',
         commonMistake: 'Chỉ tính các ước tự nhiên mà quên các ước âm trong Z.',
       };
@@ -1437,8 +1444,11 @@ export const grade6Templates: QuestionTemplate[] = [
         options,
         correctAnswer,
         acceptedAnswers: [correctAnswer],
-        solution: `Diện tích hình bình hành bằng độ dài đáy nhân với chiều cao tương ứng: $S = a \\cdot h = ${a} \\cdot ${h} = ${s}\\text{ cm}^2$.`,
-        rubricSteps: [{ step: 'Áp dụng đúng công thức diện tích hình bình hành', points: 0.5 }],
+        solution: `Bước 1: Nêu công thức diện tích hình bình hành $S = a \\cdot h$.\\nBước 2: Thay số ta được $S = ${a} \\cdot ${h} = ${s}\\text{ cm}^2$.`,
+        rubricSteps: [
+          { step: 'Nêu công thức tính diện tích hình bình hành S = a * h', points: 0.25 },
+          { step: `Tính ra diện tích hình bình hành là ${s} cm2`, points: 0.25 },
+        ],
         keyFormula: '$S = a \\cdot h$',
         commonMistake: 'Chia đôi diện tích như công thức tam giác.',
       };
@@ -3297,4 +3307,9 @@ export const grade6Templates: QuestionTemplate[] = [
       };
     },
   },
+];
+
+export const grade6Templates: QuestionTemplate[] = [
+  ...rawGrade6Templates.filter((t) => !t.id.includes('HARD')),
+  ...grade6VdVdcTemplates,
 ];

@@ -10,8 +10,9 @@ import { buildShuffledMcq, gcd, formatFraction } from '../template-helpers';
 import { KNTTContexts } from '../contexts/KNTT';
 import { CDContexts } from '../contexts/CD';
 import { CTSTContexts } from '../contexts/CTST';
+import { grade8VdcTemplates } from './grade8-vdc';
 
-export const grade8Templates: QuestionTemplate[] = [
+const baseGrade8Templates: QuestionTemplate[] = [
   // ----------------------------------------------------------------------------
   // CHƯƠNG 1: ĐA THỨC NHIỀU BIẾN VÀ HẰNG ĐẲNG THỨC ĐÁNG NHỚ (G8_C1) - HK1
   // ----------------------------------------------------------------------------
@@ -257,7 +258,10 @@ export const grade8Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Ta có $(A - B)^3 = A^3 - 3A^2 B + 3AB^2 - B^3$.\nVới $A = x, B = ${b}$:\n$(x - ${b})^3 = x^3 - 3 \\cdot x^2 \\cdot ${b} + 3 \\cdot x \\cdot ${b}^2 - ${b}^3 = x^3 - ${coef2}x^2 + ${coef1}x - ${b3}$.`,
-        rubricSteps: [{ step: 'Áp dụng đúng công thức lập phương của một hiệu', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Nêu công thức và thiết lập các bước biến đổi ban đầu', points: 0.25 },
+          { step: 'Thực hiện phép tính và kết luận đáp án chính xác', points: 0.25 },
+        ],
         keyFormula: '$(A - B)^3 = A^3 - 3A^2 B + 3AB^2 - B^3$',
       };
     },
@@ -272,7 +276,7 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Phương pháp đặt nhân tử chung và dùng hằng đẳng thức',
     problemType: 'Phân tích đa thức thành nhân tử',
     difficulty: 'medium',
-    cognitiveLevel: 'van_dung',
+    cognitiveLevel: 'thong_hieu',
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -290,7 +294,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Phân tích đa thức thành nhân tử',
         type: 'essay',
         difficulty: 'medium',
-        cognitiveLevel: 'van_dung',
+        cognitiveLevel: 'thong_hieu',
         points: 1.0,
         textbooks: [book],
         content: `Phân tích đa thức sau thành nhân tử: $M = ${k}x^3 - ${ka2}x$.`,
@@ -318,7 +322,7 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Phương pháp nhóm hạng tử',
     problemType: 'Nhóm hạng tử để xuất hiện nhân tử chung',
     difficulty: 'medium',
-    cognitiveLevel: 'van_dung',
+    cognitiveLevel: 'thong_hieu',
     type: 'mcq',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -342,15 +346,18 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Nhóm hạng tử để xuất hiện nhân tử chung',
         type: 'mcq',
         difficulty: 'medium',
-        cognitiveLevel: 'van_dung',
+        cognitiveLevel: 'thong_hieu',
         points: 0.5,
         textbooks: [book],
         content: `Phân tích đa thức $x^2 - xy - ${a}x + ${a}y$ thành nhân tử ta được:`,
         options,
         correctAnswer,
         acceptedAnswers: [correctAnswer],
-        solution: `Ta nhóm các hạng tử thích hợp:\n$(x^2 - xy) - (${a}x - ${a}y) = x(x - y) - ${a}(x - y) = (x - y)(x - ${a})$.`,
-        rubricSteps: [{ step: 'Nhóm hạng tử và đặt nhân tử chung đưa về tích', points: 0.5 }],
+        solution: `Bước 1: Nhóm các hạng tử thành hai nhóm có nhân tử chung:\n$(x^2 - xy) - (${a}x - ${a}y) = x(x - y) - ${a}(x - y)$.\nBước 2: Đặt $(x - y)$ làm nhân tử chung được: $(x - y)(x - ${a})$.`,
+        rubricSteps: [
+          { step: 'Nhóm các cặp hạng tử có nhân tử chung', points: 0.25 },
+          { step: 'Đặt nhân tử chung ra ngoài thu được tích (x - y)(x - a)', points: 0.25 },
+        ],
         keyFormula: 'Nhóm hạng tử: $A + B + C + D = (A + B) + (C + D)$.',
       };
     },
@@ -365,11 +372,11 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Ứng dụng thực tế của đa thức',
     problemType: 'Diện tích hình học biểu diễn bằng đa thức',
     difficulty: 'medium',
-    cognitiveLevel: 'van_dung',
+    cognitiveLevel: 'thong_hieu',
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
-      const ctx = (book === 'KNTT' ? KNTTContexts : book === 'CD' ? CDContexts : CTSTContexts).realWorld(rng);
+      const studentName = KNTTContexts.getStudentName(rng);
       const incL = rng.nextInt(2, 4);
       const incW = rng.nextInt(1, 3);
       const sumCoeff = incL + incW;
@@ -384,10 +391,10 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Diện tích hình học biểu diễn bằng đa thức',
         type: 'essay',
         difficulty: 'medium',
-        cognitiveLevel: 'van_dung',
+        cognitiveLevel: 'thong_hieu',
         points: 1.0,
         textbooks: [book],
-        content: `Một mảnh đất hình chữ nhật ban đầu có chiều dài là $x$ (m) và chiều rộng là $y$ (m). ${ctx.person} mở rộng mảnh đất bằng cách tăng chiều dài thêm $${incL}$ m và tăng chiều rộng thêm $${incW}$ m. Hãy viết biểu thức đa thức thu gọn biểu diễn diện tích mới của mảnh đất theo $x$ và $y$.`,
+        content: `Một mảnh đất hình chữ nhật ban đầu có chiều dài là $x$ (m) và chiều rộng là $y$ (m). Bạn ${studentName} mở rộng mảnh đất bằng cách tăng chiều dài thêm $${incL}$ m và tăng chiều rộng thêm $${incW}$ m. Hãy viết biểu thức đa thức thu gọn biểu diễn diện tích mới của mảnh đất theo $x$ và $y$.`,
         correctAnswer: `xy + ${incW}x + ${incL}y + ${constCoeff}`,
         acceptedAnswers: [
           `xy + ${incW}x + ${incL}y + ${constCoeff}`,
@@ -412,7 +419,15 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Tách hạng tử phân tích tam thức bậc hai',
     problemType: 'Phân tích tam thức bậc hai thành nhân tử',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -430,7 +445,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Phân tích tam thức bậc hai thành nhân tử',
         type: 'essay',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 1.0,
         textbooks: [book],
         content: `Phân tích đa thức sau thành nhân tử bằng phương pháp tách hạng tử: $P(x) = x^2 + ${sum}x + ${prod}$.`,
@@ -441,8 +456,9 @@ export const grade8Templates: QuestionTemplate[] = [
         ],
         solution: `Ta tách hạng tử bậc nhất $${sum}x = ${u}x + ${v}x$:\n$P(x) = x^2 + ${u}x + ${v}x + ${prod}$\n$= (x^2 + ${u}x) + (${v}x + ${prod})$\n$= x(x + ${u}) + ${v}(x + ${u}) = (x + ${u})(x + ${v})$.`,
         rubricSteps: [
-          { step: 'Tách đúng hạng tử giữa thành hai số có tích bằng hệ số tự do', points: 0.5 },
-          { step: 'Nhóm và đưa về dạng tích hai nhị thức', points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: '$x^2 + (u+v)x + uv = (x+u)(x+v)$',
       };
@@ -458,7 +474,15 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Giá trị nhỏ nhất của biểu thức',
     problemType: 'Tìm GTNN của tam thức bậc hai',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -477,7 +501,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Tìm GTNN của tam thức bậc hai',
         type: 'essay',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 1.0,
         textbooks: [book],
         content: `Tìm giá trị nhỏ nhất của biểu thức $A = x^2 - ${doubleM}x + ${c}$ và chỉ ra giá trị của $x$ để đạt được giá trị nhỏ nhất đó.`,
@@ -485,8 +509,9 @@ export const grade8Templates: QuestionTemplate[] = [
         acceptedAnswers: [`${k}`, `Min = ${k}`, `A = ${k}`],
         solution: `Ta biến đổi biểu thức thành bình phương một hiệu cộng với một hằng số:\n$A = x^2 - 2 \\cdot ${m} \\cdot x + ${m}^2 + ${k} = (x - ${m})^2 + ${k}$.\nVì $(x - ${m})^2 \\ge 0$ với mọi $x$, nên $A = (x - ${m})^2 + ${k} \\ge ${k}$.\nDấu đẳng thức xảy ra khi $x - ${m} = 0 \\Leftrightarrow x = ${m}$.\nVậy giá trị nhỏ nhất của biểu thức $A$ là $${k}$, đạt được khi $x = ${m}$.`,
         rubricSteps: [
-          { step: 'Tách biểu thức đưa về dạng (x - m)^2 + k', points: 0.5 },
-          { step: 'Lập luận đánh giá bất đẳng thức và chỉ ra dấu bằng xảy ra', points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: '$A = (x - m)^2 + k \\ge k$',
       };
@@ -502,7 +527,15 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Chứng minh biểu thức luôn dương',
     problemType: 'Chứng minh bất đẳng thức',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'mcq',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -529,7 +562,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Chứng minh bất đẳng thức',
         type: 'mcq',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 0.5,
         textbooks: [book],
         content: `Khẳng định nào sau đây là ĐÚNG về dấu của biểu thức $B = x^2 + ${doubleA}x + ${c}$ với mọi số thực $x$?`,
@@ -537,7 +570,11 @@ export const grade8Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Ta có $B = x^2 + 2 \\cdot x \\cdot ${a} + ${a}^2 + ${c - a2} = (x + ${a})^2 + ${c - a2}$.\nVì $(x + ${a})^2 \\ge 0$ nên $(x + ${a})^2 + ${c - a2} \\ge ${c - a2} > 0$ với mọi số thực $x$.`,
-        rubricSteps: [{ step: 'Biến đổi về bình phương cộng hằng số dương và kết luận đúng', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.15 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.18 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.17 },
+        ],
         keyFormula: '$(A + B)^2 \\ge 0 \\Rightarrow (A + B)^2 + c > 0$ khi $c > 0$.',
       };
     },
@@ -552,7 +589,15 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Ứng dụng tính nhanh giá trị biểu thức',
     problemType: 'Tính nhanh nhờ hằng đẳng thức',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -568,7 +613,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Tính nhanh nhờ hằng đẳng thức',
         type: 'essay',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 1.0,
         textbooks: [book],
         content: `Sử dụng hằng đẳng thức đáng nhớ để tính nhanh giá trị của tích: $T = ${x - 1} \\times ${x + 1}$.`,
@@ -576,8 +621,9 @@ export const grade8Templates: QuestionTemplate[] = [
         acceptedAnswers: [`${res}`],
         solution: `Ta nhận thấy:\n$T = (${x} - 1)(${x} + 1) = ${x}^2 - 1^2 = ${x * x} - 1 = ${res}$.`,
         rubricSteps: [
-          { step: 'Nhận dạng hiệu hai bình phương', points: 0.5 },
-          { step: 'Tính ra kết quả chính xác không dùng máy tính', points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: '$(A - 1)(A + 1) = A^2 - 1$',
       };
@@ -815,7 +861,10 @@ export const grade8Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Mẫu thức chung là $(x - 1)(x + 1) = x^2 - 1$.\nQuy đồng:\n$\\frac{${a}(x + 1) + ${b}(x - 1)}{(x - 1)(x + 1)} = \\frac{${a}x + ${a} + ${b}x - ${b}}{(x - 1)(x + 1)} = \\frac{${a + b}x + ${a - b}}{(x - 1)(x + 1)}$.\n(Nếu $a = b$ thì tử chỉ còn $${a + b}x$).`,
-        rubricSteps: [{ step: 'Quy đồng mẫu thức và cộng các tử số', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Nêu công thức và thiết lập các bước biến đổi ban đầu', points: 0.25 },
+          { step: 'Thực hiện phép tính và kết luận đáp án chính xác', points: 0.25 },
+        ],
         keyFormula: 'MTC là tích của các mẫu thức nguyên tố cùng nhau.',
       };
     },
@@ -830,7 +879,7 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Nhân hai phân thức đại số',
     problemType: 'Nhân và rút gọn phân thức',
     difficulty: 'medium',
-    cognitiveLevel: 'van_dung',
+    cognitiveLevel: 'thong_hieu',
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -846,7 +895,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Nhân và rút gọn phân thức',
         type: 'essay',
         difficulty: 'medium',
-        cognitiveLevel: 'van_dung',
+        cognitiveLevel: 'thong_hieu',
         points: 1.0,
         textbooks: [book],
         content: `Thực hiện phép tính và rút gọn biểu thức sau:\n$$B = \\frac{x - ${a}}{x + ${b}} \\cdot \\frac{2x + ${2 * b}}{x^2 - ${a * a}}$$`,
@@ -907,7 +956,10 @@ export const grade8Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Ta chuyển phép chia thành phép nhân với phân thức nghịch đảo:\n$\\frac{x^2 - ${a * a}}{x} : \\frac{x + ${a}}{1} = \\frac{(x - ${a})(x + ${a})}{x} \\cdot \\frac{1}{x + ${a}} = \\frac{x - ${a}}{x}$.`,
-        rubricSteps: [{ step: 'Nhân với phân thức nghịch đảo và rút gọn', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Nêu công thức và thiết lập các bước biến đổi ban đầu', points: 0.25 },
+          { step: 'Thực hiện phép tính và kết luận đáp án chính xác', points: 0.25 },
+        ],
         keyFormula: '$\\frac{A}{B} : \\frac{C}{D} = \\frac{A}{B} \\cdot \\frac{D}{C}$',
       };
     },
@@ -922,7 +974,7 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Ứng dụng thực tế của phân thức',
     problemType: 'Bài toán vận tốc thời gian biểu diễn bằng phân thức',
     difficulty: 'medium',
-    cognitiveLevel: 'van_dung',
+    cognitiveLevel: 'thong_hieu',
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -938,7 +990,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Bài toán vận tốc thời gian biểu diễn bằng phân thức',
         type: 'essay',
         difficulty: 'medium',
-        cognitiveLevel: 'van_dung',
+        cognitiveLevel: 'thong_hieu',
         points: 1.0,
         textbooks: [book],
         content: `Một ô tô đi quãng đường dài $${distance}$ km với vận tốc là $v$ (km/h). Khi về, xe tăng vận tốc thêm $10$ km/h. Viết biểu thức phân thức biểu diễn tổng thời gian cả đi và về của ô tô theo $v$.`,
@@ -966,7 +1018,15 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Rút gọn biểu thức phân thức tổng hợp',
     problemType: 'Rút gọn biểu thức chứa nhiều phép toán',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -981,7 +1041,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Rút gọn biểu thức chứa nhiều phép toán',
         type: 'essay',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 1.0,
         textbooks: [book],
         content: `Cho biểu thức $A = \\left( \\frac{1}{x - ${a}} - \\frac{1}{x + ${a}} \\right) : \\frac{2}{x^2 - ${a * a}}$ với $x \\neq \\pm ${a}$. Rút gọn biểu thức $A$.`,
@@ -989,8 +1049,9 @@ export const grade8Templates: QuestionTemplate[] = [
         acceptedAnswers: [`${a}`],
         solution: `Bước 1: Quy đồng mẫu thức trong ngoặc:\n$\\frac{1}{x - ${a}} - \\frac{1}{x + ${a}} = \\frac{(x + ${a}) - (x - ${a})}{(x - ${a})(x + ${a})} = \\frac{2 \\cdot ${a}}{x^2 - ${a * a}} = \\frac{${2 * a}}{x^2 - ${a * a}}$.\nBước 2: Thực hiện phép chia:\n$A = \\frac{${2 * a}}{x^2 - ${a * a}} : \\frac{2}{x^2 - ${a * a}} = \\frac{${2 * a}}{x^2 - ${a * a}} \\cdot \\frac{x^2 - ${a * a}}{2} = \\frac{${2 * a}}{2} = ${a}$.`,
         rubricSteps: [
-          { step: 'Thực hiện phép trừ trong ngoặc đúng quy đồng', points: 0.5 },
-          { step: 'Nhân nghịch đảo và rút gọn ra kết quả chính xác', points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: 'Thứ tự ưu tiên: tính trong ngoặc trước, nhân chia sau.',
       };
@@ -1006,7 +1067,15 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Tìm x nguyên để phân thức nhận giá trị nguyên',
     problemType: 'Giá trị nguyên của phân thức',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -1022,7 +1091,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Giá trị nguyên của phân thức',
         type: 'essay',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 1.0,
         textbooks: [book],
         content: `Tìm các số nguyên $x$ để phân thức $P = \\frac{x + ${k + a}}{x + ${a}}$ nhận giá trị nguyên.`,
@@ -1033,8 +1102,9 @@ export const grade8Templates: QuestionTemplate[] = [
         ],
         solution: `Ta tách phân thức:\n$P = \\frac{(x + ${a}) + ${k}}{x + ${a}} = 1 + \\frac{${k}}{x + ${a}}$.\nĐể $P$ nhận giá trị nguyên khi $x$ là số nguyên thì $x + ${a}$ phải là ước của $${k}$.\nƯớc của $${k}$ gồm $\\{\\pm 1, \\pm ${k}\\}$.\nTừ đó giải tìm các giá trị tương ứng của $x$.`,
         rubricSteps: [
-          { step: 'Tách phân thức thành phần nguyên cộng phân thức có tử là hằng số', points: 0.5 },
-          { step: 'Tìm tập hợp ước của hằng số và suy ra các giá trị nguyên x', points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: '$\\frac{A(x)}{B(x)} = Q(x) + \\frac{R}{B(x)}$, $P \\in \\mathbb{Z} \\Leftrightarrow B(x) \\in \\text{Ư}(R)$',
       };
@@ -1050,7 +1120,15 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Tìm giá trị của x để phân thức bằng một số',
     problemType: 'Giải phương trình chứa phân thức',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'mcq',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -1080,7 +1158,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Giải phương trình chứa phân thức',
         type: 'mcq',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 0.5,
         textbooks: [book],
         content: `Tìm $x$ để phân thức $\\frac{x + ${a}}{x - 1}$ nhận giá trị bằng $${target}$:`,
@@ -1088,7 +1166,11 @@ export const grade8Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `ĐKXĐ: $x \\neq 1$.\nTa có: $\\frac{x + ${a}}{x - 1} = ${target} \\Rightarrow x + ${a} = ${target}(x - 1)$\n$\\Leftrightarrow x + ${a} = ${target}x - ${target}$\n$\\Leftrightarrow ${target}x - x = ${a} + ${target} \\Leftrightarrow ${den}x = ${num} \\Leftrightarrow x = ${sol}$ (thỏa mãn ĐKXĐ).`,
-        rubricSteps: [{ step: 'Đặt ĐKXĐ, nhân chéo và giải phương trình bậc nhất tìm x', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.15 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.18 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.17 },
+        ],
         keyFormula: '$\\frac{A}{B} = k \\Rightarrow A = k \\cdot B$ (với $B \\neq 0$)',
       };
     },
@@ -1103,7 +1185,15 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Bài toán chuyển động xuôi ngược dòng',
     problemType: 'Thời gian chuyển động dòng nước',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -1119,7 +1209,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Thời gian chuyển động dòng nước',
         type: 'essay',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 1.0,
         textbooks: [book],
         content: `Một ca nô chạy trên khúc sông dài $${s}$ km. Vận tốc dòng nước là $${vWater}$ km/h. Gọi $v$ (km/h) là vận tốc thực của ca nô khi nước yên lặng ($v > ${vWater}$). Viết biểu thức hiệu thời gian đi ngược dòng và đi xuôi dòng của ca nô theo $v$, sau đó quy đồng rút gọn biểu thức đó.`,
@@ -1130,8 +1220,9 @@ export const grade8Templates: QuestionTemplate[] = [
         ],
         solution: `Vận tốc xuôi dòng là $v + ${vWater}$ (km/h); thời gian xuôi dòng là $t_1 = \\frac{${s}}{v + ${vWater}}$ (giờ).\nVận tốc ngược dòng là $v - ${vWater}$ (km/h); thời gian ngược dòng là $t_2 = \\frac{${s}}{v - ${vWater}}$ (giờ).\nHiệu thời gian là:\n$\\Delta t = t_2 - t_1 = \\frac{${s}}{v - ${vWater}} - \\frac{${s}}{v + ${vWater}}$\n$= \\frac{${s}(v + ${vWater}) - ${s}(v - ${vWater})}{(v - ${vWater})(v + ${vWater})} = \\frac{${s}v + ${s * vWater} - ${s}v + ${s * vWater}}{v^2 - ${vWater * vWater}} = \\frac{${2 * s * vWater}}{v^2 - ${vWater * vWater}}$ (giờ).`,
         rubricSteps: [
-          { step: 'Lập biểu thức thời gian xuôi và ngược dòng', points: 0.5 },
-          { step: 'Thực hiện phép trừ và quy đồng mẫu số rút gọn', points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: '$v_{\\text{xuôi}} = v + v_n$, $v_{\\text{ngược}} = v - v_n$',
       };
@@ -1390,7 +1481,10 @@ export const grade8Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Ta xét bình phương cạnh lớn nhất: $${c}^2 = ${c * c}$.\nTổng bình phương hai cạnh còn lại: $${a}^2 + ${b}^2 = ${a * a} + ${b * b} = ${c * c}$.\nVì $${a}^2 + ${b}^2 = ${c}^2$ nên theo định lí Pythagore đảo, tam giác này là tam giác vuông.`,
-        rubricSteps: [{ step: 'Tính bình phương các cạnh và đối chiếu định lí Pythagore đảo', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Nêu công thức và thiết lập các bước biến đổi ban đầu', points: 0.25 },
+          { step: 'Thực hiện phép tính và kết luận đáp án chính xác', points: 0.25 },
+        ],
         keyFormula: '$a^2 + b^2 = c^2 \\Rightarrow \\Delta$ vuông',
       };
     },
@@ -1405,7 +1499,7 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Độ dài đường chéo hình chữ nhật',
     problemType: 'Tính đường chéo bằng Pythagore',
     difficulty: 'medium',
-    cognitiveLevel: 'van_dung',
+    cognitiveLevel: 'thong_hieu',
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -1428,7 +1522,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Tính đường chéo bằng Pythagore',
         type: 'essay',
         difficulty: 'medium',
-        cognitiveLevel: 'van_dung',
+        cognitiveLevel: 'thong_hieu',
         points: 1.0,
         textbooks: [book],
         content: `Một màn hình máy tính hình chữ nhật có chiều rộng là $${w}$ inch và chiều dài là $${l}$ inch. Hãy tính kích thước đường chéo của màn hình máy tính đó.`,
@@ -1488,7 +1582,10 @@ export const grade8Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Diện tích hình thoi bằng một nửa tích độ dài hai đường chéo:\n$S = \\frac{1}{2} d_1 d_2 = \\frac{1}{2} \\cdot ${d1} \\cdot ${d2} = ${area}$ $\\text{cm}^2$.`,
-        rubricSteps: [{ step: 'Áp dụng đúng công thức diện tích hình thoi', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Nêu công thức và thiết lập các bước biến đổi ban đầu', points: 0.25 },
+          { step: 'Thực hiện phép tính và kết luận đáp án chính xác', points: 0.25 },
+        ],
         keyFormula: '$S = \\frac{1}{2} d_1 d_2$',
       };
     },
@@ -1503,7 +1600,7 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Ứng dụng thực tế của định lí Pythagore',
     problemType: 'Bài toán thang dựa vào tường',
     difficulty: 'medium',
-    cognitiveLevel: 'van_dung',
+    cognitiveLevel: 'thong_hieu',
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -1524,7 +1621,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Bài toán thang dựa vào tường',
         type: 'essay',
         difficulty: 'medium',
-        cognitiveLevel: 'van_dung',
+        cognitiveLevel: 'thong_hieu',
         points: 1.0,
         textbooks: [book],
         content: `Một chiếc thang dài $${ladderLen}$ m dựa vào một bức tường thẳng đứng. Chân thang cách chân tường một khoảng $${baseDist}$ m. Hỏi đầu trên của thang chạm tường ở độ cao bao nhiêu mét so với mặt đất?`,
@@ -1549,7 +1646,15 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Diện tích hình thang cân',
     problemType: 'Tính chiều cao và diện tích hình thang cân',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -1569,7 +1674,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Tính chiều cao và diện tích hình thang cân',
         type: 'essay',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 1.0,
         textbooks: [book],
         content: `Một hình thang cân có đáy nhỏ bằng $${smallBase}$ cm, đáy lớn bằng $${largeBase}$ cm và mỗi cạnh bên dài $${side}$ cm. Hãy tính diện tích của hình thang cân này.`,
@@ -1577,8 +1682,9 @@ export const grade8Templates: QuestionTemplate[] = [
         acceptedAnswers: [`${area}`, `${area} cm2`],
         solution: `Kẻ hai đường cao từ hai đỉnh của đáy nhỏ xuống đáy lớn.\nĐoạn nằm ở chân đường cao là: $\\frac{${largeBase} - ${smallBase}}{2} = ${halfDiff}$ cm.\nÁp dụng định lí Pythagore để tìm chiều cao $h$ của hình thang:\n$h^2 = ${side}^2 - ${halfDiff}^2 = 25 - 9 = 16 \\Rightarrow h = 4$ cm.\nDiện tích hình thang cân là:\n$S = \\frac{(${smallBase} + ${largeBase}) \\cdot 4}{2} = ${area}$ $\\text{cm}^2$.`,
         rubricSteps: [
-          { step: 'Kẻ đường cao và tính đoạn đáy phụ', points: 0.5 },
-          { step: 'Áp dụng định lí Pythagore tìm chiều cao và tính diện tích', points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: '$S = \\frac{(a + b) \\cdot h}{2}$',
       };
@@ -1594,7 +1700,15 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Cạnh của hình thoi từ hai đường chéo',
     problemType: 'Tính độ dài cạnh và chu vi hình thoi',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -1614,7 +1728,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Tính độ dài cạnh và chu vi hình thoi',
         type: 'essay',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 1.0,
         textbooks: [book],
         content: `Một hình thoi có độ dài hai đường chéo lần lượt là $${d1}$ cm và $${d2}$ cm. Hãy tính chu vi của hình thoi đó.`,
@@ -1622,8 +1736,9 @@ export const grade8Templates: QuestionTemplate[] = [
         acceptedAnswers: [`${peri}`, `${peri} cm`],
         solution: `Hai đường chéo hình thoi vuông góc tại trung điểm của mỗi đường.\nNửa độ dài các đường chéo lần lượt là:\n$\\frac{${d1}}{2} = ${half1}$ cm và $\\frac{${d2}}{2} = ${half2}$ cm.\nÁp dụng định lí Pythagore vào tam giác vuông tạo bởi hai nửa đường chéo:\n$a^2 = ${half1}^2 + ${half2}^2 = 36 + 64 = 100 \\Rightarrow a = 10$ cm.\nChu vi hình thoi là $P = 4a = 4 \\times 10 = ${peri}$ cm.`,
         rubricSteps: [
-          { step: 'Tính nửa độ dài hai đường chéo và dùng Pythagore tính cạnh', points: 0.5 },
-          { step: 'Tính đúng chu vi hình thoi bằng 4 lần cạnh', points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: '$a = \\sqrt{(d_1/2)^2 + (d_2/2)^2}$, $P = 4a$',
       };
@@ -1639,7 +1754,15 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Dây neo cột ăng ten',
     problemType: 'Tính độ dài dây cáp',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'mcq',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -1666,7 +1789,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Tính độ dài dây cáp',
         type: 'mcq',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 0.5,
         textbooks: [book],
         content: `Một cột phát sóng cao $${h}$ m vuông góc với mặt đất phẳng. Người ta căng một sợi dây cáp thép từ đỉnh cột đến một cọc neo trên mặt đất cách chân cột $${d}$ m để giữ thăng bằng. Chiều dài tối thiểu của sợi dây cáp thép đó là:`,
@@ -1674,7 +1797,11 @@ export const grade8Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Cột phát sóng, mặt đất và dây cáp neo tạo thành tam giác vuông tại chân cột.\nTheo định lí Pythagore, chiều dài sợi dây cáp $L$ thỏa mãn:\n$L^2 = ${h}^2 + ${d}^2 = 144 + 25 = 169 \\Rightarrow L = \\sqrt{169} = ${cable}$ m.`,
-        rubricSteps: [{ step: 'Mô hình hóa tam giác vuông và áp dụng định lí Pythagore', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.15 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.18 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.17 },
+        ],
         keyFormula: '$L = \\sqrt{h^2 + d^2}$',
       };
     },
@@ -1689,7 +1816,15 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Chứng minh hình vuông',
     problemType: 'Dấu hiệu nhận biết hình vuông',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -1702,7 +1837,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Dấu hiệu nhận biết hình vuông',
         type: 'essay',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 1.0,
         textbooks: [book],
         content: `Nêu hai dấu hiệu nhận biết một hình chữ nhật là hình vuông.`,
@@ -1713,8 +1848,9 @@ export const grade8Templates: QuestionTemplate[] = [
         ],
         solution: `Các dấu hiệu nhận biết hình chữ nhật là hình vuông:\n1. Hình chữ nhật có hai cạnh kề bằng nhau là hình vuông.\n2. Hình chữ nhật có hai đường chéo vuông góc với nhau là hình vuông.\n3. Hình chữ nhật có một đường chéo là đường phân giác của một góc là hình vuông.`,
         rubricSteps: [
-          { step: 'Nêu đúng dấu hiệu về cạnh hoặc đường chéo', points: 0.5 },
-          { step: 'Nêu đầy đủ và chính xác dấu hiệu thứ hai', points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: 'Hình chữ nhật + (2 cạnh kề bằng nhau HOẶC 2 đường chéo $\\perp$) = Hình vuông.',
       };
@@ -1971,7 +2107,7 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Giao điểm của hai đường thẳng',
     problemType: 'Tìm tọa độ giao điểm bằng phương pháp đại số',
     difficulty: 'medium',
-    cognitiveLevel: 'van_dung',
+    cognitiveLevel: 'thong_hieu',
     type: 'mcq',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -2001,7 +2137,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Tìm tọa độ giao điểm bằng phương pháp đại số',
         type: 'mcq',
         difficulty: 'medium',
-        cognitiveLevel: 'van_dung',
+        cognitiveLevel: 'thong_hieu',
         points: 0.5,
         textbooks: [book],
         content: `Tọa độ giao điểm của hai đường thẳng $y = ${a1}x + ${b1}$ và $y = -x + ${b2}$ là:`,
@@ -2009,7 +2145,10 @@ export const grade8Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Phương trình hoành độ giao điểm:\n$${a1}x + ${b1} = -x + ${b2} \\Leftrightarrow 3x = ${b2 - b1} \\Leftrightarrow x = ${x}$.\nThay $x = ${x}$ vào $y = ${a1}x + ${b1} = ${a1} \\cdot ${x} + ${b1} = ${y}$.\nVậy giao điểm là $(${x}; ${y})$.`,
-        rubricSteps: [{ step: 'Lập phương trình hoành độ giao điểm và tìm tọa độ (x, y)', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Nêu công thức và thiết lập các bước biến đổi ban đầu', points: 0.25 },
+          { step: 'Thực hiện phép tính và kết luận đáp án chính xác', points: 0.25 },
+        ],
         keyFormula: 'Phương trình hoành độ: $a_1 x + b_1 = a_2 x + b_2$',
       };
     },
@@ -2058,7 +2197,10 @@ export const grade8Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Hai đường thẳng $y = ax + b$ và $y = a\'x + b\'$ song song với nhau khi và chỉ khi $a = a\'$ và $b \\neq b\'$.\nÁp dụng: $m = ${a}$ và $k \\neq ${b1}$.`,
-        rubricSteps: [{ step: 'Nêu đúng điều kiện hệ số góc bằng nhau và tung độ gốc khác nhau', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Nêu công thức và thiết lập các bước biến đổi ban đầu', points: 0.25 },
+          { step: 'Thực hiện phép tính và kết luận đáp án chính xác', points: 0.25 },
+        ],
         keyFormula: '$d_1 \\parallel d_2 \\Leftrightarrow a = a\'$ và $b \\neq b\'$',
       };
     },
@@ -2073,11 +2215,11 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Bài toán chuyển động đều',
     problemType: 'Tìm vận tốc hoặc thời gian',
     difficulty: 'medium',
-    cognitiveLevel: 'van_dung',
+    cognitiveLevel: 'thong_hieu',
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
-      const ctx = (book === 'KNTT' ? KNTTContexts : book === 'CD' ? CDContexts : CTSTContexts).realWorld(rng);
+      // realWorld not needed
       const v1 = 40; // xe máy
       const v2 = 50; // ô tô
       const diffTimeHours = 0.5; // 30 phút
@@ -2093,7 +2235,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Tìm vận tốc hoặc thời gian',
         type: 'essay',
         difficulty: 'medium',
-        cognitiveLevel: 'van_dung',
+        cognitiveLevel: 'thong_hieu',
         points: 1.0,
         textbooks: [book],
         content: `Một xe máy khởi hành từ A đến B với vận tốc $${v1}$ km/h. Sau đó một ô tô cũng đi từ A đến B với vận tốc $${v2}$ km/h và đến B sớm hơn xe máy $30$ phút ($0{,}5$ giờ). Tính độ dài quãng đường AB.`,
@@ -2119,7 +2261,15 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Bài toán năng suất làm chung làm riêng',
     problemType: 'Hai tổ cùng làm một công việc',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -2138,7 +2288,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Hai tổ cùng làm một công việc',
         type: 'essay',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 1.0,
         textbooks: [book],
         content: `Hai tổ công nhân cùng làm chung một công việc thì hoàn thành trong $${totalDays}$ ngày. Nếu tổ I làm riêng thì hoàn thành công việc nhanh hơn tổ II là $10$ ngày. Hỏi nếu làm một mình thì mỗi tổ hoàn thành công việc trong bao nhiêu ngày?`,
@@ -2150,8 +2300,9 @@ export const grade8Templates: QuestionTemplate[] = [
         ],
         solution: `Gọi thời gian tổ I làm một mình xong việc là $x$ ngày ($x > 12$).\nThời gian tổ II làm một mình xong việc là $x + 10$ ngày.\nTrong 1 ngày:\n- Tổ I làm được $\\frac{1}{x}$ công việc.\n- Tổ II làm được $\\frac{1}{x + 10}$ công việc.\n- Cả hai tổ làm được $\\frac{1}{12}$ công việc.\nTa có phương trình:\n$\\frac{1}{x} + \\frac{1}{x + 10} = \\frac{1}{12}$\n$\\Leftrightarrow \\frac{2x + 10}{x(x + 10)} = \\frac{1}{12} \\Leftrightarrow 12(2x + 10) = x(x + 10)$\n$\\Leftrightarrow x^2 - 14x - 120 = 0 \\Leftrightarrow (x - 20)(x + 6) = 0$.\nVì $x > 12$ nên $x = 20$.\nVậy tổ I làm riêng mất $20$ ngày, tổ II làm riêng mất $30$ ngày.`,
         rubricSteps: [
-          { step: 'Chọn ẩn và biểu diễn năng suất 1 ngày của mỗi tổ', points: 0.5 },
-          { step: 'Lập phương trình, quy đồng giải nghiệm và kết luận đúng', points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: 'Năng suất 1 ngày = $1 / \\text{thời gian hoàn thành}$',
       };
@@ -2167,7 +2318,15 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Bài toán kinh tế cước phí dịch vụ',
     problemType: 'Lập hàm số bậc nhất mô hình hóa chi phí',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -2185,7 +2344,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Lập hàm số bậc nhất mô hình hóa chi phí',
         type: 'essay',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 1.0,
         textbooks: [book],
         content: `Một hãng taxi có giá mở cửa là $${baseFee.toLocaleString('vi-VN')}$ đồng và mỗi kilômét tiếp theo tính giá $${ratePerKm.toLocaleString('vi-VN')}$ đồng/km. Hãy viết công thức hàm số bậc nhất biểu diễn tổng số tiền cước $y$ (đồng) theo quãng đường di chuyển $x$ (km, với $x > 0$), và tính số tiền phải trả khi đi $${km}$ km.`,
@@ -2197,8 +2356,9 @@ export const grade8Templates: QuestionTemplate[] = [
         ],
         solution: `Công thức hàm số tính số tiền cước taxi theo số kilômét di chuyển là:\n$y = ${ratePerKm}x + ${baseFee}$ (đồng).\nKhi di chuyển $x = ${km}$ km:\n$y = ${ratePerKm} \\cdot ${km} + ${baseFee} = ${ratePerKm * km} + ${baseFee} = ${totalCost}$ đồng.`,
         rubricSteps: [
-          { step: 'Lập đúng phương trình hàm số bậc nhất y = ax + b', points: 0.5 },
-          { step: 'Thay giá trị x và tính chính xác số tiền phải trả', points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: '$y = ax + b$ (a: giá mỗi đơn vị, b: chi phí cố định)',
       };
@@ -2214,7 +2374,15 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Diện tích tam giác tạo bởi đường thẳng và hai trục tọa độ',
     problemType: 'Tính diện tích tam giác vuông trên mặt phẳng tọa độ',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'mcq',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -2244,7 +2412,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Tính diện tích tam giác vuông trên mặt phẳng tọa độ',
         type: 'mcq',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 0.5,
         textbooks: [book],
         content: `Đường thẳng $y = ${a}x + ${b}$ cắt trục hoành tại điểm $A$ và cắt trục tung tại điểm $B$. Diện tích tam giác vuông $OAB$ ($O$ là gốc tọa độ) bằng:`,
@@ -2252,7 +2420,11 @@ export const grade8Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Giao điểm với trục hoành $Ox$: Cho $y = 0 \\Rightarrow ${a}x + ${b} = 0 \\Leftrightarrow x = -2 \\Rightarrow A(-2; 0) \\Rightarrow OA = 2$.\nGiao điểm với trục tung $Oy$: Cho $x = 0 \\Rightarrow y = ${b} \\Rightarrow B(0; 4) \\Rightarrow OB = 4$.\nTam giác $OAB$ vuông tại $O$, nên diện tích là:\n$S = \\frac{1}{2} OA \\cdot OB = \\frac{1}{2} \\cdot 2 \\cdot 4 = ${area}$ (đvdt).`,
-        rubricSteps: [{ step: 'Tìm tọa độ giao điểm với hai trục và áp dụng công thức diện tích tam giác vuông', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.15 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.18 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.17 },
+        ],
         keyFormula: '$S_{\\Delta OAB} = \\frac{1}{2} |x_A| \\cdot |y_B|$',
       };
     },
@@ -2267,7 +2439,15 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Phương trình chứa tham số',
     problemType: 'Tìm điều kiện tham số để phương trình vô nghiệm',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -2282,7 +2462,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Tìm điều kiện tham số để phương trình vô nghiệm',
         type: 'essay',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 1.0,
         textbooks: [book],
         content: `Tìm tham số $m$ để phương trình sau vô nghiệm: $(m - ${m})x = 5$.`,
@@ -2290,8 +2470,9 @@ export const grade8Templates: QuestionTemplate[] = [
         acceptedAnswers: [`m = ${m}`, `${m}`],
         solution: `Phương trình có dạng $Ax = B$.\nPhương trình vô nghiệm khi và chỉ khi:\n$\\begin{cases} A = 0 \\\\ B \\neq 0 \\end{cases} \\Leftrightarrow \\begin{cases} m - ${m} = 0 \\\\ 5 \\neq 0 \\text{ (luôn đúng)} \\end{cases} \\Leftrightarrow m = ${m}$.\nVậy với $m = ${m}$ thì phương trình vô nghiệm.`,
         rubricSteps: [
-          { step: 'Nhận dạng điều kiện để phương trình bậc nhất vô nghiệm: A = 0 và B != 0', points: 0.5 },
-          { step: 'Giải tìm ra m', points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: '$Ax = B$ vô nghiệm khi $A = 0$ và $B \\neq 0$',
       };
@@ -2551,7 +2732,10 @@ export const grade8Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Vì $\\Delta ABC \\backsim \\Delta DEF$ nên:\n$\\frac{AC}{DF} = k = \\frac{1}{2} \\Rightarrow DF = 2 \\cdot AC = 2 \\cdot ${ac} = ${df}$ cm.`,
-        rubricSteps: [{ step: 'Áp dụng tỉ số đồng dạng tính cạnh tương ứng', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Nêu công thức và thiết lập các bước biến đổi ban đầu', points: 0.25 },
+          { step: 'Thực hiện phép tính và kết luận đáp án chính xác', points: 0.25 },
+        ],
         keyFormula: '$\\frac{AB}{DE} = \\frac{BC}{EF} = \\frac{AC}{DF} = k$',
       };
     },
@@ -2601,7 +2785,10 @@ export const grade8Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Tỉ số diện tích của hai tam giác đồng dạng bằng bình phương tỉ số đồng dạng:\n$\\frac{S_{A\'B\'C\'}}{S_{ABC}} = k^2 = ${k}^2 = ${k * k}$.\nDo đó $S_{A\'B\'C\'} = ${k * k} \\cdot S_{ABC} = ${k * k} \\cdot ${s1} = ${s2}$ $\\text{cm}^2$.`,
-        rubricSteps: [{ step: 'Áp dụng định lí tỉ số diện tích bằng k bình phương', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Nêu công thức và thiết lập các bước biến đổi ban đầu', points: 0.25 },
+          { step: 'Thực hiện phép tính và kết luận đáp án chính xác', points: 0.25 },
+        ],
         keyFormula: '$\\frac{S_1}{S_2} = k^2$',
       };
     },
@@ -2616,7 +2803,7 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Định lí Thalès đảo',
     problemType: 'Chứng minh song song bằng Thalès đảo',
     difficulty: 'medium',
-    cognitiveLevel: 'van_dung',
+    cognitiveLevel: 'thong_hieu',
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -2634,7 +2821,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Chứng minh song song bằng Thalès đảo',
         type: 'essay',
         difficulty: 'medium',
-        cognitiveLevel: 'van_dung',
+        cognitiveLevel: 'thong_hieu',
         points: 1.0,
         textbooks: [book],
         content: `Cho tam giác $ABC$. Lấy điểm $M$ trên $AB$ sao cho $AM = ${am}$ cm, $MB = ${mb}$ cm. Lấy điểm $N$ trên $AC$ sao cho $AN = ${an}$ cm, $NC = ${nc}$ cm. Chứng minh rằng $MN \\parallel BC$.`,
@@ -2662,7 +2849,7 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Đo chiều cao cây bằng bóng râm',
     problemType: 'Ứng dụng thực tế của tam giác đồng dạng',
     difficulty: 'medium',
-    cognitiveLevel: 'van_dung',
+    cognitiveLevel: 'thong_hieu',
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -2681,7 +2868,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Ứng dụng thực tế của tam giác đồng dạng',
         type: 'essay',
         difficulty: 'medium',
-        cognitiveLevel: 'van_dung',
+        cognitiveLevel: 'thong_hieu',
         points: 1.0,
         textbooks: [book],
         content: `Cùng một thời điểm dưới ánh sáng mặt trời, một chiếc cọc cao $${stickH}$ m cắm thẳng đứng trên mặt đất có bóng dài $${stickShadow}$ m. Cạnh đó, bóng của một cái cây dài $${treeShadow}$ m. Hãy tính chiều cao của cái cây.`,
@@ -2706,7 +2893,15 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Tam giác vuông đồng dạng và hệ thức lượng',
     problemType: 'Tính đường cao trong tam giác vuông',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -2725,7 +2920,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Tính đường cao trong tam giác vuông',
         type: 'essay',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 1.0,
         textbooks: [book],
         content: `Cho tam giác $ABC$ vuông tại $A$ có $AB = ${ab}$ cm, $AC = ${ac}$ cm, $BC = ${bc}$ cm. Kẻ đường cao $AH$ vuông góc với $BC$ ($H \\in BC$). Dùng tính chất tam giác đồng dạng để tính độ dài đường cao $AH$.`,
@@ -2733,8 +2928,9 @@ export const grade8Templates: QuestionTemplate[] = [
         acceptedAnswers: [`${ah}`, `${ah} cm`],
         solution: `Xét hai tam giác vuông $\\Delta HBA$ và $\\Delta ABC$ có:\n- $\\widehat{BHA} = \\widehat{BAC} = 90^\\circ$\n- $\\widehat{B}$ là góc chung\nDo đó $\\Delta HBA \\backsim \\Delta ABC$ (g - g).\nSuy ra tỉ số đồng dạng:\n$\\frac{AH}{AC} = \\frac{AB}{BC} \\Rightarrow AH = \\frac{AB \\cdot AC}{BC} = \\frac{${ab} \\cdot ${ac}}{${bc}} = \\frac{48}{10} = ${ah}$ cm.`,
         rubricSteps: [
-          { step: 'Chứng minh hai tam giác vuông đồng dạng', points: 0.5 },
-          { step: 'Lập tỉ số đồng dạng và tính ra AH', points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: '$AH = \\frac{AB \\cdot AC}{BC}$',
       };
@@ -2750,7 +2946,15 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Đường phân giác kết hợp tam giác đồng dạng',
     problemType: 'Tỉ số diện tích hai tam giác phân chia bởi đường phân giác',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -2766,7 +2970,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Tỉ số diện tích hai tam giác phân chia bởi đường phân giác',
         type: 'essay',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 1.0,
         textbooks: [book],
         content: `Cho tam giác $ABC$ có $AB = ${c}$ cm, $AC = ${b}$ cm. Đường phân giác trong góc $A$ cắt cạnh $BC$ tại $D$. Hãy tính tỉ số diện tích giữa tam giác $ABD$ và tam giác $ACD$.`,
@@ -2774,8 +2978,9 @@ export const grade8Templates: QuestionTemplate[] = [
         acceptedAnswers: ['2/3', '4/6', '0.67'],
         solution: `Hai tam giác $ABD$ và $ACD$ có chung đường cao kẻ từ đỉnh $A$ xuống đáy $BC$.\nDo đó tỉ số diện tích bằng tỉ số độ dài hai đáy tương ứng:\n$\\frac{S_{ABD}}{S_{ACD}} = \\frac{BD}{CD}$.\nMặt khác, $AD$ là đường phân giác trong góc $A$ nên theo tính chất đường phân giác:\n$\\frac{BD}{CD} = \\frac{AB}{AC} = \\frac{${c}}{${b}} = \\frac{2}{3}$.\nVậy $\\frac{S_{ABD}}{S_{ACD}} = \\frac{2}{3}$.`,
         rubricSteps: [
-          { step: 'Lập luận tỉ số diện tích hai tam giác chung đường cao bằng tỉ số hai đáy', points: 0.5 },
-          { step: 'Áp dụng tính chất đường phân giác để tính ra tỉ số 2/3', points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: '$\\frac{S_{ABD}}{S_{ACD}} = \\frac{BD}{CD} = \\frac{AB}{AC}$',
       };
@@ -2791,7 +2996,15 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Chứng minh đẳng thức tích hình học',
     problemType: 'Hệ thức tích từ tam giác đồng dạng',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'mcq',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -2814,7 +3027,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Hệ thức tích từ tam giác đồng dạng',
         type: 'mcq',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 0.5,
         textbooks: [book],
         content: `Cho tam giác nhọn $ABC$ có hai đường cao $BD$ và $CE$ cắt nhau tại trực tâm $H$. Khẳng định đẳng thức tích nào sau đây luôn ĐÚNG?`,
@@ -2822,7 +3035,11 @@ export const grade8Templates: QuestionTemplate[] = [
         correctAnswer,
         acceptedAnswers: [correctAnswer],
         solution: `Xét hai tam giác vuông $\\Delta ADB$ và $\\Delta AEC$ có góc $A$ chung:\n$\\Rightarrow \\Delta ADB \\backsim \\Delta AEC$ (g - g).\nSuy ra: $\\frac{AD}{AE} = \\frac{AB}{AC} \\Rightarrow AD \\cdot AC = AE \\cdot AB$.`,
-        rubricSteps: [{ step: 'Chứng minh hai tam giác vuông đồng dạng và suy ra hệ thức tích', points: 0.5 }],
+        rubricSteps: [
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.15 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.18 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.17 },
+        ],
         keyFormula: '$\\Delta ADB \\backsim \\Delta AEC \\Rightarrow AD \\cdot AC = AE \\cdot AB$',
       };
     },
@@ -2837,7 +3054,15 @@ export const grade8Templates: QuestionTemplate[] = [
     topic: 'Đo khoảng cách không tới được bằng Thalès',
     problemType: 'Ứng dụng đo bề rộng con sông',
     difficulty: 'hard',
-    cognitiveLevel: 'van_dung_cao',
+    cognitiveLevel: 'van_dung',
+    complexity: {
+      steps: 3,
+      techniques: ['bien_doi_toan_hoc', 'van_dung_thuc_te'],
+      crossTopic: false,
+      modeling: true,
+      needsCaseAnalysis: false,
+      estMinutes: 4,
+    },
     type: 'essay',
     books: ['KNTT', 'CD', 'CTST'],
     generate(rng, book) {
@@ -2858,7 +3083,7 @@ export const grade8Templates: QuestionTemplate[] = [
         problemType: 'Ứng dụng đo bề rộng con sông',
         type: 'essay',
         difficulty: 'hard',
-        cognitiveLevel: 'van_dung_cao',
+        cognitiveLevel: 'van_dung',
         points: 1.0,
         textbooks: [book],
         content: `Để đo bề rộng con sông từ điểm $A$ bên này bờ đến cột mốc $B$ bên kia bờ, một nhóm học sinh cắm các cọc tiêu trên bờ sông tạo thành hai tam giác đồng dạng với các kích thước đo được trên mặt đất là $a = ${a}$ m, $b = ${b}$ m và cạnh tương ứng $c = ${c}$ m. Tính khoảng cách bề rộng khúc sông $AB = x$ biết $\\frac{x}{b} = \\frac{a}{c}$.`,
@@ -2866,11 +3091,17 @@ export const grade8Templates: QuestionTemplate[] = [
         acceptedAnswers: [`${width}`, `${width} m`],
         solution: `Từ hệ thức tỉ lệ tam giác đồng dạng:\n$\\frac{x}{b} = \\frac{a}{c} \\Rightarrow x = \\frac{a \\cdot b}{c} = \\frac{${a} \\cdot ${b}}{${c}} = \\frac{1000}{25} = ${width}$ m.\nVậy bề rộng của khúc sông là $${width}$ m.`,
         rubricSteps: [
-          { step: 'Biểu diễn hệ thức tỉ lệ đồng dạng từ số liệu thực địa', points: 0.5 },
-          { step: 'Tính ra bề rộng khúc sông chính xác', points: 0.5 },
+          { step: 'Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán', points: 0.3 },
+          { step: 'Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian', points: 0.35 },
+          { step: 'Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận', points: 0.35 },
         ],
         keyFormula: '$x = \\frac{a \\cdot b}{c}$',
       };
     },
   },
+];
+
+export const grade8Templates: QuestionTemplate[] = [
+  ...baseGrade8Templates,
+  ...grade8VdcTemplates,
 ];

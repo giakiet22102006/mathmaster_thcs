@@ -7,6 +7,7 @@
 import katex from 'katex';
 import { evaluate } from 'mathjs';
 import type { EngineQuestion } from './types';
+import { validateComplexityFloor, DIFFICULTY_FLOORS } from './difficulty-standard';
 
 export interface VerificationResult {
   valid: boolean;
@@ -45,6 +46,23 @@ function cleanMathExpr(raw: string): string | null {
   return expr;
 }
 
+/**
+ * Đếm số bước suy luận trong lời giải và rubric
+ */
+export function countSolutionSteps(solution: string, rubricCount: number): number {
+  if (!solution) return rubricCount;
+  const rawLines = solution
+    .split(/\n+|\\\\|\r+/)
+    .map((l) => l.trim())
+    .filter((l) => l.length > 5 && !/^\$\$|\$\$$/.test(l));
+
+  const inferenceMatches = (
+    solution.match(/\\implies|\\Rightarrow|\\Leftrightarrow|\\iff|Bước\s*\d+|Trường hợp|TH\s*\d+|Ta có:|Suy ra:|Do đó:|Vậy|Điều kiện|ĐKXĐ/gi) || []
+  ).length;
+
+  return Math.max(rubricCount, rawLines.length, inferenceMatches);
+}
+
 export function verifyQuestion(q: EngineQuestion): VerificationResult {
   const errors: string[] = [];
 
@@ -64,7 +82,8 @@ export function verifyQuestion(q: EngineQuestion): VerificationResult {
   if (points <= 0) {
     errors.push(`Points phải lớn hơn 0: ${points}`);
   }
-  if (!Array.isArray(q.rubricSteps) || q.rubricSteps.length === 0) {
+  const rubricCount = Array.isArray(q.rubricSteps) ? q.rubricSteps.length : 0;
+  if (!Array.isArray(q.rubricSteps) || rubricCount === 0) {
     errors.push('Thiếu rubricSteps');
   } else {
     const rubricSum = q.rubricSteps.reduce((acc, r) => acc + Number(r.points || 0), 0);
@@ -73,7 +92,22 @@ export function verifyQuestion(q: EngineQuestion): VerificationResult {
     }
   }
 
-  // 3. Kiểm tra trắc nghiệm (MCQ)
+  // 3. Kiểm tra sàn độ khó Complexity (A.3 & A.5.2)
+  if (q.cognitiveLevel === 'van_dung' || q.cognitiveLevel === 'van_dung_cao') {
+    const floorValidation = validateComplexityFloor(q.cognitiveLevel, q.complexity);
+    if (!floorValidation.valid) {
+      errors.push(floorValidation.reason || `Không đạt sàn độ khó mức ${q.cognitiveLevel}`);
+    }
+
+    // Đếm số bước suy luận thực tế
+    const actualSteps = countSolutionSteps(q.solution, rubricCount);
+    const floor = DIFFICULTY_FLOORS[q.cognitiveLevel];
+    if (actualSteps < floor.minSteps) {
+      errors.push(`Câu ${q.cognitiveLevel} chỉ có ${actualSteps} bước suy luận thực tế (< sàn tối thiểu ${floor.minSteps} bước)`);
+    }
+  }
+
+  // 4. Kiểm tra trắc nghiệm (MCQ)
   if (q.type === 'mcq') {
     if (!Array.isArray(q.options) || q.options.length !== 4) {
       errors.push(`Câu MCQ phải có đúng 4 phương án, hiện có: ${q.options?.length}`);
@@ -108,17 +142,27 @@ export function verifyQuestion(q: EngineQuestion): VerificationResult {
       if (normalizedTexts.some((t) => t.length === 0)) {
         errors.push('Có phương án MCQ có nội dung rỗng');
       }
+
+      // Với VD/VDC: kiểm tra 3 phương án nhiễu phải có errorType
+      if (q.cognitiveLevel === 'van_dung' || q.cognitiveLevel === 'van_dung_cao') {
+        const distractors = q.options.filter((o) => o.label !== q.correctAnswer);
+        for (const dist of distractors) {
+          if (!dist.errorType || !dist.errorType.trim()) {
+            errors.push(`Phương án nhiễu ${dist.label} của câu ${q.cognitiveLevel} thiếu errorType phân loại lỗi sai`);
+          }
+        }
+      }
     }
   }
 
-  // 4. Kiểm tra tự luận (essay)
+  // 5. Kiểm tra tự luận (essay)
   if (q.type === 'essay') {
     if (!Array.isArray(q.acceptedAnswers) || q.acceptedAnswers.length === 0) {
       errors.push('Câu tự luận phải có acceptedAnswers');
     }
   }
 
-  // 5. Kiểm tra KaTeX (throwOnError: true)
+  // 6. Kiểm tra KaTeX (throwOnError: true)
   const textsToCheck: Array<{ field: string; text?: string }> = [
     { field: 'content', text: q.content },
     { field: 'solution', text: q.solution },
@@ -140,7 +184,7 @@ export function verifyQuestion(q: EngineQuestion): VerificationResult {
     }
   }
 
-  // 6. Kiểm tra tính toán mathjs nếu có mathExpressionToVerify
+  // 7. Kiểm tra tính toán mathjs nếu có mathExpressionToVerify
   if (q.mathExpressionToVerify) {
     const cleaned = cleanMathExpr(q.mathExpressionToVerify);
     if (cleaned) {

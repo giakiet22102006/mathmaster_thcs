@@ -75,7 +75,11 @@ export function buildShuffledMcq(
 
   const rawOptions: Array<{ text: string; isCorrect: boolean; errorType?: string }> = [
     { text: cleanCorrect, isCorrect: true },
-    ...validDistractors.slice(0, 3).map((d) => ({ text: d.text, isCorrect: false, errorType: d.errorType })),
+    ...validDistractors.slice(0, 3).map((d) => ({
+      text: d.text,
+      isCorrect: false,
+      errorType: d.errorType || 'PHƯƠNG_ÁN_NHIỄU_ĐIỂN_HÌNH',
+    })),
   ];
 
   const shuffled = rng.shuffle(rawOptions);
@@ -90,7 +94,7 @@ export function buildShuffledMcq(
     return {
       label,
       text: item.text,
-      ...(item.errorType ? { errorType: item.errorType } : {}),
+      errorType: item.errorType || (item.isCorrect ? undefined : 'PHƯƠNG_ÁN_NHIỄU_ĐIỂN_HÌNH'),
     };
   });
 
