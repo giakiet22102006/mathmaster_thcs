@@ -196,3 +196,124 @@ Kết quả trích xuất trực tiếp từ lệnh `npm run bank:audit` (**0 l�
    - `scripts/test-question-engine.mjs`: Test suite tự động (7/7 tests pass).
    - `scripts/test-flows.mjs`: Đạt 17/17 tests pass (Test 1..17).
    - `npm run build`: 20/20 routes biên dịch thành công 100%.
+
+
+---
+
+## 5. Báo Cáo Nâng Cấp Chuẩn Độ Khó GDPT 2018 (Phần A) & Trích Xuất Tài Liệu Đa Định Dạng Tạo Đề (Phần B)
+
+Được thực hiện theo toàn bộ yêu cầu trong `ANTIGRAVITY_PROMPT_NANG_CAP_DO_KHO_VA_TAO_DE_TU_FILE.md`.
+
+### 5.1. Bảng Trước & Sau Nâng Cấp Template và Chuẩn Độ Khó (Phần A - Commit `a62a853`)
+
+| Chỉ số | Trước Nâng Cấp | Sau Nâng Cấp (Hiện Tại) | Ghi chú |
+|---|:---:|:---:|---|
+| **Tổng số Template Tham Số Hóa** | 276 templates | **345 templates** | +69 templates mới chuyên sâu |
+| **Templates Lớp 6** | 72 templates (24E, 24M, 24H) | **90 templates** (24 NB, 24 TH, 24 VD, 18 VDC) | 6 chương × (4 NB + 4 TH + 4 VD + 3 VDC) |
+| **Templates Lớp 7** | 72 templates (24E, 24M, 24H) | **90 templates** (24 NB, 24 TH, 24 VD, 18 VDC) | 6 chương × (4 NB + 4 TH + 4 VD + 3 VDC) |
+| **Templates Lớp 8** | 60 templates (20E, 20M, 20H) | **75 templates** (20 NB, 20 TH, 20 VD, 15 VDC) | 5 chương × (4 NB + 4 TH + 4 VD + 3 VDC) |
+| **Templates Lớp 9** | 72 templates (24E, 24M, 24H) | **90 templates** (24 NB, 24 TH, 24 VD, 18 VDC) | 6 chương × (4 NB + 4 TH + 4 VD + 3 VDC) |
+| **Số chương đạt $\ge 4$ VD và $\ge 3$ VDC** | 0 / 23 chương (chưa tách VD/VDC) | **23 / 23 chương (100% ĐẠT CHUẨN)** | Đủ 100% chương SGK KNTT, Cánh Diều, CTST |
+| **Sàn độ khó nhận thức (Floor)** | Không có (chỉ kiểm tra định tính) | **Có sàn bắt buộc (Strict Floor)** | VD $\ge 6.0$, VDC $\ge 8.0$, kiểm tra bước giải và phép toán |
+| **Mượn mức độ nhận thức** | Cho phép mượn câu dễ hơn | **Chỉ được mượn LÊN mức khó hơn** | Tuyệt đối không mượn xuống câu dễ hơn |
+| **Kiểm toán 200 seed/template (`audit:difficulty`)** | Chưa có công cụ | **345 / 345 PASS (69.000 test generations)** | 0 lỗi vi phạm sàn độ khó, 0 distractor sai |
+
+### 5.2. Chức Năng Bóc Tách Tài Liệu Đa Định Dạng & Tạo Đề Từ File (Phần B - Commit `41bc576`)
+
+1. **Lưu Trữ Tệp Trừu Tượng (`src/lib/documents/storage.ts`)**:
+   - Hỗ trợ đa dạng driver: `local` (Node fs khi phát triển), `supabase` (Supabase Storage bucket), `blob` (`@vercel/blob`) và `memory` (In-memory buffer fallback).
+   - An toàn tuyệt đối trên Vercel Serverless (môi trường tệp chỉ đọc, không bao giờ gây lỗi 500 sập máy chủ).
+   - Tự động dọn dẹp file vật lý khi gọi API xóa tài liệu.
+
+2. **Trích Xuất Đa Định Dạng Không Giả Lập (`src/lib/documents/extract.ts`)**:
+   - Kiểm tra magic bytes và MIME sniffing chống giả mạo đuôi tệp.
+   - Giới hạn dung lượng an toàn `MAX_UPLOAD_SIZE_MB`, chống tấn công Zip-bomb đối với file nén DOCX/XLSX.
+   - Hỗ trợ trích xuất nguyên bản:
+     - `.txt`, `.md`, `.csv`, `.json`: Đọc UTF-8 trực tiếp.
+     - `.docx`: Thư viện `mammoth`, tự động phát hiện thẻ toán Office Math (`m:oMath`) để cảnh báo minh bạch cho người dùng.
+     - `.xlsx`, `.xls`: Thư viện `xlsx`, đọc toàn bộ sheet và trích xuất bảng câu hỏi.
+     - `.pdf` có text layer: Thư viện `unpdf`, trích xuất văn bản từng trang.
+     - `.pdf` scan hoặc ảnh `.png`, `.jpg`: Gọi thật Google Gemini Vision nếu có `GEMINI_API_KEY`. Nếu **chưa có API Key**: trả mã `requiresApiKey: true` kèm hướng dẫn minh bạch, **tuyệt đối không bịa kết quả OCR hoặc tạo câu hỏi rác**.
+
+3. **Bóc Tách & Suy Luận Cấu Trúc Câu Hỏi (`src/lib/documents/segment.ts`)**:
+   - Nhận diện linh hoạt các tiền tố đầu câu: `Câu N:`, `Bài N.`, `Question N`, `Ví dụ N`, `1.`, `1)`.
+   - Bóc tách phương án A, B, C, D (cả dạng nhiều dòng và inline trên cùng một dòng).
+   - Trích xuất bảng đáp án cuối đề thi (`1-A`, `2-B`...) và tự động gắn đáp án cho từng câu.
+   - Chuẩn hóa ký hiệu toán học Unicode (`²`, `³`, `√`, `≤`, `≥`, `≠`, `×`, `÷`, `°`) sang mã LaTeX/KaTeX chuẩn.
+   - Suy luận tự động khối lớp, chương học, dạng bài và mức độ nhận thức theo chuẩn GDPT 2018 (Phần A).
+   - **Xóa bỏ hoàn toàn lỗi đáp án giả `'1'`**: Nếu câu hỏi chưa có đáp án, hệ thống giữ nguyên `correctAnswer: ''`, đánh dấu cờ `needsReview: true` và `reviewReason: 'Chưa xác định được đáp án - Cần giáo viên duyệt'`, trạng thái `draft`.
+
+4. **Tạo Đề Thi Theo File & Phân Quyền Riêng Tư**:
+   - Chế độ **B-1 "Dùng lại câu trong file" (`DOCS_REUSE`)**: Lấy đúng câu trong tài liệu của người dùng. Nếu thiếu câu so với ma trận, báo lỗi `INSUFFICIENT_QUESTIONS` minh bạch, **không tự ý lấp bằng ngân hàng chung**.
+   - Chế độ **B-2 "Sinh đề MỚI dựa trên file" (`DOCS_SIMILAR`)**: Phân tích chương và chủ đề từ tài liệu, tự động dùng Parametric Engine sinh câu hỏi mới cùng dạng, cùng mức độ nhận thức, đạt chuẩn sàn độ khó của Phần A.
+   - Chế độ **Kết hợp (`MIXED`)**: Ưu tiên câu hỏi từ tài liệu cá nhân, phần còn thiếu bù đắp bằng câu hỏi chuẩn của ngân hàng.
+   - Trả về thống kê nguồn câu hỏi chi tiết: `composition.bySource: { bank, document, generated }`.
+   - Câu hỏi từ tài liệu được **cô lập riêng tư 100% theo người dùng** (`buildScopedStateForUser`), học sinh khác không thể xem hoặc làm câu hỏi riêng của nhau trừ khi được Giáo viên/Admin duyệt vào ngân hàng chung.
+
+5. **Giao Diện Người Dùng (UI)**:
+   - **Next.js (`src/app/exams/new/page.tsx`)**: Bổ sung bộ chọn Nguồn đề (Ngân hàng chuẩn / Từ file B-1 / Sinh mới B-2 / Kết hợp), khu vực tải tệp trực tiếp, xem trước danh sách tài liệu cá nhân và **Modal Duyệt câu hỏi (Review Drawer)** hiển thị công thức KaTeX, cho phép sửa đáp án, mức độ nhận thức và xác nhận duyệt ngay trên trình duyệt.
+   - **Giao diện HTML (`public/mathmaster_thcs.html`)**: Đã sửa hàm `parseQuestionsFromRawText`, xóa bỏ đáp án giả `'1'`, cập nhật `generateControlledExam` không âm thầm quay về ngân hàng chung khi `ONLY_DOCS` thiếu câu.
+
+### 5.3. Danh Sách Tệp Thay Đổi & Tạo Mới
+
+```
+Tạo mới:
+- src/lib/question-engine/difficulty-standard.ts (Định nghĩa sàn độ khó và kiểm tra complexity)
+- src/lib/question-engine/templates/grade6-vd-vdc.ts (42 templates VD/VDC Lớp 6)
+- src/lib/question-engine/templates/grade7-vdc.ts (18 templates VDC Lớp 7)
+- src/lib/question-engine/templates/grade8-vdc.ts (15 templates VDC Lớp 8)
+- src/lib/question-engine/templates/grade9-vdc.ts (18 templates VDC Lớp 9)
+- src/lib/documents/storage.ts (Tầng lưu trữ tài liệu trừu tượng: Local, Supabase, Vercel Blob, Memory)
+- src/lib/documents/extract.ts (Bộ giải mã tệp TXT, DOCX, XLSX, PDF, PNG/JPG)
+- src/lib/documents/segment.ts (Bộ bóc tách câu hỏi, options, đáp án, chuẩn hóa KaTeX)
+- src/app/api/documents/[id]/route.ts (GET chi tiết & DELETE tài liệu kèm tệp lưu trữ)
+- src/app/api/documents/[id]/items/route.ts (PATCH cập nhật & duyệt câu hỏi tài liệu)
+- scripts/audit-difficulty.mjs (Bộ kiểm toán 69.000 test cases sàn độ khó)
+- scripts/test-documents.mjs (11 test cases kiểm thử bóc tách tài liệu & tạo đề)
+- scripts/fixtures/* (Tệp mẫu TXT, DOCX, XLSX, PDF, PNG phục vụ kiểm thử)
+
+Cập nhật:
+- src/lib/question-engine/types.ts & verify.ts & index.ts & template-helpers.ts
+- src/lib/math-grader.ts (Hỗ trợ sourceMode: BANK/DOCS_REUSE/DOCS_SIMILAR/MIXED, sàn độ khó mượn câu, composition.bySource)
+- src/lib/prisma.ts (Bảo vệ quyền riêng tư câu hỏi tài liệu theo userId)
+- src/app/api/documents/route.ts (POST nhận nhiều file, lưu trữ an toàn, bóc tách và mở khóa ACH_DOC_UPLOAD)
+- src/app/api/exams/route.ts (Truyền cấu hình sourceMode, documentIds)
+- src/app/exams/new/page.tsx (Giao diện chọn nguồn đề, tải file, modal duyệt KaTeX)
+- public/mathmaster_thcs.html (Xóa đáp án giả '1', sửa ONLY_DOCS không lấp bừa)
+- package.json & package-lock.json (Bổ sung mammoth, unpdf, xlsx, @vercel/blob, lệnh audit:difficulty, test:documents)
+```
+
+### 5.4. Hướng Dẫn Cấu Hình Cho Người Dùng / Quản Trị Viên
+
+1. **Cấu hình OCR Nhận Dạng Hình Ảnh & PDF Quét (Nếu có nhu cầu tải ảnh/scan)**:
+   - Thêm vào file `.env`:
+     ```env
+     GEMINI_API_KEY="your-google-gemini-api-key"
+     # hoặc
+     MATHPIX_APP_KEY="your-mathpix-app-key"
+     ```
+   - *Ghi chú:* Với các tệp văn bản thường, `.docx`, `.xlsx`, `.pdf` có lớp chữ (text layer), hệ thống trích xuất **100% tự động nội bộ không cần bất kỳ API Key nào**.
+
+2. **Cấu hình Lưu Trữ Đám Mây (Cloud Storage) khi Triển Khai Lên Vercel**:
+   - Nếu dùng Vercel Blob:
+     ```env
+     BLOB_READ_WRITE_TOKEN="your-vercel-blob-token"
+     UPLOAD_STORAGE_DRIVER="blob"
+     ```
+   - Nếu dùng Supabase Storage:
+     ```env
+     SUPABASE_URL="https://your-project.supabase.co"
+     SUPABASE_SERVICE_ROLE_KEY="your-supabase-service-role-key"
+     SUPABASE_STORAGE_BUCKET="documents"
+     UPLOAD_STORAGE_DRIVER="supabase"
+     ```
+   - Mặc định khi chạy local/dev: Hệ thống dùng driver `local` lưu vào `public/uploads/documents` hoặc tự động fallback sang `memory` nếu tệp ở chế độ read-only.
+
+3. **Duyệt Câu Hỏi Trích Xuất**:
+   - Giáo viên vào mục tạo đề hoặc xem tài liệu, kiểm tra các câu có huy hiệu `⚠️ Cần duyệt` (do thiếu đáp án hoặc công thức đặc thù), điền đáp án chuẩn và nhấn **"✓ Đánh dấu đã xác minh"** trước khi đưa vào đề thi chính thức.
+
+### 5.5. Những Điểm Cần Lưu Ý & Rủi Ro Tồn Tại
+
+1. **Chữ Viết Tay Phức Tạp**: Chữ viết tay của học sinh chụp bằng điện thoại trong điều kiện thiếu sáng hoặc nghiêng góc có thể giảm độ chính xác OCR. Khuyến khích người dùng chụp thẳng góc và rõ nét.
+2. **Công thức Word (OMML)**: Một số công thức toán sử dụng định dạng cũ của Equation Editor trong Microsoft Word (thay vì OMML chuẩn) có thể hiển thị dạng văn bản thô; hệ thống đã tích hợp cảnh báo để người dùng kiểm tra lại trên màn hình duyệt.
+3. **Phân Loại Tự Động Câu Hỏi Thực Tế Liên Môn**: Các bài toán thực tế tích hợp Vật lý/Hóa học có thể chứa từ khóa của nhiều chương cùng lúc. Hệ thống sẽ gán độ tin cậy `medium` và khuyến nghị người dùng kiểm tra lại chương phân bổ.
