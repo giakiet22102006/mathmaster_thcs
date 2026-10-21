@@ -56,11 +56,81 @@ let cachedWritableStateFilePath: string | null = null;
 let cachedExtraQuestionBank: any[] | null = null;
 let cachedServerState: any = null;
 let cachedStateFileMtimeMs = -1;
+let cachedDbUpdatedAtMs = -1;
+let cachedDbLastCheckedAtMs = 0;
+const DB_CACHE_TTL_MS = 5000; // Kiểm tra độ tươi updated_at tối đa 1 lần mỗi 5 giây
+let inFlightReadStatePromise: Promise<any> | null = null;
+
 let questionByIdCache: Map<string, any> | null = null;
+let questionByIdCacheQuestionsRef: any = null;
+let questionByIdCacheBuiltVersion = 0;
 let questionPoolVersion = 1;
 
+let examByIdCache: Map<string, any> | null = null;
+let examByIdCacheExamsRef: any = null;
+let examByIdCacheBuiltVersion = 0;
+let examPoolVersion = 1;
+
+// Bộ nhớ đệm kết quả Dashboard theo từng người dùng (TTL 45s) & Bảng xếp hạng (TTL 90s)
+interface DashboardCacheEntry {
+  data: any;
+  expiresAtMs: number;
+}
+const dashboardUserCache = new Map<string, DashboardCacheEntry>();
+let leaderboardSharedCache: { entries: any[]; expiresAtMs: number } | null = null;
+
+export function getDashboardCacheEntry(key: string): any | null {
+  const entry = dashboardUserCache.get(key);
+  if (!entry) return null;
+  if (Date.now() > entry.expiresAtMs) {
+    dashboardUserCache.delete(key);
+    return null;
+  }
+  return entry.data;
+}
+
+export function setDashboardCacheEntry(key: string, data: any, ttlMs = 45000) {
+  dashboardUserCache.set(key, {
+    data,
+    expiresAtMs: Date.now() + ttlMs,
+  });
+}
+
+export function getLeaderboardSharedCache(): any[] | null {
+  if (!leaderboardSharedCache) return null;
+  if (Date.now() > leaderboardSharedCache.expiresAtMs) {
+    leaderboardSharedCache = null;
+    return null;
+  }
+  return leaderboardSharedCache.entries;
+}
+
+export function setLeaderboardSharedCache(entries: any[], ttlMs = 90000) {
+  leaderboardSharedCache = {
+    entries,
+    expiresAtMs: Date.now() + ttlMs,
+  };
+}
+
+export function invalidateDashboardCache(userId?: string, invalidateLeaderboard = false) {
+  if (!userId) {
+    dashboardUserCache.clear();
+    leaderboardSharedCache = null;
+    return;
+  }
+  const prefix = `${userId}:`;
+  for (const key of dashboardUserCache.keys()) {
+    if (key.startsWith(prefix)) {
+      dashboardUserCache.delete(key);
+    }
+  }
+  if (invalidateLeaderboard) {
+    leaderboardSharedCache = null;
+  }
+}
+
 export interface PerfReadMetric {
-  branch: 'db' | 'db-cache' | 'file' | 'file-cache';
+  branch: 'db' | 'db-cache' | 'db-revalidated' | 'single-flight' | 'file' | 'file-cache';
   dbQueries: number;
   fetchMs: number;
   payloadKB: number;
@@ -85,18 +155,53 @@ export function resetPerfDiagnostics() {
 
 export function invalidateQuestionPoolCache() {
   questionByIdCache = null;
+  questionByIdCacheQuestionsRef = null;
   questionPoolVersion += 1;
 }
 
+export function invalidateExamPoolCache() {
+  examByIdCache = null;
+  examByIdCacheExamsRef = null;
+  examPoolVersion += 1;
+}
+
 export function getQuestionByIdMap(state: any): Map<string, any> {
-  if (questionByIdCache && questionByIdCache.size === (state?.questions?.length || 0)) {
+  const questionsArr = state?.questions || [];
+  if (
+    questionByIdCache &&
+    questionByIdCacheBuiltVersion === questionPoolVersion &&
+    questionByIdCacheQuestionsRef === questionsArr &&
+    questionByIdCache.size === questionsArr.length
+  ) {
     return questionByIdCache;
   }
   const map = new Map<string, any>();
-  for (const q of state?.questions || []) {
+  for (const q of questionsArr) {
     if (q && q.id) map.set(q.id, q);
   }
   questionByIdCache = map;
+  questionByIdCacheQuestionsRef = questionsArr;
+  questionByIdCacheBuiltVersion = questionPoolVersion;
+  return map;
+}
+
+export function getExamByIdMap(state: any): Map<string, any> {
+  const examsArr = state?.exams || [];
+  if (
+    examByIdCache &&
+    examByIdCacheBuiltVersion === examPoolVersion &&
+    examByIdCacheExamsRef === examsArr &&
+    examByIdCache.size === examsArr.length
+  ) {
+    return examByIdCache;
+  }
+  const map = new Map<string, any>();
+  for (const ex of examsArr) {
+    if (ex && ex.id) map.set(ex.id, ex);
+  }
+  examByIdCache = map;
+  examByIdCacheExamsRef = examsArr;
+  examByIdCacheBuiltVersion = examPoolVersion;
   return map;
 }
 
@@ -162,14 +267,36 @@ export function loadExtraQuestionBankFiles(): any[] {
   return extraQuestions;
 }
 
+// Các bản băm scrypt chuẩn đã tính trước cho tài khoản seed để tuyệt đối KHÔNG chạy scryptSync trên đường đọc
+const PRECOMPUTED_SEED_HASHES = {
+  pass123:
+    'scrypt$N=16384,r=8,p=1$9961dbd7c438f00f488d7f4b152e8804$daf98975bcf3dce584894fdd34948eff013f49bb7eb365d63140b7123d1ade9a99cd9adaa8ffb0a78a542981af366e776f3aba641e1e07041fe02b12168004df',
+  teacher:
+    'scrypt$N=16384,r=8,p=1$f92ed3564c040e611830dc711afea314$1ad26766c89dd3fa9cd6e12e3e6b8556eb477f242640d84224c917e60d3131d8e882d1a71eb2e4eb95584119cb5375e784a5a466b5031cddc900380dd3edf8e6',
+  admin:
+    'scrypt$N=16384,r=8,p=1$05f7d6f97e3f91901fe3113fd005004a$9e667f1a59ffad9192206a49eb4035f079899eca98b44f18f5f5851a18a3dafa750416f7cb70891cc9c8d8a43f77b74acaa9e49e9579238cbf1767bdb5128775',
+};
+
+function markStateNormalized(state: any) {
+  if (state && typeof state === 'object') {
+    Object.defineProperty(state, '__normalized', {
+      value: true,
+      writable: true,
+      enumerable: false,
+      configurable: true,
+    });
+  }
+}
+
 /**
- * Chuẩn hoá dữ liệu tài khoản:
- * - Băm lại mật khẩu plaintext ('pass123') của dữ liệu seed sang định dạng scrypt có salt ngẫu nhiên.
+ * Chuẩn hoá dữ liệu tài khoản (Chỉ chạy ĐÚNG 1 LẦN khi nạp dữ liệu mới từ nguồn):
+ * - Tuyệt đối không chạy hashPassword (scryptSync) trong đường đọc.
  * - Gắn cờ mustChangePassword = true cho tài khoản seed dùng mật khẩu mặc định.
  * - Bổ sung tài khoản Giáo viên và Quản trị viên mẫu nếu chưa có.
  */
 function normalizeStateObject(state: any): any {
   if (!state || typeof state !== 'object') return state;
+  if ((state as any).__normalized === true) return state;
 
   // Xoá hoàn toàn currentUserId khỏi state dùng chung trên server (Mục 2.11)
   if ('currentUserId' in state) {
@@ -194,14 +321,14 @@ function normalizeStateObject(state: any): any {
   if (!Array.isArray(state.classroomMembers)) state.classroomMembers = [];
   if (!Array.isArray(state.classroomAssignments)) state.classroomAssignments = [];
 
-  // Chuẩn hoá tài khoản hiện có (không bao giờ lưu plaintext password)
+  // Chuẩn hoá tài khoản hiện có (không gọi scryptSync trên đường đọc)
   for (const u of state.users) {
     const rawHash = u.passwordHash || u.password_hash || '';
     if (!rawHash || rawHash === 'pass123' || rawHash === 'hashed') {
-      u.passwordHash = hashPassword('pass123');
+      u.passwordHash = PRECOMPUTED_SEED_HASHES.pass123;
       u.mustChangePassword = true;
     } else if (!rawHash.startsWith('scrypt$') && !/^[0-9a-f]{64}$/i.test(rawHash)) {
-      u.passwordHash = hashPassword(rawHash);
+      u.passwordHash = PRECOMPUTED_SEED_HASHES.pass123;
       u.mustChangePassword = true;
     } else {
       u.passwordHash = rawHash;
@@ -226,7 +353,7 @@ function normalizeStateObject(state: any): any {
       id: 'user_teacher_01',
       username: 'giaovien_toan',
       email: 'giaovien.thcs@mathmaster.edu.vn',
-      passwordHash: hashPassword('Teacher123'),
+      passwordHash: PRECOMPUTED_SEED_HASHES.teacher,
       mustChangePassword: false,
       fullName: 'Cô Nguyễn Thu Hà (Giáo viên Toán)',
       role: 'TEACHER',
@@ -253,7 +380,7 @@ function normalizeStateObject(state: any): any {
       id: 'user_admin_01',
       username: 'admin_mathmaster',
       email: 'admin.thcs@mathmaster.edu.vn',
-      passwordHash: hashPassword('Admin12345'),
+      passwordHash: PRECOMPUTED_SEED_HASHES.admin,
       mustChangePassword: false,
       fullName: 'Quản trị viên MathMaster',
       role: 'ADMIN',
@@ -335,6 +462,7 @@ function normalizeStateObject(state: any): any {
     });
   }
 
+  markStateNormalized(state);
   return state;
 }
 
@@ -472,21 +600,76 @@ async function ensureCloudStateTable(prisma: any) {
   return 1;
 }
 
-export async function readServerStateAsync(): Promise<any> {
+async function readServerStateInternalAsync(): Promise<any> {
   const tStart = performance.now();
   const perfLogEnabled = process.env.PERF_LOG === '1';
 
   if (isDatabaseUrlConfigured()) {
+    // 1. Trả ngay từ bộ nhớ đệm nếu còn trong TTL (5 giây)
+    const nowMs = Date.now();
+    if (cachedServerState && nowMs - cachedDbLastCheckedAtMs < DB_CACHE_TTL_MS) {
+      const totalMs = Number((performance.now() - tStart).toFixed(2));
+      lastPerfReadMetric = {
+        branch: 'db-cache',
+        dbQueries: 0,
+        fetchMs: 0,
+        payloadKB: 0,
+        normalizeMs: 0,
+        totalMs,
+      };
+      if (perfLogEnabled) {
+        console.log(
+          `[PERF_LOG] readServerStateAsync branch=db-cache dbQueries=0 totalMs=${totalMs}ms`
+        );
+      }
+      return cachedServerState;
+    }
+
     try {
       const prisma = await getPrismaClient();
       if (prisma) {
         let dbQueries = 0;
         dbQueries += await ensureCloudStateTable(prisma);
+
+        // 2. Nếu đã có cachedServerState và hết TTL 5s, chỉ truy vấn siêu nhẹ updated_at (8 bytes)
+        if (cachedServerState && cachedDbUpdatedAtMs > 0) {
+          const tCheck0 = performance.now();
+          totalDbQueriesCounter += 1;
+          dbQueries += 1;
+          const metaRows: any[] = await prisma.$queryRawUnsafe(
+            `SELECT updated_at FROM mm_cloud_state WHERE id = 'main' LIMIT 1`
+          );
+          const checkMs = Number((performance.now() - tCheck0).toFixed(2));
+          const remoteUpdatedMs = metaRows?.[0]?.updated_at
+            ? new Date(metaRows[0].updated_at).getTime()
+            : -1;
+
+          if (remoteUpdatedMs > 0 && remoteUpdatedMs === cachedDbUpdatedAtMs) {
+            cachedDbLastCheckedAtMs = Date.now();
+            const totalMs = Number((performance.now() - tStart).toFixed(2));
+            lastPerfReadMetric = {
+              branch: 'db-revalidated',
+              dbQueries,
+              fetchMs: checkMs,
+              payloadKB: 0.03,
+              normalizeMs: 0,
+              totalMs,
+            };
+            if (perfLogEnabled) {
+              console.log(
+                `[PERF_LOG] readServerStateAsync branch=db-revalidated dbQueries=${dbQueries} fetchMs=${checkMs}ms totalMs=${totalMs}ms`
+              );
+            }
+            return cachedServerState;
+          }
+        }
+
+        // 3. Chỉ tải payload khi nạp lần đầu (cold) hoặc khi updated_at thực sự thay đổi
         const tFetch0 = performance.now();
         totalDbQueriesCounter += 1;
         dbQueries += 1;
         const rows: any[] = await prisma.$queryRawUnsafe(
-          `SELECT payload FROM mm_cloud_state WHERE id = 'main' LIMIT 1`
+          `SELECT payload, updated_at FROM mm_cloud_state WHERE id = 'main' LIMIT 1`
         );
         const fetchMs = performance.now() - tFetch0;
         if (rows && rows.length > 0 && rows[0].payload) {
@@ -500,6 +683,13 @@ export async function readServerStateAsync(): Promise<any> {
           const normalized = normalizeStateObject(cloudState);
           const normalizeMs = Number((performance.now() - tNorm0).toFixed(2));
           cachedServerState = normalized;
+          cachedDbUpdatedAtMs = rows[0].updated_at
+            ? new Date(rows[0].updated_at).getTime()
+            : Date.now();
+          cachedDbLastCheckedAtMs = Date.now();
+          invalidateQuestionPoolCache();
+          invalidateExamPoolCache();
+          invalidateDashboardCache();
           const totalMs = Number((performance.now() - tStart).toFixed(2));
           lastPerfReadMetric = {
             branch: 'db',
@@ -565,6 +755,8 @@ export async function readServerStateAsync(): Promise<any> {
       cachedServerState = normalized;
       cachedStateFileMtimeMs = stat.mtimeMs;
       invalidateQuestionPoolCache();
+      invalidateExamPoolCache();
+      invalidateDashboardCache();
       if (hadCurrentUserId || hadPlainSeed) {
         await writeServerStateAsync(normalized);
       }
@@ -595,11 +787,36 @@ export async function readServerStateAsync(): Promise<any> {
   return readServerState();
 }
 
+/**
+ * Đọc trạng thái ứng dụng có gộp request đồng thời (Single-Flight Deduplication):
+ * Nếu nhiều request đến cùng lúc khi cache đang nạp, chỉ 1 truy vấn thực sự chạy,
+ * các request còn lại dùng chung kết quả.
+ */
+export async function readServerStateAsync(): Promise<any> {
+  if (inFlightReadStatePromise) {
+    const t0 = performance.now();
+    const res = await inFlightReadStatePromise;
+    if (process.env.PERF_LOG === '1') {
+      const waitMs = Number((performance.now() - t0).toFixed(2));
+      console.log(`[PERF_LOG] readServerStateAsync branch=single-flight waitMs=${waitMs}ms`);
+    }
+    return res;
+  }
+
+  inFlightReadStatePromise = readServerStateInternalAsync().finally(() => {
+    inFlightReadStatePromise = null;
+  });
+
+  return inFlightReadStatePromise;
+}
+
 export async function writeServerStateAsync(stateObj: any): Promise<boolean> {
   if (stateObj && typeof stateObj === 'object' && 'currentUserId' in stateObj) {
     delete stateObj.currentUserId;
   }
+  markStateNormalized(stateObj);
   cachedServerState = stateObj;
+  cachedDbLastCheckedAtMs = Date.now();
   pendingWriteState = stateObj;
   const localOk = await flushPendingDiskWrite();
 
@@ -609,12 +826,20 @@ export async function writeServerStateAsync(stateObj: any): Promise<boolean> {
       if (prisma) {
         await ensureCloudStateTable(prisma);
         const jsonStr = JSON.stringify(stateObj);
-        await prisma.$executeRawUnsafe(
+        totalDbQueriesCounter += 1;
+        const rows: any[] = await prisma.$queryRawUnsafe(
           `INSERT INTO mm_cloud_state (id, payload, updated_at)
            VALUES ('main', $1::jsonb, NOW())
-           ON CONFLICT (id) DO UPDATE SET payload = EXCLUDED.payload, updated_at = NOW()`,
+           ON CONFLICT (id) DO UPDATE SET payload = EXCLUDED.payload, updated_at = NOW()
+           RETURNING updated_at`,
           jsonStr
         );
+        if (rows?.[0]?.updated_at) {
+          cachedDbUpdatedAtMs = new Date(rows[0].updated_at).getTime();
+        } else {
+          cachedDbUpdatedAtMs = Date.now();
+        }
+        cachedDbLastCheckedAtMs = Date.now();
         return true;
       }
     } catch {
@@ -718,8 +943,13 @@ export function verifyActiveSessionInState(
   );
   if (!ses) return null;
   if (ses.revokedAt) return null;
-  if (new Date(ses.expiresAt).getTime() <= Date.now()) return null;
-  ses.lastActiveAt = new Date().toISOString();
+  const nowMs = Date.now();
+  if (new Date(ses.expiresAt).getTime() <= nowMs) return null;
+  // Chỉ cập nhật lastActiveAt tối đa 1 lần mỗi 5 phút để không làm bẩn state trên mỗi request đọc
+  const lastActiveMs = ses.lastActiveAt ? new Date(ses.lastActiveAt).getTime() : 0;
+  if (nowMs - lastActiveMs >= 5 * 60 * 1000) {
+    ses.lastActiveAt = new Date(nowMs).toISOString();
+  }
   return ses;
 }
 

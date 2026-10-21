@@ -5,7 +5,14 @@
 // ==============================================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getPerfDiagnostics, requireUser, writeServerStateAsync } from '@/lib/prisma';
+import {
+  getExamByIdMap,
+  getPerfDiagnostics,
+  getQuestionByIdMap,
+  invalidateDashboardCache,
+  requireUser,
+  writeServerStateAsync,
+} from '@/lib/prisma';
 import { resolveQuestionCognitiveLevel } from '@/lib/math-grader';
 
 export const dynamic = 'force-dynamic';
@@ -42,8 +49,9 @@ export async function GET(req: NextRequest) {
         : 0;
 
     // 1. Tiến độ điểm số qua 10 bài thi gần nhất (cho biểu đồ đường Chart.js)
+    const examMap = getExamByIdMap(state);
     const scoreTrend = gradedAttempts.slice(-10).map((att: any) => {
-      const exam = (state.exams || []).find((e: any) => e.id === att.examId);
+      const exam = examMap.get(att.examId);
       return {
         attemptId: att.id,
         examId: att.examId,
@@ -102,10 +110,11 @@ export async function GET(req: NextRequest) {
       van_dung_cao: { done: 0, right: 0, accuracyPercent: 0 },
     };
 
+    const qMap = getQuestionByIdMap(state);
     for (const att of gradedAttempts) {
       const answers = att.answers || {};
       for (const [qId, ans] of Object.entries<any>(answers)) {
-        const q = (state.questions || []).find((item: any) => item.id === qId);
+        const q = qMap.get(qId);
         if (!q) continue;
         const lv = resolveQuestionCognitiveLevel(q);
         levelStats[lv].done += 1;
@@ -206,6 +215,7 @@ export async function POST(req: NextRequest) {
     if (body.action === 'toggle_anonymous_leaderboard') {
       auth.user.anonymousLeaderboard =
         body.anonymous !== undefined ? Boolean(body.anonymous) : !auth.user.anonymousLeaderboard;
+      invalidateDashboardCache(auth.user.id, true);
       await writeServerStateAsync(auth.state);
       return NextResponse.json({
         ok: true,
