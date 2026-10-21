@@ -5,7 +5,12 @@
 // ==============================================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { requireRole, requireUser, writeServerStateAsync } from '@/lib/prisma';
+import {
+  invalidateQuestionPoolCache,
+  requireRole,
+  requireUser,
+  writeServerStateAsync,
+} from '@/lib/prisma';
 import { COGNITIVE_TO_DIFFICULTY, resolveQuestionCognitiveLevel } from '@/lib/math-grader';
 
 export const dynamic = 'force-dynamic';
@@ -243,6 +248,7 @@ export async function POST(req: NextRequest) {
         );
       }
 
+      invalidateQuestionPoolCache();
       await writeServerStateAsync(state);
       return NextResponse.json({
         ok: true,
@@ -280,6 +286,7 @@ export async function POST(req: NextRequest) {
       }
       q.version = Number(q.version || 1) + 1;
 
+      invalidateQuestionPoolCache();
       await writeServerStateAsync(state);
       return NextResponse.json({ ok: true, question: q });
     }
@@ -316,6 +323,7 @@ export async function POST(req: NextRequest) {
         importedCount += 1;
       }
 
+      invalidateQuestionPoolCache();
       await writeServerStateAsync(state);
       return NextResponse.json({ ok: true, importedCount });
     }

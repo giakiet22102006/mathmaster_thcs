@@ -113,6 +113,7 @@ model sessions {
   user           users     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([user_id])
+  @@index([user_id, revoked_at, expires_at])
 }
 
 model password_reset_tokens {
@@ -125,6 +126,7 @@ model password_reset_tokens {
   user       users     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([user_id])
+  @@index([user_id, used_at, expires_at])
 }
 
 model user_profiles {
@@ -268,6 +270,9 @@ model questions {
   exam_questions       exam_questions[]
   student_answers      student_answers[]
   review_items         review_queue[]
+
+  @@index([grade_id, verification_status, cognitive_level, semester_number])
+  @@index([chapter_id, verification_status, difficulty])
 }
 
 model question_options {
@@ -333,6 +338,9 @@ model generated_exams {
   exam_questions   exam_questions[]
   exam_attempts    exam_attempts[]
   assignments      classroom_assignments[]
+
+  @@index([user_id, created_at])
+  @@index([grade_id, is_seed_data])
 }
 
 model exam_questions {
@@ -367,6 +375,9 @@ model exam_attempts {
   user               users             @relation(fields: [user_id], references: [id], onDelete: Cascade)
   student_answers    student_answers[]
   grading_result     grading_results?
+
+  @@index([user_id, status, started_at])
+  @@index([exam_id, user_id])
 }
 
 model student_answers {
@@ -386,6 +397,7 @@ model student_answers {
   question           questions     @relation(fields: [question_id], references: [id], onDelete: Cascade)
 
   @@unique([attempt_id, question_id])
+  @@index([question_id, is_correct])
 }
 
 model grading_results {
@@ -433,6 +445,7 @@ model review_queue {
   question         questions @relation(fields: [question_id], references: [id], onDelete: Cascade)
 
   @@unique([user_id, question_id])
+  @@index([user_id, resolved, next_review_at])
 }
 
 model study_sessions {

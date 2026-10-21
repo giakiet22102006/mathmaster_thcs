@@ -18,7 +18,7 @@ import {
   changePasswordSchema,
   checkLoginRateLimit,
   defaultEmailService,
-  hashPassword,
+  hashPasswordAsync,
   hashResetToken,
   loginSchema,
   passwordPolicySchema,
@@ -27,8 +27,7 @@ import {
   resetLoginRateLimit,
   sanitizeUserForClient,
   signSessionToken,
-  verifyPassword,
-  verifyPasswordWithMigration,
+  verifyPasswordWithMigrationAsync,
 } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
@@ -174,7 +173,7 @@ export async function POST(req: NextRequest) {
         id: `user_${crypto.randomUUID()}`,
         username: finalUsername,
         email: emailLower,
-        passwordHash: hashPassword(data.password),
+        passwordHash: await hashPasswordAsync(data.password),
         mustChangePassword: false,
         passwordUpdatedAt: nowIso,
         failedLoginCount: 0,
@@ -285,7 +284,7 @@ export async function POST(req: NextRequest) {
       }
 
       const pwdCheck = user
-        ? verifyPasswordWithMigration(rawPassword, user.passwordHash)
+        ? await verifyPasswordWithMigrationAsync(rawPassword, user.passwordHash)
         : { valid: false, needsRehash: false, isDefaultSeedPassword: false };
 
       if (!user || !pwdCheck.valid) {
@@ -322,7 +321,7 @@ export async function POST(req: NextRequest) {
 
       // Migration người dùng cũ: băm lại theo chuẩn scrypt mới nếu đang dùng hash kiểu cũ
       if (pwdCheck.needsRehash) {
-        user.passwordHash = hashPassword(rawPassword);
+        user.passwordHash = await hashPasswordAsync(rawPassword);
         user.passwordUpdatedAt = new Date().toISOString();
       }
       if (pwdCheck.isDefaultSeedPassword) {
@@ -393,7 +392,12 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ ok: false, error: msg }, { status: 400 });
       }
 
-      const isCurrentValid = verifyPassword(parsed.data.currentPassword, auth.user.passwordHash);
+      const isCurrentValid = (
+        await verifyPasswordWithMigrationAsync(
+          parsed.data.currentPassword,
+          auth.user.passwordHash
+        )
+      ).valid;
       if (!isCurrentValid) {
         return NextResponse.json(
           { ok: false, error: 'Mật khẩu hiện tại không đúng.' },
@@ -401,7 +405,7 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      auth.user.passwordHash = hashPassword(parsed.data.newPassword);
+      auth.user.passwordHash = await hashPasswordAsync(parsed.data.newPassword);
       auth.user.mustChangePassword = false;
       auth.user.passwordUpdatedAt = new Date().toISOString();
 
@@ -525,7 +529,7 @@ export async function POST(req: NextRequest) {
       }
 
       tokenRecord.usedAt = new Date().toISOString();
-      targetUser.passwordHash = hashPassword(newPassword);
+      targetUser.passwordHash = await hashPasswordAsync(newPassword);
       targetUser.mustChangePassword = false;
       targetUser.passwordUpdatedAt = new Date().toISOString();
       targetUser.failedLoginCount = 0;
@@ -564,7 +568,10 @@ export async function POST(req: NextRequest) {
       // Khi tự xoá tài khoản chính thức, bắt buộc phải nhập lại mật khẩu đúng
       if (isSelf && !auth.user.isGuest) {
         const confirmPwd = String(body.password || '');
-        if (!confirmPwd || !verifyPassword(confirmPwd, auth.user.passwordHash)) {
+        const checkDel = confirmPwd
+          ? await verifyPasswordWithMigrationAsync(confirmPwd, auth.user.passwordHash)
+          : { valid: false };
+        if (!checkDel.valid) {
           return NextResponse.json(
             { ok: false, error: 'Vui lòng nhập đúng mật khẩu hiện tại để xác nhận xóa tài khoản.' },
             { status: 401 }
@@ -605,7 +612,7 @@ export async function POST(req: NextRequest) {
         id: guestId,
         username: `khach_${guestId.slice(6, 12)}`,
         email: `${guestId}@guest.local`,
-        passwordHash: hashPassword(crypto.randomBytes(16).toString('hex')),
+        passwordHash: await hashPasswordAsync(crypto.randomBytes(16).toString('hex')),
         mustChangePassword: false,
         fullName: 'Học sinh Khách (Dùng thử)',
         role: 'STUDENT',

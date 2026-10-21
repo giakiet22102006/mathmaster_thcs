@@ -52,18 +52,57 @@ export async function checkDatabaseConnection(): Promise<boolean> {
   }
 }
 
+let cachedWritableStateFilePath: string | null = null;
+let cachedExtraQuestionBank: any[] | null = null;
+let cachedServerState: any = null;
+let cachedStateFileMtimeMs = -1;
+let questionByIdCache: Map<string, any> | null = null;
+let questionPoolVersion = 1;
+
+export function invalidateQuestionPoolCache() {
+  questionByIdCache = null;
+  questionPoolVersion += 1;
+}
+
+export function getQuestionByIdMap(state: any): Map<string, any> {
+  if (questionByIdCache && questionByIdCache.size === (state?.questions?.length || 0)) {
+    return questionByIdCache;
+  }
+  const map = new Map<string, any>();
+  for (const q of state?.questions || []) {
+    if (q && q.id) map.set(q.id, q);
+  }
+  questionByIdCache = map;
+  return map;
+}
+
+export function sanitizeQuestionForInProgressExam(q: any) {
+  if (!q || typeof q !== 'object') return q;
+  const {
+    correctAnswer: _ca,
+    acceptedAnswers: _aa,
+    solution: _sol,
+    distractorTypes: _dt,
+    ...publicFields
+  } = q;
+  return publicFields;
+}
+
 function getWritableStateFilePath(): string {
+  if (cachedWritableStateFilePath) return cachedWritableStateFilePath;
   const localDir = path.join(process.cwd(), '.data');
   try {
     fs.mkdirSync(localDir, { recursive: true });
     fs.accessSync(localDir, fs.constants.W_OK);
-    return path.join(localDir, 'local_db_state.json');
+    cachedWritableStateFilePath = path.join(localDir, 'local_db_state.json');
+    return cachedWritableStateFilePath;
   } catch {
     const tmpDir = path.join(os.tmpdir(), 'mathmaster-thcs-data');
     try {
       fs.mkdirSync(tmpDir, { recursive: true });
     } catch {}
-    return path.join(tmpDir, 'local_db_state.json');
+    cachedWritableStateFilePath = path.join(tmpDir, 'local_db_state.json');
+    return cachedWritableStateFilePath;
   }
 }
 
@@ -71,9 +110,10 @@ const SEED_FILE = path.join(process.cwd(), 'prisma', 'seed_data.json');
 const QUESTION_BANK_DIR = path.join(process.cwd(), 'prisma', 'question_bank');
 
 /**
- * Đọc bổ sung các câu hỏi từ thư mục prisma/question_bank/*.json (nếu có)
+ * Đọc bổ sung các câu hỏi từ thư mục prisma/question_bank/*.json (có bộ nhớ đệm trong RAM)
  */
 export function loadExtraQuestionBankFiles(): any[] {
+  if (cachedExtraQuestionBank) return cachedExtraQuestionBank;
   const extraQuestions: any[] = [];
   try {
     if (fs.existsSync(QUESTION_BANK_DIR)) {
@@ -94,6 +134,7 @@ export function loadExtraQuestionBankFiles(): any[] {
   } catch (err) {
     console.error('Lỗi đọc prisma/question_bank:', err);
   }
+  cachedExtraQuestionBank = extraQuestions;
   return extraQuestions;
 }
 
@@ -309,12 +350,19 @@ export function readServerState(): any {
   try {
     const stateFile = getWritableStateFilePath();
     if (fs.existsSync(stateFile)) {
+      const stat = fs.statSync(stateFile);
+      if (cachedServerState && stat.mtimeMs === cachedStateFileMtimeMs) {
+        return cachedServerState;
+      }
       const raw = JSON.parse(fs.readFileSync(stateFile, 'utf-8'));
       const hadCurrentUserId = 'currentUserId' in raw;
       const hadPlainSeed = (raw.users || []).some(
         (u: any) => u.passwordHash === 'pass123' || u.passwordHash === 'hashed'
       );
       const normalized = normalizeStateObject(raw);
+      cachedServerState = normalized;
+      cachedStateFileMtimeMs = stat.mtimeMs;
+      invalidateQuestionPoolCache();
       if (hadCurrentUserId || hadPlainSeed) {
         writeServerState(normalized);
       }
@@ -336,17 +384,54 @@ export function writeServerState(stateObj: any): boolean {
     if (stateObj && typeof stateObj === 'object' && 'currentUserId' in stateObj) {
       delete stateObj.currentUserId;
     }
+    cachedServerState = stateObj;
     // Ở môi trường production khi đã có DATABASE_URL thì không dùng file JSON làm nguồn chính
     if (process.env.NODE_ENV === 'production' && isDatabaseUrlConfigured()) {
       return true;
     }
     const stateFile = getWritableStateFilePath();
-    fs.writeFileSync(stateFile, JSON.stringify(stateObj, null, 2), 'utf-8');
+    fs.writeFileSync(stateFile, JSON.stringify(stateObj), 'utf-8');
+    try {
+      cachedStateFileMtimeMs = fs.statSync(stateFile).mtimeMs;
+    } catch {}
     return true;
   } catch (err) {
     console.error('Lỗi ghi trạng thái server:', err);
     return false;
   }
+}
+
+// Hàng đợi gộp ghi bất đồng bộ (Write Coalescing) để không ghi chồng chéo khi 50 request đến cùng lúc
+let activeWritePromise: Promise<boolean> | null = null;
+let pendingWriteState: any = null;
+
+async function flushPendingDiskWrite(): Promise<boolean> {
+  if (activeWritePromise) {
+    return activeWritePromise;
+  }
+  activeWritePromise = (async () => {
+    let ok = true;
+    while (pendingWriteState !== null) {
+      const stateToWrite = pendingWriteState;
+      pendingWriteState = null;
+      try {
+        if (process.env.NODE_ENV === 'production' && isDatabaseUrlConfigured()) {
+          continue;
+        }
+        const stateFile = getWritableStateFilePath();
+        const serialized = JSON.stringify(stateToWrite);
+        await fs.promises.writeFile(stateFile, serialized, 'utf-8');
+        const st = await fs.promises.stat(stateFile).catch(() => null);
+        if (st) cachedStateFileMtimeMs = st.mtimeMs;
+      } catch (err) {
+        console.error('Lỗi ghi trạng thái server bất đồng bộ:', err);
+        ok = false;
+      }
+    }
+    activeWritePromise = null;
+    return ok;
+  })();
+  return activeWritePromise;
 }
 
 async function ensureCloudStateTable(prisma: any) {
@@ -376,7 +461,7 @@ export async function readServerStateAsync(): Promise<any> {
               ? JSON.parse(rows[0].payload)
               : rows[0].payload;
           const normalized = normalizeStateObject(cloudState);
-          writeServerState(normalized);
+          cachedServerState = normalized;
           return normalized;
         }
         const initial = readServerState() || loadDefaultSeedState();
@@ -389,6 +474,37 @@ export async function readServerStateAsync(): Promise<any> {
       // Fallback sang bản lưu cục bộ khi không kết nối được mạng/PostgreSQL ở môi trường dev
     }
   }
+
+  try {
+    const stateFile = getWritableStateFilePath();
+    const stat = await fs.promises.stat(stateFile).catch(() => null);
+    if (stat) {
+      if (cachedServerState && stat.mtimeMs === cachedStateFileMtimeMs) {
+        return cachedServerState;
+      }
+      const rawText = await fs.promises.readFile(stateFile, 'utf-8');
+      const raw = JSON.parse(rawText);
+      const hadCurrentUserId = 'currentUserId' in raw;
+      const hadPlainSeed = (raw.users || []).some(
+        (u: any) => u.passwordHash === 'pass123' || u.passwordHash === 'hashed'
+      );
+      const normalized = normalizeStateObject(raw);
+      cachedServerState = normalized;
+      cachedStateFileMtimeMs = stat.mtimeMs;
+      invalidateQuestionPoolCache();
+      if (hadCurrentUserId || hadPlainSeed) {
+        await writeServerStateAsync(normalized);
+      }
+      return normalized;
+    }
+    const initial = loadDefaultSeedState();
+    if (initial) {
+      await writeServerStateAsync(initial);
+      return initial;
+    }
+  } catch (err) {
+    console.error('Lỗi đọc trạng thái server bất đồng bộ:', err);
+  }
   return readServerState();
 }
 
@@ -396,7 +512,10 @@ export async function writeServerStateAsync(stateObj: any): Promise<boolean> {
   if (stateObj && typeof stateObj === 'object' && 'currentUserId' in stateObj) {
     delete stateObj.currentUserId;
   }
-  const localOk = writeServerState(stateObj);
+  cachedServerState = stateObj;
+  pendingWriteState = stateObj;
+  const localOk = await flushPendingDiskWrite();
+
   if (isDatabaseUrlConfigured()) {
     try {
       const prisma = await getPrismaClient();
@@ -675,10 +794,30 @@ export async function requireRole(
  * - Không bao giờ trả passwordHash.
  * - Chỉ trả attempts, documents, reviewQueue, learningGoals, studySessions của chính người dùng này.
  */
-export function buildScopedStateForUser(state: any, user: any) {
+export function buildScopedStateForUser(state: any, user: any, scope?: string | null) {
   const safeUser = sanitizeUserForClient(user);
   const userId = user.id;
   const isAdminOrTeacher = user.role === 'ADMIN' || user.role === 'TEACHER';
+
+  if (scope === 'shell') {
+    return {
+      user: safeUser,
+      users: [safeUser],
+    };
+  }
+
+  if (scope === 'formulas') {
+    const qMap = getQuestionByIdMap(state);
+    const favQuestions = (safeUser.favoriteQuestionIds || [])
+      .map((qid: string) => qMap.get(qid))
+      .filter(Boolean);
+    return {
+      user: safeUser,
+      users: [safeUser],
+      formulas: state.formulas || [],
+      questions: favQuestions,
+    };
+  }
 
   // Đề thi hiển thị cho học sinh: đề của chính học sinh, đề mẫu (isSeed), hoặc đề được giao trong lớp học
   const joinedClassIds = new Set(
@@ -699,6 +838,15 @@ export function buildScopedStateForUser(state: any, user: any) {
       Boolean(e.isSeed) ||
       assignedExamIds.has(e.id)
   );
+
+  if (scope === 'history') {
+    return {
+      user: safeUser,
+      users: [safeUser],
+      exams: visibleExams,
+      attempts: (state.attempts || []).filter((a: any) => a.userId === userId),
+    };
+  }
 
   const visibleQuestions = isAdminOrTeacher
     ? state.questions || []

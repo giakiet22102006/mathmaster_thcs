@@ -19,7 +19,8 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ ok: false, error: auth.error }, { status: auth.status });
     }
 
-    const scopedState = buildScopedStateForUser(auth.state, auth.user);
+    const scope = req.nextUrl.searchParams.get('scope');
+    const scopedState = buildScopedStateForUser(auth.state, auth.user, scope);
     return NextResponse.json({ ok: true, state: scopedState });
   } catch {
     return NextResponse.json(

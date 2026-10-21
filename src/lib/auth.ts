@@ -7,11 +7,15 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { z } from 'zod';
 
+let cachedAuthSecret: string | undefined;
+
 // Tự động đọc biến AUTH_SECRET từ file .env nếu chạy trong script kiểm thử độc lập
 function loadEnvSecretIfNeeded(): string | undefined {
   if (process.env.AUTH_SECRET && process.env.AUTH_SECRET.trim() !== '') {
-    return process.env.AUTH_SECRET.trim();
+    cachedAuthSecret = process.env.AUTH_SECRET.trim();
+    return cachedAuthSecret;
   }
+  if (cachedAuthSecret) return cachedAuthSecret;
   try {
     const envPath = path.join(process.cwd(), '.env');
     if (fs.existsSync(envPath)) {
@@ -25,6 +29,7 @@ function loadEnvSecretIfNeeded(): string | undefined {
             .replace(/^["']|["']$/g, '');
           if (val) {
             process.env.AUTH_SECRET = val;
+            cachedAuthSecret = val;
             return val;
           }
         }
@@ -34,6 +39,20 @@ function loadEnvSecretIfNeeded(): string | undefined {
     // Bỏ qua lỗi đọc file
   }
   return undefined;
+}
+
+function scryptAsync(
+  password: string,
+  salt: string,
+  keylen: number,
+  options: crypto.ScryptOptions
+): Promise<Buffer> {
+  return new Promise((resolve, reject) => {
+    crypto.scrypt(password, salt, keylen, options, (err, derivedKey) => {
+      if (err) reject(err);
+      else resolve(derivedKey);
+    });
+  });
 }
 
 /**
@@ -165,6 +184,99 @@ export function verifyPasswordWithMigration(
  */
 export function verifyPassword(password: string, storedHash: string): boolean {
   return verifyPasswordWithMigration(password, storedHash).valid;
+}
+
+/**
+ * Phiên bản BẤT ĐỒNG BỘ (Async) của hashPassword chạy trên libuv threadpool,
+ * không làm treo Event Loop của Node.js khi nhiều học sinh đăng ký/đổi mật khẩu đồng thời.
+ * Giữ nguyên độ mạnh tham số scrypt (N=16384, r=8, p=1, keyLen=64).
+ */
+export async function hashPasswordAsync(password: string): Promise<string> {
+  if (!password || typeof password !== 'string') {
+    throw new Error('Mật khẩu không được để trống.');
+  }
+  const salt = crypto.randomBytes(16).toString('hex');
+  const derivedKey = await scryptAsync(password, salt, SCRYPT_PARAMS.keyLen, {
+    N: SCRYPT_PARAMS.N,
+    r: SCRYPT_PARAMS.r,
+    p: SCRYPT_PARAMS.p,
+  });
+  return `scrypt$N=${SCRYPT_PARAMS.N},r=${SCRYPT_PARAMS.r},p=${SCRYPT_PARAMS.p}$${salt}$${derivedKey.toString('hex')}`;
+}
+
+/**
+ * Phiên bản BẤT ĐỒNG BỘ (Async) của verifyPasswordWithMigration sử dụng crypto.scrypt async
+ * kết hợp timingSafeEqual, không chặn Event Loop khi 50+ người đăng nhập cùng lúc.
+ */
+export async function verifyPasswordWithMigrationAsync(
+  password: string,
+  storedHash: string
+): Promise<{ valid: boolean; needsRehash: boolean; isDefaultSeedPassword: boolean }> {
+  if (!password || typeof password !== 'string' || !storedHash || typeof storedHash !== 'string') {
+    return { valid: false, needsRehash: false, isDefaultSeedPassword: false };
+  }
+
+  if (storedHash.startsWith('scrypt$')) {
+    try {
+      const parts = storedHash.split('$');
+      if (parts.length !== 4) {
+        return { valid: false, needsRehash: false, isDefaultSeedPassword: false };
+      }
+      const [, paramStr, salt, expectedHex] = parts;
+      const paramMap: Record<string, number> = { N: 16384, r: 8, p: 1 };
+      for (const pair of paramStr.split(',')) {
+        const [k, v] = pair.split('=');
+        if (k && v && !Number.isNaN(Number(v))) {
+          paramMap[k.trim()] = Number(v);
+        }
+      }
+      const expectedBuf = Buffer.from(expectedHex, 'hex');
+      if (expectedBuf.length === 0) {
+        return { valid: false, needsRehash: false, isDefaultSeedPassword: false };
+      }
+      const derivedBuf = await scryptAsync(password, salt, expectedBuf.length, {
+        N: paramMap.N,
+        r: paramMap.r,
+        p: paramMap.p,
+      });
+      if (derivedBuf.length !== expectedBuf.length) {
+        return { valid: false, needsRehash: false, isDefaultSeedPassword: false };
+      }
+      const valid = crypto.timingSafeEqual(new Uint8Array(derivedBuf), new Uint8Array(expectedBuf));
+      return {
+        valid,
+        needsRehash: false,
+        isDefaultSeedPassword: valid && password === 'pass123',
+      };
+    } catch {
+      return { valid: false, needsRehash: false, isDefaultSeedPassword: false };
+    }
+  }
+
+  if (/^[0-9a-f]{64}$/i.test(storedHash)) {
+    try {
+      const expectedBuf = Buffer.from(storedHash, 'hex');
+      const legacyBuf = await scryptAsync(password, LEGACY_FIXED_SALT, 32, {
+        N: SCRYPT_PARAMS.N,
+        r: SCRYPT_PARAMS.r,
+        p: SCRYPT_PARAMS.p,
+      });
+      if (
+        expectedBuf.length === legacyBuf.length &&
+        crypto.timingSafeEqual(new Uint8Array(legacyBuf), new Uint8Array(expectedBuf))
+      ) {
+        return {
+          valid: true,
+          needsRehash: true,
+          isDefaultSeedPassword: password === 'pass123',
+        };
+      }
+    } catch {
+      return { valid: false, needsRehash: false, isDefaultSeedPassword: false };
+    }
+  }
+
+  return { valid: false, needsRehash: false, isDefaultSeedPassword: false };
 }
 
 /**

@@ -4,7 +4,12 @@
 // ==============================================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { requireUser, writeServerStateAsync } from '@/lib/prisma';
+import {
+  getQuestionByIdMap,
+  requireUser,
+  sanitizeQuestionForInProgressExam,
+  writeServerStateAsync,
+} from '@/lib/prisma';
 import { generateExamFromPool } from '@/lib/math-grader';
 
 export const dynamic = 'force-dynamic';
@@ -62,8 +67,14 @@ export async function GET(req: NextRequest) {
           { status: 403 }
         );
       }
+      const qMap = getQuestionByIdMap(state);
+      const mode = req.nextUrl.searchParams.get('mode');
       const examQuestions = (targetExam.questionIds || [])
-        .map((qid: string) => (state.questions || []).find((q: any) => q.id === qid))
+        .map((qid: string) => {
+          const q = qMap.get(qid);
+          if (!q) return null;
+          return mode === 'taking' ? sanitizeQuestionForInProgressExam(q) : q;
+        })
         .filter(Boolean);
       return NextResponse.json({ ok: true, exam: targetExam, questions: examQuestions });
     }
@@ -79,6 +90,10 @@ export async function GET(req: NextRequest) {
 
     if (grade && grade !== 'ALL') {
       exams = exams.filter((e: any) => String(e.grade) === String(grade));
+    }
+    const limitParam = Number(req.nextUrl.searchParams.get('limit') || 0);
+    if (limitParam > 0) {
+      exams = exams.slice(0, limitParam);
     }
     return NextResponse.json({ ok: true, exams });
   } catch {
@@ -122,7 +137,7 @@ export async function POST(req: NextRequest) {
       ...config,
       userId: auth.user.id,
       includeDraft:
-        Boolean(config.includeDraft) &&
+        Boolean(config.includeDraft || config.includeDrafts) &&
         (auth.user.role === 'TEACHER' || auth.user.role === 'ADMIN'),
     };
 

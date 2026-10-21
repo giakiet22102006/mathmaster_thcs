@@ -4,7 +4,7 @@
 // ==============================================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { requireUser, writeServerStateAsync } from '@/lib/prisma';
+import { getQuestionByIdMap, requireUser, writeServerStateAsync } from '@/lib/prisma';
 import { gradeExamAttempt } from '@/lib/math-grader';
 
 export const dynamic = 'force-dynamic';
@@ -52,15 +52,20 @@ export async function GET(req: NextRequest) {
         );
       }
       const exam = (state.exams || []).find((e: any) => e.id === att.examId);
+      const qMap = getQuestionByIdMap(state);
       const questions = exam
         ? (exam.questionIds || [])
-            .map((qid: string) => (state.questions || []).find((q: any) => q.id === qid))
+            .map((qid: string) => qMap.get(qid))
             .filter(Boolean)
         : [];
       return NextResponse.json({ ok: true, attempt: att, exam, questions });
     }
 
-    const userAttempts = (state.attempts || []).filter((a: any) => a.userId === auth.user.id);
+    let userAttempts = (state.attempts || []).filter((a: any) => a.userId === auth.user.id);
+    const limitParam = Number(req.nextUrl.searchParams.get('limit') || 0);
+    if (limitParam > 0) {
+      userAttempts = userAttempts.slice(0, limitParam);
+    }
     return NextResponse.json({ ok: true, attempts: userAttempts });
   } catch {
     return NextResponse.json(
@@ -143,10 +148,29 @@ export async function POST(req: NextRequest) {
           { status: 403 }
         );
       }
-      att.answers = body.answers || att.answers;
+      if (!att.answers || typeof att.answers !== 'object') {
+        att.answers = {};
+      }
+      let hasAnswerChange = false;
+      if (body.answersDiff && typeof body.answersDiff === 'object') {
+        for (const [qId, val] of Object.entries(body.answersDiff)) {
+          const prev = att.answers[qId];
+          const nextObj = val as any;
+          if (!prev || prev.value !== nextObj?.value || prev.flagged !== nextObj?.flagged) {
+            att.answers[qId] = nextObj;
+            hasAnswerChange = true;
+          }
+        }
+      } else if (body.answers && typeof body.answers === 'object') {
+        att.answers = body.answers;
+        hasAnswerChange = true;
+      }
+      const prevSpent = att.timeSpentSeconds;
       att.timeSpentSeconds = body.timeSpentSeconds ?? att.timeSpentSeconds;
       att.remainingSeconds = body.remainingSeconds ?? att.remainingSeconds;
-      await writeServerStateAsync(state);
+      if (hasAnswerChange || Math.abs(Number(att.timeSpentSeconds || 0) - Number(prevSpent || 0)) >= 5) {
+        await writeServerStateAsync(state);
+      }
       return NextResponse.json({
         ok: true,
         attempt: att,
@@ -183,8 +207,9 @@ export async function POST(req: NextRequest) {
 
       // Cập nhật thống kê độ khó thực tế (empiricalDifficulty) cho từng câu hỏi và topic_mastery
       const nowIso = new Date().toISOString();
+      const qMap = getQuestionByIdMap(state);
       for (const qId of exam.questionIds || []) {
-        const q = (state.questions || []).find((item: any) => item.id === qId);
+        const q = qMap.get(qId);
         if (!q) continue;
         const ansObj = att.answers?.[qId];
         const isCorrect = Boolean(ansObj?.isCorrect);
