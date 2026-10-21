@@ -5,10 +5,77 @@
 // Thiết kế Mobile-first (< 768px có Bottom Nav, >= 768px có Sidebar chuẩn giáo dục)
 // ==============================================================================
 
-import React, { useMemo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import katex from 'katex';
+
+// Bộ nhớ đệm toàn cục cho module KaTeX (nạp động) và kết quả biên dịch HTML của công thức Toán
+let loadedKatexModule: any = null;
+let katexLoadPromise: Promise<any> | null = null;
+const katexHtmlCache = new Map<string, string>();
+const MAX_KATEX_CACHE_SIZE = 2000;
+
+function loadKatexLazy(): Promise<any> {
+  if (loadedKatexModule) return Promise.resolve(loadedKatexModule);
+  if (!katexLoadPromise) {
+    katexLoadPromise = import('katex').then((mod) => {
+      loadedKatexModule = mod.default || mod;
+      return loadedKatexModule;
+    });
+  }
+  return katexLoadPromise;
+}
+
+function escapePlainHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\n/g, '<br/>');
+}
+
+function renderLatexWithKatex(raw: string, katexInst: any): string {
+  const cached = katexHtmlCache.get(raw);
+  if (cached !== undefined) return cached;
+
+  const parts = raw.split(/(\$\$[\s\S]+?\$\$|\$[^$]+?\$)/g);
+  const rendered = parts
+    .map((part) => {
+      if (part.startsWith('$$') && part.endsWith('$$') && part.length > 4) {
+        const tex = part.slice(2, -2);
+        try {
+          return katexInst.renderToString(tex, {
+            displayMode: true,
+            throwOnError: false,
+            strict: false,
+          });
+        } catch {
+          return `<code>${escapePlainHtml(tex)}</code>`;
+        }
+      }
+      if (part.startsWith('$') && part.endsWith('$') && part.length > 2) {
+        const tex = part.slice(1, -1);
+        try {
+          return katexInst.renderToString(tex, {
+            displayMode: false,
+            throwOnError: false,
+            strict: false,
+          });
+        } catch {
+          return `<code>${escapePlainHtml(tex)}</code>`;
+        }
+      }
+      return escapePlainHtml(part);
+    })
+    .join('');
+
+  if (katexHtmlCache.size >= MAX_KATEX_CACHE_SIZE) {
+    const firstKey = katexHtmlCache.keys().next().value;
+    if (firstKey !== undefined) katexHtmlCache.delete(firstKey);
+  }
+  katexHtmlCache.set(raw, rendered);
+  return rendered;
+}
 
 export type CognitiveLevelKey = 'nhan_biet' | 'thong_hieu' | 'van_dung' | 'van_dung_cao';
 
@@ -54,7 +121,13 @@ export function resolveCognitiveKey(raw?: string): CognitiveLevelKey {
 /**
  * Nhãn độ khó có cả màu sắc lẫn chữ rõ ràng (Đảm bảo Accessibility theo Mục 5.4)
  */
-export function CognitiveBadge({ level, size = 'sm' }: { level?: string; size?: 'xs' | 'sm' }) {
+export const CognitiveBadge = memo(function CognitiveBadge({
+  level,
+  size = 'sm',
+}: {
+  level?: string;
+  size?: 'xs' | 'sm';
+}) {
   const key = resolveCognitiveKey(level);
   const meta = COGNITIVE_META[key];
   return (
@@ -69,12 +142,14 @@ export function CognitiveBadge({ level, size = 'sm' }: { level?: string; size?: 
       </span>
     </span>
   );
-}
+});
 
 /**
- * Hiển thị văn bản Toán học kết hợp công thức LaTeX ($...$ hoặc $$...$$) bằng gói npm katex cục bộ
+ * Hiển thị văn bản Toán học kết hợp công thức LaTeX ($...$ hoặc $$...$$)
+ * - Nạp động (lazy import) katex chỉ khi văn bản có chứa ký hiệu '$'
+ * - Lưu kết quả HTML đã biên dịch vào katexHtmlCache để không bao giờ biên dịch lại công thức cũ
  */
-export function MathText({
+export const MathText = memo(function MathText({
   text,
   className = '',
   block = false,
@@ -83,47 +158,32 @@ export function MathText({
   className?: string;
   block?: boolean;
 }) {
-  const html = useMemo(() => {
-    if (!text) return '';
-    const raw = String(text);
+  const raw = text ? String(text) : '';
+  const hasMath = raw.includes('$');
+  const [katexReady, setKatexReady] = useState<boolean>(Boolean(loadedKatexModule));
 
-    // Tách theo $$...$$ hoặc $...$
-    const parts = raw.split(/(\$\$[\s\S]+?\$\$|\$[^$]+?\$)/g);
-    return parts
-      .map((part) => {
-        if (part.startsWith('$$') && part.endsWith('$$') && part.length > 4) {
-          const tex = part.slice(2, -2);
-          try {
-            return katex.renderToString(tex, {
-              displayMode: true,
-              throwOnError: false,
-              strict: false,
-            });
-          } catch {
-            return `<code>${tex}</code>`;
-          }
-        }
-        if (part.startsWith('$') && part.endsWith('$') && part.length > 2) {
-          const tex = part.slice(1, -1);
-          try {
-            return katex.renderToString(tex, {
-              displayMode: false,
-              throwOnError: false,
-              strict: false,
-            });
-          } catch {
-            return `<code>${tex}</code>`;
-          }
-        }
-        // Escape HTML cho phần văn bản thường
-        return part
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/\n/g, '<br/>');
-      })
-      .join('');
-  }, [text]);
+  useEffect(() => {
+    if (hasMath && !loadedKatexModule) {
+      let active = true;
+      loadKatexLazy().then(() => {
+        if (active) setKatexReady(true);
+      });
+      return () => {
+        active = false;
+      };
+    }
+  }, [hasMath]);
+
+  let html = '';
+  if (!raw) {
+    html = '';
+  } else if (!hasMath) {
+    html = escapePlainHtml(raw);
+  } else if (loadedKatexModule || katexReady) {
+    html = renderLatexWithKatex(raw, loadedKatexModule);
+  } else {
+    html = escapePlainHtml(raw);
+  }
 
   if (block) {
     return (
@@ -139,12 +199,12 @@ export function MathText({
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );
-}
+});
 
 /**
  * Thanh công cụ gõ nhanh ký hiệu Toán học THCS cho câu Tự luận (Mục 5.3)
  */
-export function MathSymbolKeyboard({
+export const MathSymbolKeyboard = memo(function MathSymbolKeyboard({
   onInsert,
 }: {
   onInsert: (snippet: string) => void;
@@ -179,7 +239,7 @@ export function MathSymbolKeyboard({
       ))}
     </div>
   );
-}
+});
 
 /**
  * Khung giao diện điều hướng chung cho toàn bộ các trang Next.js App Router

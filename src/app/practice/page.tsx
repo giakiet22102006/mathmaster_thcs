@@ -37,7 +37,7 @@ function PracticeContent() {
 
   useEffect(() => {
     async function init() {
-      const res = await fetch('/api/state');
+      const res = await fetch('/api/state?scope=curriculum');
       if (res.status === 401) {
         router.push('/login');
         return;

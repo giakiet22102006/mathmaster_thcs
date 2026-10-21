@@ -6,7 +6,7 @@
 // Bàn phím ký hiệu Toán học, Nhãn độ khó chuẩn và Chế độ In đề PDF (@media print)
 // ==============================================================================
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import {
@@ -20,6 +20,73 @@ interface AnswerEntry {
   workings: string;
   flagged: boolean;
 }
+
+function formatClock(sec: number) {
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+}
+
+/**
+ * Component đồng hồ đếm ngược độc lập — mỗi giây chỉ cập nhật chính nó,
+ * KHÔNG làm render lại toàn bộ trang Phòng thi và danh sách câu hỏi.
+ */
+const ExamCountdownTimer = memo(function ExamCountdownTimer({
+  initialRemainingSeconds,
+  initialTimeSpentSeconds,
+  active,
+  remainingRef,
+  timeSpentRef,
+  onTimeout,
+}: {
+  initialRemainingSeconds: number;
+  initialTimeSpentSeconds: number;
+  active: boolean;
+  remainingRef: React.MutableRefObject<number>;
+  timeSpentRef: React.MutableRefObject<number>;
+  onTimeout: () => void;
+}) {
+  const [rem, setRem] = useState<number>(initialRemainingSeconds);
+
+  useEffect(() => {
+    setRem(initialRemainingSeconds);
+    remainingRef.current = initialRemainingSeconds;
+    timeSpentRef.current = initialTimeSpentSeconds;
+  }, [initialRemainingSeconds, initialTimeSpentSeconds, remainingRef, timeSpentRef]);
+
+  useEffect(() => {
+    if (!active) return;
+    const timer = setInterval(() => {
+      timeSpentRef.current += 1;
+      setRem((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          remainingRef.current = 0;
+          onTimeout();
+          return 0;
+        }
+        const nextVal = prev - 1;
+        remainingRef.current = nextVal;
+        return nextVal;
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [active, onTimeout, remainingRef, timeSpentRef]);
+
+  const isLowTime = rem < 300;
+  return (
+    <div
+      className={`flex items-center gap-2 rounded-xl border px-3.5 py-1.5 text-sm font-extrabold transition ${
+        isLowTime
+          ? 'border-amber-400 bg-amber-100 text-amber-900 animate-pulse'
+          : 'border-indigo-200 bg-indigo-50 text-indigo-800'
+      }`}
+    >
+      <span>⏱️</span>
+      <span className="font-mono text-base">{formatClock(rem)}</span>
+    </div>
+  );
+});
 
 export default function ExamRoomPage() {
   const params = useParams();
@@ -38,13 +105,14 @@ export default function ExamRoomPage() {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [favoriteQIds, setFavoriteQIds] = useState<string[]>([]);
   const [activeField, setActiveField] = useState<'value' | 'workings'>('workings');
+  const [showPrintSheet, setShowPrintSheet] = useState<boolean>(false);
 
   const answersRef = useRef(answers);
   answersRef.current = answers;
+  const pendingDiffRef = useRef<Record<string, AnswerEntry>>({});
+  const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const timeSpentRef = useRef(timeSpentSeconds);
-  timeSpentRef.current = timeSpentSeconds;
   const remainingRef = useRef(remainingSeconds);
-  remainingRef.current = remainingSeconds;
   const attemptRef = useRef(attempt);
   attemptRef.current = attempt;
 
@@ -54,7 +122,7 @@ export default function ExamRoomPage() {
       setLoading(true);
       try {
         const [examRes, favRes] = await Promise.all([
-          fetch(`/api/exams?id=${encodeURIComponent(examId)}`),
+          fetch(`/api/exams?id=${encodeURIComponent(examId)}&mode=taking`),
           fetch('/api/questions?mode=favorites'),
         ]);
 
@@ -128,10 +196,12 @@ export default function ExamRoomPage() {
     }
   }, [examId, router]);
 
-  // Hàm đồng bộ Autosave lên server
+  // Hàm đồng bộ Autosave lên server (chỉ gửi phần answersDiff thay đổi)
   const syncAutosaveToServer = useCallback(async () => {
     const att = attemptRef.current;
     if (!att?.id) return;
+    const diffPayload = { ...pendingDiffRef.current };
+    pendingDiffRef.current = {};
     try {
       const res = await fetch('/api/attempts', {
         method: 'POST',
@@ -139,7 +209,7 @@ export default function ExamRoomPage() {
         body: JSON.stringify({
           action: 'autosave',
           attemptId: att.id,
-          answers: answersRef.current,
+          answersDiff: Object.keys(diffPayload).length > 0 ? diffPayload : undefined,
           timeSpentSeconds: timeSpentRef.current,
           remainingSeconds: remainingRef.current,
         }),
@@ -187,36 +257,32 @@ export default function ExamRoomPage() {
     [examId, router, submitting]
   );
 
-  // Đồng hồ đếm ngược mỗi giây + Tự động nộp bài khi hết giờ
-  useEffect(() => {
-    if (loading || !attempt || submitting) return;
-    const timer = setInterval(() => {
-      setTimeSpentSeconds((prev) => prev + 1);
-      setRemainingSeconds((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          handleSubmitExam(true);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [loading, attempt, submitting, handleSubmitExam]);
+  const handleTimeout = useCallback(() => {
+    handleSubmitExam(true);
+  }, [handleSubmitExam]);
 
-  // Autosave định kỳ mỗi 15 giây
+  // Autosave định kỳ mỗi 20 giây cho thời gian làm bài
   useEffect(() => {
     if (loading || !attempt) return;
     const interval = setInterval(() => {
       syncAutosaveToServer();
-    }, 15000);
+    }, 20000);
     return () => clearInterval(interval);
   }, [loading, attempt, syncAutosaveToServer]);
+
+  // Hỗ trợ Ctrl+P tự động bật bản in
+  useEffect(() => {
+    const onBeforePrint = () => setShowPrintSheet(true);
+    window.addEventListener('beforeprint', onBeforePrint);
+    return () => window.removeEventListener('beforeprint', onBeforePrint);
+  }, []);
 
   function updateCurrentAnswer(qId: string, patch: Partial<AnswerEntry>) {
     setAnswers((prev) => {
       const cur = prev[qId] || { value: '', workings: '', flagged: false };
-      const next = { ...prev, [qId]: { ...cur, ...patch } };
+      const updatedEntry = { ...cur, ...patch };
+      const next = { ...prev, [qId]: updatedEntry };
+      pendingDiffRef.current[qId] = updatedEntry;
       if (attempt?.id) {
         try {
           localStorage.setItem(`mm_draft_${attempt.id}`, JSON.stringify(next));
@@ -225,9 +291,13 @@ export default function ExamRoomPage() {
             minute: '2-digit',
             second: '2-digit',
           });
-          setLastSavedText(`Đã tự động lưu lúc ${nowStr}`);
+          setLastSavedText(`Đã lưu nháp lúc ${nowStr}`);
         } catch {}
       }
+      if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
+      debounceTimerRef.current = setTimeout(() => {
+        syncAutosaveToServer();
+      }, 1500);
       return next;
     });
   }
@@ -244,10 +314,9 @@ export default function ExamRoomPage() {
     }
   }
 
-  function formatClock(sec: number) {
-    const m = Math.floor(sec / 60);
-    const s = sec % 60;
-    return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  function handlePrintExam() {
+    setShowPrintSheet(true);
+    setTimeout(() => window.print(), 80);
   }
 
   if (loading || !exam) {
@@ -263,7 +332,6 @@ export default function ExamRoomPage() {
     ? answers[currentQuestion.id] || { value: '', workings: '', flagged: false }
     : { value: '', workings: '', flagged: false };
 
-  const isLowTime = remainingSeconds < 300; // < 5 phút chuyển màu cam/đỏ
   const answeredCount = questions.filter((q) => {
     const a = answers[q.id];
     return Boolean(a?.value?.trim() || a?.workings?.trim());
@@ -291,21 +359,19 @@ export default function ExamRoomPage() {
         </div>
 
         <div className="flex items-center gap-3">
-          {/* Đồng hồ đếm ngược */}
-          <div
-            className={`flex items-center gap-2 rounded-xl border px-3.5 py-1.5 text-sm font-extrabold transition ${
-              isLowTime
-                ? 'border-amber-400 bg-amber-100 text-amber-900 animate-pulse'
-                : 'border-indigo-200 bg-indigo-50 text-indigo-800'
-            }`}
-          >
-            <span>⏱️</span>
-            <span className="font-mono text-base">{formatClock(remainingSeconds)}</span>
-          </div>
+          {/* Đồng hồ đếm ngược độc lập (không làm re-render danh sách câu hỏi) */}
+          <ExamCountdownTimer
+            initialRemainingSeconds={remainingSeconds}
+            initialTimeSpentSeconds={timeSpentSeconds}
+            active={!loading && Boolean(attempt) && !submitting}
+            remainingRef={remainingRef}
+            timeSpentRef={timeSpentRef}
+            onTimeout={handleTimeout}
+          />
 
           <button
             type="button"
-            onClick={() => window.print()}
+            onClick={handlePrintExam}
             className="hidden sm:inline-flex rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50"
           >
             🖨️ In đề PDF
@@ -581,41 +647,43 @@ export default function ExamRoomPage() {
         </div>
       </div>
 
-      {/* Bản in Đề Thi Chuẩn A4 (@media print) */}
-      <div className="hidden print-only p-8">
-        <div className="border-b-2 border-black pb-4 mb-6 flex justify-between items-start">
-          <div>
-            <div className="font-bold uppercase text-sm">HỆ THỐNG GIÁO DỤC MATHMASTER THCS</div>
-            <div className="text-xs">Đề thi chính thức theo Ma trận Thông tư 22/2021/TT-BGDĐT</div>
-          </div>
-          <div className="text-right">
-            <div className="font-bold text-base">{exam.title}</div>
-            <div className="text-xs">
-              Mã đề: {exam.examCode || '101'} • Thời gian: {exam.durationMinutes} phút
+      {/* Bản in Đề Thi Chuẩn A4 (@media print) — chỉ mount khi bấm In hoặc Ctrl+P */}
+      {showPrintSheet && (
+        <div className="hidden print-only p-8">
+          <div className="border-b-2 border-black pb-4 mb-6 flex justify-between items-start">
+            <div>
+              <div className="font-bold uppercase text-sm">HỆ THỐNG GIÁO DỤC MATHMASTER THCS</div>
+              <div className="text-xs">Đề thi chính thức theo Ma trận Thông tư 22/2021/TT-BGDĐT</div>
             </div>
-          </div>
-        </div>
-
-        <div className="space-y-4">
-          {questions.map((q, i) => (
-            <div key={q.id} className="print-card p-3 rounded">
-              <div className="font-bold text-sm mb-1">
-                Câu {i + 1} ({exam.questionPoints?.[q.id] || q.points} điểm):{' '}
-                <MathText text={q.content} />
+            <div className="text-right">
+              <div className="font-bold text-base">{exam.title}</div>
+              <div className="text-xs">
+                Mã đề: {exam.examCode || '101'} • Thời gian: {exam.durationMinutes} phút
               </div>
-              {q.type === 'mcq' && (
-                <div className="grid grid-cols-2 gap-2 mt-2 text-sm">
-                  {(q.options || []).map((o: any) => (
-                    <div key={o.label}>
-                      <strong>{o.label}.</strong> <MathText text={o.text} />
-                    </div>
-                  ))}
-                </div>
-              )}
             </div>
-          ))}
+          </div>
+
+          <div className="space-y-4">
+            {questions.map((q, i) => (
+              <div key={q.id} className="print-card p-3 rounded">
+                <div className="font-bold text-sm mb-1">
+                  Câu {i + 1} ({exam.questionPoints?.[q.id] || q.points} điểm):{' '}
+                  <MathText text={q.content} />
+                </div>
+                {q.type === 'mcq' && (
+                  <div className="grid grid-cols-2 gap-2 mt-2 text-sm">
+                    {(q.options || []).map((o: any) => (
+                      <div key={o.label}>
+                        <strong>{o.label}.</strong> <MathText text={o.text} />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

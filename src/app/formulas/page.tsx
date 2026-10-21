@@ -26,7 +26,7 @@ export default function FormulasAndFavoritesPage() {
     setLoading(true);
     try {
       const [stateRes, formRes, favRes] = await Promise.all([
-        fetch('/api/state'),
+        fetch('/api/state?scope=shell'),
         fetch(`/api/questions?mode=formulas&grade=${grade}&search=${encodeURIComponent(search)}`),
         fetch('/api/questions?mode=favorites'),
       ]);

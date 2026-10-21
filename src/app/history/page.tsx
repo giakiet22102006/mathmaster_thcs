@@ -21,21 +21,16 @@ export default function HistoryPage() {
     async function loadHistory() {
       setLoading(true);
       try {
-        const [stateRes, attRes, exRes] = await Promise.all([
-          fetch('/api/state'),
-          fetch('/api/attempts'),
-          fetch('/api/exams'),
-        ]);
+        const stateRes = await fetch('/api/state?scope=history');
         if (stateRes.status === 401) {
           router.push('/login');
           return;
         }
         const stateData = await stateRes.json();
-        const attData = await attRes.json();
-        const exData = await exRes.json();
-        setUser(stateData?.state?.user || null);
-        if (attData.ok) setAttempts(attData.attempts || []);
-        if (exData.ok) setExams(exData.exams || []);
+        const st = stateData?.state || {};
+        setUser(st.user || null);
+        setAttempts(st.attempts || []);
+        setExams(st.exams || []);
       } finally {
         setLoading(false);
       }

@@ -257,6 +257,52 @@ async function runBackendBenchmarks() {
       };
     }
 
+    // --- LUỒNG 2A-SCOPED: TẢI STATE THEO PHẠM VI (scope=shell, scope=exam-builder, scope=history) ---
+    {
+      const shellSamples = [];
+      let shellBytes = 0;
+      for (let i = 0; i < 20; i++) {
+        const t0 = performance.now();
+        const res = await stateGET(makeRequest('/api/state?scope=shell', { token: studentToken }));
+        const text = await res.text();
+        shellSamples.push(performance.now() - t0);
+        shellBytes = Buffer.byteLength(text);
+      }
+      results.loadStateShell = {
+        ...summarizeTimings(shellSamples),
+        payloadKB: Number((shellBytes / 1024).toFixed(2)),
+      };
+
+      const builderSamples = [];
+      let builderBytes = 0;
+      for (let i = 0; i < 20; i++) {
+        const t0 = performance.now();
+        const res = await stateGET(
+          makeRequest('/api/state?scope=exam-builder', { token: studentToken })
+        );
+        const text = await res.text();
+        builderSamples.push(performance.now() - t0);
+        builderBytes = Buffer.byteLength(text);
+      }
+      results.loadStateExamBuilder = {
+        ...summarizeTimings(builderSamples),
+        payloadKB: Number((builderBytes / 1024).toFixed(2)),
+      };
+
+      const takingRes = await examsGET(
+        makeRequest('/api/exams?id=EXAM_SEED_G8_GK1&mode=taking', { token: studentToken })
+      );
+      const takingText = await takingRes.text();
+      const fullExamRes = await examsGET(
+        makeRequest('/api/exams?id=EXAM_SEED_G8_GK1', { token: studentToken })
+      );
+      const fullExamText = await fullExamRes.text();
+      results.examTakingPayload = {
+        fullExamKB: Number((Buffer.byteLength(fullExamText) / 1024).toFixed(2)),
+        takingModeKB: Number((Buffer.byteLength(takingText) / 1024).toFixed(2)),
+      };
+    }
+
     // --- LUỒNG 2B: TẢI DASHBOARD ANALYTICS (GET /api/analytics) ---
     {
       const samples = [];

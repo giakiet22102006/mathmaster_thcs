@@ -29,7 +29,7 @@ export default function ReviewQueuePage() {
     setLoading(true);
     try {
       const [stateRes, revRes] = await Promise.all([
-        fetch('/api/state'),
+        fetch('/api/state?scope=shell'),
         fetch('/api/review'),
       ]);
       if (stateRes.status === 401) {

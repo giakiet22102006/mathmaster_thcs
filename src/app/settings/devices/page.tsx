@@ -27,7 +27,7 @@ export default function DevicesAndSecurityPage() {
     setLoading(true);
     try {
       const [stateRes, sesRes] = await Promise.all([
-        fetch('/api/state'),
+        fetch('/api/state?scope=shell'),
         fetch('/api/sessions'),
       ]);
       if (stateRes.status === 401) {

@@ -36,7 +36,7 @@ export default function TeacherAndClassroomPage() {
     setLoading(true);
     try {
       const [stateRes, clsRes, exRes] = await Promise.all([
-        fetch('/api/state'),
+        fetch('/api/state?scope=shell'),
         fetch('/api/classrooms'),
         fetch('/api/exams'),
       ]);

@@ -41,7 +41,7 @@ function ExamResultContent() {
     async function loadResult() {
       setLoading(true);
       try {
-        const stateRes = await fetch('/api/state');
+        const stateRes = await fetch('/api/state?scope=shell');
         if (stateRes.status === 401) {
           router.push('/login');
           return;

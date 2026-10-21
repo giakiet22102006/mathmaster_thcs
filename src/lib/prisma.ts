@@ -806,6 +806,36 @@ export function buildScopedStateForUser(state: any, user: any, scope?: string | 
     };
   }
 
+  if (scope === 'curriculum') {
+    return {
+      user: safeUser,
+      users: [safeUser],
+      curriculum: state.curriculum,
+    };
+  }
+
+  if (scope === 'exam-builder') {
+    const verifiedLight = (state.questions || [])
+      .filter((q: any) => !q.verificationStatus || q.verificationStatus === 'verified')
+      .map((q: any) => ({
+        id: q.id,
+        grade: q.grade,
+        textbooks: q.textbooks,
+        semester: q.semester,
+        chapterId: q.chapterId,
+        type: q.type,
+        cognitiveLevel: q.cognitiveLevel,
+        difficulty: q.difficulty,
+        verificationStatus: q.verificationStatus || 'verified',
+      }));
+    return {
+      user: safeUser,
+      users: [safeUser],
+      curriculum: state.curriculum,
+      questions: verifiedLight,
+    };
+  }
+
   if (scope === 'formulas') {
     const qMap = getQuestionByIdMap(state);
     const favQuestions = (safeUser.favoriteQuestionIds || [])
@@ -855,6 +885,7 @@ export function buildScopedStateForUser(state: any, user: any, scope?: string | 
       );
 
   return {
+    curriculum: state.curriculum,
     user: safeUser,
     // Chỉ trả đúng 1 phần tử là tài khoản đang đăng nhập để tương thích UI cũ mà không lộ tài khoản khác
     users: [safeUser],

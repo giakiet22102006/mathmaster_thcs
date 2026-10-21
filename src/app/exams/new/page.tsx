@@ -15,7 +15,7 @@ import {
   ExamPresetKey,
   allocateQuotaLargestRemainder,
   resolveQuestionCognitiveLevel,
-} from '@/lib/math-grader';
+} from '@/lib/exam-matrix-presets';
 
 export default function ExamBuilderWizardPage() {
   const router = useRouter();
@@ -50,7 +50,7 @@ export default function ExamBuilderWizardPage() {
 
   useEffect(() => {
     async function init() {
-      const res = await fetch('/api/state');
+      const res = await fetch('/api/state?scope=exam-builder');
       if (res.status === 401) {
         router.push('/login');
         return;

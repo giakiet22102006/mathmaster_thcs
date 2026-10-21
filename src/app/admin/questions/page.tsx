@@ -36,7 +36,7 @@ export default function AdminQuestionsPage() {
   async function loadQuestions() {
     setLoading(true);
     try {
-      const stateRes = await fetch('/api/state');
+      const stateRes = await fetch('/api/state?scope=shell');
       if (stateRes.status === 401) {
         router.push('/login');
         return;
