@@ -147,3 +147,52 @@ Kết quả trích xuất trực tiếp từ lệnh `npm run bank:audit` (**0 l�
 | **Lớp 9** | HK2 | `G9_C4` | Hàm số $y = ax^2$ và Phương trình bậc hai một ẩn | 3 | 4 | 4 | 3 | 8 | 6 | **14** |
 | **Lớp 9** | HK2 | `G9_C5` | Tứ giác nội tiếp & Hình trụ, Hình nón, Hình cầu | 4 | 3 | 3 | 3 | 8 | 5 | **13** |
 | **Lớp 9** | HK2 | `G9_C6` | Chuyên đề Tổng hợp Luyện thi vào Lớp 10 THPT | 3 | 3 | 4 | 4 | 8 | 6 | **14** |
+
+---
+
+## 4. Báo Cáo Nâng Cấp V2 — Quên Mật Khẩu & Parametric Question Engine (`ANTIGRAVITY_PROMPT_FIX_V2.md`)
+
+### 4.1. Phần A — Hoàn thiện Luồng Quên Mật Khẩu & Dịch Vụ Gửi Email Thật (`commit 93cff6f`)
+1. **Chuẩn hoá action và mã khôi phục 6 chữ số an toàn**:
+   - Tạo module chuẩn hóa `src/lib/auth-actions.ts` (`AUTH_ACTIONS`), hỗ trợ cả `forgot_password` và `forgot-password`, `reset_password` và `reset-password`.
+   - Sinh mã xác nhận 6 số ngẫu nhiên qua `crypto.randomInt(100000, 1000000)` (`src/lib/auth.ts`).
+   - Băm mã xác nhận bằng `crypto.createHmac('sha256', AUTH_SECRET)` trước khi lưu trữ (`passwordResetToken`).
+   - So sánh mã bằng `crypto.timingSafeEqual` (`verifyResetCode`).
+   - Giới hạn 5 lần thử sai tối đa (`resetAttempts >= 5` thì vô hiệu hóa mã vĩnh viễn), thời gian hết hạn mã là 15 phút.
+   - Giới hạn tốc độ gửi lại email: 60 giây giãn cách giữa hai lần gửi.
+2. **Dịch vụ gửi email SMTP thật bằng `nodemailer` (`src/lib/mailer.ts`)**:
+   - Tích hợp `nodemailer` với cấu hình linh hoạt từ biến môi trường (`SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM`).
+   - Hướng dẫn cấu hình chi tiết cho Gmail App Password, Brevo, Resend trong `.env.example`.
+   - Email mẫu HTML tiếng Việt chuẩn mực, hỗ trợ fallback plain text rõ ràng.
+   - Báo lỗi trung thực HTTP 503 khi chưa cấu hình SMTP hoặc lỗi gửi mail, tuyệt đối không trả `sent: true` giả.
+3. **Giao diện Quên mật khẩu 2 bước (`src/app/login/page.tsx`)**:
+   - Bước 1: Nhập email, hiển thị email che chắn dạng `a***@gmail.com`.
+   - Bước 2: Nhập mã xác nhận 6 chữ số và mật khẩu mới kèm thước đo độ mạnh mật khẩu (Password Strength Meter).
+   - Bộ đếm ngược 60 giây trước khi cho phép bấm nút "Gửi lại mã".
+   - Tự động nhận diện query parameters trên URL (ví dụ: `?mode=reset&email=...`).
+
+### 4.2. Phần B — Parametric Question Engine Không Giới Hạn & Tạo Đề Zero-422
+1. **Kiến trúc Engine Độc Lập (`src/lib/question-engine/`)**:
+   - `rng.ts`: Bộ sinh số ngẫu nhiên giả lập `Mulberry32 PRNG` có hạt giống (`seed`), đảm bảo tính tái lập 100%.
+   - `verify.ts`: Thẩm định độc lập 4 lớp: KaTeX parse 0 lỗi, trắc nghiệm đủ 4 lựa chọn phân biệt & đúng 1 đáp án, tự luận tổng điểm `rubricSteps` bằng đúng `points`, kiểm chứng số học `mathjs`.
+   - `contexts/`: Cung cấp bối cảnh thực tế đặc trưng cho 3 bộ sách (`KNTT.ts`, `CD.ts`, `CTST.ts`).
+   - `templates/`: 276 template tham số hóa chi tiết:
+     - Lớp 6 (`grade6.ts`): 72 templates (6 chương `G6_C1`..`G6_C6`, 4 easy, 4 med, 4 hard mỗi chương).
+     - Lớp 7 (`grade7.ts`): 72 templates (6 chương `G7_C1`..`G7_C6`, 4 easy, 4 med, 4 hard mỗi chương).
+     - Lớp 8 (`grade8.ts`): 60 templates (5 chương `G8_C1`..`G8_C5`, 4 easy, 4 med, 4 hard mỗi chương).
+     - Lớp 9 (`grade9.ts`): 72 templates (6 chương `G9_C1`..`G9_C6`, 4 easy, 4 med, 4 hard mỗi chương).
+     - Phủ 100% cả 2 hình thức: Trắc nghiệm khách quan (`mcq`) và Tự luận (`essay`).
+   - `computeFingerprint`: Băm SHA-256 nội dung chuẩn hóa chống trùng lặp câu hỏi.
+2. **Tích hợp Tự động Bù đắp Thiếu hụt Đề thi (`src/lib/math-grader.ts`, `src/app/api/exams/route.ts`)**:
+   - Trong `generateExamFromPool`: khi phát hiện thiếu câu hỏi so với ma trận quota yêu cầu, tự động gọi engine sinh bù câu hỏi chuẩn SGK đúng mức độ nhận thức.
+   - Loại bỏ triệt để lỗi 422 `INSUFFICIENT_QUESTIONS` cho mọi cấu hình đề thi hợp lý (kể cả khi kho câu hỏi tĩnh rỗng).
+   - Chỉ lưu vào cơ sở dữ liệu các câu hỏi thực sự được chọn vào đề thi (tránh phình bộ nhớ).
+3. **Công cụ Quản trị viên & Trải nghiệm Tạo đề**:
+   - Modal "Sinh câu hỏi tự động (Engine)" tại `/admin/questions` cho phép giáo viên/admin chọn lớp, sách, độ khó, hình thức, số lượng, xem trước KaTeX trực tiếp và lưu vào ngân hàng verified.
+   - Thống kê độ phủ 276 template hiển thị trực quan trong giao diện quản trị.
+   - Màn hình `/exams/new` cập nhật thông báo tự động bù đắp thông minh qua Parametric Engine.
+4. **Tài liệu & Kiểm thử Tự động**:
+   - `docs/TEXTBOOK_MAPPING_CAN_XAC_NHAN.md`: Bảng đối chiếu chi tiết nội dung 3 bộ SGK KNTT, Cánh Diều, Chân Trời Sáng Tạo.
+   - `scripts/test-question-engine.mjs`: Test suite tự động (7/7 tests pass).
+   - `scripts/test-flows.mjs`: Đạt 17/17 tests pass (Test 1..17).
+   - `npm run build`: 20/20 routes biên dịch thành công 100%.

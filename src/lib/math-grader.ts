@@ -3,6 +3,8 @@
 // Chuẩn Thông tư 22/2021/TT-BGDĐT (4 mức độ nhận thức, Largest Remainder, PRNG)
 // ==============================================================================
 
+import { generateQuestions } from './question-engine';
+
 export type CognitiveLevel = 'nhan_biet' | 'thong_hieu' | 'van_dung' | 'van_dung_cao';
 export type DifficultyLevel = 'easy' | 'medium' | 'hard' | 'very_hard';
 export type ExamPresetKey = 'co_ban' | 'trung_binh' | 'nang_cao' | 'thi_vao_10';
@@ -669,6 +671,48 @@ export function generateExamFromPool(
     },
   };
 
+  // Bù đắp thiếu hụt tự động bằng Parametric Question Engine trước khi báo lỗi
+  const generatedQuestions: any[] = [];
+  for (const lv of COGNITIVE_LEVELS) {
+    if (shortage[lv].missing > 0) {
+      const difficultyMap: Record<CognitiveLevel, 'easy' | 'medium' | 'hard'> = {
+        nhan_biet: 'easy',
+        thong_hieu: 'easy',
+        van_dung: 'medium',
+        van_dung_cao: 'hard',
+      };
+
+      let reqType: 'mcq' | 'essay' | 'ALL' = 'ALL';
+      if (format === 'mcq') reqType = 'mcq';
+      else if (format === 'essay') reqType = 'essay';
+      else if (format === 'combined') {
+        reqType = lv === 'nhan_biet' || lv === 'thong_hieu' ? 'mcq' : 'essay';
+      }
+
+      const genRes = generateQuestions({
+        grade,
+        textbook: textbook && textbook !== 'ALL' ? (textbook as any) : undefined,
+        chapterIds: chapterIds.length > 0 ? chapterIds : undefined,
+        semester: semConstraint === 1 || semConstraint === 2 ? (semConstraint as any) : 0,
+        difficulty: difficultyMap[lv],
+        cognitiveLevel: lv,
+        type: reqType,
+        count: shortage[lv].missing,
+        seed: config?.seed,
+      });
+
+      if (genRes.questions.length > 0) {
+        for (const gq of genRes.questions) {
+          availableByLevel[lv].push(gq);
+          pool.push(gq);
+          generatedQuestions.push(gq);
+        }
+        shortage[lv].have = availableByLevel[lv].length;
+        shortage[lv].missing = Math.max(0, targetCounts[lv] - availableByLevel[lv].length);
+      }
+    }
+  }
+
   const hasShortage = COGNITIVE_LEVELS.some((lv) => shortage[lv].missing > 0);
   const effectiveQuotas: Record<CognitiveLevel, number> = { ...targetCounts };
   const borrowedDetails: Array<{ from: CognitiveLevel; to: CognitiveLevel; count: number }> = [];
@@ -900,6 +944,8 @@ export function generateExamFromPool(
     durationMinutes,
     maxScore: 10.0,
     questionIds: selected.map((q) => q.id),
+    questions: selected,
+    generatedQuestions,
     questionPoints,
     composition,
     seed: numericSeed,

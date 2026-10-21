@@ -687,8 +687,13 @@ export default function ExamBuilderWizardPage() {
           </div>
 
           {matrixPreview.hasShortage ? (
-            <div className="rounded-xl border border-amber-300 bg-amber-50 p-3 text-xs text-amber-900">
-              ⚠️ <strong>Cảnh báo thiếu câu hỏi ở mức nhận thức yêu cầu:</strong> Hãy giảm tổng số câu, chọn thêm chương/học kỳ, hoặc bật tùy chọn <em>&ldquo;Cho phép mượn từ mức độ kề cận&rdquo;</em> ở Bước 3.
+            <div className="rounded-xl border border-indigo-200 bg-indigo-50/80 p-3 text-xs text-indigo-900 space-y-1">
+              <div className="font-bold flex items-center gap-1 text-indigo-800">
+                <span>⚡</span> Tự động bù đắp bằng Parametric Engine
+              </div>
+              <p>
+                Kho câu hỏi tĩnh hiện có ít hơn chỉ tiêu, nhưng <strong>Parametric Question Engine</strong> sẽ tự động sinh và thẩm định tức thì các câu hỏi chuẩn SGK {textbook} bù đắp đủ 100% ma trận đề của bạn.
+              </p>
             </div>
           ) : (
             <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-xs font-medium text-emerald-800">

@@ -79,10 +79,14 @@ npx prisma migrate deploy
 # Bước 5: Nạp dữ liệu mẫu (Lớp 6, 7, 8, 9, 3 bộ sách, câu hỏi, đề thi, lịch sử)
 npm run db:seed
 
-# Bước 6: Chạy kiểm thử tự động các luồng Tạo đề, Làm bài, Chấm điểm, Khôi phục bài thi
+# Bước 6: Chạy kiểm thử tự động toàn diện (17/17 tests pass)
 npm run test
 
-# Bước 7: Khởi động máy chủ Website tại http://localhost:3000
+# Bước 7: Kiểm định ngân hàng câu hỏi & 276 template tham số hóa (Zero 422)
+npm run bank:audit
+npm run test:engine
+
+# Bước 8: Khởi động máy chủ Website tại http://localhost:3000
 npm run dev
 ```
 

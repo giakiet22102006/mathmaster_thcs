@@ -174,6 +174,18 @@ export async function POST(req: NextRequest) {
 
     const newExam = result.exam || result;
 
+    // Nếu đề thi có sử dụng câu hỏi sinh tự động từ Parametric Engine, lưu vào ngân hàng câu hỏi
+    if (Array.isArray(result.generatedQuestions) && result.generatedQuestions.length > 0) {
+      if (!Array.isArray(state.questions)) state.questions = [];
+      const existingIds = new Set(state.questions.map((q: any) => q.id));
+      for (const gq of result.generatedQuestions) {
+        if (!existingIds.has(gq.id)) {
+          state.questions.push(gq);
+          existingIds.add(gq.id);
+        }
+      }
+    }
+
     // Chế độ xem trước (previewOnly) chỉ kiểm tra ma trận mà chưa lưu đề
     if (config.previewOnly) {
       return NextResponse.json({

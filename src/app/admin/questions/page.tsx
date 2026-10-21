@@ -33,6 +33,57 @@ export default function AdminQuestionsPage() {
   const [editingQuestion, setEditingQuestion] = useState<any>(null);
   const [statusMsg, setStatusMsg] = useState<string>('');
 
+  // Trạng thái modal sinh câu hỏi tự động (Parametric Engine)
+  const [showGenModal, setShowGenModal] = useState<boolean>(false);
+  const [genGrade, setGenGrade] = useState<number>(8);
+  const [genTextbook, setGenTextbook] = useState<string>('KNTT');
+  const [genDifficulty, setGenDifficulty] = useState<string>('ALL');
+  const [genCog, setGenCog] = useState<string>('ALL');
+  const [genType, setGenType] = useState<string>('ALL');
+  const [genCount, setGenCount] = useState<number>(5);
+  const [genPreviewQuestions, setGenPreviewQuestions] = useState<any[]>([]);
+  const [genLoading, setGenLoading] = useState<boolean>(false);
+  const [genSuccessMsg, setGenSuccessMsg] = useState<string>('');
+
+  async function handleGenerateParametric(saveToBank: boolean) {
+    setGenLoading(true);
+    setGenSuccessMsg('');
+    try {
+      const res = await fetch('/api/questions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'generate_parametric',
+          grade: genGrade,
+          textbook: genTextbook,
+          difficulty: genDifficulty,
+          cognitiveLevel: genCog,
+          type: genType,
+          count: genCount,
+          saveToBank,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.ok) {
+        setGenPreviewQuestions(data.questions || []);
+        if (saveToBank) {
+          setGenSuccessMsg(
+            `✅ Đã sinh và lưu thành công ${data.generatedCount} câu hỏi verified vào ngân hàng!`
+          );
+          loadQuestions();
+        } else {
+          setGenSuccessMsg(
+            `⚡ Đã sinh xem trước ${data.generatedCount} câu hỏi từ Parametric Engine (chưa lưu).`
+          );
+        }
+      } else {
+        alert(data.error || 'Lỗi khi sinh câu hỏi.');
+      }
+    } finally {
+      setGenLoading(false);
+    }
+  }
+
   async function loadQuestions() {
     setLoading(true);
     try {
@@ -149,6 +200,16 @@ export default function AdminQuestionsPage() {
         <div className="flex items-center gap-2">
           <button
             type="button"
+            onClick={() => {
+              setGenSuccessMsg('');
+              setShowGenModal(true);
+            }}
+            className="rounded-xl bg-indigo-600 px-3.5 py-2 text-xs font-bold text-white shadow hover:bg-indigo-700 flex items-center gap-1.5 transition"
+          >
+            <span>⚡</span> Sinh câu hỏi tự động (Engine)
+          </button>
+          <button
+            type="button"
             onClick={handleExportJson}
             className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50"
           >
@@ -196,6 +257,38 @@ export default function AdminQuestionsPage() {
           <div className="mt-1 text-2xl font-extrabold text-indigo-600">
             {summary.filteredCount} câu
           </div>
+        </div>
+      </div>
+
+      {/* Thông tin Parametric Question Engine */}
+      <div className="mb-6 rounded-2xl border border-indigo-200 bg-gradient-to-r from-indigo-50/70 to-blue-50/70 p-4 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <div>
+          <div className="flex items-center gap-2">
+            <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-indigo-600 text-xs text-white">⚡</span>
+            <span className="text-sm font-bold text-indigo-950">
+              Parametric Question Engine: 276 Templates Tham Số Hóa
+            </span>
+            <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[11px] font-bold text-emerald-800">
+              Phủ 100% 4 Khối Lớp
+            </span>
+          </div>
+          <p className="mt-1 text-xs text-slate-600">
+            Hỗ trợ 3 bộ SGK (Kết nối tri thức, Cánh diều, Chân trời sáng tạo) • Độc lập kiểm định KaTeX & số học
+          </p>
+        </div>
+        <div className="flex flex-wrap items-center gap-2 text-xs">
+          <span className="rounded-lg bg-white px-2.5 py-1 font-semibold text-slate-700 border border-indigo-100 shadow-2xs">
+            Lớp 6: 72 templates (6 chương)
+          </span>
+          <span className="rounded-lg bg-white px-2.5 py-1 font-semibold text-slate-700 border border-indigo-100 shadow-2xs">
+            Lớp 7: 72 templates (6 chương)
+          </span>
+          <span className="rounded-lg bg-white px-2.5 py-1 font-semibold text-slate-700 border border-indigo-100 shadow-2xs">
+            Lớp 8: 60 templates (5 chương)
+          </span>
+          <span className="rounded-lg bg-white px-2.5 py-1 font-semibold text-slate-700 border border-indigo-100 shadow-2xs">
+            Lớp 9: 72 templates (6 chương)
+          </span>
         </div>
       </div>
 
@@ -471,6 +564,205 @@ export default function AdminQuestionsPage() {
           </div>
         ))}
       </div>
+      {/* Modal Sinh câu hỏi tự động (Parametric Engine) */}
+      {showGenModal && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+        >
+          <div className="w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white p-6 shadow-2xl border border-slate-200">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-200">
+              <div className="flex items-center gap-2">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-600 text-sm text-white">⚡</span>
+                <h3 className="text-base font-bold text-slate-900">
+                  Sinh Câu Hỏi Tham Số Hóa Tự Động (Parametric Engine)
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowGenModal(false)}
+                className="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-700"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 my-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-600 mb-1">Khối Lớp</label>
+                <select
+                  value={genGrade}
+                  onChange={(e) => setGenGrade(Number(e.target.value))}
+                  className="w-full rounded-xl border border-slate-300 p-2 text-xs font-semibold"
+                >
+                  <option value={6}>Lớp 6</option>
+                  <option value={7}>Lớp 7</option>
+                  <option value={8}>Lớp 8</option>
+                  <option value={9}>Lớp 9</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-600 mb-1">Bộ Sách</label>
+                <select
+                  value={genTextbook}
+                  onChange={(e) => setGenTextbook(e.target.value)}
+                  className="w-full rounded-xl border border-slate-300 p-2 text-xs font-semibold"
+                >
+                  <option value="ALL">Tất cả bộ sách</option>
+                  <option value="KNTT">Kết nối tri thức</option>
+                  <option value="CD">Cánh diều</option>
+                  <option value="CTST">Chân trời sáng tạo</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-600 mb-1">Độ Khó</label>
+                <select
+                  value={genDifficulty}
+                  onChange={(e) => setGenDifficulty(e.target.value)}
+                  className="w-full rounded-xl border border-slate-300 p-2 text-xs font-semibold"
+                >
+                  <option value="ALL">Tất cả mức độ</option>
+                  <option value="easy">Dễ (Nhận biết)</option>
+                  <option value="medium">Trung bình (Thông hiểu)</option>
+                  <option value="hard">Khó (Vận dụng / VDC)</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-600 mb-1">Hình Thức</label>
+                <select
+                  value={genType}
+                  onChange={(e) => setGenType(e.target.value)}
+                  className="w-full rounded-xl border border-slate-300 p-2 text-xs font-semibold"
+                >
+                  <option value="ALL">Tất cả hình thức</option>
+                  <option value="mcq">Trắc nghiệm (MCQ)</option>
+                  <option value="essay">Tự luận (Essay)</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-600 mb-1">Số Lượng</label>
+                <select
+                  value={genCount}
+                  onChange={(e) => setGenCount(Number(e.target.value))}
+                  className="w-full rounded-xl border border-slate-300 p-2 text-xs font-semibold"
+                >
+                  <option value={1}>1 câu</option>
+                  <option value={3}>3 câu</option>
+                  <option value={5}>5 câu</option>
+                  <option value={10}>10 câu</option>
+                  <option value={20}>20 câu</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3 pt-1">
+              <button
+                type="button"
+                onClick={() => handleGenerateParametric(false)}
+                disabled={genLoading}
+                className="rounded-xl border border-indigo-600 bg-white px-4 py-2 text-xs font-bold text-indigo-600 hover:bg-indigo-50 disabled:opacity-60 transition"
+              >
+                {genLoading ? 'Đang tạo...' : '👁️ Xem Trước & Kiểm Định (Preview)'}
+              </button>
+              <button
+                type="button"
+                onClick={() => handleGenerateParametric(true)}
+                disabled={genLoading}
+                className="rounded-xl bg-indigo-600 px-5 py-2 text-xs font-bold text-white hover:bg-indigo-700 disabled:opacity-60 shadow transition"
+              >
+                {genLoading ? 'Đang xử lý...' : '💾 Lưu Vào Ngân Hàng Chính Thức (Verified)'}
+              </button>
+            </div>
+
+            {genSuccessMsg && (
+              <div className="mt-3 rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-xs font-bold text-emerald-800">
+                {genSuccessMsg}
+              </div>
+            )}
+
+            {/* Danh sách câu hỏi xem trước */}
+            {genPreviewQuestions.length > 0 && (
+              <div className="mt-4 space-y-3 pt-3 border-t border-slate-200">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                    Danh Sách Câu Hỏi Vừa Sinh ({genPreviewQuestions.length} câu)
+                  </h4>
+                  <span className="text-[11px] text-emerald-700 font-bold">
+                    ✓ 100% Đã Thẩm Định KaTeX & Số Học
+                  </span>
+                </div>
+
+                <div className="space-y-3 max-h-96 overflow-y-auto pr-1">
+                  {genPreviewQuestions.map((q, idx) => (
+                    <div
+                      key={q.id || idx}
+                      className="rounded-2xl border border-slate-200 bg-slate-50/60 p-4 space-y-2 text-xs"
+                    >
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono font-bold text-slate-800">{q.id}</span>
+                          <span className="rounded bg-indigo-100 px-2 py-0.5 font-semibold text-indigo-800 text-[11px]">
+                            Lớp {q.grade} • {q.chapterId}
+                          </span>
+                          <CognitiveBadge level={q.cognitiveLevel} size="xs" />
+                          <span className="rounded bg-slate-200 px-2 py-0.5 font-semibold text-slate-700 text-[11px]">
+                            {q.type === 'mcq' ? 'Trắc nghiệm' : 'Tự luận'}
+                          </span>
+                        </div>
+                        <span className="text-slate-500">{q.textbooks?.join(', ')}</span>
+                      </div>
+
+                      <div className="text-sm font-medium text-slate-900 bg-white p-3 rounded-xl border border-slate-100">
+                        <MathText text={q.content} block />
+                      </div>
+
+                      {q.options && q.options.length > 0 && (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                          {q.options.map((opt: any, oIdx: number) => {
+                            const isCorrect = opt.text === q.correctAnswer;
+                            return (
+                              <div
+                                key={oIdx}
+                                className={`rounded-lg border p-2 ${
+                                  isCorrect
+                                    ? 'border-emerald-300 bg-emerald-50 text-emerald-900 font-semibold'
+                                    : 'border-slate-200 bg-white text-slate-700'
+                                }`}
+                              >
+                                <span className="font-bold mr-1.5">{opt.label || String.fromCharCode(65 + oIdx)}.</span>
+                                <MathText text={opt.text} />
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+
+                      <div className="rounded-xl bg-white p-2.5 border border-slate-100 text-slate-600 space-y-1">
+                        <div>
+                          <strong>Đáp án:</strong> {q.correctAnswer}
+                        </div>
+                        <div>
+                          <strong>Lời giải chi tiết:</strong> <MathText text={q.solution} />
+                        </div>
+                        {q.keyFormula && (
+                          <div className="text-indigo-700">
+                            <strong>Công thức:</strong> <MathText text={q.keyFormula} />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </AppShell>
   );
 }

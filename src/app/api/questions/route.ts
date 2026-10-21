@@ -12,6 +12,7 @@ import {
   writeServerStateAsync,
 } from '@/lib/prisma';
 import { COGNITIVE_TO_DIFFICULTY, resolveQuestionCognitiveLevel } from '@/lib/math-grader';
+import { generateQuestions, getAllTemplates } from '@/lib/question-engine';
 
 export const dynamic = 'force-dynamic';
 
@@ -94,6 +95,27 @@ export async function GET(req: NextRequest) {
         ok: true,
         favoriteQuestionIds: [...favIds],
         questions: favoriteQuestions,
+      });
+    }
+
+    // 3. Thống kê ngân hàng template tham số hóa (Question Engine)
+    if (mode === 'templates') {
+      const templates = getAllTemplates();
+      return NextResponse.json({
+        ok: true,
+        totalTemplates: templates.length,
+        templates: templates.map((t) => ({
+          id: t.id,
+          grade: t.grade,
+          semester: t.semester,
+          chapterId: t.chapterId,
+          lesson: t.lesson,
+          topic: t.topic,
+          difficulty: t.difficulty,
+          cognitiveLevel: t.cognitiveLevel,
+          type: t.type,
+          books: t.books,
+        })),
       });
     }
 
@@ -326,6 +348,54 @@ export async function POST(req: NextRequest) {
       invalidateQuestionPoolCache();
       await writeServerStateAsync(state);
       return NextResponse.json({ ok: true, importedCount });
+    }
+
+    // 5. Sinh câu hỏi tham số hóa tự động qua Parametric Question Engine
+    if (action === 'generate_parametric') {
+      const grade = Number(body.grade || 8);
+      const count = Math.max(1, Math.min(50, Number(body.count || 5)));
+      const textbook = body.textbook || 'ALL';
+      const chapterId = body.chapterId && body.chapterId !== 'ALL' ? body.chapterId : undefined;
+      const difficulty = body.difficulty && body.difficulty !== 'ALL' ? body.difficulty : undefined;
+      const cognitiveLevel = body.cognitiveLevel && body.cognitiveLevel !== 'ALL' ? body.cognitiveLevel : undefined;
+      const type = body.type || 'ALL';
+      const saveToBank = body.saveToBank !== false;
+
+      const existingFingerprints = new Set<string>();
+      (state.questions || []).forEach((q: any) => {
+        if (q.fingerprint) existingFingerprints.add(q.fingerprint);
+      });
+
+      const genResult = generateQuestions({
+        grade,
+        textbook,
+        chapterIds: chapterId ? [chapterId] : undefined,
+        difficulty,
+        cognitiveLevel,
+        type,
+        count,
+        excludeFingerprints: existingFingerprints,
+      });
+
+      if (saveToBank && genResult.questions.length > 0) {
+        if (!Array.isArray(state.questions)) state.questions = [];
+        const existingIds = new Set(state.questions.map((q: any) => q.id));
+        for (const q of genResult.questions) {
+          if (!existingIds.has(q.id)) {
+            state.questions.push(q);
+            existingIds.add(q.id);
+          }
+        }
+        invalidateQuestionPoolCache();
+        await writeServerStateAsync(state);
+      }
+
+      return NextResponse.json({
+        ok: true,
+        generatedCount: genResult.questions.length,
+        stats: genResult.stats,
+        questions: genResult.questions,
+      });
     }
 
     return NextResponse.json({ ok: false, error: 'Hành động không hợp lệ.' }, { status: 400 });

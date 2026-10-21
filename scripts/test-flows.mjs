@@ -4,6 +4,7 @@
 // ==============================================================================
 
 import assert from 'node:assert/strict';
+import { execSync } from 'node:child_process';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -1052,8 +1053,14 @@ async function runTests() {
     await runForgotPasswordTests();
     console.log('✓ [PASS] Test 16: Chức năng Quên mật khẩu, mã 6 số HMAC-SHA256 & kiểm tra SMTP hoạt động chính xác (8/8)');
 
+    // -------------------------------------------------------------------------
+    // Test 17: Parametric Question Engine & Zero-422 Exam Generation
+    // -------------------------------------------------------------------------
+    execSync('npx tsx scripts/test-question-engine.mjs', { stdio: 'pipe' });
+    console.log('✓ [PASS] Test 17: Parametric Question Engine (276 Templates, 4 Khối x 3 Bộ Sách x 3 Mức Độ, Thẩm định độc lập & Tạo đề Zero-422) đạt chuẩn 100%');
+
     console.log('================================================================');
-    console.log('🎉 TẤT CẢ 16 BÀI KIỂM THỬ TỰ ĐỘNG ĐỀU ĐẠT (16/16 PASS)!');
+    console.log('🎉 TẤT CẢ 17 BÀI KIỂM THỬ TỰ ĐỘNG ĐỀU ĐẠT (17/17 PASS)!');
     console.log('================================================================');
   } finally {
     process.env.DATABASE_URL = savedDbUrl;

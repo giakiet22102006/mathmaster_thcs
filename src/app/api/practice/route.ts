@@ -309,6 +309,17 @@ export async function POST(req: NextRequest) {
         return NextResponse.json(adaptiveResult, { status: 422 });
       }
 
+      if (Array.isArray(adaptiveResult.generatedQuestions) && adaptiveResult.generatedQuestions.length > 0) {
+        if (!Array.isArray(state.questions)) state.questions = [];
+        const existingIds = new Set(state.questions.map((q: any) => q.id));
+        for (const gq of adaptiveResult.generatedQuestions) {
+          if (!existingIds.has(gq.id)) {
+            state.questions.push(gq);
+            existingIds.add(gq.id);
+          }
+        }
+      }
+
       state.exams.unshift(adaptiveResult);
       invalidateExamPoolCache();
       invalidateDashboardCache(userId);
