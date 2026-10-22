@@ -773,7 +773,7 @@ export const grade6VdVdcTemplates: QuestionTemplate[] = [
         content: `Tìm tất cả các số nguyên $n$ để phân thức $A = \\frac{2n + ${k}}{n - 1}$ nhận giá trị là một số nguyên.`,
         correctAnswer: `n thuộc các giá trị nguyên thỏa mãn`,
         acceptedAnswers: ['Dung', 'Đúng', 'Thoa man'],
-        solution: `Bước 1: Điều kiện để phân thức xác định là $n - 1 \\ne 0 \\iff n \\ne 1$.\nBước 2: Tách phần nguyên của tử thức theo mẫu thức:\n$A = \\frac{2(n - 1) + ${num}}{n - 1} = \\frac{2(n - 1)}{n - 1} + \\frac{${num}}{n - 1} = 2 + \\frac{${num}}{n - 1}$.\nBước 3: Vì $2 \\in \\mathbb{Z}$ nên để $A \\in \\mathbb{Z}$ thì $\\frac{${num}}{n - 1} \\in \\mathbb{Z} \\implies n - 1 \\in Ư(${num})$.\nBước 4: Tập hợp các ước nguyên của $${num}$ trong $\\mathbb{Z}$ là $Ư(${num}) = \\{\\pm 1, \\pm ${num}\\}$.\nBước 5: Lập bảng xét giá trị:\n- $n - 1 = 1 \\implies n = 2$\n- $n - 1 = -1 \\implies n = 0$\n- $n - 1 = ${num} \\implies n = ${num + 1}$\n- $n - 1 = -${num} \\implies n = ${-num + 1}$.\nCác giá trị này đều thỏa mãn điều kiện $n \\ne 1$. Vậy $n \\in \\{0, 2, ${num + 1}, ${-num + 1}\\}$.`,
+        solution: `Bước 1: Điều kiện để phân thức xác định là $n - 1 \\ne 0 \\iff n \\ne 1$.\nBước 2: Tách phần nguyên của tử thức theo mẫu thức:\n$A = \\frac{2(n - 1) + ${num}}{n - 1} = \\frac{2(n - 1)}{n - 1} + \\frac{${num}}{n - 1} = 2 + \\frac{${num}}{n - 1}$.\nBước 3: Vì $2 \\in \\mathbb{Z}$ nên để $A \\in \\mathbb{Z}$ thì $\\frac{${num}}{n - 1} \\in \\mathbb{Z} \\implies n - 1 \\in \\text{Ư}(${num})$.\nBước 4: Tập hợp các ước nguyên của $${num}$ trong $\\mathbb{Z}$ là $\\text{Ư}(${num}) = \\{\\pm 1, \\pm ${num}\\}$.\nBước 5: Lập bảng xét giá trị:\n- $n - 1 = 1 \\implies n = 2$\n- $n - 1 = -1 \\implies n = 0$\n- $n - 1 = ${num} \\implies n = ${num + 1}$\n- $n - 1 = -${num} \\implies n = ${-num + 1}$.\nCác giá trị này đều thỏa mãn điều kiện $n \\ne 1$. Vậy $n \\in \\{0, 2, ${num + 1}, ${-num + 1}\\}$.`,
         rubricSteps: [
           { step: 'Đặt điều kiện xác định n khác 1', points: 0.3 },
           { step: `Tách phân thức thành $2 + \\frac{${num}}{n-1}$`, points: 0.3 },
@@ -781,7 +781,7 @@ export const grade6VdVdcTemplates: QuestionTemplate[] = [
           { step: 'Lập bảng tính từng giá trị của n', points: 0.3 },
           { step: 'Đối chiếu điều kiện và kết luận tập nghiệm', points: 0.3 },
         ],
-        keyFormula: '$\\frac{A(n)}{B(n)} = Q(n) + \\frac{r}{B(n)} \\implies B(n) \\in Ư(r)$.',
+        keyFormula: '$\\frac{A(n)}{B(n)} = Q(n) + \\frac{r}{B(n)} \\implies B(n) \\in \\text{Ư}(r)$.',
       };
     },
   },
@@ -831,7 +831,7 @@ export const grade6VdVdcTemplates: QuestionTemplate[] = [
         content: 'Tìm tất cả các cặp số nguyên $(x, y)$ thỏa mãn đẳng thức: $xy - 2x + 3y = 11$.',
         correctAnswer: 'Các cặp (x, y) thỏa mãn',
         acceptedAnswers: ['Dung', 'Đúng', 'Thoa man'],
-        solution: `Bước 1: Biến đổi vế trái đưa về dạng tích:\n$x(y - 2) + 3y = 11 \\implies x(y - 2) + 3(y - 2) + 6 = 11$.\nBước 2: Chuyển vế:\n$(x + 3)(y - 2) = 11 - 6 = 5$.\nBước 3: Vì $x, y \\in \\mathbb{Z}$ nên $x + 3$ và $y - 2$ là các ước của $5$. Tập hợp các ước của 5 là $Ư(5) = \\{\\pm 1, \\pm 5\\}$.\nBước 4: Xét các trường hợp:\n- TH1: $x + 3 = 1; y - 2 = 5 \\implies x = -2; y = 7$.\n- TH2: $x + 3 = -1; y - 2 = -5 \\implies x = -4; y = -3$.\n- TH3: $x + 3 = 5; y - 2 = 1 \\implies x = 2; y = 3$.\n- TH4: $x + 3 = -5; y - 2 = -1 \\implies x = -8; y = 1$.\nBước 5: Kết luận các cặp số nguyên $(x, y)$ thỏa mãn là: $(-2, 7); (-4, -3); (2, 3); (-8, 1)$.`,
+        solution: `Bước 1: Biến đổi vế trái đưa về dạng tích:\n$x(y - 2) + 3y = 11 \\implies x(y - 2) + 3(y - 2) + 6 = 11$.\nBước 2: Chuyển vế:\n$(x + 3)(y - 2) = 11 - 6 = 5$.\nBước 3: Vì $x, y \\in \\mathbb{Z}$ nên $x + 3$ và $y - 2$ là các ước của $5$. Tập hợp các ước của 5 là $\\text{Ư}(5) = \\{\\pm 1, \\pm 5\\}$.\nBước 4: Xét các trường hợp:\n- TH1: $x + 3 = 1; y - 2 = 5 \\implies x = -2; y = 7$.\n- TH2: $x + 3 = -1; y - 2 = -5 \\implies x = -4; y = -3$.\n- TH3: $x + 3 = 5; y - 2 = 1 \\implies x = 2; y = 3$.\n- TH4: $x + 3 = -5; y - 2 = -1 \\implies x = -8; y = 1$.\nBước 5: Kết luận các cặp số nguyên $(x, y)$ thỏa mãn là: $(-2, 7); (-4, -3); (2, 3); (-8, 1)$.`,
         rubricSteps: [
           { step: 'Nhóm hạng tử tạo thừa số chung y - 2', points: 0.3 },
           { step: 'Đưa phương trình về dạng tích $(x + 3)(y - 2) = 5$', points: 0.3 },
@@ -839,7 +839,7 @@ export const grade6VdVdcTemplates: QuestionTemplate[] = [
           { step: 'Giải tìm (x, y) cho từng trường hợp', points: 0.3 },
           { step: 'Kết luận đầy đủ 4 cặp nghiệm nguyên', points: 0.3 },
         ],
-        keyFormula: '$(x + b)(y + a) = k \\implies x+b, y+a \\in Ư(k)$.',
+        keyFormula: '$(x + b)(y + a) = k \\implies x+b, y+a \\in \\text{Ư}(k)$.',
       };
     },
   },
@@ -1045,7 +1045,7 @@ export const grade6VdVdcTemplates: QuestionTemplate[] = [
           { step: `Tính đúng chiều rộng mới là ${innerWidth} m`, points: 0.3 },
           { step: `Tính diện tích trồng rau ra ${innerArea} m2`, points: 0.4 },
         ],
-        keyFormula: '$S = (dài - 2w) \\cdot (rộng - 2w)$.',
+        keyFormula: '$S = (\\text{dài} - 2w) \\cdot (\\text{rộng} - 2w)$.',
       };
     },
   },
@@ -1821,7 +1821,7 @@ export const grade6VdVdcTemplates: QuestionTemplate[] = [
         content: 'Một xạ thủ bắn $100$ viên đạn vào bia. Trong $50$ phát súng đầu tiên, xạ thủ bắn trúng hồng tâm $42$ lần. Trong $50$ phát súng tiếp theo, xạ thủ bắn trúng hồng tâm $48$ lần. Tính xác suất thực nghiệm bắn trúng hồng tâm: a) Trong 50 phát đầu; b) Trong 50 phát sau; c) Trong cả 100 phát bắn.',
         correctAnswer: 'a) 0.84, b) 0.96, c) 0.9',
         acceptedAnswers: ['0.84, 0.96, 0.9', '84%, 96%, 90%'],
-        solution: `Bước 1: Xác suất thực nghiệm trong 50 phát đầu tiên:\\n$P_1 = \\frac{42}{50} = \\frac{84}{100} = 0.84 = 84\\%$.\\nBước 2: Xác suất thực nghiệm trong 50 phát tiếp theo:\\n$P_2 = \\frac{48}{50} = \\frac{96}{100} = 0.96 = 96\\%$.\\nBước 3: Tổng số phát bắn trúng hồng tâm trong cả 100 lần bắn:\\n$N_{trúng} = 42 + 48 = 90$ (lần).\\nBước 4: Xác suất thực nghiệm bắn trúng trong cả 100 phát bắn:\\n$P = \\frac{90}{100} = 0.9 = 90\\%$.\\nBước 5: Nhận xét: Phong độ của xạ thủ ở 50 phát sau cao hơn 50 phát đầu ($96\\% > 84\\%$).\\nĐáp số: a) $0.84$; b) $0.96$; c) $0.9$.`,
+        solution: `Bước 1: Xác suất thực nghiệm trong 50 phát đầu tiên:\\n$P_1 = \\frac{42}{50} = \\frac{84}{100} = 0.84 = 84\\%$.\\nBước 2: Xác suất thực nghiệm trong 50 phát tiếp theo:\\n$P_2 = \\frac{48}{50} = \\frac{96}{100} = 0.96 = 96\\%$.\\nBước 3: Tổng số phát bắn trúng hồng tâm trong cả 100 lần bắn:\\n$N_{\\text{trúng}} = 42 + 48 = 90$ (lần).\\nBước 4: Xác suất thực nghiệm bắn trúng trong cả 100 phát bắn:\\n$P = \\frac{90}{100} = 0.9 = 90\\%$.\\nBước 5: Nhận xét: Phong độ của xạ thủ ở 50 phát sau cao hơn 50 phát đầu ($96\\% > 84\\%$).\\nĐáp số: a) $0.84$; b) $0.96$; c) $0.9$.`,
         rubricSteps: [
           { step: 'Tính đúng xác suất thực nghiệm giai đoạn 1: 42/50 = 0.84', points: 0.3 },
           { step: 'Tính đúng xác suất thực nghiệm giai đoạn 2: 48/50 = 0.96', points: 0.3 },
@@ -2212,7 +2212,7 @@ export const grade6VdVdcTemplates: QuestionTemplate[] = [
           { step: 'Suy ra 10A > 10B', points: 0.15 },
           { step: 'Kết luận A > B', points: 0.15 },
         ],
-        keyFormula: '$10A = 1 + \\frac{9}{mẫu}$.',
+        keyFormula: '$10A = 1 + \\frac{9}{\\text{mẫu thức}}$.',
       };
     },
   },
@@ -2263,7 +2263,7 @@ export const grade6VdVdcTemplates: QuestionTemplate[] = [
         content: 'Tìm tất cả các số nguyên $x$ để biểu thức $M = \\frac{x^2 + 2x + 5}{x + 1}$ nhận giá trị là một số nguyên.',
         correctAnswer: 'x thuộc {0, -2, 1, -3, 3, -5}',
         acceptedAnswers: ['0, -2, 1, -3, 3, -5', 'x = 0, -2, 1, -3, 3, -5', 'Dung', 'Đúng'],
-        solution: `Bước 1: Điều kiện xác định: $x + 1 \\ne 0 \\iff x \\ne -1$.\\nBước 2: Phân tích tử thức theo mẫu thức:\\n$x^2 + 2x + 5 = x(x + 1) + (x + 1) + 4 = (x + 1)(x + 1) + 4 = (x + 1)^2 + 4$.\\nBước 3: Biểu thức $M$ trở thành:\\n$M = \\frac{(x + 1)^2 + 4}{x + 1} = (x + 1) + \\frac{4}{x + 1}$.\\nBước 4: Vì $x \\in \\mathbb{Z}$ nên $x + 1 \\in \\mathbb{Z}$. Để $M \\in \\mathbb{Z}$ thì $\\frac{4}{x + 1} \\in \\mathbb{Z} \\implies x + 1 \\in Ư(4) = \\{\\pm 1, \\pm 2, \\pm 4\\}$.\\nBước 5: Lập bảng tính các giá trị của $x$:\\n- $x + 1 = 1 \\implies x = 0$\\n- $x + 1 = -1 \\implies x = -2$\\n- $x + 1 = 2 \\implies x = 1$\\n- $x + 1 = -2 \\implies x = -3$\\n- $x + 1 = 4 \\implies x = 3$\\n- $x + 1 = -4 \\implies x = -5$.\\nTất cả các giá trị đều thỏa mãn $x \\ne -1$. Vậy $x \\in \\{0, -2, 1, -3, 3, -5\\}$.`,
+        solution: `Bước 1: Điều kiện xác định: $x + 1 \\ne 0 \\iff x \\ne -1$.\\nBước 2: Phân tích tử thức theo mẫu thức:\\n$x^2 + 2x + 5 = x(x + 1) + (x + 1) + 4 = (x + 1)(x + 1) + 4 = (x + 1)^2 + 4$.\\nBước 3: Biểu thức $M$ trở thành:\\n$M = \\frac{(x + 1)^2 + 4}{x + 1} = (x + 1) + \\frac{4}{x + 1}$.\\nBước 4: Vì $x \\in \\mathbb{Z}$ nên $x + 1 \\in \\mathbb{Z}$. Để $M \\in \\mathbb{Z}$ thì $\\frac{4}{x + 1} \\in \\mathbb{Z} \\implies x + 1 \\in \\text{Ư}(4) = \\{\\pm 1, \\pm 2, \\pm 4\\}$.\\nBước 5: Lập bảng tính các giá trị của $x$:\\n- $x + 1 = 1 \\implies x = 0$\\n- $x + 1 = -1 \\implies x = -2$\\n- $x + 1 = 2 \\implies x = 1$\\n- $x + 1 = -2 \\implies x = -3$\\n- $x + 1 = 4 \\implies x = 3$\\n- $x + 1 = -4 \\implies x = -5$.\\nTất cả các giá trị đều thỏa mãn $x \\ne -1$. Vậy $x \\in \\{0, -2, 1, -3, 3, -5\\}$.`,
         rubricSteps: [
           { step: 'Đặt điều kiện xác định x khác -1', points: 0.3 },
           { step: 'Tách tử thức thành (x + 1)^2 + 4', points: 0.3 },
@@ -2271,7 +2271,7 @@ export const grade6VdVdcTemplates: QuestionTemplate[] = [
           { step: 'Lý luận x + 1 thuộc Ư(4) = {+-1, +-2, +-4}', points: 0.3 },
           { step: 'Tính và kết luận đầy đủ 6 giá trị nguyên của x', points: 0.3 },
         ],
-        keyFormula: '$x + 1 \\in Ư(4)$.',
+        keyFormula: '$x + 1 \\in \\text{Ư}(4)$.',
       };
     },
   },

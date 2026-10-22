@@ -35,15 +35,65 @@ function escapePlainHtml(str: string): string {
     .replace(/\n/g, '<br/>');
 }
 
+function sanitizeTex(tex: string): string {
+  let s = tex
+    .replace(/Ư\(/g, '\\text{Ư}(')
+    .replace(/ƯCLN\(/g, '\\text{ƯCLN}(')
+    .replace(/BCNN\(/g, '\\text{BCNN}(')
+    .replace(/_\{đáy\}/g, '_{\\text{đáy}}')
+    .replace(/_\{trúng\}/g, '_{\\text{trúng}}')
+    .replace(/_\{trượt\}/g, '_{\\text{trượt}}');
+
+  const vnCharRegex = /[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđĐ]/;
+  if (vnCharRegex.test(s)) {
+    s = s.replace(/([àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđĐ\w]+)/g, (match) => {
+      if (vnCharRegex.test(match)) {
+        return `\\text{${match}}`;
+      }
+      return match;
+    });
+  }
+  return s;
+}
+
+function sanitizeLatexString(raw: string): string {
+  if (!raw || !raw.includes('$')) return raw;
+
+  // 1. Khắc phục dấu $ mồ côi sau ký hiệu %
+  let str = raw.replace(/%(\s*)\$/g, '%');
+
+  // 2. Tự động khắc phục số dấu $ đơn lẻ bị lệch cặp
+  const displayParts = str.split(/(\$\$[\s\S]+?\$\$)/g);
+  const fixedParts = displayParts.map((part) => {
+    if (part.startsWith('$$') && part.endsWith('$$')) return part;
+    const dollarCount = (part.match(/\$/g) || []).length;
+    if (dollarCount % 2 !== 0) {
+      let fixed = part.replace(/(\d+)\$/g, '$1\\$');
+      const newCount = (fixed.match(/(?<!\\)\$/g) || []).length;
+      if (newCount % 2 !== 0) {
+        const lastIdx = fixed.lastIndexOf('$');
+        if (lastIdx !== -1) {
+          fixed = fixed.slice(0, lastIdx) + fixed.slice(lastIdx + 1);
+        }
+      }
+      return fixed;
+    }
+    return part;
+  });
+
+  return fixedParts.join('');
+}
+
 function renderLatexWithKatex(raw: string, katexInst: any): string {
   const cached = katexHtmlCache.get(raw);
   if (cached !== undefined) return cached;
 
-  const parts = raw.split(/(\$\$[\s\S]+?\$\$|\$[^$]+?\$)/g);
+  const sanitized = sanitizeLatexString(raw);
+  const parts = sanitized.split(/(\$\$[\s\S]+?\$\$|\$[^$]+?\$)/g);
   const rendered = parts
     .map((part) => {
       if (part.startsWith('$$') && part.endsWith('$$') && part.length > 4) {
-        const tex = part.slice(2, -2);
+        const tex = sanitizeTex(part.slice(2, -2));
         try {
           return katexInst.renderToString(tex, {
             displayMode: true,
@@ -55,7 +105,7 @@ function renderLatexWithKatex(raw: string, katexInst: any): string {
         }
       }
       if (part.startsWith('$') && part.endsWith('$') && part.length > 2) {
-        const tex = part.slice(1, -1);
+        const tex = sanitizeTex(part.slice(1, -1));
         try {
           return katexInst.renderToString(tex, {
             displayMode: false,

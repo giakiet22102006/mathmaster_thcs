@@ -605,7 +605,7 @@ export const grade7VdcTemplates: QuestionTemplate[] = [
         content: `Một ngôi nhà kho mô hình gồm tầng dưới dạng hình hộp chữ nhật có kích thước đáy $${a}\\\\text{ m} \\\\times ${b}\\\\text{ m}$, chiều cao $3\\\\text{ m}$; phần mái phía trên dạng hình lăng trụ đứng tam giác có đáy là tam giác với cạnh đáy $${a}\\\\text{ m}$, chiều cao tương ứng $2\\\\text{ m}$ và chiều dài mái là $${b}\\\\text{ m}$. Tính tổng thể tích không gian bên trong nhà kho.`,
         correctAnswer: String(totalV),
         acceptedAnswers: [String(totalV), `${totalV} m3`, `${totalV} mét khối`],
-        solution: `Bước 1: Thể tích tầng dưới (hình hộp chữ nhật) là: $V_1 = ${a} \\\\cdot ${b} \\\\cdot 3 = ${vBox}\\\\text{ m}^3$.\\\\nBước 2: Diện tích đáy tam giác của phần mái là: $S_{đáy} = \\\\frac{1}{2} \\\\cdot ${a} \\\\cdot 2 = ${a}\\\\text{ m}^2$.\\\\nBước 3: Thể tích phần mái (hình lăng trụ đứng tam giác) là: $V_2 = S_{đáy} \\\\cdot ${b} = ${a} \\\\cdot ${b} = ${vPrism}\\\\text{ m}^3$.\\\\nBước 4: Tổng thể tích nhà kho là: $V = V_1 + V_2 = ${vBox} + ${vPrism} = ${totalV}\\\\text{ m}^3$.\\\\nBước 5: Kết luận thể tích toàn bộ là ${totalV} mét khối.`,
+        solution: `Bước 1: Thể tích tầng dưới (hình hộp chữ nhật) là: $V_1 = ${a} \\\\cdot ${b} \\\\cdot 3 = ${vBox}\\\\text{ m}^3$.\\\\nBước 2: Diện tích đáy tam giác của phần mái là: $S_{\\\\text{đáy}} = \\\\frac{1}{2} \\\\cdot ${a} \\\\cdot 2 = ${a}\\\\text{ m}^2$.\\\\nBước 3: Thể tích phần mái (hình lăng trụ đứng tam giác) là: $V_2 = S_{\\\\text{đáy}} \\\\cdot ${b} = ${a} \\\\cdot ${b} = ${vPrism}\\\\text{ m}^3$.\\\\nBước 4: Tổng thể tích nhà kho là: $V = V_1 + V_2 = ${vBox} + ${vPrism} = ${totalV}\\\\text{ m}^3$.\\\\nBước 5: Kết luận thể tích toàn bộ là ${totalV} mét khối.`,
         rubricSteps: [
           { step: `Tính thể tích tầng dưới hình hộp là ${vBox} m3`, points: 0.2 },
           { step: 'Tính diện tích tam giác đáy của phần mái', points: 0.2 },
@@ -977,11 +977,11 @@ export const grade7VdcTemplates: QuestionTemplate[] = [
       const diff = pct1 - pct2;
       const { options, correctAnswer } = buildShuffledMcq(
         rng,
-        `${diff}\\\\%\$, mẫu CLB bị định kiến thiên vị`,
+        `$${diff}\\%$, mẫu CLB bị định kiến thiên vị`,
         [
-          { text: `${diff + 10}\\\\%\$, hai mẫu đều đại diện tốt`, errorType: 'TÍNH_SAI_CHÊNH_LỆCH' },
-          { text: '0%, hai mẫu hoàn toàn đồng nhất', errorType: 'BỎ_QUA_KHÁC_BIỆT_MẪU' },
-          { text: `${pct1}\\\\%\$, mẫu nhỏ chính xác hơn`, errorType: 'NGỘ_NHẬN_MẪU_NHỎ' },
+          { text: `$${diff + 10}\\%$, hai mẫu đều đại diện tốt`, errorType: 'TÍNH_SAI_CHÊNH_LỆCH' },
+          { text: '$0\\%$, hai mẫu hoàn toàn đồng nhất', errorType: 'BỎ_QUA_KHÁC_BIỆT_MẪU' },
+          { text: `$${pct1}\\%$, mẫu nhỏ chính xác hơn`, errorType: 'NGỘ_NHẬN_MẪU_NHỎ' },
         ]
       );
       return {
@@ -1004,11 +1004,11 @@ export const grade7VdcTemplates: QuestionTemplate[] = [
           needsCaseAnalysis: false,
           estMinutes: 7,
         },
-        content: `Khảo sát ý kiến về việc mở thêm câu lạc bộ bóng rổ: Nhóm A khảo sát $100$ học sinh tại sân bóng rổ thấy có $70\\\\%$ đồng ý; Nhóm B khảo sát ngẫu nhiên $400$ học sinh toàn trường thấy có $30\\\\%$ đồng ý. Độ chênh lệch tỉ lệ phần trăm và nhận định về tính đại diện là:`,
+        content: `Khảo sát ý kiến về việc mở thêm câu lạc bộ bóng rổ: Nhóm A khảo sát $100$ học sinh tại sân bóng rổ thấy có $70\\%$ đồng ý; Nhóm B khảo sát ngẫu nhiên $400$ học sinh toàn trường thấy có $30\\%$ đồng ý. Độ chênh lệch tỉ lệ phần trăm và nhận định về tính đại diện là:`,
         options,
         correctAnswer,
         acceptedAnswers: [correctAnswer],
-        solution: `Bước 1: Tỉ lệ đồng ý ở mẫu A là $70\\\\%$.\\\\nBước 2: Tỉ lệ đồng ý ở mẫu B là $30\\\\%$.\\\\nBước 3: Độ chênh lệch giữa hai kết quả là: $70\\\\% - 30\\\\% = ${diff}\\\\%\$.\\\\nBước 4: Mẫu A chỉ lấy người tại sân bóng rổ nên đối tượng đã có sẵn sở thích, dẫn đến định kiến thiên vị cao.\\\\nBước 5: Kết luận độ chênh lệch là ${diff}% và mẫu A bị định kiến thiên vị.`,
+        solution: `Bước 1: Tỉ lệ đồng ý ở mẫu A là $70\\%$.\\\\nBước 2: Tỉ lệ đồng ý ở mẫu B là $30\\%$.\\\\nBước 3: Độ chênh lệch giữa hai kết quả là: $70\\% - 30\\% = ${diff}\\%$.\\\\nBước 4: Mẫu A chỉ lấy người tại sân bóng rổ nên đối tượng đã có sẵn sở thích, dẫn đến định kiến thiên vị cao.\\\\nBước 5: Kết luận độ chênh lệch là ${diff}% và mẫu A bị định kiến thiên vị.`,
         rubricSteps: [
           { step: 'Xác định tỉ số phần trăm mẫu A', points: 0.2 },
           { step: 'Xác định tỉ số phần trăm mẫu B', points: 0.2 },

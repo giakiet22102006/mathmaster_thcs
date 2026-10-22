@@ -590,7 +590,7 @@ const baseGrade9Templates: QuestionTemplate[] = [
         options,
         correctAnswer,
         acceptedAnswers: [correctAnswer],
-        solution: `Bước 1: Điều kiện để hệ có nghiệm duy nhất là $D = m \\cdot m - 1 \\cdot 1 = m^2 - 1 \\ne 0 \\iff m \\ne \\pm 1$.\nBước 2: Từ phương trình thứ nhất suy ra $y = 3 - mx$. Thế vào phương trình thứ hai:\n$x + m(3 - mx) = 2m + 1 \\iff (1 - m^2)x = 1 - m \\iff (m^2 - 1)x = m - 1$.\nDo $m \\ne \\pm 1$ nên $x = \\frac{m - 1}{m^2 - 1} = \\frac{m - 1}{(m - 1)(m + 1)} = \\frac{1}{m + 1}$.\nBước 3: Thay $x$ vào biểu thức của $y$:\n$y = 3 - \\frac{m}{m + 1} = \\frac{3m + 3 - m}{m + 1} = \\frac{2m + 3}{m + 1} = 2 + \\frac{1}{m + 1}$.\nBước 4: Để $x$ và $y$ đều là các số nguyên thì $\\frac{1}{m + 1} \\in \\mathbb{Z} \\implies m + 1 \\in Ư(1) = \\{\\pm 1\\}$.\nBước 5: Xét các trường hợp:\n- $m + 1 = 1 \\implies m = 0$ (thỏa mãn $m \\ne \\pm 1$). Khi đó $(x; y) = (1; 3)$.\n- $m + 1 = -1 \\implies m = -2$ (thỏa mãn $m \\ne \\pm 1$). Khi đó $(x; y) = (-1; 1)$.\nVậy các giá trị nguyên của $m$ thỏa mãn là $m \\in \\{0, -2\\}$.`,
+        solution: `Bước 1: Điều kiện để hệ có nghiệm duy nhất là $D = m \\cdot m - 1 \\cdot 1 = m^2 - 1 \\ne 0 \\iff m \\ne \\pm 1$.\nBước 2: Từ phương trình thứ nhất suy ra $y = 3 - mx$. Thế vào phương trình thứ hai:\n$x + m(3 - mx) = 2m + 1 \\iff (1 - m^2)x = 1 - m \\iff (m^2 - 1)x = m - 1$.\nDo $m \\ne \\pm 1$ nên $x = \\frac{m - 1}{m^2 - 1} = \\frac{m - 1}{(m - 1)(m + 1)} = \\frac{1}{m + 1}$.\nBước 3: Thay $x$ vào biểu thức của $y$:\n$y = 3 - \\frac{m}{m + 1} = \\frac{3m + 3 - m}{m + 1} = \\frac{2m + 3}{m + 1} = 2 + \\frac{1}{m + 1}$.\nBước 4: Để $x$ và $y$ đều là các số nguyên thì $\\frac{1}{m + 1} \\in \\mathbb{Z} \\implies m + 1 \\in \\text{Ư}(1) = \\{\\pm 1\\}$.\nBước 5: Xét các trường hợp:\n- $m + 1 = 1 \\implies m = 0$ (thỏa mãn $m \\ne \\pm 1$). Khi đó $(x; y) = (1; 3)$.\n- $m + 1 = -1 \\implies m = -2$ (thỏa mãn $m \\ne \\pm 1$). Khi đó $(x; y) = (-1; 1)$.\nVậy các giá trị nguyên của $m$ thỏa mãn là $m \\in \\{0, -2\\}$.`,
         rubricSteps: [
           { step: 'Xác định điều kiện hệ có nghiệm duy nhất: m khác +-1', points: 0.15 },
           { step: 'Giải tìm nghiệm x = 1/(m + 1) theo tham số m', points: 0.15 },
@@ -598,7 +598,7 @@ const baseGrade9Templates: QuestionTemplate[] = [
           { step: 'Lý luận m + 1 là ước nguyên của 1', points: 0.15 },
           { step: 'Tính ra m = 0 hoặc m = -2 và đối chiếu điều kiện', points: 0.15 },
         ],
-        keyFormula: '$x, y \\in \\mathbb{Z} \\iff m + 1 \\in Ư(1)$.',
+        keyFormula: '$x, y \\in \\mathbb{Z} \\iff m + 1 \\in \\text{Ư}(1)$.',
       };
     },
   },

@@ -199,7 +199,7 @@ export const grade8VdcTemplates: QuestionTemplate[] = [
         content: `Một chiếc thùng tôn không nắp dạng hình hộp chữ nhật có đáy kích thước dài $${x}\\text{ dm}$, rộng $${y}\\text{ dm}$ và chiều cao $2\\text{ dm}$. Giá tôn làm đáy và thành bên là $15$ nghìn đồng/$\\text{dm}^2$. Tính tổng diện tích tôn làm thùng và chi phí vật liệu tương ứng.`,
         correctAnswer: String(totalCost),
         acceptedAnswers: [String(totalCost), `${totalCost} nghin dong`, `${totalCost} nghìn đồng`],
-        solution: `Bước 1: Diện tích đáy của thùng (không có nắp nên chỉ tính 1 đáy): $S_{đáy} = ${x} \\cdot ${y} = ${sBottom}\\text{ dm}^2$.\\nBước 2: Diện tích 4 mặt xung quanh của thùng là: $S_{xq} = 2(${x} + ${y}) \\cdot 2 = ${sSide}\\text{ dm}^2$.\\nBước 3: Tổng diện tích tôn cần dùng là: $S = S_{đáy} + S_{xq} = ${sBottom} + ${sSide} = ${totalS}\\text{ dm}^2$.\\nBước 4: Chi phí tiền tôn là: $T = ${totalS} \\cdot 15 = ${totalCost}$ (nghìn đồng).\\nBước 5: Kết luận chi phí là ${totalCost} nghìn đồng.`,
+        solution: `Bước 1: Diện tích đáy của thùng (không có nắp nên chỉ tính 1 đáy): $S_{\\text{đáy}} = ${x} \\cdot ${y} = ${sBottom}\\text{ dm}^2$.\\nBước 2: Diện tích 4 mặt xung quanh của thùng là: $S_{xq} = 2(${x} + ${y}) \\cdot 2 = ${sSide}\\text{ dm}^2$.\\nBước 3: Tổng diện tích tôn cần dùng là: $S = S_{\\text{đáy}} + S_{xq} = ${sBottom} + ${sSide} = ${totalS}\\text{ dm}^2$.\\nBước 4: Chi phí tiền tôn là: $T = ${totalS} \\cdot 15 = ${totalCost}$ (nghìn đồng).\\nBước 5: Kết luận chi phí là ${totalCost} nghìn đồng.`,
         rubricSteps: [
           { step: `Tính diện tích một đáy S = ${sBottom} dm2`, points: 0.2 },
           { step: `Tính diện tích xung quanh S = ${sSide} dm2`, points: 0.2 },
