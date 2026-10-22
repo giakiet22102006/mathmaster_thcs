@@ -41,6 +41,79 @@ function ExamResultContent() {
   const [selectedQuestion, setSelectedQuestion] = useState<any>(null);
   const [selectedAnswer, setSelectedAnswer] = useState<string>('');
 
+  // Trạng thái AI Chẩn đoán điểm yếu & Lộ trình ôn tập
+  const [aiAnalysis, setAiAnalysis] = useState<any | null>(null);
+  const [analyzingWeaknesses, setAnalyzingWeaknesses] = useState<boolean>(false);
+  const [creatingWeaknessExam, setCreatingWeaknessExam] = useState<boolean>(false);
+  const [aiAnalysisError, setAiAnalysisError] = useState<string | null>(null);
+
+  async function handleDiagnoseWeaknesses(forceRefresh = false) {
+    if (!attempt) return;
+    setAnalyzingWeaknesses(true);
+    setAiAnalysisError(null);
+    try {
+      const res = await fetch('/api/ai/diagnose-weaknesses', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          attemptId: attempt.id,
+          examId: exam?.id || examId,
+          forceRefresh,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.ok) {
+        setAiAnalysis(data.analysis);
+      } else {
+        setAiAnalysisError(data.error || 'Không thể tải phân tích điểm yếu từ AI.');
+      }
+    } catch {
+      setAiAnalysisError('Lỗi kết nối khi gửi yêu cầu phân tích.');
+    } finally {
+      setAnalyzingWeaknesses(false);
+    }
+  }
+
+  // Tự động tải phân tích nếu bài làm đã có sẵn hoặc khi tìm thấy attempt có câu sai
+  useEffect(() => {
+    if (attempt?.aiWeaknessAnalysis) {
+      setAiAnalysis(attempt.aiWeaknessAnalysis);
+    } else if (attempt && attempt.wrongCount > 0) {
+      handleDiagnoseWeaknesses(false);
+    }
+  }, [attempt?.id]);
+
+  async function handleCreateRemediationExam() {
+    if (!aiAnalysis?.recommendedPracticePrompt) return;
+    setCreatingWeaknessExam(true);
+    try {
+      const res = await fetch('/api/ai/generate-question', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          grade: Number(exam?.grade) || 8,
+          textbook: exam?.textbook || 'KNTT',
+          customPrompt: aiAnalysis.recommendedPracticePrompt,
+          topic: aiAnalysis.recommendedPracticePrompt,
+          count: 5,
+          durationMinutes: 15,
+          createFullExam: true,
+          saveToBank: true,
+        }),
+      });
+      const data = await res.json();
+      if (data.ok && data.exam?.id) {
+        router.push(`/exams/${data.exam.id}`);
+      } else {
+        router.push(`/exams/new?aiPrompt=${encodeURIComponent(aiAnalysis.recommendedPracticePrompt)}`);
+      }
+    } catch {
+      router.push(`/exams/new?aiPrompt=${encodeURIComponent(aiAnalysis.recommendedPracticePrompt)}`);
+    } finally {
+      setCreatingWeaknessExam(false);
+    }
+  }
+
   useEffect(() => {
     async function loadResult() {
       setLoading(true);
@@ -192,6 +265,188 @@ function ExamResultContent() {
             {attempt.wrongCount} câu
           </div>
         </div>
+      </div>
+
+      {/* KHỐI AI CHẨN ĐOÁN ĐIỂM YẾU & KẾ HOẠCH ÔN TẬP PHỤC HỒI */}
+      <div className="mb-6 rounded-3xl border border-indigo-200 bg-gradient-to-br from-indigo-900 via-indigo-950 to-slate-950 p-6 text-white shadow-xl space-y-4 print:hidden">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-indigo-800/80 pb-4">
+          <div className="flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-indigo-500/20 border border-indigo-400/30 text-2xl">
+              🧠
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-base font-extrabold text-white">
+                  AI Chẩn Đoán Điểm Yếu & Lộ Trình Ôn Tập
+                </h3>
+                <span className="rounded-full bg-indigo-500/30 border border-indigo-400/40 px-2 py-0.5 text-[10px] font-bold text-indigo-200">
+                  Gemini 3.8 Flash • GDPT 2018
+                </span>
+              </div>
+              <p className="text-xs text-indigo-200/80 mt-0.5">
+                Phân tích lỗi sai, chỉ rõ mảng kiến thức hổng và đề xuất bài tập khắc phục
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            {aiAnalysis && (
+              <button
+                type="button"
+                onClick={() => handleDiagnoseWeaknesses(true)}
+                disabled={analyzingWeaknesses}
+                className="rounded-xl border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-semibold text-indigo-100 hover:bg-white/20 transition disabled:opacity-50"
+              >
+                {analyzingWeaknesses ? 'Đang phân tích lại...' : '🔄 Phân tích lại'}
+              </button>
+            )}
+          </div>
+        </div>
+
+        {analyzingWeaknesses ? (
+          <div className="flex flex-col items-center justify-center py-8 space-y-3">
+            <div className="h-8 w-8 animate-spin rounded-full border-2 border-indigo-400 border-t-transparent" />
+            <p className="text-xs font-semibold text-indigo-200 animate-pulse">
+              AI Gemini đang phân tích các câu làm sai và lập kế hoạch ôn tập cho em...
+            </p>
+          </div>
+        ) : aiAnalysisError ? (
+          <div className="rounded-2xl bg-rose-950/60 border border-rose-500/40 p-4 text-xs text-rose-200 flex items-center justify-between">
+            <span>⚠️ {aiAnalysisError}</span>
+            <button
+              type="button"
+              onClick={() => handleDiagnoseWeaknesses(true)}
+              className="rounded-lg bg-rose-600 px-3 py-1 font-bold text-white hover:bg-rose-500"
+            >
+              Thử lại
+            </button>
+          </div>
+        ) : !aiAnalysis ? (
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 py-3">
+            <div className="text-xs text-indigo-200">
+              Nhấn nút bên cạnh để AI sư phạm quét toàn bộ các câu sai và đề xuất kế hoạch lấy lại điểm số.
+            </div>
+            <button
+              type="button"
+              onClick={() => handleDiagnoseWeaknesses(false)}
+              className="shrink-0 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-600 px-5 py-2.5 text-xs font-black text-white shadow-lg hover:from-indigo-600 hover:to-purple-700 transition"
+            >
+              🔍 AI Phân Tích Điểm Yếu Toàn Diện
+            </button>
+          </div>
+        ) : (
+          <div className="space-y-4 pt-1">
+            {/* Nhận xét tổng quan */}
+            <div className="rounded-2xl border border-indigo-700/60 bg-indigo-900/40 p-4 text-xs text-indigo-100 leading-relaxed">
+              <span className="font-bold text-amber-300">💡 Đánh giá của AI: </span>
+              {aiAnalysis.assessmentSummary}
+            </div>
+
+            {/* Danh sách các lỗ hổng kiến thức */}
+            {Array.isArray(aiAnalysis.keyWeaknesses) && aiAnalysis.keyWeaknesses.length > 0 && (
+              <div className="space-y-2">
+                <div className="text-xs font-bold text-indigo-200 flex items-center gap-1.5">
+                  <span>📌</span>
+                  <span>Các Lỗ Hổng Kiến Thức Cần Khắc Phục:</span>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {aiAnalysis.keyWeaknesses.map((w: any, wIdx: number) => (
+                    <div
+                      key={wIdx}
+                      className="rounded-2xl border border-white/10 bg-white/5 p-3.5 text-xs space-y-1.5 hover:border-indigo-400/40 transition"
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <strong className="text-white text-xs font-bold">{w.area}</strong>
+                        <span
+                          className={`rounded-full px-2 py-0.5 text-[10px] font-extrabold ${
+                            w.severity === 'high'
+                              ? 'bg-rose-500/20 border border-rose-400/40 text-rose-300'
+                              : 'bg-amber-500/20 border border-amber-400/40 text-amber-300'
+                          }`}
+                        >
+                          {w.severity === 'high' ? 'Ưu tiên khắc phục gấp' : 'Cần củng cố thêm'}
+                        </span>
+                      </div>
+                      <p className="text-indigo-200/90 text-[11px] leading-relaxed">
+                        {w.reason}
+                      </p>
+                      {w.suggestedReview && (
+                        <div className="text-[11px] text-emerald-300 font-medium pt-1 border-t border-white/10">
+                          📖 {w.suggestedReview}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Lộ trình 3 bước hành động */}
+            {Array.isArray(aiAnalysis.actionablePlan) && aiAnalysis.actionablePlan.length > 0 && (
+              <div className="space-y-2">
+                <div className="text-xs font-bold text-indigo-200 flex items-center gap-1.5">
+                  <span>🎯</span>
+                  <span>Lộ Trình Hành Động Khắc Phục:</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                  {aiAnalysis.actionablePlan.map((step: any, sIdx: number) => (
+                    <div
+                      key={sIdx}
+                      className="rounded-xl border border-indigo-700/50 bg-indigo-950/60 p-3 text-xs space-y-1"
+                    >
+                      <div className="font-extrabold text-amber-300 text-[11px]">
+                        {step.title || `Bước ${sIdx + 1}`}
+                      </div>
+                      <p className="text-indigo-200 text-[11px] leading-relaxed">
+                        {step.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Các Nút Hành Động Trọng Tâm */}
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-indigo-800/80">
+              <div className="text-xs text-indigo-200/90">
+                <span className="font-semibold text-white">Chủ đề luyện tập đề xuất: </span>
+                <span className="italic text-indigo-300">
+                  {aiAnalysis.recommendedPracticePrompt || 'Ôn tập phục hồi điểm số'}
+                </span>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2">
+                <Link
+                  href={`/exams/new?aiPrompt=${encodeURIComponent(
+                    aiAnalysis.recommendedPracticePrompt || ''
+                  )}`}
+                  className="rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-xs font-bold text-white hover:bg-white/20 transition"
+                >
+                  ✏️ Tùy Chỉnh Đề Ôn Luyện
+                </Link>
+
+                <button
+                  type="button"
+                  onClick={handleCreateRemediationExam}
+                  disabled={creatingWeaknessExam}
+                  className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 px-5 py-2 text-xs font-black text-slate-950 shadow-lg hover:from-emerald-400 hover:to-teal-400 transition disabled:opacity-50"
+                >
+                  {creatingWeaknessExam ? (
+                    <>
+                      <div className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-slate-950 border-t-transparent" />
+                      <span>Đang tạo đề thi phục hồi...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>🚀</span>
+                      <span>Tạo Đề Luyện Điểm Yếu & Làm Ngay (5 câu)</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Chi tiết từng câu hỏi, lời giải & RubricSteps */}

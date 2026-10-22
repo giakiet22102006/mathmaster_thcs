@@ -78,6 +78,7 @@ export default function ExamBuilderWizardPage() {
   const [aiLevel, setAiLevel] = useState<CognitiveLevel>('van_dung');
   const [aiType, setAiType] = useState<'mcq' | 'essay'>('mcq');
   const [aiCount, setAiCount] = useState<number>(5);
+  const [isCustomAiCount, setIsCustomAiCount] = useState<boolean>(false);
   const [aiDurationMinutes, setAiDurationMinutes] = useState<number>(45);
   const [aiGenerating, setAiGenerating] = useState<boolean>(false);
   const [aiSuccessMsg, setAiSuccessMsg] = useState<string | null>(null);
@@ -181,6 +182,20 @@ export default function ExamBuilderWizardPage() {
       }
 
       await loadAiQuota();
+
+      // Kiểm tra tham số URL (ví dụ: chuyển từ trang kết quả thi sang để ôn luyện điểm yếu)
+      if (typeof window !== 'undefined') {
+        const search = new URLSearchParams(window.location.search);
+        const urlPrompt = search.get('aiPrompt');
+        if (urlPrompt) {
+          setCreationMode('AI_GEMINI');
+          setAiPrompt(urlPrompt);
+        }
+        const urlCount = search.get('count');
+        if (urlCount && Number(urlCount) > 0) {
+          setAiCount(Math.min(50, Math.max(1, Number(urlCount))));
+        }
+      }
     }
     init();
   }, [router]);
@@ -720,17 +735,57 @@ export default function ExamBuilderWizardPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-indigo-200 mb-1.5">Số lượng câu</label>
-                  <select
-                    value={aiCount}
-                    onChange={(e) => setAiCount(Number(e.target.value))}
-                    className="w-full rounded-xl border border-white/20 bg-slate-900/80 px-3 py-2 text-xs font-semibold text-white focus:outline-none"
-                  >
-                    <option value={3}>3 câu</option>
-                    <option value={5}>5 câu</option>
-                    <option value={10}>10 câu</option>
-                    <option value={15}>15 câu</option>
-                  </select>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="text-xs font-bold text-indigo-200">Số lượng câu</label>
+                    <button
+                      type="button"
+                      onClick={() => setIsCustomAiCount(!isCustomAiCount)}
+                      className="text-[11px] text-indigo-300 hover:text-white underline font-medium"
+                    >
+                      {isCustomAiCount ? 'Chọn theo danh sách' : '✏️ Tùy chỉnh'}
+                    </button>
+                  </div>
+                  {isCustomAiCount ? (
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="number"
+                        min={1}
+                        max={50}
+                        value={aiCount}
+                        onChange={(e) => {
+                          const val = Math.min(50, Math.max(1, Number(e.target.value) || 1));
+                          setAiCount(val);
+                        }}
+                        className="w-full rounded-xl border border-white/20 bg-slate-900/80 px-3 py-2 text-xs font-bold text-white focus:outline-none"
+                        placeholder="Nhập 1 - 50 câu"
+                      />
+                      <span className="text-xs font-semibold text-indigo-200 shrink-0">câu</span>
+                    </div>
+                  ) : (
+                    <select
+                      value={aiCount}
+                      onChange={(e) => {
+                        const val = Number(e.target.value);
+                        if (val === -1) {
+                          setIsCustomAiCount(true);
+                        } else {
+                          setAiCount(val);
+                        }
+                      }}
+                      className="w-full rounded-xl border border-white/20 bg-slate-900/80 px-3 py-2 text-xs font-semibold text-white focus:outline-none"
+                    >
+                      <option value={3}>3 câu</option>
+                      <option value={5}>5 câu</option>
+                      <option value={10}>10 câu</option>
+                      <option value={15}>15 câu</option>
+                      <option value={20}>20 câu</option>
+                      <option value={25}>25 câu</option>
+                      <option value={30}>30 câu</option>
+                      <option value={40}>40 câu</option>
+                      <option value={50}>50 câu (Tối đa)</option>
+                      <option value={-1}>✏️ Tùy chỉnh (1 - 50 câu)...</option>
+                    </select>
+                  )}
                 </div>
 
                 <div>
@@ -741,9 +796,11 @@ export default function ExamBuilderWizardPage() {
                     className="w-full rounded-xl border border-white/20 bg-slate-900/80 px-3 py-2 text-xs font-semibold text-white focus:outline-none"
                   >
                     <option value={15}>15 phút</option>
+                    <option value={30}>30 phút</option>
                     <option value={45}>45 phút</option>
                     <option value={60}>60 phút</option>
                     <option value={90}>90 phút</option>
+                    <option value={120}>120 phút (2 tiếng)</option>
                   </select>
                 </div>
               </div>

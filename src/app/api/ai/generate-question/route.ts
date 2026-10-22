@@ -103,7 +103,7 @@ export async function POST(req: NextRequest) {
     const semester = Number(body.semester) === 2 ? 2 : Number(body.semester) === 0 ? 0 : 1;
     const cognitiveLevel = body.cognitiveLevel || 'thong_hieu';
     const type = body.type || 'mcq';
-    const count = Math.min(Math.max(Number(body.count) || 2, 1), 20);
+    const count = Math.min(Math.max(Number(body.count) || 5, 1), 50);
     const chapterId = body.chapterId || `G${grade}_C1`;
     const topic = String(body.topic || 'Toán học THCS').trim();
     const customPrompt = body.customPrompt ? String(body.customPrompt).trim() : undefined;

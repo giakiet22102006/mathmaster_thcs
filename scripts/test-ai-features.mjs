@@ -14,12 +14,14 @@ import {
   getGeminiClient,
   getAILearningGuidance,
   generateQuestionsWithAI,
+  diagnoseExamWeaknesses,
+  buildAiCacheKey,
 } from '../src/lib/ai-service.ts';
 import { verifyQuestion } from '../src/lib/question-engine/verify.ts';
 import { POST as authPOST } from '../src/app/api/auth/route.ts';
 import { POST as assistantPOST } from '../src/app/api/ai/assistant/route.ts';
 import { POST as generateQuestionPOST, GET as generateQuestionGET } from '../src/app/api/ai/generate-question/route.ts';
-import { buildAiCacheKey } from '../src/lib/ai-service.ts';
+import { POST as diagnoseWeaknessesPOST } from '../src/app/api/ai/diagnose-weaknesses/route.ts';
 import { readServerStateAsync, writeServerStateAsync } from '../src/lib/prisma.ts';
 
 function makeNextRequest(url, { method = 'POST', body, cookieToken, ip = '127.0.0.1' } = {}) {
@@ -307,8 +309,91 @@ async function runAIFeatureTests() {
   assert.ok(maxData.error.includes('hết hạn mức 5/5'), 'Phải báo hết hạn mức 5/5 đề/ngày');
   console.log('✓ [PASS] Test AI 9: Rate Limiting per User (Cooldown 60s & Giới hạn 5 đề thi/ngày) lưu vào Database hoạt động chính xác.');
 
+  // 10. Kiểm thử Chức năng diagnoseExamWeaknesses (Chẩn đoán điểm yếu & lập lộ trình ôn tập)
+  const diagResult = await diagnoseExamWeaknesses({
+    examTitle: 'Đề Kiểm Tra Chương 3 Toán 8',
+    grade: 8,
+    textbook: 'KNTT',
+    totalScore: 6.5,
+    maxScore: 10,
+    correctCount: 7,
+    wrongCount: 3,
+    wrongQuestions: [
+      {
+        id: 'q_fail_1',
+        chapterId: 'G8_C3',
+        topic: 'Định lý Pythagore',
+        cognitiveLevel: 'van_dung',
+        type: 'mcq',
+        content: 'Cho tam giác vuông $ABC$ có hai cạnh góc vuông là 3 và 4. Độ dài cạnh huyền là bao nhiêu?',
+        studentAnswer: '6',
+        correctAnswer: '5',
+        errorCategory: 'CALCULATION_ERROR',
+      },
+      {
+        id: 'q_fail_2',
+        chapterId: 'G8_C3',
+        topic: 'Tam giác đồng dạng',
+        cognitiveLevel: 'van_dung_cao',
+        type: 'mcq',
+        content: 'Chứng minh hai tam giác đồng dạng theo trường hợp c.g.c',
+        studentAnswer: 'B',
+        correctAnswer: 'C',
+        errorCategory: 'CONCEPT_ERROR',
+      },
+    ],
+  });
+  assert.equal(diagResult.ok, true, 'Chẩn đoán điểm yếu phải thành công');
+  assert.ok(diagResult.assessmentSummary.length > 10, 'Phải có nhận xét tổng quan sư phạm');
+  assert.ok(Array.isArray(diagResult.keyWeaknesses), 'Phải có danh sách các điểm yếu');
+  assert.ok(Array.isArray(diagResult.actionablePlan) && diagResult.actionablePlan.length >= 2, 'Phải có lộ trình hành động');
+  assert.ok(diagResult.recommendedPracticePrompt.length > 5, 'Phải có prompt đề xuất luyện tập');
+  console.log('✓ [PASS] Test AI 10: Chức năng diagnoseExamWeaknesses phân tích điểm yếu & lộ trình ôn tập hoạt động chính xác.');
+
+  // 11. Kiểm thử API Route /api/ai/diagnose-weaknesses
+  const unauthDiagReq = makeNextRequest('http://localhost:3000/api/ai/diagnose-weaknesses', {
+    body: { attemptId: 'att_sample' },
+  });
+  const unauthDiagRes = await diagnoseWeaknessesPOST(unauthDiagReq);
+  assert.equal(unauthDiagRes.status, 401, 'Chưa đăng nhập phải bị 401');
+
+  // Tạo một attempt giả lập trong database để test API
+  const testState = await readServerStateAsync();
+  if (!Array.isArray(testState.attempts)) testState.attempts = [];
+  const testAttemptId = `att_test_${Date.now()}`;
+  testState.attempts.push({
+    id: testAttemptId,
+    userId: dbUser.id,
+    examId: 'exam_sample_1',
+    totalScore: 7.0,
+    correctCount: 7,
+    wrongCount: 3,
+    status: 'GRADED',
+    answers: {
+      q1: { value: 'B', isCorrect: false, errorCategory: 'SIGN_ERROR' },
+      q2: { value: 'A', isCorrect: true },
+    },
+  });
+  await writeServerStateAsync(testState);
+
+  const authDiagReq = makeNextRequest('http://localhost:3000/api/ai/diagnose-weaknesses', {
+    cookieToken: validSessionToken,
+    body: { attemptId: testAttemptId },
+  });
+  const authDiagRes = await diagnoseWeaknessesPOST(authDiagReq);
+  assert.equal(authDiagRes.status, 200, 'User hợp lệ chẩn đoán bài thi phải trả về 200');
+  const authDiagData = await authDiagRes.json();
+  assert.equal(authDiagData.ok, true);
+  assert.ok(authDiagData.analysis?.assessmentSummary, 'Phải trả về analysis object');
+
+  // Kiểm tra lưu vào database attempt
+  const verifiedState = await readServerStateAsync();
+  const savedAtt = verifiedState.attempts.find((a) => a.id === testAttemptId);
+  assert.ok(savedAtt.aiWeaknessAnalysis, 'Kết quả phân tích AI phải được lưu vào attempt trong database');
+  console.log('✓ [PASS] Test AI 11: /api/ai/diagnose-weaknesses xác thực phân quyền & lưu chẩn đoán vào Database thành công.');
+
   console.log('================================================================');
-  console.log('🎉 TẤT CẢ 9/9 BÀI KIỂM THỬ TÍNH NĂNG AI ĐỀU ĐẠT CHUẨN (PASS 100%)!');
+  console.log('🎉 TẤT CẢ 11/11 BÀI KIỂM THỬ TÍNH NĂNG AI ĐỀU ĐẠT CHUẨN (PASS 100%)!');
   console.log('================================================================');
 }
 

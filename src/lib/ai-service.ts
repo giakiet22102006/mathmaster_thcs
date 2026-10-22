@@ -168,6 +168,51 @@ export interface AILearningGuidanceResult {
   };
 }
 
+export interface AIDiagnoseExamWeaknessesOptions {
+  examTitle: string;
+  grade: number;
+  textbook?: string;
+  totalScore: number;
+  maxScore: number;
+  correctCount: number;
+  wrongCount: number;
+  wrongQuestions: Array<{
+    id: string;
+    chapterId: string;
+    topic: string;
+    cognitiveLevel: string;
+    type: string;
+    content: string;
+    studentAnswer?: string;
+    correctAnswer: string;
+    errorCategory?: string;
+    solution?: string;
+  }>;
+}
+
+export interface ExamWeaknessItem {
+  area: string;
+  severity: 'high' | 'medium' | 'low';
+  reason: string;
+  suggestedReview: string;
+}
+
+export interface ExamActionStep {
+  step: number;
+  title: string;
+  description: string;
+}
+
+export interface AIDiagnoseExamWeaknessesResult {
+  ok: boolean;
+  requiresApiKey?: boolean;
+  assessmentSummary: string;
+  keyWeaknesses: ExamWeaknessItem[];
+  actionablePlan: ExamActionStep[];
+  recommendedPracticePrompt: string;
+  rawResponse?: string;
+}
+
 // ------------------------------------------------------------------------------
 // SCHEMA CÂU HỎI CHO GENERATE CONTENT (STRUCTURED OUTPUT)
 // ------------------------------------------------------------------------------
@@ -258,11 +303,59 @@ const questionResponseSchema = {
 };
 
 // ------------------------------------------------------------------------------
-// 1. CHỨC NĂNG: TẠO ĐỀ & SINH CÂU HỎI TOÁN BẰNG AI
+// SCHEMA CHẨN ĐOÁN ĐIỂM YẾU BÀI THI CHO GEMINI
+// ------------------------------------------------------------------------------
+
+const weaknessDiagnosticSchema = {
+  type: Type.OBJECT,
+  description: 'Báo cáo chẩn đoán điểm yếu và kế hoạch ôn tập cho học sinh sau khi làm bài thi',
+  properties: {
+    assessmentSummary: {
+      type: Type.STRING,
+      description: 'Nhận xét tổng quan sư phạm về kết quả làm bài của học sinh (ngắn gọn 2-3 câu, động viên và chỉ rõ mức độ)',
+    },
+    keyWeaknesses: {
+      type: Type.ARRAY,
+      description: 'Danh sách các lỗ hổng kiến thức cốt lõi cần khắc phục',
+      items: {
+        type: Type.OBJECT,
+        properties: {
+          area: { type: Type.STRING, description: 'Chuyên đề / Mảng kiến thức bị hổng' },
+          severity: { type: Type.STRING, enum: ['high', 'medium', 'low'], description: 'Mức độ nghiêm trọng' },
+          reason: { type: Type.STRING, description: 'Biểu hiện sai / Nguyên nhân nhầm lẫn' },
+          suggestedReview: { type: Type.STRING, description: 'Chương / Bài học trong SGK cần đọc lại' },
+        },
+        required: ['area', 'severity', 'reason', 'suggestedReview'],
+      },
+    },
+    actionablePlan: {
+      type: Type.ARRAY,
+      description: 'Lộ trình hành động 3 bước giúp học sinh phục hồi điểm số',
+      items: {
+        type: Type.OBJECT,
+        properties: {
+          step: { type: Type.INTEGER, description: 'Số thứ tự bước (1, 2, 3)' },
+          title: { type: Type.STRING, description: 'Tiêu đề bước' },
+          description: { type: Type.STRING, description: 'Mô tả chi tiết việc cần làm' },
+        },
+        required: ['step', 'title', 'description'],
+      },
+    },
+    recommendedPracticePrompt: {
+      type: Type.STRING,
+      description: 'Câu lệnh/chủ đề đề xuất để tạo ngay một đề luyện tập tập trung đúng vào các điểm yếu này',
+    },
+  },
+  required: ['assessmentSummary', 'keyWeaknesses', 'actionablePlan', 'recommendedPracticePrompt'],
+};
+
+// ------------------------------------------------------------------------------
+// 1. CHỨC NĂNG: TẠO ĐỀ & SINH CÂU HỎI TOÁN BẰNG AI (HỖ TRỢ LÊN ĐẾN 50 CÂU)
 // ------------------------------------------------------------------------------
 
 /**
  * Sinh câu hỏi toán THCS tự động bằng AI Gemini và thẩm định qua verifyQuestion
+ * Hỗ trợ tạo từ 1 đến 50 câu (tự động phân chia batch nhỏ khi vượt quá 10 câu)
  */
 export async function generateQuestionsWithAI(
   opts: AIGenerateQuestionsOptions
@@ -282,7 +375,7 @@ export async function generateQuestionsWithAI(
   const semester = Number(opts.semester) === 2 ? 2 : 1;
   const cognitiveLevel = opts.cognitiveLevel || 'thong_hieu';
   const type = opts.type || 'mcq';
-  const count = Math.min(Math.max(Number(opts.count) || 1, 1), 10);
+  const totalCount = Math.min(Math.max(Number(opts.count) || 1, 1), 50);
   const chapterId = opts.chapterId || `G${grade}_C1`;
   const topic = opts.topic || 'Đại số và Hình học THCS';
 
@@ -304,160 +397,167 @@ Quy tắc KaTeX:
 - Tự luận (essay) bắt buộc có rubricSteps với tổng điểm đúng bằng points.
 - Đảm bảo câu hỏi phân hóa đúng mức độ yêu cầu: ${levelDescs[cognitiveLevel]}.`;
 
-  const userPrompt = `Hãy biên soạn ${count} câu hỏi Toán lớp ${grade} (${textbook}, Học kỳ ${semester}).
+  // Phân chia thành các batch tối đa 10 câu để tránh vượt quá giới hạn token đầu ra của Gemini
+  const batchSizes: number[] = [];
+  let rem = totalCount;
+  while (rem > 0) {
+    const cur = Math.min(rem, 10);
+    batchSizes.push(cur);
+    rem -= cur;
+  }
+
+  const verifiedQuestions: EngineQuestion[] = [];
+  const warnings: string[] = [];
+  let qIndex = 1;
+
+  for (let bIdx = 0; bIdx < batchSizes.length; bIdx++) {
+    const curBatchSize = batchSizes[bIdx];
+    const userPrompt = `Hãy biên soạn ${curBatchSize} câu hỏi Toán lớp ${grade} (${textbook}, Học kỳ ${semester}).
 Chương: ${chapterId} (${topic}).
 Mức độ nhận thức: ${cognitiveLevel.toUpperCase()} - ${levelDescs[cognitiveLevel]}.
 Hình thức: ${type === 'mcq' ? 'Trắc nghiệm 4 lựa chọn (mcq)' : 'Tự luận giải chi tiết (essay)'}.
 ${opts.customPrompt ? `Yêu cầu cụ thể từ giáo viên: "${opts.customPrompt}".` : ''}
+${batchSizes.length > 1 ? `(Đợt tạo thứ ${bIdx + 1}/${batchSizes.length}, đảm bảo không trùng lặp đề bài với các câu đã tạo).` : ''}
 ${opts.referenceContext ? `Nội dung tham khảo từ tài liệu/đề bài gốc:\n"""\n${opts.referenceContext.slice(0, 1500)}\n"""` : ''}
 
 Yêu cầu xuất ra định dạng JSON theo schema đã cho.`;
 
-  try {
-    const response = await callGeminiWithResilience(client, {
-      contents: userPrompt,
-      config: {
-        systemInstruction,
-        temperature: 0.2, // Nhiệt độ thấp để đảm bảo tính chính xác toán học
-        responseMimeType: 'application/json',
-        responseJsonSchema: questionResponseSchema,
-      },
-    });
+    try {
+      const response = await callGeminiWithResilience(client, {
+        contents: userPrompt,
+        config: {
+          systemInstruction,
+          temperature: 0.25,
+          responseMimeType: 'application/json',
+          responseJsonSchema: questionResponseSchema,
+        },
+      });
 
-    const rawText = response.text?.trim() || '';
-    if (!rawText) {
-      return { ok: false, error: 'AI không trả về nội dung câu hỏi.' };
-    }
+      const rawText = response.text?.trim() || '';
+      if (!rawText) continue;
 
-    const parsedArray = JSON.parse(rawText);
-    if (!Array.isArray(parsedArray) || parsedArray.length === 0) {
-      return { ok: false, error: 'Định dạng câu hỏi trả về từ AI không hợp lệ.' };
-    }
+      const parsedArray = JSON.parse(rawText);
+      if (!Array.isArray(parsedArray)) continue;
 
-    const verifiedQuestions: EngineQuestion[] = [];
-    const warnings: string[] = [];
+      const now = new Date().toISOString();
+      for (const rawQ of parsedArray) {
+        if (verifiedQuestions.length >= totalCount) break;
 
-    const now = new Date().toISOString();
-    let qIndex = 1;
+        const qId = `ai_${Date.now()}_${Math.random().toString(36).substring(2, 7)}_${qIndex++}`;
+        const qCode = `AI_G${grade}_${cognitiveLevel.toUpperCase()}_${Date.now() % 10000}_${qIndex}`;
+        const qPoints = Number(rawQ.points) > 0 ? Number(rawQ.points) : type === 'mcq' ? 0.25 : 1.0;
 
-    for (const rawQ of parsedArray) {
-      const qId = `ai_${Date.now()}_${Math.random().toString(36).substring(2, 7)}_${qIndex++}`;
-      const qCode = `AI_G${grade}_${cognitiveLevel.toUpperCase()}_${Date.now() % 10000}`;
-      const qPoints = Number(rawQ.points) > 0 ? Number(rawQ.points) : type === 'mcq' ? 0.25 : 1.0;
+        let rubricSteps: RubricStep[] = Array.isArray(rawQ.rubricSteps) && rawQ.rubricSteps.length > 0
+          ? rawQ.rubricSteps.map((r: any) => ({
+              step: String(r.step || ''),
+              points: Number(r.points) || Number((qPoints / rawQ.rubricSteps.length).toFixed(2)),
+            }))
+          : [
+              { step: 'Nêu công thức và điều kiện xác định', points: Number((qPoints * 0.3).toFixed(2)) },
+              { step: 'Thực hiện biến đổi và tính toán', points: Number((qPoints * 0.5).toFixed(2)) },
+              { step: 'Kết luận và đối chiếu nghiệm', points: Number((qPoints * 0.2).toFixed(2)) },
+            ];
 
-      let rubricSteps: RubricStep[] = Array.isArray(rawQ.rubricSteps) && rawQ.rubricSteps.length > 0
-        ? rawQ.rubricSteps.map((r: any) => ({
-            step: String(r.step || ''),
-            points: Number(r.points) || Number((qPoints / rawQ.rubricSteps.length).toFixed(2)),
-          }))
-        : [
-            { step: 'Nêu công thức và điều kiện xác định', points: Number((qPoints * 0.3).toFixed(2)) },
-            { step: 'Thực hiện biến đổi và tính toán', points: Number((qPoints * 0.5).toFixed(2)) },
-            { step: 'Kết luận và đối chiếu nghiệm', points: Number((qPoints * 0.2).toFixed(2)) },
-          ];
+        const rubricSum = rubricSteps.reduce((acc, r) => acc + r.points, 0);
+        if (Math.abs(rubricSum - qPoints) > 0.01 && rubricSteps.length > 0) {
+          rubricSteps[rubricSteps.length - 1].points = Number(
+            (qPoints - (rubricSum - rubricSteps[rubricSteps.length - 1].points)).toFixed(2)
+          );
+        }
 
-      // Đảm bảo tổng rubricSteps khớp với qPoints
-      const rubricSum = rubricSteps.reduce((acc, r) => acc + r.points, 0);
-      if (Math.abs(rubricSum - qPoints) > 0.01 && rubricSteps.length > 0) {
-        rubricSteps[rubricSteps.length - 1].points = Number(
-          (qPoints - (rubricSum - rubricSteps[rubricSteps.length - 1].points)).toFixed(2)
-        );
+        const options: QuestionOption[] | undefined =
+          rawQ.type === 'mcq' && Array.isArray(rawQ.options)
+            ? rawQ.options.map((opt: any, idx: number) => {
+                const label = (['A', 'B', 'C', 'D'][idx] || String(opt.label || 'A')) as any;
+                const isCorrect = String(label).toUpperCase() === String(rawQ.correctAnswer || '').toUpperCase();
+                const defaultErrTypes = ['SIGN_ERROR', 'FORMULA_ERROR', 'CALCULATION_ERROR', 'MISSING_CONDITION'];
+                return {
+                  label,
+                  text: String(opt.text || ''),
+                  errorType: !isCorrect
+                    ? opt.errorType || defaultErrTypes[idx % defaultErrTypes.length]
+                    : undefined,
+                };
+              })
+            : undefined;
+
+        const complexityMeta = {
+          steps: cognitiveLevel === 'van_dung_cao' ? 5 : cognitiveLevel === 'van_dung' ? 3 : 2,
+          techniques:
+            cognitiveLevel === 'van_dung_cao'
+              ? ['inequality_estimation', 'case_analysis', 'algebraic_transformation']
+              : cognitiveLevel === 'van_dung'
+              ? ['factorization', 'domain_check']
+              : ['basic_calculation'],
+          crossTopic: cognitiveLevel === 'van_dung_cao',
+          needsCaseAnalysis: cognitiveLevel === 'van_dung_cao',
+          modeling: false,
+          estMinutes: cognitiveLevel === 'van_dung_cao' ? 8 : cognitiveLevel === 'van_dung' ? 4 : 2,
+        };
+
+        const engineQ: EngineQuestion = {
+          id: qId,
+          code: qCode,
+          grade,
+          textbooks: [textbook],
+          semester: semester as 1 | 2,
+          chapterId,
+          lesson: topic,
+          topic,
+          problemType: opts.customPrompt ? 'AI_CUSTOM' : 'AI_GENERATED',
+          type: (rawQ.type === 'mcq' ? 'mcq' : 'essay') as QuestionType,
+          difficulty:
+            cognitiveLevel === 'nhan_biet'
+              ? 'easy'
+              : cognitiveLevel === 'thong_hieu'
+              ? 'medium'
+              : 'hard',
+          cognitiveLevel,
+          complexity: complexityMeta,
+          points: qPoints,
+          content: String(rawQ.content || '').trim(),
+          options,
+          correctAnswer: String(rawQ.correctAnswer || '').trim(),
+          acceptedAnswers: [String(rawQ.correctAnswer || '').trim()],
+          solution: String(rawQ.solution || '').trim(),
+          rubricSteps,
+          keyFormula: rawQ.keyFormula ? String(rawQ.keyFormula) : undefined,
+          commonMistake: rawQ.commonMistake ? String(rawQ.commonMistake) : undefined,
+          source: 'AI Gemini 3.8 Flash (GDPT 2018)',
+          verificationStatus: 'verified',
+          verifiedBy: 'AI_GEMINI_VERIFIED',
+          verifiedAt: now,
+          version: 1,
+        };
+
+        const vResult = verifyQuestion(engineQ);
+        if (vResult.valid) {
+          verifiedQuestions.push(engineQ);
+        } else {
+          warnings.push(`Câu hỏi ${qCode} bị loại: ${vResult.errors.join('; ')}`);
+        }
       }
-
-      const options: QuestionOption[] | undefined =
-        rawQ.type === 'mcq' && Array.isArray(rawQ.options)
-          ? rawQ.options.map((opt: any, idx: number) => {
-              const label = (['A', 'B', 'C', 'D'][idx] || String(opt.label || 'A')) as any;
-              const isCorrect = String(label).toUpperCase() === String(rawQ.correctAnswer || '').toUpperCase();
-              const defaultErrTypes = ['SIGN_ERROR', 'FORMULA_ERROR', 'CALCULATION_ERROR', 'MISSING_CONDITION'];
-              return {
-                label,
-                text: String(opt.text || ''),
-                errorType: !isCorrect
-                  ? opt.errorType || defaultErrTypes[idx % defaultErrTypes.length]
-                  : undefined,
-              };
-            })
-          : undefined;
-
-      const complexityMeta = {
-        steps: cognitiveLevel === 'van_dung_cao' ? 5 : cognitiveLevel === 'van_dung' ? 3 : 2,
-        techniques:
-          cognitiveLevel === 'van_dung_cao'
-            ? ['inequality_estimation', 'case_analysis', 'algebraic_transformation']
-            : cognitiveLevel === 'van_dung'
-            ? ['factorization', 'domain_check']
-            : ['basic_calculation'],
-        crossTopic: cognitiveLevel === 'van_dung_cao',
-        needsCaseAnalysis: cognitiveLevel === 'van_dung_cao',
-        modeling: false,
-        estMinutes: cognitiveLevel === 'van_dung_cao' ? 8 : cognitiveLevel === 'van_dung' ? 4 : 2,
-      };
-
-      const engineQ: EngineQuestion = {
-        id: qId,
-        code: qCode,
-        grade,
-        textbooks: [textbook],
-        semester: semester as 1 | 2,
-        chapterId,
-        lesson: topic,
-        topic,
-        problemType: opts.customPrompt ? 'AI_CUSTOM' : 'AI_GENERATED',
-        type: (rawQ.type === 'mcq' ? 'mcq' : 'essay') as QuestionType,
-        difficulty:
-          cognitiveLevel === 'nhan_biet'
-            ? 'easy'
-            : cognitiveLevel === 'thong_hieu'
-            ? 'medium'
-            : 'hard',
-        cognitiveLevel,
-        complexity: complexityMeta,
-        points: qPoints,
-        content: String(rawQ.content || '').trim(),
-        options,
-        correctAnswer: String(rawQ.correctAnswer || '').trim(),
-        acceptedAnswers: [String(rawQ.correctAnswer || '').trim()],
-        solution: String(rawQ.solution || '').trim(),
-        rubricSteps,
-        keyFormula: rawQ.keyFormula ? String(rawQ.keyFormula) : undefined,
-        commonMistake: rawQ.commonMistake ? String(rawQ.commonMistake) : undefined,
-        source: 'AI Gemini 3.8 Flash (GDPT 2018)',
-        verificationStatus: 'verified',
-        verifiedBy: 'AI_GEMINI_VERIFIED',
-        verifiedAt: now,
-        version: 1,
-      };
-
-      // Thẩm định độc lập qua verifyQuestion (KaTeX parser, 4 lựa chọn MCQ, logic điểm)
-      const vResult = verifyQuestion(engineQ);
-      if (vResult.valid) {
-        verifiedQuestions.push(engineQ);
-      } else {
-        warnings.push(`Câu hỏi ${qCode} bị loại vì không đạt chuẩn thẩm định: ${vResult.errors.join('; ')}`);
-      }
+    } catch (err: any) {
+      warnings.push(`Batch ${bIdx + 1} gặp lỗi: ${err.message || String(err)}`);
     }
 
-    if (verifiedQuestions.length === 0) {
-      return {
-        ok: false,
-        error: `Không có câu hỏi nào vượt qua cổng thẩm định toán học (${warnings.join(' | ')})`,
-        warnings,
-      };
-    }
+    if (verifiedQuestions.length >= totalCount) break;
+  }
 
-    return {
-      ok: true,
-      requiresApiKey: false,
-      questions: verifiedQuestions,
-      warnings: warnings.length > 0 ? warnings : undefined,
-    };
-  } catch (err: any) {
+  if (verifiedQuestions.length === 0) {
     return {
       ok: false,
-      error: `Lỗi kết nối Gemini API: ${err.message || String(err)}`,
+      error: `Không có câu hỏi nào vượt qua cổng thẩm định toán học (${warnings.join(' | ')})`,
+      warnings,
     };
   }
+
+  return {
+    ok: true,
+    requiresApiKey: false,
+    questions: verifiedQuestions.slice(0, totalCount),
+    warnings: warnings.length > 0 ? warnings : undefined,
+  };
 }
 
 // ------------------------------------------------------------------------------
@@ -670,5 +770,196 @@ Nhiệm vụ:
     return { ok: true, text };
   } catch (err: any) {
     return { ok: false, text: '', error: err.message || 'Lỗi xử lý tài liệu với Gemini' };
+  }
+}
+
+// ------------------------------------------------------------------------------
+// 4. CHỨC NĂNG: AI CHẨN ĐOÁN ĐIỂM YẾU BÀI THI & LẬP LỘ TRÌNH ÔN TẬP
+// ------------------------------------------------------------------------------
+
+/**
+ * Thuật toán suy luận chẩn đoán điểm yếu dựa trên quy tắc sư phạm (khi chưa cấu hình API key hoặc chế độ dự phòng)
+ */
+export function generateRuleBasedExamDiagnosis(
+  opts: AIDiagnoseExamWeaknessesOptions
+): AIDiagnoseExamWeaknessesResult {
+  const errorMap: Record<string, number> = {};
+  const topicMap: Record<string, number> = {};
+
+  for (const q of opts.wrongQuestions) {
+    const err = q.errorCategory || 'CALCULATION_ERROR';
+    errorMap[err] = (errorMap[err] || 0) + 1;
+    const topicKey = q.topic || q.chapterId || 'Toán THCS';
+    topicMap[topicKey] = (topicMap[topicKey] || 0) + 1;
+  }
+
+  const ERROR_REASONS: Record<string, { label: string; reason: string; review: string }> = {
+    SIGN_ERROR: {
+      label: 'Kỹ năng biến đổi dấu (+/-)',
+      reason: 'Dễ nhầm dấu khi chuyển vế, bỏ dấu ngoặc có dấu trừ phía trước hoặc nhân/chia hai vế với số âm.',
+      review: 'Ôn lại quy tắc đổi dấu khi chuyển vế và quy tắc nhân chia số hữu tỉ trong SGK.',
+    },
+    MISSING_CONDITION: {
+      label: 'Điều kiện xác định & Đối chiếu nghiệm',
+      reason: 'Quên đặt điều kiện mẫu thức khác 0, biểu thức dưới căn không âm, hoặc quên đối chiếu nghiệm ở bước kết luận.',
+      review: 'Luôn viết ĐKXĐ ngay dòng đầu tiên và đóng khung bước đối chiếu điều kiện ở dòng cuối cùng.',
+    },
+    FORMULA_ERROR: {
+      label: 'Hệ thống công thức & Định lý cốt lõi',
+      reason: 'Nhầm lẫn hằng đẳng thức đáng nhớ, công thức diện tích/thể tích hoặc hệ thức lượng.',
+      review: 'Viết lại bảng hằng đẳng thức và các công thức hình học ra giấy nháp trước khi làm bài.',
+    },
+    CONCEPT_ERROR: {
+      label: 'Khái niệm & Bản chất định nghĩa',
+      reason: 'Chưa hiểu sâu bản chất định lý, nhầm lẫn giữa giả thiết và kết luận trong các bài toán chứng minh.',
+      review: 'Đọc lại kỹ phần đóng khung lý thuyết trọng tâm và các bài toán ví dụ trong SGK.',
+    },
+    METHOD_ERROR: {
+      label: 'Phương pháp giải & Hướng tư duy đại số',
+      reason: 'Chọn sai hướng biến đổi, chưa nhận diện được bài toán quen thuộc để áp dụng phương pháp chuẩn.',
+      review: 'Luyện tập các bài toán mẫu theo từng dạng cụ thể từ mức Thông hiểu trước khi lên Vận dụng.',
+    },
+    CALCULATION_ERROR: {
+      label: 'Độ chuẩn xác trong tính toán số học',
+      reason: 'Sai sót trong các phép tính cộng trừ nhân chia cơ bản hoặc rút gọn phân số vội vàng.',
+      review: 'Dành 5-7 phút cuối giờ để kiểm tra lại các phép tính nhẩm và các bước trung gian.',
+    },
+  };
+
+  const weaknessItems: ExamWeaknessItem[] = [];
+
+  for (const [topic, count] of Object.entries(topicMap)) {
+    const relatedErr = Object.keys(errorMap)[0] || 'CALCULATION_ERROR';
+    const info = ERROR_REASONS[relatedErr] || ERROR_REASONS['CALCULATION_ERROR'];
+    weaknessItems.push({
+      area: `Chuyên đề: ${topic}`,
+      severity: count >= 2 ? 'high' : 'medium',
+      reason: `${info.reason} (Em bị sai ${count} câu ở dạng bài này).`,
+      suggestedReview: info.review,
+    });
+  }
+
+  const topTopics = Object.keys(topicMap).slice(0, 3).join(', ');
+
+  return {
+    ok: true,
+    requiresApiKey: false,
+    assessmentSummary: `Qua bài kiểm tra "${opts.examTitle}", em đạt ${opts.totalScore}/${opts.maxScore} điểm (${opts.correctCount}/${opts.correctCount + opts.wrongCount} câu đúng). Em còn bị mất điểm ở mảng ${topTopics || 'kiến thức vừa làm'}. Dưới đây là các lỗ hổng kiến thức cốt lõi và lộ trình phục hồi điểm số dành riêng cho em.`,
+    keyWeaknesses: weaknessItems,
+    actionablePlan: [
+      {
+        step: 1,
+        title: 'Bước 1: Rà soát lại lý thuyết & công thức',
+        description: `Đọc lại các bài học liên quan đến ${topTopics || 'chuyên đề này'} trong SGK ${opts.textbook || 'KNTT'}.`,
+      },
+      {
+        step: 2,
+        title: 'Bước 2: Luyện tập khắc phục lỗi',
+        description: 'Tập trung làm lại các câu bị sai, chú ý khắc phục các lỗi sai dấu, điều kiện xác định và nhầm công thức.',
+      },
+      {
+        step: 3,
+        title: 'Bước 3: Làm một đề thi tương đương ngắn (5–10 câu)',
+        description: 'Bấm nút "Tạo Đề Luyện Điểm Yếu" bên dưới để làm ngay một bộ đề tập trung khắc phục triệt để các lỗi này.',
+      },
+    ],
+    recommendedPracticePrompt: `Toán ${opts.grade} - Luyện tập chuyên sâu ${topTopics || 'các dạng bài còn sai sót'}`,
+  };
+}
+
+/**
+ * AI Sư Phạm: Phân tích toàn diện kết quả bài làm của học sinh, tìm ra điểm yếu & lập kế hoạch ôn tập
+ */
+export async function diagnoseExamWeaknesses(
+  opts: AIDiagnoseExamWeaknessesOptions
+): Promise<AIDiagnoseExamWeaknessesResult> {
+  // Nếu học sinh đúng 100%
+  if (opts.wrongCount === 0 || opts.wrongQuestions.length === 0) {
+    return {
+      ok: true,
+      requiresApiKey: false,
+      assessmentSummary: `Chúc mừng em đã hoàn thành xuất sắc bài thi "${opts.examTitle}" với điểm số tối đa (${opts.totalScore}/${opts.maxScore})! Em đã nắm rất vững kiến thức và kỹ năng biến đổi toán học của phần này.`,
+      keyWeaknesses: [],
+      actionablePlan: [
+        {
+          step: 1,
+          title: 'Thử thách nâng cao (VDC)',
+          description: 'Chuyển sang thử sức với các bài toán Vận dụng cao hoặc các đề thi học sinh giỏi cấp trường/quận.',
+        },
+        {
+          step: 2,
+          title: 'Duy trì tốc độ làm bài',
+          description: 'Rèn luyện khả năng tính toán nhanh và phản xạ làm đề dưới áp lực thời gian ngắn hơn.',
+        },
+      ],
+      recommendedPracticePrompt: `Toán ${opts.grade} - Các bài toán Vận dụng cao phân hóa và bài toán thực tế nâng cao`,
+    };
+  }
+
+  const client = getGeminiClient();
+  if (!client) {
+    return generateRuleBasedExamDiagnosis(opts);
+  }
+
+  const wrongQuestionsSummary = opts.wrongQuestions.map((q, idx) => ({
+    stt: idx + 1,
+    chapterId: q.chapterId,
+    topic: q.topic,
+    cognitiveLevel: q.cognitiveLevel,
+    type: q.type,
+    content: q.content.slice(0, 300),
+    studentAnswer: q.studentAnswer || '(Không trả lời hoặc làm sai)',
+    correctAnswer: q.correctAnswer,
+    errorCategory: q.errorCategory || 'Lỗi chưa xác định',
+  }));
+
+  const systemInstruction = `Bạn là Chuyên gia Cố vấn Học tập & Giáo viên Sư phạm Toán THCS hàng đầu Việt Nam theo Chương trình GDPT 2018.
+Nhiệm vụ: Xem xét kết quả bài kiểm tra Toán của học sinh, phân tích khách quan các lỗi sai, tìm ra các điểm yếu cốt lõi (kiến thức hổng, phương pháp sai, nhầm lẫn công thức, quên ĐKXĐ, v.v.) và đưa ra lộ trình hành động 3 bước rõ ràng để giúp học sinh tiến bộ.
+Giọng điệu: Thấu hiểu, động viên sư phạm, khoa học, chỉ dẫn rõ ràng.`;
+
+  const userPrompt = `Dưới đây là kết quả bài thi Toán của học sinh:
+- Đề thi: "${opts.examTitle}"
+- Khối lớp: Lớp ${opts.grade} (SGK ${opts.textbook || 'KNTT'})
+- Điểm đạt được: ${opts.totalScore} / ${opts.maxScore} (Đúng: ${opts.correctCount}, Sai/Chưa trọn vẹn: ${opts.wrongCount} câu)
+
+Chi tiết các câu học sinh làm sai:
+${JSON.stringify(wrongQuestionsSummary, null, 2)}
+
+Hãy phân tích toàn diện:
+1. Đánh giá tổng quan năng lực của học sinh qua bài thi này.
+2. Liệt kê các điểm yếu then chốt (chuyên đề hổng, lý do sai, SGK cần xem lại).
+3. Lập lộ trình 3 bước khắc phục ngắn gọn, khả thi.
+4. Đề xuất câu lệnh/chủ đề cụ thể để học sinh bấm tạo ngay một đề ôn luyện khắc phục điểm yếu này.`;
+
+  try {
+    const response = await callGeminiWithResilience(client, {
+      contents: userPrompt,
+      config: {
+        systemInstruction,
+        temperature: 0.3,
+        responseMimeType: 'application/json',
+        responseJsonSchema: weaknessDiagnosticSchema,
+      },
+    });
+
+    const raw = response.text?.trim() || '';
+    if (!raw) {
+      return generateRuleBasedExamDiagnosis(opts);
+    }
+
+    const parsed = JSON.parse(raw);
+    return {
+      ok: true,
+      requiresApiKey: false,
+      assessmentSummary: parsed.assessmentSummary || 'Phân tích kết quả bài thi hoàn tất.',
+      keyWeaknesses: Array.isArray(parsed.keyWeaknesses) ? parsed.keyWeaknesses : [],
+      actionablePlan: Array.isArray(parsed.actionablePlan) ? parsed.actionablePlan : [],
+      recommendedPracticePrompt:
+        parsed.recommendedPracticePrompt || `Toán ${opts.grade} - Ôn luyện phục hồi điểm yếu`,
+      rawResponse: raw,
+    };
+  } catch (err: any) {
+    console.error('Lỗi khi gọi Gemini chẩn đoán bài thi:', err);
+    return generateRuleBasedExamDiagnosis(opts);
   }
 }
