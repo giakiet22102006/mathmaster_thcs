@@ -282,12 +282,13 @@ async function extractFromPdf(buffer: Buffer): Promise<ExtractionResult> {
   }
 }
 
+import { extractDocumentWithGemini, isGeminiConfigured } from '@/lib/ai-service';
+
 /**
  * Xử lý hình ảnh (PNG, JPG) hoặc PDF scan qua Gemini Vision API (khi có GEMINI_API_KEY thật)
  */
 async function callGeminiVision(buffer: Buffer, mimeType: string): Promise<ExtractionResult> {
-  const apiKey = process.env.GEMINI_API_KEY?.trim();
-  if (!apiKey) {
+  if (!isGeminiConfigured()) {
     return {
       ok: false,
       text: '',
@@ -300,76 +301,24 @@ async function callGeminiVision(buffer: Buffer, mimeType: string): Promise<Extra
   }
 
   try {
-    const base64Data = buffer.toString('base64');
-    const prompt = `Bạn là trợ lý toán học THCS chuyên trích xuất đề thi từ hình ảnh/tài liệu.
-Hãy trích xuất toàn bộ văn bản câu hỏi, phương án lựa chọn, hình thức, đáp án và lời giải từ tài liệu này.
-Giữ nguyên định dạng công thức toán học dưới dạng LaTeX kẹp giữa dấu $ (ví dụ $x^2 + 2x = 0$, $\\frac{a}{b}$).
-Đảm bảo đánh số rõ ràng theo từng câu: Câu 1, Câu 2... Phương án: A. B. C. D.
-Không thêm các lời chào hỏi hay giải thích phụ ngoài nội dung đề thi.`;
-
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 30000); // 30s timeout
-
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [
-            {
-              parts: [
-                { text: prompt },
-                {
-                  inlineData: {
-                    mimeType,
-                    data: base64Data,
-                  },
-                },
-              ],
-            },
-          ],
-          generationConfig: {
-            temperature: 0.1,
-            maxOutputTokens: 4096,
-          },
-        }),
-        signal: controller.signal,
-      }
-    );
-    clearTimeout(timeout);
-
-    if (!response.ok) {
-      const errBody = await response.text();
+    const res = await extractDocumentWithGemini(buffer, mimeType);
+    if (!res.ok) {
       return {
         ok: false,
         text: '',
         format: mimeType,
-        warnings: [`Gemini API trả về mã lỗi HTTP ${response.status}: ${errBody.slice(0, 150)}`],
-        errorMessage: `Lỗi kết nối Gemini Vision: ${response.statusText}`,
+        warnings: [res.error || 'Gemini không nhận diện được văn bản trong ảnh/tài liệu này.'],
+        errorMessage: res.error || 'Không trích xuất được văn bản từ ảnh.',
       };
     }
 
-    const data = await response.json();
-    const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
-    const trimmed = rawText.trim();
-
-    if (!trimmed) {
-      return {
-        ok: false,
-        text: '',
-        format: mimeType,
-        warnings: ['Gemini không nhận diện được văn bản trong ảnh/tài liệu này.'],
-        errorMessage: 'Không trích xuất được văn bản từ ảnh.',
-      };
-    }
-
+    const trimmed = res.text.trim();
     return {
       ok: true,
       text: trimmed,
       format: mimeType,
       wordCount: trimmed.split(/\s+/).length,
-      warnings: ['Nội dung được trích xuất bằng AI Gemini Vision (Cần giáo viên duyệt lại).'],
+      warnings: ['Nội dung được trích xuất bằng AI Gemini 3.8 Flash (Cần giáo viên duyệt lại).'],
       hasMathFormulas: trimmed.includes('$'),
     };
   } catch (err: any) {

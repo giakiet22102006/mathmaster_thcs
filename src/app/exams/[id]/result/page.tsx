@@ -13,6 +13,7 @@ import {
   CognitiveBadge,
   MathText,
 } from '@/components/MathMasterShell';
+import { AITutorWidget } from '@/components/AITutorWidget';
 
 const ERROR_CATEGORY_LABELS: Record<string, string> = {
   SIGN_ERROR: 'Lỗi sai dấu (+/-)',
@@ -36,6 +37,9 @@ function ExamResultContent() {
   const [questions, setQuestions] = useState<any[]>([]);
   const [printMode, setPrintMode] = useState<'with_solution' | 'blank_exam'>('with_solution');
   const [loading, setLoading] = useState<boolean>(true);
+  const [aiTutorOpen, setAiTutorOpen] = useState<boolean>(false);
+  const [selectedQuestion, setSelectedQuestion] = useState<any>(null);
+  const [selectedAnswer, setSelectedAnswer] = useState<string>('');
 
   useEffect(() => {
     async function loadResult() {
@@ -339,12 +343,39 @@ function ExamResultContent() {
                       <MathText text={q.commonMistake} />
                     </div>
                   )}
+
+                  {!isRight && (
+                    <div className="pt-2 flex justify-end print:hidden">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedQuestion(q);
+                          setSelectedAnswer(String(rec.value || rec.workings || ''));
+                          setAiTutorOpen(true);
+                        }}
+                        className="flex items-center gap-1.5 rounded-xl border border-indigo-300 bg-indigo-50 px-3 py-1.5 text-xs font-bold text-indigo-900 hover:bg-indigo-100 shadow-sm transition"
+                      >
+                        <span>🤖</span>
+                        <span>Hỏi Gia sư AI: Tại sao em làm sai câu này?</span>
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
           );
         })}
       </div>
+
+      {selectedQuestion && (
+        <AITutorWidget
+          isOpen={aiTutorOpen}
+          onClose={() => setAiTutorOpen(false)}
+          question={selectedQuestion}
+          initialMode="diagnose_mistake"
+          studentAnswer={selectedAnswer}
+        />
+      )}
     </AppShell>
   );
 }

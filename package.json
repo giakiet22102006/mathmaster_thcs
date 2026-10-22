@@ -25,12 +25,14 @@
     "bank:audit": "tsx scripts/bank-audit.mjs",
     "audit:difficulty": "tsx scripts/audit-difficulty.mjs",
     "test:documents": "tsx scripts/test-documents.mjs",
+    "test:ai": "tsx scripts/test-ai-features.mjs",
     "dev:lan": "node scripts/start-lan.mjs"
   },
   "prisma": {
     "seed": "node prisma/seed.mjs"
   },
   "dependencies": {
+    "@google/genai": "^2.30.0",
     "@prisma/client": "5.22.0",
     "@types/katex": "^0.16.8",
     "@vercel/blob": "^2.8.2",

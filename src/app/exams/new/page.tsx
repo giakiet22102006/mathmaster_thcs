@@ -64,6 +64,52 @@ export default function ExamBuilderWizardPage() {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [apiError, setApiError] = useState<any>(null);
 
+  // Trạng thái Sinh câu hỏi bằng AI Gemini
+  const [aiPrompt, setAiPrompt] = useState<string>('');
+  const [aiLevel, setAiLevel] = useState<CognitiveLevel>('van_dung');
+  const [aiType, setAiType] = useState<'mcq' | 'essay'>('mcq');
+  const [aiCount, setAiCount] = useState<number>(2);
+  const [aiGenerating, setAiGenerating] = useState<boolean>(false);
+  const [aiSuccessMsg, setAiSuccessMsg] = useState<string | null>(null);
+  const [aiErrorMsg, setAiErrorMsg] = useState<string | null>(null);
+
+  async function handleGenerateAIQuestions() {
+    setAiGenerating(true);
+    setAiSuccessMsg(null);
+    setAiErrorMsg(null);
+    try {
+      const res = await fetch('/api/ai/generate-question', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          grade,
+          textbook: textbook === 'ALL' ? 'KNTT' : textbook,
+          semester,
+          chapterId: selectedChapters[0] || `G${grade}_C1`,
+          cognitiveLevel: aiLevel,
+          type: aiType,
+          count: aiCount,
+          customPrompt: aiPrompt.trim() || undefined,
+          saveToBank: true,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        setAiErrorMsg(data.error || data.message || 'Không thể sinh câu hỏi bằng AI.');
+      } else {
+        const newQs = data.questions || [];
+        setAllVerifiedQuestions((prev) => [...newQs, ...prev]);
+        setAiSuccessMsg(`🎉 Đã sinh và thẩm định thành công ${newQs.length} câu hỏi mới (${aiLevel}) đưa vào đề!`);
+        setAiPrompt('');
+      }
+    } catch {
+      setAiErrorMsg('Lỗi kết nối khi gửi yêu cầu đến Gemini AI.');
+    } finally {
+      setAiGenerating(false);
+    }
+  }
+
   useEffect(() => {
     async function init() {
       const res = await fetch('/api/state?scope=exam-builder');
@@ -969,6 +1015,116 @@ export default function ExamBuilderWizardPage() {
               ✅ Ngân hàng câu hỏi khả dụng đáp ứng đủ 100% ma trận độ khó này!
             </div>
           )}
+        </div>
+
+        {/* Khối Tạo Câu Hỏi Bằng AI Gemini */}
+        <div className="rounded-2xl border border-indigo-200 bg-gradient-to-br from-indigo-50/60 via-white to-sky-50/40 p-5 shadow-sm space-y-4">
+          <div className="flex items-center justify-between border-b border-indigo-100 pb-3">
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-600 text-white font-bold text-base shadow-sm">
+                🤖
+              </div>
+              <div>
+                <h3 className="font-bold text-sm text-slate-900">Sinh Câu Hỏi Bằng AI Gemini 3.8 Flash</h3>
+                <p className="text-[11px] text-slate-500">
+                  Tự động biên soạn câu hỏi chuẩn GDPT 2018 theo prompt, thẩm định qua verifyQuestion và đưa vào đề
+                </p>
+              </div>
+            </div>
+            <span className="rounded-full bg-indigo-100 px-2.5 py-1 text-[11px] font-bold text-indigo-700">
+              AI Engine
+            </span>
+          </div>
+
+          <div className="space-y-3 text-xs">
+            <div>
+              <label className="font-bold text-slate-700 block mb-1">
+                Yêu cầu nội dung cụ thể (Prompt tuỳ biến):
+              </label>
+              <input
+                type="text"
+                value={aiPrompt}
+                onChange={(e) => setAiPrompt(e.target.value)}
+                placeholder="Ví dụ: 2 câu toán thực tế chuyển động đều, hoặc bài toán cực trị hình học lớp 8..."
+                className="w-full rounded-xl border border-slate-300 px-3.5 py-2 text-xs text-slate-900 focus:border-indigo-500 focus:outline-none"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div>
+                <label className="font-bold text-slate-700 block mb-1">Mức độ nhận thức:</label>
+                <select
+                  value={aiLevel}
+                  onChange={(e) => setAiLevel(e.target.value as CognitiveLevel)}
+                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs font-semibold"
+                >
+                  <option value="nhan_biet">Nhận biết (NB)</option>
+                  <option value="thong_hieu">Thông hiểu (TH)</option>
+                  <option value="van_dung">Vận dụng (VD)</option>
+                  <option value="van_dung_cao">Vận dụng cao (VDC)</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="font-bold text-slate-700 block mb-1">Hình thức:</label>
+                <select
+                  value={aiType}
+                  onChange={(e) => setAiType(e.target.value as 'mcq' | 'essay')}
+                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs font-semibold"
+                >
+                  <option value="mcq">Trắc nghiệm 4 lựa chọn (MCQ)</option>
+                  <option value="essay">Tự luận giải chi tiết (Essay)</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="font-bold text-slate-700 block mb-1">Số lượng câu:</label>
+                <select
+                  value={aiCount}
+                  onChange={(e) => setAiCount(Number(e.target.value))}
+                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs font-semibold"
+                >
+                  <option value={1}>1 câu</option>
+                  <option value={2}>2 câu</option>
+                  <option value={3}>3 câu</option>
+                  <option value={5}>5 câu</option>
+                </select>
+              </div>
+            </div>
+
+            {aiSuccessMsg && (
+              <div className="rounded-xl border border-emerald-300 bg-emerald-50 p-3 text-xs text-emerald-900 font-semibold">
+                {aiSuccessMsg}
+              </div>
+            )}
+
+            {aiErrorMsg && (
+              <div className="rounded-xl border border-amber-300 bg-amber-50 p-3 text-xs text-amber-900">
+                ⚠️ {aiErrorMsg}
+              </div>
+            )}
+
+            <div className="flex justify-end pt-1">
+              <button
+                type="button"
+                onClick={handleGenerateAIQuestions}
+                disabled={aiGenerating}
+                className="flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2 text-xs font-bold text-white shadow hover:bg-indigo-700 disabled:opacity-50 transition"
+              >
+                {aiGenerating ? (
+                  <>
+                    <div className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                    <span>Gemini đang biên soạn & thẩm định...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>✨</span>
+                    <span>Sinh câu hỏi & Đưa vào đề ngay</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 

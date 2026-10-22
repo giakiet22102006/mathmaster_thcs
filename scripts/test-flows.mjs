@@ -1059,8 +1059,14 @@ async function runTests() {
     execSync('npx tsx scripts/test-question-engine.mjs', { stdio: 'pipe' });
     console.log('✓ [PASS] Test 17: Parametric Question Engine (276 Templates, 4 Khối x 3 Bộ Sách x 3 Mức Độ, Thẩm định độc lập & Tạo đề Zero-422) đạt chuẩn 100%');
 
+    // -------------------------------------------------------------------------
+    // Test 18: Tích hợp AI Gemini (Socratic Tutoring, Mistake Diagnosis, AI Gen)
+    // -------------------------------------------------------------------------
+    execSync('npx tsx scripts/test-ai-features.mjs', { stdio: 'pipe' });
+    console.log('✓ [PASS] Test 18: Tích hợp AI Gemini (Socratic Tutoring, Mistake Diagnosis, AI Question Generation & Rate Limit) đạt chuẩn 100% (7/7)');
+
     console.log('================================================================');
-    console.log('🎉 TẤT CẢ 17 BÀI KIỂM THỬ TỰ ĐỘNG ĐỀU ĐẠT (17/17 PASS)!');
+    console.log('🎉 TẤT CẢ 18 BÀI KIỂM THỬ TỰ ĐỘNG ĐỀU ĐẠT (18/18 PASS)!');
     console.log('================================================================');
   } finally {
     process.env.DATABASE_URL = savedDbUrl;

@@ -14,6 +14,7 @@ import {
   MathSymbolKeyboard,
   MathText,
 } from '@/components/MathMasterShell';
+import { AITutorWidget } from '@/components/AITutorWidget';
 
 function PracticeContent() {
   const router = useRouter();
@@ -34,6 +35,8 @@ function PracticeContent() {
   const [checkResult, setCheckResult] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [creatingAdaptive, setCreatingAdaptive] = useState<boolean>(false);
+  const [aiTutorOpen, setAiTutorOpen] = useState<boolean>(false);
+  const [aiTutorMode, setAiTutorMode] = useState<'socratic_hint' | 'diagnose_mistake' | 'chat'>('socratic_hint');
 
   useEffect(() => {
     async function init() {
@@ -211,13 +214,27 @@ function PracticeContent() {
               </span>
             </div>
 
-            <button
-              type="button"
-              onClick={() => setRevealedHints((h) => Math.min(3, h + 1))}
-              className="rounded-xl border border-amber-300 bg-amber-50 px-3 py-1.5 text-xs font-bold text-amber-900 hover:bg-amber-100"
-            >
-              💡 Xem gợi ý từng bước ({revealedHints}/3)
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setRevealedHints((h) => Math.min(3, h + 1))}
+                className="rounded-xl border border-amber-300 bg-amber-50 px-3 py-1.5 text-xs font-bold text-amber-900 hover:bg-amber-100"
+              >
+                💡 Xem gợi ý từng bước ({revealedHints}/3)
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setAiTutorMode('socratic_hint');
+                  setAiTutorOpen(true);
+                }}
+                className="flex items-center gap-1.5 rounded-xl border border-indigo-300 bg-indigo-50 px-3 py-1.5 text-xs font-bold text-indigo-900 hover:bg-indigo-100 shadow-sm"
+              >
+                <span>🤖</span>
+                <span>Gia sư AI</span>
+              </button>
+            </div>
           </div>
 
           <div className="text-base md:text-lg font-medium text-slate-900">
@@ -300,6 +317,21 @@ function PracticeContent() {
                 <strong>Lời giải chi tiết: </strong>
                 <MathText text={checkResult.solution} />
               </div>
+              {!checkResult.isCorrect && (
+                <div className="pt-1">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setAiTutorMode('diagnose_mistake');
+                      setAiTutorOpen(true);
+                    }}
+                    className="flex items-center gap-1.5 rounded-xl border border-rose-300 bg-rose-100 px-3 py-1.5 text-xs font-bold text-rose-900 hover:bg-rose-200 transition"
+                  >
+                    <span>🔍</span>
+                    <span>Hỏi AI vì sao em sai câu này</span>
+                  </button>
+                </div>
+              )}
             </div>
           )}
 
@@ -343,6 +375,17 @@ function PracticeContent() {
             </button>
           </div>
         </div>
+      )}
+
+      {currentQ && (
+        <AITutorWidget
+          isOpen={aiTutorOpen}
+          onClose={() => setAiTutorOpen(false)}
+          question={currentQ}
+          initialMode={aiTutorMode}
+          studentAnswer={answer}
+          studentWorkings={workings}
+        />
       )}
     </AppShell>
   );
