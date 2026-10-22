@@ -19,6 +19,64 @@ import type {
 } from './question-engine/types';
 
 export const GEMINI_MODEL = 'gemini-3.8-flash';
+export const GEMINI_FALLBACK_MODEL = 'gemini-3.5-flash-lite';
+
+/**
+ * Chuẩn hoá key cache cho đề thi và câu hỏi AI sinh
+ */
+export function buildAiCacheKey(params: {
+  grade: number;
+  textbook?: string;
+  semester?: number;
+  chapterId?: string;
+  topic?: string;
+  cognitiveLevel?: string;
+  type?: string;
+  customPrompt?: string;
+}): string {
+  const norm = (str?: string) =>
+    (str || '')
+      .toLowerCase()
+      .trim()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^\w\d]+/g, '_')
+      .replace(/^_+|_+$/g, '');
+
+  const promptPart = params.customPrompt ? norm(params.customPrompt) : norm(params.topic || 'general');
+  return [
+    `g${params.grade}`,
+    norm(params.textbook || 'kntt'),
+    norm(params.chapterId || 'c1'),
+    norm(params.cognitiveLevel || 'thong_hieu'),
+    norm(params.type || 'mcq'),
+    promptPart,
+  ].join(':');
+}
+
+/**
+ * Gọi Gemini với khả năng tự động thử lại model dự phòng (gemini-3.5-flash-lite) khi gemini-3.8-flash quá tải (503)
+ */
+export async function callGeminiWithResilience(client: GoogleGenAI, config: any): Promise<any> {
+  try {
+    return await client.models.generateContent({
+      model: GEMINI_MODEL,
+      ...config,
+    });
+  } catch (err: any) {
+    if (
+      err?.status === 503 ||
+      String(err?.message || err).includes('503') ||
+      String(err?.message || err).includes('high demand')
+    ) {
+      return await client.models.generateContent({
+        model: GEMINI_FALLBACK_MODEL,
+        ...config,
+      });
+    }
+    throw err;
+  }
+}
 
 /**
  * Kiểm tra xem GEMINI_API_KEY đã được cấu hình hợp lệ hay chưa
@@ -256,8 +314,7 @@ ${opts.referenceContext ? `Nội dung tham khảo từ tài liệu/đề bài g�
 Yêu cầu xuất ra định dạng JSON theo schema đã cho.`;
 
   try {
-    const response = await client.models.generateContent({
-      model: GEMINI_MODEL,
+    const response = await callGeminiWithResilience(client, {
       contents: userPrompt,
       config: {
         systemInstruction,
@@ -517,8 +574,7 @@ Hãy đưa ra phản hồi sư phạm phù hợp cho chế độ: ${mode.toUpper
         },
       ];
 
-      const response = await client.models.generateContent({
-        model: GEMINI_MODEL,
+      const response = await callGeminiWithResilience(client, {
         contents,
         config: {
           systemInstruction,
@@ -527,8 +583,7 @@ Hãy đưa ra phản hồi sư phạm phù hợp cho chế độ: ${mode.toUpper
       });
       responseText = response.text || '';
     } else {
-      const response = await client.models.generateContent({
-        model: GEMINI_MODEL,
+      const response = await callGeminiWithResilience(client, {
         contents: promptContent,
         config: {
           systemInstruction,

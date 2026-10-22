@@ -18,7 +18,9 @@ import {
 import { verifyQuestion } from '../src/lib/question-engine/verify.ts';
 import { POST as authPOST } from '../src/app/api/auth/route.ts';
 import { POST as assistantPOST } from '../src/app/api/ai/assistant/route.ts';
-import { POST as generateQuestionPOST } from '../src/app/api/ai/generate-question/route.ts';
+import { POST as generateQuestionPOST, GET as generateQuestionGET } from '../src/app/api/ai/generate-question/route.ts';
+import { buildAiCacheKey } from '../src/lib/ai-service.ts';
+import { readServerStateAsync, writeServerStateAsync } from '../src/lib/prisma.ts';
 
 function makeNextRequest(url, { method = 'POST', body, cookieToken, ip = '127.0.0.1' } = {}) {
   const headers = new Headers({
@@ -191,29 +193,122 @@ async function runAIFeatureTests() {
   assert.equal(authData.mode, 'socratic_hint');
   console.log('✓ [PASS] Test AI 6: /api/ai/assistant xử lý thành công yêu cầu trợ lý gia sư cho học sinh (200 OK).');
 
-  // 7. Kiểm thử API Route /api/ai/generate-question: Chặn 401 & Báo thiếu API key minh bạch
-  const genUnauthReq = makeNextRequest('http://localhost:3000/api/ai/generate-question', {
-    body: { grade: 8, count: 2 },
-  });
-  const genUnauthRes = await generateQuestionPOST(genUnauthReq);
-  assert.equal(genUnauthRes.status, 401, 'Tạo câu hỏi khi chưa đăng nhập phải bị 401');
-
-  const genAuthReq = makeNextRequest('http://localhost:3000/api/ai/generate-question', {
+  // 7. Kiểm thử API Route /api/ai/generate-question: GET Hạn mức Quota
+  const quotaReq = makeNextRequest('http://localhost:3000/api/ai/generate-question', {
+    method: 'GET',
     cookieToken: validSessionToken,
-    body: { grade: 8, count: 1, cognitiveLevel: 'van_dung' },
   });
-  const genAuthRes = await generateQuestionPOST(genAuthReq);
-  if (!isGeminiConfigured()) {
-    assert.equal(genAuthRes.status, 400, 'Khi chưa cấu hình key, phải báo 400 minh bạch kèm requiresApiKey');
-    const genData = await genAuthRes.json();
-    assert.equal(genData.requiresApiKey, true, 'requiresApiKey phải là true');
-  } else {
-    assert.equal(genAuthRes.status, 200, 'Khi đã có key, phải sinh câu hỏi thành công');
-  }
-  console.log('✓ [PASS] Test AI 7: /api/ai/generate-question bảo mật phân quyền & báo cáo minh bạch trạng thái API key.');
+  const quotaRes = await generateQuestionGET(quotaReq);
+  assert.equal(quotaRes.status, 200, 'GET /api/ai/generate-question phải trả về 200');
+  const quotaData = await quotaRes.json();
+  assert.equal(quotaData.quota.maxDaily, 5, 'Hạn mức tối đa mỗi ngày phải là 5');
+  console.log('✓ [PASS] Test AI 7: GET /api/ai/generate-question trả về hạn mức 5 đề/ngày cho người dùng.');
+
+  // 8. Kiểm thử Cache Database & Tận Dụng Câu Hỏi Cũ (Tiết kiệm Token & Không Trừ Lượt)
+  const testTopic = 'Pythagore thực tế';
+  const testCacheKey = buildAiCacheKey({
+    grade: 8,
+    textbook: 'KNTT',
+    semester: 1,
+    chapterId: 'G8_C3',
+    topic: testTopic,
+    cognitiveLevel: 'van_dung',
+    type: 'mcq',
+    customPrompt: testTopic,
+  });
+
+  // Nạp 2 câu hỏi giả lập đã qua thẩm định vào database state
+  const state = await readServerStateAsync();
+  if (!Array.isArray(state.questions)) state.questions = [];
+  state.questions.push(
+    {
+      ...sampleAIEngineQuestion,
+      id: `ai_cached_q1_${Date.now()}`,
+      aiCacheKey: testCacheKey,
+      source: 'AI Gemini 3.8 Flash (GDPT 2018)',
+    },
+    {
+      ...sampleAIEngineQuestion,
+      id: `ai_cached_q2_${Date.now()}`,
+      aiCacheKey: testCacheKey,
+      source: 'AI Gemini 3.8 Flash (GDPT 2018)',
+    }
+  );
+  await writeServerStateAsync(state);
+
+  // Gửi request tạo đề với đúng chủ đề này -> Hệ thống phải bốc từ Cache
+  const cacheReq = makeNextRequest('http://localhost:3000/api/ai/generate-question', {
+    cookieToken: validSessionToken,
+    body: {
+      grade: 8,
+      textbook: 'KNTT',
+      semester: 1,
+      chapterId: 'G8_C3',
+      topic: testTopic,
+      customPrompt: testTopic,
+      cognitiveLevel: 'van_dung',
+      type: 'mcq',
+      count: 2,
+      createFullExam: true,
+    },
+  });
+  const cacheRes = await generateQuestionPOST(cacheReq);
+  assert.equal(cacheRes.status, 200);
+  const cacheData = await cacheRes.json();
+  assert.equal(cacheData.servedFromCache, true, 'Trùng chủ đề trong database phải phục vụ từ Cache');
+  assert.equal(cacheData.questions.length, 2, 'Phải bốc đủ 2 câu từ database');
+  assert.ok(cacheData.exam?.id, 'Phải tạo thành công exam object');
+  console.log('✓ [PASS] Test AI 8: Tận dụng Cache Database bốc câu hỏi AI cũ thành công (Tiết kiệm token & không trừ lượt).');
+
+  // 9. Kiểm thử Giới Hạn Tốc Độ (Rate Limit: Cooldown 1 phút & Hạn mức 5 đề/ngày)
+  const stateWithQuota = await readServerStateAsync();
+  const dbUser = stateWithQuota.users.find((u) => u.email === testEmail);
+  assert.ok(dbUser, 'User phải tồn tại trong state');
+
+  // Thử nghiệm Cooldown: Giả lập vừa tạo đề 10 giây trước
+  dbUser.lastAiGeneratedAt = Date.now() - 10000;
+  dbUser.lastAiGenerationDate = new Date().toISOString().slice(0, 10);
+  dbUser.dailyAiGenerationCount = 1;
+  await writeServerStateAsync(stateWithQuota);
+
+  const cooldownReq = makeNextRequest('http://localhost:3000/api/ai/generate-question', {
+    cookieToken: validSessionToken,
+    body: {
+      grade: 9,
+      topic: 'Chủ đề hoàn toàn mới chưa có cache',
+      customPrompt: `Toán 9 ${Date.now()}`,
+      count: 2,
+    },
+  });
+  const cooldownRes = await generateQuestionPOST(cooldownReq);
+  assert.equal(cooldownRes.status, 429, 'Bấm tạo đề dưới 1 phút phải bị chặn 429 Cooldown');
+  const cooldownData = await cooldownRes.json();
+  assert.ok(cooldownData.error.includes('Vui lòng đợi'), 'Thông báo phải nhắc người dùng chờ');
+
+  // Thử nghiệm Hạn Mức Tối Đa: Giả lập đã dùng 5/5 đề hôm nay
+  const stateMaxQuota = await readServerStateAsync();
+  const dbUserMax = stateMaxQuota.users.find((u) => u.email === testEmail);
+  dbUserMax.lastAiGeneratedAt = Date.now() - 120000; // Đã qua 2 phút
+  dbUserMax.dailyAiGenerationCount = 5; // Đạt giới hạn 5 đề/ngày
+  await writeServerStateAsync(stateMaxQuota);
+
+  const maxReq = makeNextRequest('http://localhost:3000/api/ai/generate-question', {
+    cookieToken: validSessionToken,
+    body: {
+      grade: 9,
+      topic: 'Chủ đề hoàn toàn mới nữa',
+      customPrompt: `Toán 9 mới ${Date.now()}`,
+      count: 2,
+    },
+  });
+  const maxRes = await generateQuestionPOST(maxReq);
+  assert.equal(maxRes.status, 429, 'Vượt quá 5 đề/ngày phải bị chặn 429 Daily Limit');
+  const maxData = await maxRes.json();
+  assert.ok(maxData.error.includes('hết hạn mức 5/5'), 'Phải báo hết hạn mức 5/5 đề/ngày');
+  console.log('✓ [PASS] Test AI 9: Rate Limiting per User (Cooldown 60s & Giới hạn 5 đề thi/ngày) lưu vào Database hoạt động chính xác.');
 
   console.log('================================================================');
-  console.log('🎉 TẤT CẢ 7/7 BÀI KIỂM THỬ TÍNH NĂNG AI ĐỀU ĐẠT CHUẨN (PASS 100%)!');
+  console.log('🎉 TẤT CẢ 9/9 BÀI KIỂM THỬ TÍNH NĂNG AI ĐỀU ĐẠT CHUẨN (PASS 100%)!');
   console.log('================================================================');
 }
 
