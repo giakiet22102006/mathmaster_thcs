@@ -168,3 +168,153 @@ Hệ thống Luyện thi & Học Toán Lớp 6, 7, 8, 9`;
     };
   }
 }
+
+/**
+ * Gửi email chứa mã xác thực 6 số khi đăng ký tài khoản Gmail mới
+ */
+export async function sendRegistrationVerificationEmail(params: {
+  toEmail: string;
+  fullName: string;
+  code: string;
+  expiresInMinutes?: number;
+}): Promise<MailerResult> {
+  const { toEmail, fullName, code, expiresInMinutes = 15 } = params;
+
+  if (!isSmtpConfigured()) {
+    return {
+      sent: false,
+      reason: 'SMTP_NOT_CONFIGURED',
+    };
+  }
+
+  const host = process.env.SMTP_HOST!.trim();
+  const port = Number(process.env.SMTP_PORT || 465);
+  const secure = process.env.SMTP_SECURE ? process.env.SMTP_SECURE === 'true' : port === 465;
+  const user = process.env.SMTP_USER!.trim();
+  const pass = process.env.SMTP_PASS!.trim();
+  const mailFrom = process.env.MAIL_FROM?.trim() || `MathMaster THCS <${user}>`;
+
+  try {
+    const transporter = nodemailer.createTransport({
+      host,
+      port,
+      secure,
+      auth: {
+        user,
+        pass,
+      },
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+    });
+
+    const subject = `[MathMaster THCS] Mã xác thực đăng ký tài khoản Gmail: ${code}`;
+
+    const textContent = `Xin chào ${fullName || 'bạn'},
+
+Cảm ơn bạn đã đăng ký tài khoản học tập tại MathMaster THCS!
+Để hoàn tất xác thực địa chỉ Gmail (${toEmail}) của bạn, vui lòng nhập mã xác thực 6 số bên dưới:
+
+MÃ XÁC THỰC GMAIL CỦA BẠN LÀ:
+-------------------------
+       ${code}
+-------------------------
+
+(Mã này có hiệu lực trong vòng ${expiresInMinutes} phút và chỉ sử dụng được 01 lần).
+
+LƯU Ý AN TOÀN:
+- Nếu bạn không thực hiện đăng ký tài khoản trên MathMaster THCS, xin vui lòng bỏ qua thư này.
+- Tuyệt đối không chia sẻ mã này cho bất kỳ ai.
+
+Trân trọng,
+Ban Quản Trị MathMaster THCS
+Hệ thống Luyện thi & Học Toán Lớp 6, 7, 8, 9`;
+
+    const htmlContent = `
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xác thực đăng ký Gmail - MathMaster THCS</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f1f5f9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1e293b;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #f1f5f9; padding: 30px 15px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="100%" style="max-width: 540px; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid #e2e8f0;">
+          <!-- Header -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #312e81 0%, #4f46e5 100%); padding: 28px 24px; text-align: center;">
+              <div style="display: inline-block; width: 44px; height: 44px; line-height: 44px; border-radius: 12px; background: rgba(255,255,255,0.2); color: #ffffff; font-size: 24px; font-weight: bold; margin-bottom: 8px;">∑</div>
+              <h1 style="margin: 0; color: #ffffff; font-size: 20px; font-weight: bold;">MathMaster THCS</h1>
+              <p style="margin: 4px 0 0 0; color: #c7d2fe; font-size: 12px;">Hệ thống Luyện thi & Học Toán Lớp 6, 7, 8, 9</p>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="padding: 28px 24px;">
+              <p style="margin: 0 0 16px 0; font-size: 15px; line-height: 1.5;">Xin chào <strong>${fullName || 'bạn'}</strong>,</p>
+              <p style="margin: 0 0 20px 0; font-size: 14px; line-height: 1.6; color: #475569;">
+                Chào mừng bạn đến với MathMaster THCS! Để kích hoạt tài khoản học tập liên kết với địa chỉ Gmail <strong>${toEmail}</strong>, vui lòng nhập mã xác thực 6 số bên dưới:
+              </p>
+
+              <!-- Verification Code Box -->
+              <div style="background-color: #eef2ff; border: 2px dashed #4f46e5; border-radius: 12px; padding: 18px 20px; text-align: center; margin: 24px 0;">
+                <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: #4338ca; margin-bottom: 6px;">Mã xác thực Gmail của bạn</div>
+                <div style="font-size: 34px; font-weight: 800; letter-spacing: 8px; color: #312e81; font-family: 'Courier New', Courier, monospace;">${code}</div>
+                <div style="font-size: 12px; color: #64748b; margin-top: 6px;">Hiệu lực trong <strong>${expiresInMinutes} phút</strong> • Dùng 01 lần duy nhất</div>
+              </div>
+
+              <div style="background-color: #f8fafc; border-radius: 8px; padding: 12px 16px; margin: 20px 0; border: 1px solid #e2e8f0;">
+                <p style="margin: 0; font-size: 13px; color: #334155; line-height: 1.5;">
+                  <strong>🌟 Lợi ích khi xác thực tài khoản:</strong>
+                </p>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; font-size: 12px; color: #475569; line-height: 1.6;">
+                  <li>Lưu trữ an toàn tiến độ luyện đề và lịch ôn tập ngắt quãng SM-2</li>
+                  <li>Bảo vệ tài khoản và dễ dàng khôi phục mật khẩu khi cần</li>
+                  <li>Nhận thông báo xếp hạng và nhiệm vụ học tập hàng tuần</li>
+                </ul>
+              </div>
+
+              <p style="font-size: 12px; color: #64748b; line-height: 1.5; margin: 20px 0 0 0; border-top: 1px solid #f1f5f9; padding-top: 16px;">
+                💡 <em>Nếu bạn không đăng ký tài khoản trên MathMaster THCS, xin vui lòng bỏ qua thư này.</em>
+              </p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #f8fafc; padding: 16px 24px; text-align: center; border-top: 1px solid #e2e8f0;">
+              <p style="margin: 0; font-size: 11px; color: #94a3b8;">
+                Email tự động từ MathMaster THCS • Không trả lời trực tiếp email này.
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+
+    const info = await transporter.sendMail({
+      from: mailFrom,
+      to: toEmail,
+      subject,
+      text: textContent,
+      html: htmlContent,
+    });
+
+    return {
+      sent: true,
+      messageId: info.messageId,
+    };
+  } catch (err: any) {
+    console.error(`[Mailer Error] Gửi mail xác thực tới ${toEmail} thất bại:`, err?.message || err);
+    return {
+      sent: false,
+      reason: 'SMTP_SEND_FAILED',
+    };
+  }
+}

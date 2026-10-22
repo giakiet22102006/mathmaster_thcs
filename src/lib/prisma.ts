@@ -319,6 +319,7 @@ function normalizeStateObject(state: any): any {
   if (!Array.isArray(state.users)) state.users = [];
   if (!Array.isArray(state.sessions)) state.sessions = [];
   if (!Array.isArray(state.passwordResetTokens)) state.passwordResetTokens = [];
+  if (!Array.isArray(state.emailVerificationTokens)) state.emailVerificationTokens = [];
   if (!Array.isArray(state.questions)) state.questions = [];
   if (!Array.isArray(state.exams)) state.exams = [];
   if (!Array.isArray(state.attempts)) state.attempts = [];
@@ -488,6 +489,7 @@ function loadDefaultSeedState(): any {
         users: seed.users || [],
         sessions: [],
         passwordResetTokens: [],
+        emailVerificationTokens: [],
         questions: seed.questions || [],
         exams: seed.exams || [],
         attempts: seed.attempts || [],

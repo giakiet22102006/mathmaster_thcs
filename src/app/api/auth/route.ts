@@ -127,7 +127,183 @@ export async function POST(req: NextRequest) {
     const userAgent = req.headers.get('user-agent') || 'Trình duyệt Web';
 
     // -------------------------------------------------------------------------
-    // 1. ĐĂNG KÝ TÀI KHOẢN MỚI (Validate bằng Zod, kiểm tra trùng email, băm scrypt)
+    // 1A. GỬI MÃ XÁC THỰC GMAIL KHI ĐĂNG KÝ (OTP 6 chữ số, thời hạn 15 phút)
+    // -------------------------------------------------------------------------
+    if (action === AUTH_ACTIONS.SEND_REGISTER_OTP || action === 'send-register-otp') {
+      const emailInput = String(body.email || '').trim().toLowerCase();
+      const fullNameInput = String(body.fullName || '').trim();
+
+      if (!emailInput || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput)) {
+        return NextResponse.json(
+          { ok: false, error: 'Vui lòng nhập địa chỉ email hợp lệ.' },
+          { status: 400 }
+        );
+      }
+
+      // Kiểm tra email đã được đăng ký tài khoản chưa
+      const emailExists = (state.users || []).some(
+        (u: any) => String(u.email || '').toLowerCase() === emailInput
+      );
+      if (emailExists) {
+        return NextResponse.json(
+          { ok: false, error: 'Địa chỉ email này đã được sử dụng. Vui lòng chọn email khác hoặc đăng nhập.' },
+          { status: 409 }
+        );
+      }
+
+      // Rate limit gửi mã xác thực theo IP + email (tối đa 5 lần / giờ, cooldown 60s)
+      const otpRlKey = `reg_otp_${emailInput}`;
+      const otpCheck = checkLoginRateLimit(ip, otpRlKey, {
+        maxFailures: 5,
+        windowMs: 60 * 60 * 1000,
+        lockoutMs: 60 * 60 * 1000,
+      });
+      if (otpCheck.locked) {
+        return NextResponse.json(
+          {
+            ok: false,
+            error: `Bạn đã yêu cầu gửi mã quá nhiều lần. Vui lòng thử lại sau ${otpCheck.retryAfterSeconds} giây.`,
+          },
+          { status: 429 }
+        );
+      }
+
+      // Cooldown 60s giữa 2 lần gửi mã
+      if (!Array.isArray(state.emailVerificationTokens)) state.emailVerificationTokens = [];
+      const userTokens = state.emailVerificationTokens.filter((t: any) => t.email === emailInput);
+      const lastToken = userTokens[userTokens.length - 1];
+      if (lastToken && lastToken.createdAt) {
+        const elapsedSec = (Date.now() - new Date(lastToken.createdAt).getTime()) / 1000;
+        if (elapsedSec < 60) {
+          const waitSec = Math.ceil(60 - elapsedSec);
+          return NextResponse.json(
+            {
+              ok: false,
+              error: `Vui lòng đợi thêm ${waitSec} giây trước khi yêu cầu mã mới.`,
+            },
+            { status: 429 }
+          );
+        }
+      }
+
+      const rawCode = generateResetCode();
+      const codeHash = hashResetCode(emailInput, rawCode);
+      const expiresAt = new Date(Date.now() + 15 * 60 * 1000).toISOString();
+
+      // Vô hiệu hóa các mã cũ chưa dùng
+      state.emailVerificationTokens = state.emailVerificationTokens.map((t: any) =>
+        t.email === emailInput && !t.verified
+          ? { ...t, expiresAt: new Date(0).toISOString() }
+          : t
+      );
+
+      state.emailVerificationTokens.push({
+        id: `ev_${crypto.randomUUID()}`,
+        email: emailInput,
+        codeHash,
+        expiresAt,
+        verified: false,
+        usedAt: null,
+        attempts: 0,
+        maxAttempts: 5,
+        createdAt: new Date().toISOString(),
+      });
+
+      await writeServerStateAsync(state);
+
+      let devCode: string | undefined;
+      const smtpReady = isSmtpConfigured();
+
+      if (!smtpReady) {
+        devCode = rawCode;
+      } else {
+        const mailRes = await defaultEmailService.sendRegistrationVerificationEmail({
+          toEmail: emailInput,
+          fullName: fullNameInput || 'bạn',
+          code: rawCode,
+          expiresInMinutes: 15,
+        });
+
+        if (!mailRes.sent) {
+          return NextResponse.json(
+            {
+              ok: false,
+              code: mailRes.reason || 'SMTP_SEND_FAILED',
+              error: 'Không thể gửi email xác thực. Vui lòng kiểm tra lại địa chỉ email hoặc thử lại sau.',
+            },
+            { status: 503 }
+          );
+        }
+      }
+
+      return NextResponse.json({
+        ok: true,
+        message: 'Mã xác thực 6 số (hiệu lực 15 phút) đã được gửi tới Gmail của bạn.',
+        ...(devCode && process.env.NODE_ENV !== 'production' ? { devCode } : {}),
+      });
+    }
+
+    // -------------------------------------------------------------------------
+    // 1B. KIỂM TRA MÃ XÁC THỰC GMAIL (Trước khi submit form)
+    // -------------------------------------------------------------------------
+    if (action === AUTH_ACTIONS.VERIFY_REGISTER_OTP || action === 'verify-register-otp') {
+      const emailInput = String(body.email || '').trim().toLowerCase();
+      const codeInput = String(body.code || body.otp || '').trim();
+
+      if (!emailInput) {
+        return NextResponse.json({ ok: false, error: 'Vui lòng cung cấp địa chỉ email.' }, { status: 400 });
+      }
+      if (!codeInput || !/^\d{6}$/.test(codeInput)) {
+        return NextResponse.json({ ok: false, error: 'Mã xác thực phải gồm đúng 6 chữ số.' }, { status: 400 });
+      }
+
+      if (!Array.isArray(state.emailVerificationTokens)) state.emailVerificationTokens = [];
+      const validToken = state.emailVerificationTokens
+        .filter((t: any) => t.email === emailInput && !t.usedAt)
+        .reverse()
+        .find((t: any) => new Date(t.expiresAt).getTime() > Date.now());
+
+      if (!validToken) {
+        return NextResponse.json(
+          { ok: false, error: 'Mã xác thực không tồn tại hoặc đã hết hạn (15 phút). Vui lòng yêu cầu mã mới.' },
+          { status: 400 }
+        );
+      }
+
+      if (validToken.attempts >= validToken.maxAttempts) {
+        return NextResponse.json(
+          { ok: false, error: 'Mã xác thực đã bị khóa do nhập sai quá 5 lần. Vui lòng yêu cầu mã mới.' },
+          { status: 400 }
+        );
+      }
+
+      const isValid = verifyResetCode(emailInput, codeInput, validToken.codeHash);
+      if (!isValid) {
+        validToken.attempts = (validToken.attempts || 0) + 1;
+        const remain = validToken.maxAttempts - validToken.attempts;
+        await writeServerStateAsync(state);
+        return NextResponse.json(
+          {
+            ok: false,
+            error: remain > 0 ? `Mã xác thực không đúng. Bạn còn ${remain} lần thử.` : 'Mã đã bị khóa do nhập sai 5 lần.',
+          },
+          { status: 400 }
+        );
+      }
+
+      validToken.verified = true;
+      validToken.verifiedAt = new Date().toISOString();
+      await writeServerStateAsync(state);
+
+      return NextResponse.json({
+        ok: true,
+        verified: true,
+        message: 'Xác thực Gmail thành công!',
+      });
+    }
+
+    // -------------------------------------------------------------------------
+    // 1C. ĐĂNG KÝ TÀI KHOẢN MỚI (Validate bằng Zod, kiểm tra trùng email, băm scrypt)
     // -------------------------------------------------------------------------
     if (action === 'register') {
       const parsed = registerSchema.safeParse(body);
@@ -150,6 +326,51 @@ export async function POST(req: NextRequest) {
           { ok: false, error: 'Địa chỉ email này đã được sử dụng. Vui lòng chọn email khác.' },
           { status: 409 }
         );
+      }
+
+      // Kiểm tra mã xác thực nếu có gửi verificationCode (khi người dùng đăng ký qua UI web)
+      let isVerified = false;
+      const verificationCode = String(body.verificationCode || body.otp || '').trim();
+      if (verificationCode) {
+        if (!/^\d{6}$/.test(verificationCode)) {
+          return NextResponse.json(
+            { ok: false, error: 'Mã xác thực Gmail phải gồm đúng 6 chữ số.' },
+            { status: 400 }
+          );
+        }
+        if (!Array.isArray(state.emailVerificationTokens)) state.emailVerificationTokens = [];
+        const tokenRec = state.emailVerificationTokens
+          .filter((t: any) => t.email === emailLower && !t.usedAt)
+          .reverse()
+          .find((t: any) => new Date(t.expiresAt).getTime() > Date.now());
+
+        if (!tokenRec) {
+          return NextResponse.json(
+            { ok: false, error: 'Mã xác thực không tồn tại hoặc đã hết hạn. Vui lòng yêu cầu mã mới.' },
+            { status: 400 }
+          );
+        }
+
+        if (tokenRec.attempts >= tokenRec.maxAttempts) {
+          return NextResponse.json(
+            { ok: false, error: 'Mã xác thực đã nhập sai quá 5 lần. Vui lòng yêu cầu mã mới.' },
+            { status: 400 }
+          );
+        }
+
+        const match = tokenRec.verified || verifyResetCode(emailLower, verificationCode, tokenRec.codeHash);
+        if (!match) {
+          tokenRec.attempts = (tokenRec.attempts || 0) + 1;
+          await writeServerStateAsync(state);
+          return NextResponse.json(
+            { ok: false, error: 'Mã xác thực Gmail không chính xác. Vui lòng kiểm tra lại.' },
+            { status: 400 }
+          );
+        }
+
+        tokenRec.usedAt = new Date().toISOString();
+        tokenRec.verified = true;
+        isVerified = true;
       }
 
       // Sinh username duy nhất, không đoán được từ tên đơn thuần
@@ -181,6 +402,8 @@ export async function POST(req: NextRequest) {
         id: `user_${crypto.randomUUID()}`,
         username: finalUsername,
         email: emailLower,
+        emailVerified: Boolean(isVerified || !body.verificationCode),
+        emailVerifiedAt: isVerified ? nowIso : null,
         passwordHash: await hashPasswordAsync(data.password),
         mustChangePassword: false,
         passwordUpdatedAt: nowIso,

@@ -576,7 +576,11 @@ export function clearAllRateLimitsForTesting(): void {
 // PHÂN TÍCH TÊN THIẾT BỊ & INTERFACE GỬI EMAIL ĐẶT LẠI MẬT KHẨU
 // ==============================================================================
 
-import { sendPasswordResetEmail as mailerSendEmail, isSmtpConfigured } from './mailer';
+import {
+  sendPasswordResetEmail as mailerSendEmail,
+  sendRegistrationVerificationEmail as mailerSendVerificationEmail,
+  isSmtpConfigured,
+} from './mailer';
 
 export function parseDeviceNameFromUserAgent(userAgent?: string | null): string {
   if (!userAgent) return 'Thiết bị Web';
@@ -637,6 +641,12 @@ export interface EmailService {
     resetUrl?: string;
     expiresInMinutes?: number;
   }): Promise<{ sent: boolean; reason?: string; previewUrl?: string }>;
+  sendRegistrationVerificationEmail(params: {
+    toEmail: string;
+    fullName: string;
+    code: string;
+    expiresInMinutes?: number;
+  }): Promise<{ sent: boolean; reason?: string }>;
 }
 
 export const defaultEmailService: EmailService = {
@@ -668,6 +678,27 @@ export const defaultEmailService: EmailService = {
     // Trường hợp dự phòng nếu chỉ truyền resetUrl
     return { sent: false, reason: 'SMTP_NOT_CONFIGURED' };
   },
+
+  async sendRegistrationVerificationEmail({ toEmail, fullName, code, expiresInMinutes = 15 }) {
+    const result = await mailerSendVerificationEmail({
+      toEmail,
+      fullName,
+      code,
+      expiresInMinutes,
+    });
+
+    if (process.env.NODE_ENV !== 'production' && !result.sent) {
+      console.log('==============================================================');
+      console.log(`📧 [DEV EMAIL - XÁC THỰC GMAIL] Cho: ${fullName} <${toEmail}>`);
+      console.log(`🔢 Mã xác thực Gmail (6 số): ${code}`);
+      console.log('==============================================================');
+    }
+
+    return {
+      sent: result.sent,
+      reason: result.reason,
+    };
+  },
 };
 
 /**
@@ -678,5 +709,8 @@ export function sanitizeUserForClient(user: any): any {
   const copy = { ...user };
   delete copy.passwordHash;
   delete copy.password_hash;
+  if (copy.emailVerified === undefined) {
+    copy.emailVerified = Boolean(user.isEmailVerified ?? user.emailVerified ?? true);
+  }
   return copy;
 }

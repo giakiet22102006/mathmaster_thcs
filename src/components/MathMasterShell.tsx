@@ -376,7 +376,17 @@ export function AppShell({
                   : `LỚP ${user.currentGrade || 8}`}
               </span>
             </div>
-            <div className="mt-1 text-xs text-slate-500 truncate">{user.email}</div>
+            <div className="mt-1 flex items-center gap-1.5 text-xs text-slate-500">
+              <span className="truncate">{user.email}</span>
+              {user.emailVerified && (
+                <span
+                  title="Gmail đã xác thực an toàn"
+                  className="shrink-0 inline-flex items-center gap-0.5 rounded bg-emerald-100 px-1.5 py-0.5 text-[9px] font-bold text-emerald-700"
+                >
+                  ✓ Đã xác thực
+                </span>
+              )}
+            </div>
             <div className="mt-2 flex items-center gap-3 text-xs font-medium text-slate-700">
               <span>⚡ {user.xp || 0} XP</span>
               <span>🏆 Cấp {user.level || 1}</span>

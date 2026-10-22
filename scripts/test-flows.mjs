@@ -37,6 +37,7 @@ import { GET as analyticsGET, POST as analyticsPOST } from '../src/app/api/analy
 import { GET as dashboardGET, POST as dashboardPOST } from '../src/app/api/dashboard/route';
 import { runBankAudit } from './bank-audit.mjs';
 import { runForgotPasswordTests } from './test-forgot-password.mjs';
+import { runEmailVerificationTests } from './test-email-verification.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -1065,8 +1066,14 @@ async function runTests() {
     execSync('npx tsx scripts/test-ai-features.mjs', { stdio: 'pipe' });
     console.log('✓ [PASS] Test 18: Tích hợp AI Gemini (Socratic Tutoring, Mistake Diagnosis, AI Question Generation & Rate Limit) đạt chuẩn 100% (7/7)');
 
+    // -------------------------------------------------------------------------
+    // Test 19: Tính năng Xác thực Gmail Đăng ký (OTP 6 số, Rate Limit, Session)
+    // -------------------------------------------------------------------------
+    await runEmailVerificationTests();
+    console.log('✓ [PASS] Test 19: Tính năng Xác thực Gmail Đăng ký (OTP 6 số, Rate Limit, Session) đạt chuẩn 100% (8/8)');
+
     console.log('================================================================');
-    console.log('🎉 TẤT CẢ 18 BÀI KIỂM THỬ TỰ ĐỘNG ĐỀU ĐẠT (18/18 PASS)!');
+    console.log('🎉 TẤT CẢ 19 BÀI KIỂM THỬ TỰ ĐỘNG ĐỀU ĐẠT (19/19 PASS)!');
     console.log('================================================================');
   } finally {
     process.env.DATABASE_URL = savedDbUrl;

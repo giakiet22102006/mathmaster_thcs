@@ -20,6 +20,7 @@
     "db:seed": "node prisma/seed.mjs",
     "db:studio": "prisma studio",
     "test": "tsx scripts/test-flows.mjs",
+    "test:email-verification": "tsx scripts/test-email-verification.mjs",
     "test:forgot-password": "tsx scripts/test-forgot-password.mjs",
     "test:engine": "tsx scripts/test-question-engine.mjs",
     "bank:audit": "tsx scripts/bank-audit.mjs",

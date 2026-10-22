@@ -7,6 +7,8 @@
 export const AUTH_ACTIONS = {
   LOGIN: 'login',
   REGISTER: 'register',
+  SEND_REGISTER_OTP: 'send-register-otp',
+  VERIFY_REGISTER_OTP: 'verify-register-otp',
   GUEST: 'guest',
   LOGOUT: 'logout',
   CHANGE_PASSWORD: 'change-password',
