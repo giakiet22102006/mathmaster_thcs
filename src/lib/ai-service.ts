@@ -18,8 +18,9 @@ import type {
   QuestionType,
 } from './question-engine/types';
 
-export const GEMINI_MODEL = 'gemini-3.8-flash';
+export const GEMINI_MODEL = 'gemini-3.5-flash';
 export const GEMINI_FALLBACK_MODEL = 'gemini-3.5-flash-lite';
+export const GEMINI_LEGACY_MODEL = 'gemini-3.8-flash';
 
 /**
  * Chuẩn hoá key cache cho đề thi và câu hỏi AI sinh
@@ -55,7 +56,7 @@ export function buildAiCacheKey(params: {
 }
 
 /**
- * Gọi Gemini với khả năng tự động thử lại model dự phòng (gemini-3.5-flash-lite) khi gemini-3.8-flash quá tải (503)
+ * Gọi Gemini với khả năng tự động thử lại model dự phòng (gemini-3.5-flash-lite / gemini-3.8-flash) khi model chính quá tải
  */
 export async function callGeminiWithResilience(client: GoogleGenAI, config: any): Promise<any> {
   try {
@@ -64,15 +65,25 @@ export async function callGeminiWithResilience(client: GoogleGenAI, config: any)
       ...config,
     });
   } catch (err: any) {
+    const errMsg = String(err?.message || err);
     if (
       err?.status === 503 ||
-      String(err?.message || err).includes('503') ||
-      String(err?.message || err).includes('high demand')
+      err?.status === 404 ||
+      errMsg.includes('503') ||
+      errMsg.includes('high demand') ||
+      errMsg.includes('not found')
     ) {
-      return await client.models.generateContent({
-        model: GEMINI_FALLBACK_MODEL,
-        ...config,
-      });
+      try {
+        return await client.models.generateContent({
+          model: GEMINI_FALLBACK_MODEL,
+          ...config,
+        });
+      } catch {
+        return await client.models.generateContent({
+          model: GEMINI_LEGACY_MODEL,
+          ...config,
+        });
+      }
     }
     throw err;
   }
@@ -410,138 +421,144 @@ Quy tắc KaTeX:
   const warnings: string[] = [];
   let qIndex = 1;
 
-  for (let bIdx = 0; bIdx < batchSizes.length; bIdx++) {
-    const curBatchSize = batchSizes[bIdx];
+  // Thực thi song song (Parallel execution) các batch để tối ưu tốc độ phản hồi
+  const batchPromises = batchSizes.map(async (curBatchSize, bIdx) => {
     const userPrompt = `Hãy biên soạn ${curBatchSize} câu hỏi Toán lớp ${grade} (${textbook}, Học kỳ ${semester}).
 Chương: ${chapterId} (${topic}).
 Mức độ nhận thức: ${cognitiveLevel.toUpperCase()} - ${levelDescs[cognitiveLevel]}.
 Hình thức: ${type === 'mcq' ? 'Trắc nghiệm 4 lựa chọn (mcq)' : 'Tự luận giải chi tiết (essay)'}.
 ${opts.customPrompt ? `Yêu cầu cụ thể từ giáo viên: "${opts.customPrompt}".` : ''}
-${batchSizes.length > 1 ? `(Đợt tạo thứ ${bIdx + 1}/${batchSizes.length}, đảm bảo không trùng lặp đề bài với các câu đã tạo).` : ''}
+${batchSizes.length > 1 ? `(Nhóm câu hỏi phần ${bIdx + 1}, các câu hỏi không trùng lặp đề bài với nhau).` : ''}
 ${opts.referenceContext ? `Nội dung tham khảo từ tài liệu/đề bài gốc:\n"""\n${opts.referenceContext.slice(0, 1500)}\n"""` : ''}
 
 Yêu cầu xuất ra định dạng JSON theo schema đã cho.`;
 
-    try {
-      const response = await callGeminiWithResilience(client, {
-        contents: userPrompt,
-        config: {
-          systemInstruction,
-          temperature: 0.25,
-          responseMimeType: 'application/json',
-          responseJsonSchema: questionResponseSchema,
-        },
-      });
+    const response = await callGeminiWithResilience(client, {
+      contents: userPrompt,
+      config: {
+        systemInstruction,
+        temperature: 0.25 + (bIdx * 0.05),
+        responseMimeType: 'application/json',
+        responseJsonSchema: questionResponseSchema,
+      },
+    });
 
-      const rawText = response.text?.trim() || '';
-      if (!rawText) continue;
+    const rawText = response.text?.trim() || '';
+    if (!rawText) return [];
 
-      const parsedArray = JSON.parse(rawText);
-      if (!Array.isArray(parsedArray)) continue;
+    const parsedArray = JSON.parse(rawText);
+    return Array.isArray(parsedArray) ? parsedArray : [];
+  });
 
-      const now = new Date().toISOString();
-      for (const rawQ of parsedArray) {
-        if (verifiedQuestions.length >= totalCount) break;
+  const batchResults = await Promise.allSettled(batchPromises);
 
-        const qId = `ai_${Date.now()}_${Math.random().toString(36).substring(2, 7)}_${qIndex++}`;
-        const qCode = `AI_G${grade}_${cognitiveLevel.toUpperCase()}_${Date.now() % 10000}_${qIndex}`;
-        const qPoints = Number(rawQ.points) > 0 ? Number(rawQ.points) : type === 'mcq' ? 0.25 : 1.0;
-
-        let rubricSteps: RubricStep[] = Array.isArray(rawQ.rubricSteps) && rawQ.rubricSteps.length > 0
-          ? rawQ.rubricSteps.map((r: any) => ({
-              step: String(r.step || ''),
-              points: Number(r.points) || Number((qPoints / rawQ.rubricSteps.length).toFixed(2)),
-            }))
-          : [
-              { step: 'Nêu công thức và điều kiện xác định', points: Number((qPoints * 0.3).toFixed(2)) },
-              { step: 'Thực hiện biến đổi và tính toán', points: Number((qPoints * 0.5).toFixed(2)) },
-              { step: 'Kết luận và đối chiếu nghiệm', points: Number((qPoints * 0.2).toFixed(2)) },
-            ];
-
-        const rubricSum = rubricSteps.reduce((acc, r) => acc + r.points, 0);
-        if (Math.abs(rubricSum - qPoints) > 0.01 && rubricSteps.length > 0) {
-          rubricSteps[rubricSteps.length - 1].points = Number(
-            (qPoints - (rubricSum - rubricSteps[rubricSteps.length - 1].points)).toFixed(2)
-          );
-        }
-
-        const options: QuestionOption[] | undefined =
-          rawQ.type === 'mcq' && Array.isArray(rawQ.options)
-            ? rawQ.options.map((opt: any, idx: number) => {
-                const label = (['A', 'B', 'C', 'D'][idx] || String(opt.label || 'A')) as any;
-                const isCorrect = String(label).toUpperCase() === String(rawQ.correctAnswer || '').toUpperCase();
-                const defaultErrTypes = ['SIGN_ERROR', 'FORMULA_ERROR', 'CALCULATION_ERROR', 'MISSING_CONDITION'];
-                return {
-                  label,
-                  text: String(opt.text || ''),
-                  errorType: !isCorrect
-                    ? opt.errorType || defaultErrTypes[idx % defaultErrTypes.length]
-                    : undefined,
-                };
-              })
-            : undefined;
-
-        const complexityMeta = {
-          steps: cognitiveLevel === 'van_dung_cao' ? 5 : cognitiveLevel === 'van_dung' ? 3 : 2,
-          techniques:
-            cognitiveLevel === 'van_dung_cao'
-              ? ['inequality_estimation', 'case_analysis', 'algebraic_transformation']
-              : cognitiveLevel === 'van_dung'
-              ? ['factorization', 'domain_check']
-              : ['basic_calculation'],
-          crossTopic: cognitiveLevel === 'van_dung_cao',
-          needsCaseAnalysis: cognitiveLevel === 'van_dung_cao',
-          modeling: false,
-          estMinutes: cognitiveLevel === 'van_dung_cao' ? 8 : cognitiveLevel === 'van_dung' ? 4 : 2,
-        };
-
-        const engineQ: EngineQuestion = {
-          id: qId,
-          code: qCode,
-          grade,
-          textbooks: [textbook],
-          semester: semester as 1 | 2,
-          chapterId,
-          lesson: topic,
-          topic,
-          problemType: opts.customPrompt ? 'AI_CUSTOM' : 'AI_GENERATED',
-          type: (rawQ.type === 'mcq' ? 'mcq' : 'essay') as QuestionType,
-          difficulty:
-            cognitiveLevel === 'nhan_biet'
-              ? 'easy'
-              : cognitiveLevel === 'thong_hieu'
-              ? 'medium'
-              : 'hard',
-          cognitiveLevel,
-          complexity: complexityMeta,
-          points: qPoints,
-          content: String(rawQ.content || '').trim(),
-          options,
-          correctAnswer: String(rawQ.correctAnswer || '').trim(),
-          acceptedAnswers: [String(rawQ.correctAnswer || '').trim()],
-          solution: String(rawQ.solution || '').trim(),
-          rubricSteps,
-          keyFormula: rawQ.keyFormula ? String(rawQ.keyFormula) : undefined,
-          commonMistake: rawQ.commonMistake ? String(rawQ.commonMistake) : undefined,
-          source: 'AI Gemini 3.8 Flash (GDPT 2018)',
-          verificationStatus: 'verified',
-          verifiedBy: 'AI_GEMINI_VERIFIED',
-          verifiedAt: now,
-          version: 1,
-        };
-
-        const vResult = verifyQuestion(engineQ);
-        if (vResult.valid) {
-          verifiedQuestions.push(engineQ);
-        } else {
-          warnings.push(`Câu hỏi ${qCode} bị loại: ${vResult.errors.join('; ')}`);
-        }
-      }
-    } catch (err: any) {
-      warnings.push(`Batch ${bIdx + 1} gặp lỗi: ${err.message || String(err)}`);
+  for (let bIdx = 0; bIdx < batchResults.length; bIdx++) {
+    const res = batchResults[bIdx];
+    if (res.status === 'rejected') {
+      warnings.push(`Batch ${bIdx + 1} gặp sự cố: ${res.reason?.message || String(res.reason)}`);
+      continue;
     }
 
-    if (verifiedQuestions.length >= totalCount) break;
+    const parsedArray = res.value;
+    const now = new Date().toISOString();
+
+    for (const rawQ of parsedArray) {
+      if (verifiedQuestions.length >= totalCount) break;
+
+      const qId = `ai_${Date.now()}_${Math.random().toString(36).substring(2, 7)}_${qIndex++}`;
+      const qCode = `AI_G${grade}_${cognitiveLevel.toUpperCase()}_${Date.now() % 10000}_${qIndex}`;
+      const qPoints = Number(rawQ.points) > 0 ? Number(rawQ.points) : type === 'mcq' ? 0.25 : 1.0;
+
+      let rubricSteps: RubricStep[] = Array.isArray(rawQ.rubricSteps) && rawQ.rubricSteps.length > 0
+        ? rawQ.rubricSteps.map((r: any) => ({
+            step: String(r.step || ''),
+            points: Number(r.points) || Number((qPoints / rawQ.rubricSteps.length).toFixed(2)),
+          }))
+        : [
+            { step: 'Nêu công thức và điều kiện xác định', points: Number((qPoints * 0.3).toFixed(2)) },
+            { step: 'Thực hiện biến đổi và tính toán', points: Number((qPoints * 0.5).toFixed(2)) },
+            { step: 'Kết luận và đối chiếu nghiệm', points: Number((qPoints * 0.2).toFixed(2)) },
+          ];
+
+      const rubricSum = rubricSteps.reduce((acc, r) => acc + r.points, 0);
+      if (Math.abs(rubricSum - qPoints) > 0.01 && rubricSteps.length > 0) {
+        rubricSteps[rubricSteps.length - 1].points = Number(
+          (qPoints - (rubricSum - rubricSteps[rubricSteps.length - 1].points)).toFixed(2)
+        );
+      }
+
+      const options: QuestionOption[] | undefined =
+        rawQ.type === 'mcq' && Array.isArray(rawQ.options)
+          ? rawQ.options.map((opt: any, idx: number) => {
+              const label = (['A', 'B', 'C', 'D'][idx] || String(opt.label || 'A')) as any;
+              const isCorrect = String(label).toUpperCase() === String(rawQ.correctAnswer || '').toUpperCase();
+              const defaultErrTypes = ['SIGN_ERROR', 'FORMULA_ERROR', 'CALCULATION_ERROR', 'MISSING_CONDITION'];
+              return {
+                label,
+                text: String(opt.text || ''),
+                errorType: !isCorrect
+                  ? opt.errorType || defaultErrTypes[idx % defaultErrTypes.length]
+                  : undefined,
+              };
+            })
+          : undefined;
+
+      const complexityMeta = {
+        steps: cognitiveLevel === 'van_dung_cao' ? 5 : cognitiveLevel === 'van_dung' ? 3 : 2,
+        techniques:
+          cognitiveLevel === 'van_dung_cao'
+            ? ['inequality_estimation', 'case_analysis', 'algebraic_transformation']
+            : cognitiveLevel === 'van_dung'
+            ? ['factorization', 'domain_check']
+            : ['basic_calculation'],
+        crossTopic: cognitiveLevel === 'van_dung_cao',
+        needsCaseAnalysis: cognitiveLevel === 'van_dung_cao',
+        modeling: false,
+        estMinutes: cognitiveLevel === 'van_dung_cao' ? 8 : cognitiveLevel === 'van_dung' ? 4 : 2,
+      };
+
+      const engineQ: EngineQuestion = {
+        id: qId,
+        code: qCode,
+        grade,
+        textbooks: [textbook],
+        semester: semester as 1 | 2,
+        chapterId,
+        lesson: topic,
+        topic,
+        problemType: opts.customPrompt ? 'AI_CUSTOM' : 'AI_GENERATED',
+        type: (rawQ.type === 'mcq' ? 'mcq' : 'essay') as QuestionType,
+        difficulty:
+          cognitiveLevel === 'nhan_biet'
+            ? 'easy'
+            : cognitiveLevel === 'thong_hieu'
+            ? 'medium'
+            : 'hard',
+        cognitiveLevel,
+        complexity: complexityMeta,
+        points: qPoints,
+        content: String(rawQ.content || '').trim(),
+        options,
+        correctAnswer: String(rawQ.correctAnswer || '').trim(),
+        acceptedAnswers: [String(rawQ.correctAnswer || '').trim()],
+        solution: String(rawQ.solution || '').trim(),
+        rubricSteps,
+        keyFormula: rawQ.keyFormula ? String(rawQ.keyFormula) : undefined,
+        commonMistake: rawQ.commonMistake ? String(rawQ.commonMistake) : undefined,
+        source: 'AI Gemini 3.5 Flash (GDPT 2018)',
+        verificationStatus: 'verified',
+        verifiedBy: 'AI_GEMINI_VERIFIED',
+        verifiedAt: now,
+        version: 1,
+      };
+
+      const vResult = verifyQuestion(engineQ);
+      if (vResult.valid) {
+        verifiedQuestions.push(engineQ);
+      } else {
+        warnings.push(`Câu hỏi ${qCode} bị loại: ${vResult.errors.join('; ')}`);
+      }
+    }
   }
 
   if (verifiedQuestions.length === 0) {

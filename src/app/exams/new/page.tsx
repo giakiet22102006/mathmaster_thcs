@@ -122,7 +122,19 @@ export default function ExamBuilderWizardPage() {
         }),
       });
 
-      const data = await res.json();
+      let data: any = null;
+      try {
+        data = await res.json();
+      } catch {
+        data = {
+          ok: false,
+          error:
+            res.status === 504
+              ? 'Thời gian xử lý quá lâu do máy chủ cao tải. Vui lòng thử lại với số câu ít hơn.'
+              : `Máy chủ phản hồi mã lỗi ${res.status}. Vui lòng thử lại sau giây lát.`,
+        };
+      }
+
       if (!res.ok || !data.ok) {
         setAiErrorMsg(data.error || data.message || 'Không thể tạo đề thi bằng AI.');
         if (data.quota) setAiQuota(data.quota);
@@ -136,14 +148,14 @@ export default function ExamBuilderWizardPage() {
             '⚡ Đã lấy câu hỏi từ Database (Chủ đề trùng khớp đã được AI biên soạn trước đó). Không trừ hạn mức tạo đề hôm nay của bạn!'
           );
         } else {
-          setAiSuccessMsg(data.message || `🎉 Đã tạo thành công đề thi bằng AI Gemini!`);
+          setAiSuccessMsg(data.message || `🎉 Đã tạo thành công đề thi bằng AI Gemini (${data.count || aiCount} câu)!`);
         }
         if (Array.isArray(data.questions)) {
           setAllVerifiedQuestions((prev) => [...data.questions, ...prev]);
         }
       }
-    } catch {
-      setAiErrorMsg('Lỗi kết nối khi gửi yêu cầu đến Gemini AI.');
+    } catch (err: any) {
+      setAiErrorMsg(err?.message ? `Lỗi kết nối: ${err.message}` : 'Lỗi kết nối khi gửi yêu cầu đến Gemini AI.');
     } finally {
       setAiGenerating(false);
     }

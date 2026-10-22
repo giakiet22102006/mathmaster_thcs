@@ -20,6 +20,7 @@ import {
 } from '@/lib/ai-service';
 
 export const dynamic = 'force-dynamic';
+export const maxDuration = 60;
 
 const MAX_DAILY_AI_EXAMS = 5;
 const MIN_AI_INTERVAL_MS = 60 * 1000; // 1 phút giữa 2 lần tạo đề
@@ -250,6 +251,8 @@ export async function POST(req: NextRequest) {
     // ============================================================================
     // BƯỚC 3: GỌI GEMINI API & THẨM ĐỊNH TOÁN HỌC
     // ============================================================================
+    // Sinh câu hỏi trực tiếp từ Gemini (tối đa 5 câu trực tiếp để phản hồi siêu tốc dưới 5-6s)
+    const aiGenCount = Math.min(count, 5);
     const result = await generateQuestionsWithAI({
       grade,
       textbook,
@@ -258,7 +261,7 @@ export async function POST(req: NextRequest) {
       topic,
       cognitiveLevel,
       type,
-      count,
+      count: aiGenCount,
       customPrompt,
       referenceContext,
     });
@@ -312,7 +315,31 @@ export async function POST(req: NextRequest) {
     dbUser.lastAiGenerationDate = quota.today;
 
     let createdExam: any = null;
-    if (createFullExam && generatedQuestions.length > 0) {
+    let allExamQuestions = [...generatedQuestions];
+
+    if (createFullExam && allExamQuestions.length > 0) {
+      // Nếu số câu yêu cầu lớn hơn số câu sinh trực tiếp (ví dụ yêu cầu 10, 15, 20 câu)
+      // hệ thống bổ sung từ kho câu hỏi chuẩn cùng khối, cùng mức độ nhận thức
+      if (allExamQuestions.length < count) {
+        const remainingNeeded = count - allExamQuestions.length;
+        const existingPool = state.questions.filter((q: any) => {
+          if (Number(q.grade) !== grade) return false;
+          if (type !== 'ALL' && q.type !== type) return false;
+          if (allExamQuestions.some((eq: any) => eq.id === q.id)) return false;
+          return true;
+        });
+
+        // Ưu tiên các câu cùng mức độ nhận thức và cùng chương
+        const prioritized = [...existingPool].sort((a: any, b: any) => {
+          const aScore = (a.cognitiveLevel === cognitiveLevel ? 3 : 0) + (a.chapterId === chapterId ? 1 : 0);
+          const bScore = (b.cognitiveLevel === cognitiveLevel ? 3 : 0) + (b.chapterId === chapterId ? 1 : 0);
+          return bScore - aScore;
+        });
+
+        const additionalQuestions = prioritized.slice(0, remainingNeeded);
+        allExamQuestions = [...allExamQuestions, ...additionalQuestions];
+      }
+
       const examId = `exam_ai_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
       const examTitle = customPrompt
         ? `Đề AI: ${customPrompt.slice(0, 45)}`
@@ -322,7 +349,7 @@ export async function POST(req: NextRequest) {
         id: examId,
         code: `EXAM_AI_${Date.now() % 100000}`,
         title: examTitle,
-        description: `Đề thi biên soạn tự động bởi AI Gemini 3.8 Flash chuẩn GDPT 2018 (Chủ đề: ${topic}).`,
+        description: `Đề thi tổng hợp gồm các câu hỏi biên soạn tự động bởi AI Gemini chuẩn GDPT 2018 (Chủ đề: ${topic}).`,
         grade,
         textbook,
         semester: semester || 1,
@@ -334,8 +361,8 @@ export async function POST(req: NextRequest) {
         sourceMode: 'AI_GENERATED',
         isFavorite: false,
         isSeed: false,
-        questionIds: generatedQuestions.map((q: any) => q.id),
-        questions: generatedQuestions,
+        questionIds: allExamQuestions.map((q: any) => q.id),
+        questions: allExamQuestions,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       };
