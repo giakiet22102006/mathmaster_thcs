@@ -1,5 +1,5 @@
 // ==============================================================================
-// MathMaster THCS - Next.js Middleware Phân Luồng Bảo Vệ API & Quản Trị Admin
+// MathMaster THCS - Next.js Middleware Phân Luồng Bảo Vệ API & Cổng Quản Trị Admin
 // Tương đương adminSecurityHeaders & requireAdmin trong Tuyển Dụng IT
 // ==============================================================================
 
@@ -35,17 +35,32 @@ function extractToken(req: NextRequest): string | null {
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // 1. Phân luồng bảo vệ Trang Quản trị Admin (/admin/:path*)
+  // 1. Phân luồng bảo vệ Cổng Quản trị Admin (/admin/:path*)
   if (pathname.startsWith('/admin')) {
+    // Ngoại lệ: Cho phép truy cập Cổng đăng nhập riêng của Admin (/admin/login)
+    if (pathname === '/admin/login') {
+      const res = NextResponse.next();
+      res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+      return res;
+    }
+
     const token = extractToken(req);
     if (!token) {
-      const loginUrl = new URL('/login', req.url);
-      loginUrl.searchParams.set('redirect', pathname);
-      return NextResponse.redirect(loginUrl);
+      // Chuyển hướng về cổng đăng nhập riêng của Admin
+      const adminLoginUrl = new URL('/admin/login', req.url);
+      adminLoginUrl.searchParams.set('redirect', pathname);
+      return NextResponse.redirect(adminLoginUrl);
     }
   }
 
   // 2. Phân luồng bảo vệ API (/api/:path*)
+  // Ngoại lệ: Cho phép gọi API đăng nhập riêng của Admin (/api/admin/auth)
+  if (pathname.startsWith('/api/admin/auth')) {
+    const res = NextResponse.next();
+    res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+    return res;
+  }
+
   const isProtectedApi = PROTECTED_API_PREFIXES.some((prefix) =>
     pathname.startsWith(prefix)
   );

@@ -395,6 +395,13 @@ function LoginContent() {
                 Đăng ký tài khoản mới
               </Link>
             </div>
+
+            <div className="pt-3 mt-2 border-t border-slate-100 text-center">
+              <Link href="/admin/login" className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-indigo-600 transition">
+                <span>🛡️</span>
+                <span>Cổng Đăng Nhập Quản Trị Viên (Admin) →</span>
+              </Link>
+            </div>
           </form>
         )}
 

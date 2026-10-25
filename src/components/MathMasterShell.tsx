@@ -340,14 +340,15 @@ export function AppShell({
 
   async function handleLogout() {
     clearDashboardClientCache();
+    const isAdminUser = user?.role === 'ADMIN';
     try {
-      await fetch('/api/auth', {
+      await fetch(isAdminUser ? '/api/admin/auth' : '/api/auth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'logout' }),
       });
     } finally {
-      router.push('/login');
+      router.push(isAdminUser ? '/admin/login' : '/login');
       router.refresh();
     }
   }

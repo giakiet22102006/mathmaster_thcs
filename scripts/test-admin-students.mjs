@@ -28,6 +28,7 @@ import { POST as restorePOST } from '../src/app/api/admin/students/[id]/restore/
 import { POST as bulkPOST } from '../src/app/api/admin/students/bulk/route';
 import { GET as logsGET } from '../src/app/api/admin/logs/route';
 import { POST as authPOST } from '../src/app/api/auth/route';
+import { POST as adminAuthPOST, GET as adminAuthGET } from '../src/app/api/admin/auth/route';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -64,9 +65,11 @@ export async function runAdminStudentTests() {
     const state = JSON.parse(savedLocalState);
     const adminUser = (state.users || []).find((u) => u.role === 'ADMIN');
     assert.ok(adminUser, 'Cần có ít nhất một tài khoản ADMIN trong state');
+    adminUser.passwordHash = hashPassword('AdminPass@123');
 
     const studentUser = (state.users || []).find((u) => u.role === 'STUDENT');
     assert.ok(studentUser, 'Cần có ít nhất một tài khoản STUDENT trong state');
+    studentUser.passwordHash = hashPassword('StudentPass@123');
 
     // Tạo token cho Admin và Student
     const adminSessionId = `sess_admin_${crypto.randomUUID()}`;
@@ -369,8 +372,49 @@ export async function runAdminStudentTests() {
     assert.ok(recordedActions.has('student.hardDelete'), 'Phải ghi nhận student.hardDelete');
     console.log(`✓ [PASS] (12) Nhật ký kiểm toán hệ thống ghi nhận đầy đủ 8 loại hành động quản trị (Tổng: ${logsData.pagination.totalItems} logs)`);
 
+    // Test 13: Cổng đăng nhập riêng biệt Quản trị viên (/api/admin/auth)
+    // 13.a Học viên đăng nhập vào cổng Admin bị từ chối 403
+    clearAllRateLimitsForTesting();
+    const reqStudentInAdminPortal = makeReq('http://localhost:3000/api/admin/auth', {
+      method: 'POST',
+      body: {
+        action: 'login',
+        identifier: studentUser.email,
+        password: 'StudentPass@123',
+      },
+    });
+    const resStudentInAdminPortal = await adminAuthPOST(reqStudentInAdminPortal);
+    assert.equal(resStudentInAdminPortal.status, 403, 'Học sinh đăng nhập vào cổng Admin phải bị chặn 403');
+    const studentInAdminData = await resStudentInAdminPortal.json();
+    assert.ok(studentInAdminData.error.includes('ADMIN'), 'Thông báo phải ghi rõ chỉ dành cho ADMIN');
+
+    // 13.b Admin đăng nhập thành công vào cổng Admin
+    clearAllRateLimitsForTesting();
+    const reqAdminLoginPortal = makeReq('http://localhost:3000/api/admin/auth', {
+      method: 'POST',
+      body: {
+        action: 'login',
+        identifier: adminUser.email,
+        password: 'AdminPass@123',
+      },
+    });
+    const resAdminLoginPortal = await adminAuthPOST(reqAdminLoginPortal);
+    assert.equal(resAdminLoginPortal.status, 200, 'Admin đăng nhập cổng riêng phải thành công 200');
+    const adminPortalData = await resAdminLoginPortal.json();
+    assert.equal(adminPortalData.ok, true);
+    assert.equal(adminPortalData.user.role, 'ADMIN');
+
+    // 13.c Đăng xuất khỏi cổng Admin
+    const reqAdminLogout = makeReq('http://localhost:3000/api/admin/auth', {
+      method: 'POST',
+      body: { action: 'logout' },
+    });
+    const resAdminLogout = await adminAuthPOST(reqAdminLogout);
+    assert.equal(resAdminLogout.status, 200);
+    console.log('✓ [PASS] (13) Cổng đăng nhập riêng Admin: Chặn học sinh 403, cho phép Admin 200 & Đăng xuất an toàn');
+
     console.log('================================================================');
-    console.log('🎉 TẤT CẢ 12 BÀI KIỂM THỬ QUẢN TRỊ HỌC VIÊN ĐỀU ĐẠT (12/12 PASS)!');
+    console.log('🎉 TẤT CẢ 13 BÀI KIỂM THỬ QUẢN TRỊ HỌC VIÊN ĐỀU ĐẠT (13/13 PASS)!');
     console.log('================================================================');
   } finally {
     // Khôi phục lại trạng thái ban đầu của file state
