@@ -38,6 +38,7 @@ import { GET as dashboardGET, POST as dashboardPOST } from '../src/app/api/dashb
 import { runBankAudit } from './bank-audit.mjs';
 import { runForgotPasswordTests } from './test-forgot-password.mjs';
 import { runEmailVerificationTests } from './test-email-verification.mjs';
+import { runAdminStudentTests } from './test-admin-students.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -1072,8 +1073,14 @@ async function runTests() {
     await runEmailVerificationTests();
     console.log('✓ [PASS] Test 19: Tính năng Xác thực Gmail Đăng ký (OTP 6 số, Rate Limit, Session) đạt chuẩn 100% (8/8)');
 
+    // -------------------------------------------------------------------------
+    // Test 20: Phân luồng Admin Quản trị Học viên (CRUD, Ban, Unban, Reset Pwd, Bulk, Audit Logs)
+    // -------------------------------------------------------------------------
+    await runAdminStudentTests();
+    console.log('✓ [PASS] Test 20: Phân luồng Admin Quản trị Học viên & Nhật ký Kiểm toán (12/12 PASS)');
+
     console.log('================================================================');
-    console.log('🎉 TẤT CẢ 19 BÀI KIỂM THỬ TỰ ĐỘNG ĐỀU ĐẠT (19/19 PASS)!');
+    console.log('🎉 TẤT CẢ 20 BÀI KIỂM THỬ TỰ ĐỘNG ĐỀU ĐẠT (20/20 PASS)!');
     console.log('================================================================');
   } finally {
     process.env.DATABASE_URL = savedDbUrl;

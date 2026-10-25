@@ -312,6 +312,7 @@ export function AppShell({
   const router = useRouter();
 
   const isTeacherOrAdmin = user?.role === 'TEACHER' || user?.role === 'ADMIN';
+  const isAdmin = user?.role === 'ADMIN';
 
   const navItems = [
     { href: '/dashboard', label: 'Tổng quan', icon: '📊' },
@@ -325,6 +326,12 @@ export function AppShell({
       label: isTeacherOrAdmin ? 'Quản lý Lớp học' : 'Lớp học của tôi',
       icon: '🏫',
     },
+    ...(isAdmin
+      ? [
+          { href: '/admin/students', label: 'Quản lý Học viên', icon: '👥' },
+          { href: '/admin/logs', label: 'Nhật ký Hệ thống', icon: '📜' },
+        ]
+      : []),
     ...(isTeacherOrAdmin
       ? [{ href: '/admin/questions', label: 'Duyệt Ngân hàng', icon: '🛡️' }]
       : []),

@@ -1199,6 +1199,24 @@ export async function requireUser(
     };
   }
 
+  if (user.deletedAt) {
+    return {
+      ok: false,
+      status: 403,
+      error: 'Tài khoản này đã bị xóa hoặc tạm ngưng sử dụng.',
+    };
+  }
+
+  if (user.status === 'banned' || user.isBanned) {
+    return {
+      ok: false,
+      status: 403,
+      error: user.banReason
+        ? `Tài khoản đã bị quản trị viên khóa: ${user.banReason}`
+        : 'Tài khoản của bạn đã bị khóa bởi quản trị viên.',
+    };
+  }
+
   return {
     ok: true,
     user,

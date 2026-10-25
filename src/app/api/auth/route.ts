@@ -501,6 +501,25 @@ export async function POST(req: NextRequest) {
           String(u.username || '').toLowerCase() === idLower
       );
 
+      if (user && user.deletedAt) {
+        return NextResponse.json(
+          { ok: false, error: 'Tài khoản này đã bị xóa hoặc tạm ngưng sử dụng.' },
+          { status: 403 }
+        );
+      }
+
+      if (user && (user.status === 'banned' || user.isBanned)) {
+        return NextResponse.json(
+          {
+            ok: false,
+            error: user.banReason
+              ? `Tài khoản đã bị quản trị viên khóa: ${user.banReason}`
+              : 'Tài khoản của bạn đã bị khóa bởi quản trị viên.',
+          },
+          { status: 403 }
+        );
+      }
+
       if (user && user.lockedUntil && new Date(user.lockedUntil).getTime() > Date.now()) {
         const retrySec = Math.ceil((new Date(user.lockedUntil).getTime() - Date.now()) / 1000);
         return NextResponse.json(
