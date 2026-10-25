@@ -11,7 +11,7 @@ import { NextRequest } from 'next/server';
 
 import { POST as authPOST } from '../src/app/api/auth/route';
 import { readServerStateAsync, writeServerStateAsync } from '../src/lib/prisma';
-import { clearAllRateLimitsForTesting } from '../src/lib/auth';
+import { clearAllRateLimitsForTesting, hashPassword } from '../src/lib/auth';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -49,6 +49,34 @@ export async function runForgotPasswordTests() {
   try {
     const testEmail = 'minhanh.thcs@mathmaster.edu.vn';
     const originalPassword = 'pass123';
+
+    // Đảm bảo tài khoản kiểm thử luôn sẵn sàng (Cô lập dữ liệu test)
+    const initSt = await readServerStateAsync();
+    initSt.users = initSt.users || [];
+    let testUser = initSt.users.find((u) => u.email === testEmail);
+    if (!testUser) {
+      testUser = {
+        id: 'user_minhanh_01',
+        email: testEmail,
+        username: 'minhanh_thcs',
+        fullName: 'Nguyễn Minh Anh',
+        role: 'STUDENT',
+        status: 'active',
+        currentGrade: 8,
+        preferredBook: 'KNTT',
+        passwordHash: hashPassword(originalPassword),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+      initSt.users.unshift(testUser);
+    } else {
+      testUser.passwordHash = hashPassword(originalPassword);
+      testUser.status = 'active';
+      testUser.deletedAt = null;
+      testUser.failedLoginCount = 0;
+      testUser.lockedUntil = null;
+    }
+    await writeServerStateAsync(initSt);
 
     // -------------------------------------------------------------------------
     // Test (a): Chuẩn hóa action - Cả gạch dưới lẫn gạch ngang đều KHÔNG bị lỗi 400

@@ -41,8 +41,13 @@ export default function ReviewQueuePage() {
         return;
       }
       const stateData = await stateRes.json();
+      const u = stateData?.state?.user || null;
+      if (u?.role === 'ADMIN') {
+        router.replace('/admin/students');
+        return;
+      }
       const revData = await revRes.json();
-      setUser(stateData?.state?.user || null);
+      setUser(u);
       if (revData.ok) {
         setReviewQueue(revData.reviewQueue || []);
         setDueCount(revData.dueCount || 0);

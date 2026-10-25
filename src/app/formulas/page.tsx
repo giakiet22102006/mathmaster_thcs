@@ -35,9 +35,14 @@ export default function FormulasAndFavoritesPage() {
         return;
       }
       const stateData = await stateRes.json();
+      const u = stateData?.state?.user || null;
+      if (u?.role === 'ADMIN') {
+        router.replace('/admin/students');
+        return;
+      }
       const formData = await formRes.json();
       const favData = await favRes.json();
-      setUser(stateData?.state?.user || null);
+      setUser(u);
       if (formData.ok) setFormulas(formData.formulas || []);
       if (favData.ok) setFavorites(favData.questions || []);
     } finally {

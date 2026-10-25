@@ -118,11 +118,17 @@ export default function DevicesAndSecurityPage() {
 
   const activeSessions = sessions.filter((s) => s.isActive);
 
+  const isAdmin = user?.role === 'ADMIN';
+
   return (
     <AppShell
       user={user}
-      title="Quản Lý Thiết Bị Đăng Nhập & Bảo Mật"
-      subtitle={`Tài khoản hỗ trợ đăng nhập đồng thời tối đa ${maxSessions} thiết bị độc lập`}
+      title={isAdmin ? 'Thiết Bị Đăng Nhập & Bảo Mật Quản Trị' : 'Quản Lý Thiết Bị Đăng Nhập & Bảo Mật'}
+      subtitle={
+        isAdmin
+          ? 'Quản lý các phiên truy cập an ninh của Quản trị viên và đổi mật khẩu quản trị hệ thống'
+          : `Tài khoản hỗ trợ đăng nhập đồng thời tối đa ${maxSessions} thiết bị độc lập`
+      }
       rightActions={
         activeSessions.length > 1 && (
           <button

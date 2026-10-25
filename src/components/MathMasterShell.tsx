@@ -311,32 +311,33 @@ export function AppShell({
   const pathname = usePathname();
   const router = useRouter();
 
-  const isTeacherOrAdmin = user?.role === 'TEACHER' || user?.role === 'ADMIN';
   const isAdmin = user?.role === 'ADMIN';
+  const isTeacher = user?.role === 'TEACHER';
 
-  const navItems = [
-    { href: '/dashboard', label: 'Tổng quan', icon: '📊' },
-    { href: '/exams/new', label: 'Tạo đề Ma trận', icon: '📝' },
-    { href: '/practice', label: 'Luyện chủ đề', icon: '🎯' },
-    { href: '/review', label: 'Sổ tay SM-2', icon: '🧠' },
-    { href: '/history', label: 'Lịch sử làm bài', icon: '📚' },
-    { href: '/formulas', label: 'Công thức & Lưu', icon: '📐' },
-    {
-      href: '/teacher',
-      label: isTeacherOrAdmin ? 'Quản lý Lớp học' : 'Lớp học của tôi',
-      icon: '🏫',
-    },
-    ...(isAdmin
-      ? [
-          { href: '/admin/students', label: 'Quản lý Học viên', icon: '👥' },
-          { href: '/admin/logs', label: 'Nhật ký Hệ thống', icon: '📜' },
-        ]
-      : []),
-    ...(isTeacherOrAdmin
-      ? [{ href: '/admin/questions', label: 'Duyệt Ngân hàng', icon: '🛡️' }]
-      : []),
-    { href: '/settings/devices', label: 'Thiết bị & Bảo mật', icon: '🔐' },
-  ];
+  // Phân luồng điều hướng: Admin chỉ quản trị tài khoản & an ninh hệ thống, tách biệt hoàn toàn với chức năng học tập/ôn tập của học viên
+  const navItems = isAdmin
+    ? [
+        { href: '/admin/students', label: 'Quản lý Học viên', icon: '👥' },
+        { href: '/admin/logs', label: 'Nhật ký An ninh & Hệ thống', icon: '🛡️' },
+        { href: '/settings/devices', label: 'Thiết bị & Bảo mật', icon: '🔐' },
+      ]
+    : [
+        { href: '/dashboard', label: 'Tổng quan', icon: '📊' },
+        { href: '/exams/new', label: 'Tạo đề Ma trận', icon: '📝' },
+        { href: '/practice', label: 'Luyện chủ đề', icon: '🎯' },
+        { href: '/review', label: 'Sổ tay SM-2', icon: '🧠' },
+        { href: '/history', label: 'Lịch sử làm bài', icon: '📚' },
+        { href: '/formulas', label: 'Công thức & Lưu', icon: '📐' },
+        {
+          href: '/teacher',
+          label: isTeacher ? 'Quản lý Lớp học' : 'Lớp học của tôi',
+          icon: '🏫',
+        },
+        ...(isTeacher
+          ? [{ href: '/admin/questions', label: 'Duyệt Ngân hàng', icon: '🛡️' }]
+          : []),
+        { href: '/settings/devices', label: 'Thiết bị & Bảo mật', icon: '🔐' },
+      ];
 
   async function handleLogout() {
     clearDashboardClientCache();
@@ -358,13 +359,19 @@ export function AppShell({
       {/* Sidebar cho màn hình Desktop */}
       <aside className="no-print hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 border-r border-slate-200 bg-white z-20">
         <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
-          <Link href="/dashboard" className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-600 text-white font-bold text-lg shadow-sm">
-              ∑
+          <Link href={isAdmin ? '/admin/students' : '/dashboard'} className="flex items-center gap-2.5">
+            <div
+              className={`flex h-9 w-9 items-center justify-center rounded-xl font-bold text-lg shadow-sm text-white ${
+                isAdmin ? 'bg-slate-900 border border-slate-700' : 'bg-indigo-600'
+              }`}
+            >
+              {isAdmin ? '🛡️' : '∑'}
             </div>
             <div>
               <div className="font-bold text-slate-900 leading-tight">MathMaster</div>
-              <div className="text-[11px] font-medium text-indigo-600">Toán THCS GDPT 2018</div>
+              <div className={`text-[11px] font-medium ${isAdmin ? 'text-indigo-600 font-semibold' : 'text-indigo-600'}`}>
+                {isAdmin ? 'Quản Trị & An Ninh' : 'Toán THCS GDPT 2018'}
+              </div>
             </div>
           </Link>
         </div>
@@ -376,9 +383,17 @@ export function AppShell({
               <span className="font-semibold text-sm text-slate-800 truncate">
                 {user.fullName}
               </span>
-              <span className="rounded-md bg-indigo-100 px-1.5 py-0.5 text-[10px] font-bold text-indigo-700">
-                {user.role === 'ADMIN'
-                  ? 'ADMIN'
+              <span
+                className={`rounded-md px-1.5 py-0.5 text-[10px] font-bold ${
+                  isAdmin
+                    ? 'bg-slate-900 text-rose-300 border border-slate-700'
+                    : user.role === 'TEACHER'
+                    ? 'bg-amber-100 text-amber-800'
+                    : 'bg-indigo-100 text-indigo-700'
+                }`}
+              >
+                {isAdmin
+                  ? 'ADMIN QUẢN TRỊ'
                   : user.role === 'TEACHER'
                   ? 'GIÁO VIÊN'
                   : `LỚP ${user.currentGrade || 8}`}
@@ -395,11 +410,18 @@ export function AppShell({
                 </span>
               )}
             </div>
-            <div className="mt-2 flex items-center gap-3 text-xs font-medium text-slate-700">
-              <span>⚡ {user.xp || 0} XP</span>
-              <span>🏆 Cấp {user.level || 1}</span>
-              <span>🔥 {user.streakDays || 1} ngày</span>
-            </div>
+            {isAdmin ? (
+              <div className="mt-2.5 pt-2 border-t border-slate-200 flex items-center justify-between text-[11px] font-medium text-slate-600">
+                <span className="flex items-center gap-1">🛡️ Toàn quyền Hệ thống</span>
+                <span className="text-emerald-600 font-bold">● An ninh OK</span>
+              </div>
+            ) : (
+              <div className="mt-2 flex items-center gap-3 text-xs font-medium text-slate-700">
+                <span>⚡ {user.xp || 0} XP</span>
+                <span>🏆 Cấp {user.level || 1}</span>
+                <span>🔥 {user.streakDays || 1} ngày</span>
+              </div>
+            )}
           </div>
         )}
 
@@ -476,7 +498,7 @@ export function AppShell({
 
       {/* Thanh điều hướng dưới cùng (Bottom Nav) trên điện thoại < 768px */}
       <nav className="no-print md:hidden fixed bottom-0 inset-x-0 z-30 border-t border-slate-200 bg-white flex items-center justify-around py-1.5 px-1 shadow-lg">
-        {navItems.slice(0, 6).map((item) => {
+        {navItems.slice(0, isAdmin ? 3 : 6).map((item) => {
           const active =
             pathname === item.href ||
             (item.href !== '/dashboard' && pathname?.startsWith(item.href));
@@ -489,7 +511,7 @@ export function AppShell({
               }`}
             >
               <span className="text-base leading-none">{item.icon}</span>
-              <span className="mt-1 truncate max-w-[64px]">{item.label}</span>
+              <span className="mt-1 truncate max-w-[80px]">{item.label}</span>
             </Link>
           );
         })}

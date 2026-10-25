@@ -171,6 +171,10 @@ export default function ExamBuilderWizardPage() {
       const data = await res.json();
       if (data?.state) {
         const u = data.state.user;
+        if (u?.role === 'ADMIN') {
+          router.replace('/admin/students');
+          return;
+        }
         setUser(u);
         setGrade(Number(u?.currentGrade || 8));
         setTextbook(u?.preferredBook || 'KNTT');

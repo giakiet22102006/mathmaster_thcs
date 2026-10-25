@@ -28,6 +28,10 @@ export default function HistoryPage() {
         }
         const stateData = await stateRes.json();
         const st = stateData?.state || {};
+        if (st.user?.role === 'ADMIN') {
+          router.replace('/admin/students');
+          return;
+        }
         setUser(st.user || null);
         setAttempts(st.attempts || []);
         setExams(st.exams || []);

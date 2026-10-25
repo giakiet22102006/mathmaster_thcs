@@ -45,9 +45,14 @@ export default function TeacherAndClassroomPage() {
         return;
       }
       const stateData = await stateRes.json();
+      const u = stateData?.state?.user || null;
+      if (u?.role === 'ADMIN') {
+        router.replace('/admin/students');
+        return;
+      }
       const clsData = await clsRes.json();
       const exData = await exRes.json();
-      setUser(stateData?.state?.user || null);
+      setUser(u);
       if (clsData.ok && Array.isArray(clsData.classrooms)) {
         setClassrooms(clsData.classrooms);
         if (!selectedClassId && clsData.classrooms[0]?.id) {

@@ -48,6 +48,10 @@ function PracticeContent() {
       const data = await res.json();
       if (data?.state) {
         const u = data.state.user;
+        if (u?.role === 'ADMIN') {
+          router.replace('/admin/students');
+          return;
+        }
         setUser(u);
         const g = Number(u?.currentGrade || 8);
         setGrade(g);

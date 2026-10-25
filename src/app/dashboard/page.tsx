@@ -43,6 +43,10 @@ export default function DashboardPage() {
   const loadDashboardData = useCallback(async () => {
     setLoadError('');
     const cached = getDashboardClientCache();
+    if (cached?.user?.role === 'ADMIN') {
+      router.replace('/admin/students');
+      return;
+    }
     if (cached?.user) {
       setUser(cached.user);
       if (cached.analytics) {
@@ -59,6 +63,10 @@ export default function DashboardPage() {
       const { status, data } = await fetchDashboardUnifiedApi(8000);
       if (status === 401) {
         router.push('/login');
+        return;
+      }
+      if (data?.user?.role === 'ADMIN') {
+        router.replace('/admin/students');
         return;
       }
 

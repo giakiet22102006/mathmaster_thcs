@@ -94,9 +94,13 @@ export default function AdminQuestionsPage() {
       }
       const stateData = await stateRes.json();
       const currentUser = stateData?.state?.user;
+      if (currentUser?.role === 'ADMIN') {
+        router.replace('/admin/students');
+        return;
+      }
       setUser(currentUser);
 
-      if (currentUser?.role !== 'TEACHER' && currentUser?.role !== 'ADMIN') {
+      if (currentUser?.role !== 'TEACHER') {
         setLoading(false);
         return;
       }
