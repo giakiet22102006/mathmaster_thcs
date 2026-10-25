@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import os from 'node:os';
-import { checkDatabaseConnection } from '@/lib/prisma';
+import { checkDatabaseConnection, isDatabaseUrlConfigured, getLastDbConnectionError } from '@/lib/prisma';
 
 function getServerLanUrls(): string[] {
   try {
@@ -21,6 +21,8 @@ function getServerLanUrls(): string[] {
 
 export async function GET() {
   const dbConnected = await checkDatabaseConnection();
+  const dbConfigured = isDatabaseUrlConfigured();
+  const dbError = getLastDbConnectionError();
   const geminiConfigured = Boolean(process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY.trim() !== '');
   const mathpixConfigured = Boolean(process.env.MATHPIX_APP_KEY && process.env.MATHPIX_APP_KEY.trim() !== '');
   const lanUrls = getServerLanUrls();
@@ -30,6 +32,8 @@ export async function GET() {
     service: 'MathMaster THCS Backend API',
     nodeVersion: process.version,
     databaseConnected: dbConnected,
+    databaseConfigured: dbConfigured,
+    databaseError: dbConnected ? null : dbError,
     storageDriver: process.env.UPLOAD_STORAGE_DRIVER || 'local',
     geminiConfigured,
     mathpixConfigured,

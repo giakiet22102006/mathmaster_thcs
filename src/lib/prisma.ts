@@ -24,42 +24,76 @@ import {
   HOT_COLLECTIONS,
   buildMainPayload,
 } from './hot-store';
+import { PrismaClient } from '@prisma/client';
 
-let prismaInstance: any = null;
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClient | undefined;
+};
+
 let cloudTableInitialized = false;
+let lastDbConnectionError: string | null = null;
 
-export async function getPrismaClient() {
-  if (prismaInstance) return prismaInstance;
+export function getSanitizedDatabaseUrl(): string | null {
+  const raw = process.env.DATABASE_URL?.trim();
+  if (!raw) return null;
+  // Bỏ ngoặc kép hoặc ngoặc đơn bao quanh nếu bị dính từ file cấu hình/PowerShell
+  const unquoted = raw.replace(/^["']|["']$/g, '').trim();
+  if (!unquoted || unquoted.includes('CHANGE_ME') || !unquoted.startsWith('postgres')) {
+    return null;
+  }
+  return unquoted;
+}
+
+export function isDatabaseUrlConfigured(): boolean {
+  return Boolean(getSanitizedDatabaseUrl());
+}
+
+export async function getPrismaClient(): Promise<PrismaClient | null> {
+  const dbUrl = getSanitizedDatabaseUrl();
+  if (!dbUrl) return null;
+
+  if (globalForPrisma.prisma) return globalForPrisma.prisma;
   try {
-    const mod = await import('@prisma/client');
-    const PrismaClient = mod.PrismaClient;
-    prismaInstance = new PrismaClient();
-    return prismaInstance;
-  } catch {
+    const client = new PrismaClient({
+      datasources: {
+        db: {
+          url: dbUrl,
+        },
+      },
+      log: process.env.NODE_ENV === 'development' ? ['warn', 'error'] : ['error'],
+    });
+    globalForPrisma.prisma = client;
+    return client;
+  } catch (err: any) {
+    lastDbConnectionError = err?.message || String(err);
+    console.error('Lỗi khởi tạo PrismaClient:', err);
     return null;
   }
 }
 
-export function isDatabaseUrlConfigured(): boolean {
-  return Boolean(
-    process.env.DATABASE_URL &&
-      !process.env.DATABASE_URL.includes('CHANGE_ME') &&
-      process.env.DATABASE_URL.startsWith('postgres')
-  );
-}
-
 export async function checkDatabaseConnection(): Promise<boolean> {
   if (!isDatabaseUrlConfigured()) {
+    lastDbConnectionError = 'DATABASE_URL chưa được cấu hình';
     return false;
   }
   try {
     const prisma = await getPrismaClient();
-    if (!prisma) return false;
+    if (!prisma) {
+      if (!lastDbConnectionError) lastDbConnectionError = 'Không thể khởi tạo PrismaClient';
+      return false;
+    }
     await prisma.$queryRawUnsafe('SELECT 1');
+    lastDbConnectionError = null;
     return true;
-  } catch {
+  } catch (err: any) {
+    lastDbConnectionError = err?.message || String(err);
+    console.error('checkDatabaseConnection thất bại:', err);
     return false;
   }
+}
+
+export function getLastDbConnectionError(): string | null {
+  return lastDbConnectionError;
 }
 
 let cachedWritableStateFilePath: string | null = null;

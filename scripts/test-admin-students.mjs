@@ -15,6 +15,7 @@ import {
   hashPassword,
   signSessionToken,
 } from '../src/lib/auth';
+import { readServerStateAsync, writeServerStateAsync } from '../src/lib/prisma';
 import { GET as studentsGET, POST as studentsPOST } from '../src/app/api/admin/students/route';
 import {
   GET as studentDetailGET,
@@ -56,13 +57,12 @@ export async function runAdminStudentTests() {
   console.log('🛡️ BẮT ĐẦU KIỂM THỬ PHÂN LUỒNG ADMIN QUẢN TRỊ HỌC VIÊN');
   console.log('================================================================');
 
-  const savedLocalState = fs.existsSync(localStatePath)
-    ? fs.readFileSync(localStatePath, 'utf-8')
-    : null;
+  const originalState = await readServerStateAsync();
+  const savedStateBackup = JSON.parse(JSON.stringify(originalState));
 
   try {
     // 1. Chuẩn bị tài khoản Admin và Học viên mẫu
-    const state = JSON.parse(savedLocalState);
+    const state = originalState;
     const adminUser = (state.users || []).find((u) => u.role === 'ADMIN');
     assert.ok(adminUser, 'Cần có ít nhất một tài khoản ADMIN trong state');
     adminUser.passwordHash = hashPassword('AdminPass@123');
@@ -93,7 +93,7 @@ export async function runAdminStudentTests() {
       expiresAt: new Date(Date.now() + 86400000).toISOString(),
     });
 
-    fs.writeFileSync(localStatePath, JSON.stringify(state, null, 2), 'utf-8');
+    await writeServerStateAsync(state);
 
     const adminToken = signSessionToken({
       userId: adminUser.id,
@@ -417,9 +417,9 @@ export async function runAdminStudentTests() {
     console.log('🎉 TẤT CẢ 13 BÀI KIỂM THỬ QUẢN TRỊ HỌC VIÊN ĐỀU ĐẠT (13/13 PASS)!');
     console.log('================================================================');
   } finally {
-    // Khôi phục lại trạng thái ban đầu của file state
-    if (savedLocalState) {
-      fs.writeFileSync(localStatePath, savedLocalState, 'utf-8');
+    // Khôi phục lại trạng thái ban đầu của state
+    if (savedStateBackup) {
+      await writeServerStateAsync(savedStateBackup);
     }
   }
 }

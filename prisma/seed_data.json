@@ -2692,6 +2692,30 @@
       "streakDays": 9,
       "lastStudyDate": "2026-10-18",
       "theme": "light"
+    },
+    {
+      "id": "user_admin_23e34d4b-55d4-4063-9f7b-0ceb34f83b9b",
+      "xp": 2000,
+      "role": "ADMIN",
+      "email": "kietgiyuu2006@gmail.com",
+      "level": 10,
+      "status": "active",
+      "isGuest": false,
+      "fullName": "Nguyễn Gia Kiệt",
+      "username": "kietgiyuu2006",
+      "createdAt": "2026-10-25T06:35:46.869Z",
+      "updatedAt": "2026-10-25T06:35:46.869Z",
+      "schoolName": "Ban Quản Trị Hệ Thống",
+      "streakDays": 30,
+      "lockedUntil": null,
+      "currentGrade": 9,
+      "passwordHash": "scrypt$N=16384,r=8,p=1$bd6a4e114edee1fbb6c5a816e99c9287$f9b05680dfd54e91f55a898b61478acd2bf956966eb6c3fa17441786ea226df70b5883fcc0d8d656794d809219c71403fbc9524777fa5124af333635a44e2aa8",
+      "preferredBook": "KNTT",
+      "failedLoginCount": 0,
+      "mustChangePassword": false,
+      "favoriteQuestionIds": [],
+      "onboardingCompleted": true,
+      "anonymousLeaderboard": false
     }
   ],
   "exams": [
