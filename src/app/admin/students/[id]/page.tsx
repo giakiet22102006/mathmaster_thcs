@@ -26,10 +26,6 @@ export default function StudentDetailPage() {
   const [banReason, setBanReason] = useState('');
   const [submittingAction, setSubmittingAction] = useState(false);
 
-  // Modal Mật khẩu tạm thời
-  const [tempPasswordModal, setTempPasswordModal] = useState<string | null>(null);
-  const [copiedPass, setCopiedPass] = useState(false);
-
   const fetchStudentDetail = useCallback(async () => {
     try {
       setLoading(true);
@@ -70,32 +66,6 @@ export default function StudentDetailPage() {
       })
       .catch(() => setLoading(false));
   }, [fetchStudentDetail]);
-
-  // Hành động Đặt lại mật khẩu
-  async function handleResetPassword() {
-    if (!window.confirm(`Bạn có chắc chắn muốn đặt lại mật khẩu ngẫu nhiên cho học viên "${data?.student?.fullName}"?`)) {
-      return;
-    }
-    try {
-      setSubmittingAction(true);
-      const res = await fetch(`/api/admin/students/${studentId}/reset-password`, {
-        method: 'POST',
-      });
-      const resData = await res.json();
-      if (resData.ok) {
-        setTempPasswordModal(resData.tempPassword);
-        setCopiedPass(false);
-        setSuccessMsg(`Đã tạo mật khẩu tạm thời mới thành công.`);
-        fetchStudentDetail();
-      } else {
-        alert(resData.error || 'Đặt lại mật khẩu thất bại.');
-      }
-    } catch {
-      alert('Lỗi kết nối khi đặt lại mật khẩu.');
-    } finally {
-      setSubmittingAction(false);
-    }
-  }
 
   // Khóa tài khoản
   async function handleConfirmBan() {
@@ -178,7 +148,11 @@ export default function StudentDetailPage() {
 
   // Xóa vĩnh viễn (Hard delete)
   async function handleHardDelete() {
-    if (!window.confirm('CẢNH BÁO: Hành động này sẽ XÓA VĨNH VIỄN tài khoản học viên và toàn bộ dữ liệu phiên làm việc liên quan. Không thể khôi phục! Bạn có chắc chắn muốn xóa?')) {
+    if (
+      !window.confirm(
+        `⚠️ CẢNH BÁO NGUY HIỂM:\n\nBạn có chắc chắn muốn XÓA VĨNH VIỄN tài khoản học viên "${data?.student?.fullName}"?\n\nToàn bộ dữ liệu phiên đăng nhập, lịch sử bài làm, điểm số và thông tin cá nhân sẽ bị XÓA HOÀN TOÀN khỏi cơ sở dữ liệu và KHÔNG THỂ KHÔI PHỤC!\n\nNhấn OK để xác nhận xóa vĩnh viễn.`
+      )
+    ) {
       return;
     }
     try {
@@ -193,12 +167,6 @@ export default function StudentDetailPage() {
     } catch {
       alert('Lỗi kết nối khi xóa vĩnh viễn.');
     }
-  }
-
-  function copyPassword(pass: string) {
-    navigator.clipboard.writeText(pass);
-    setCopiedPass(true);
-    setTimeout(() => setCopiedPass(false), 2000);
   }
 
   const isAuthorized = currentUser?.role === 'ADMIN';
@@ -243,13 +211,6 @@ export default function StudentDetailPage() {
               >
                 ✏️ Chỉnh sửa
               </Link>
-              <button
-                onClick={handleResetPassword}
-                disabled={submittingAction}
-                className="inline-flex items-center gap-1.5 rounded-xl border border-indigo-300 bg-indigo-50 px-3.5 py-2 text-xs font-bold text-indigo-700 hover:bg-indigo-100 transition"
-              >
-                🔑 Đặt lại MK
-              </button>
               {student.status === 'banned' ? (
                 <button
                   onClick={handleUnban}
@@ -260,7 +221,7 @@ export default function StudentDetailPage() {
               ) : (
                 <button
                   onClick={() => setShowBanModal(true)}
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-rose-600 px-3.5 py-2 text-xs font-bold text-white hover:bg-rose-700 transition"
+                  className="inline-flex items-center gap-1.5 rounded-xl bg-amber-600 px-3.5 py-2 text-xs font-bold text-white hover:bg-amber-700 transition"
                 >
                   🚫 Khóa tài khoản
                 </button>
@@ -282,9 +243,10 @@ export default function StudentDetailPage() {
               )}
               <button
                 onClick={handleHardDelete}
-                className="inline-flex items-center gap-1.5 rounded-xl bg-slate-900 px-3.5 py-2 text-xs font-bold text-rose-300 hover:bg-slate-800 transition"
+                className="inline-flex items-center gap-1.5 rounded-xl bg-rose-600 px-3.5 py-2 text-xs font-bold text-white hover:bg-rose-700 shadow-sm transition"
+                title="Xóa vĩnh viễn tài khoản khỏi hệ thống (Không thể hoàn tác)"
               >
-                ⚠️ Xóa vĩnh viễn
+                💥 Xóa vĩnh viễn
               </button>
             </div>
           )}
@@ -614,49 +576,6 @@ export default function StudentDetailPage() {
         </div>
       )}
 
-      {/* Modal Mật khẩu tạm mới sau khi Đặt lại mật khẩu */}
-      {tempPasswordModal && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs"
-        >
-          <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl border border-slate-200">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 font-bold text-xl mb-3">
-              ✓
-            </div>
-            <h3 className="font-bold text-lg text-slate-900">Mật khẩu tạm mới</h3>
-            <p className="text-sm text-slate-600 mt-1">
-              Đã đặt lại mật khẩu cho <span className="font-semibold">{student?.fullName}</span>
-            </p>
-
-            <div className="mt-4 rounded-xl bg-slate-50 border border-slate-200 p-4">
-              <p className="text-xs text-slate-500 font-medium">Mật khẩu tạm (chỉ hiển thị một lần):</p>
-              <div className="mt-1 flex items-center justify-between">
-                <span className="font-mono text-lg font-bold text-indigo-700 tracking-wider">
-                  {tempPasswordModal}
-                </span>
-                <button
-                  onClick={() => copyPassword(tempPasswordModal)}
-                  className="rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-indigo-700 transition"
-                >
-                  {copiedPass ? '✓ Đã sao chép' : '📋 Sao chép'}
-                </button>
-              </div>
-            </div>
-
-            <div className="mt-5 flex justify-end">
-              <button
-                type="button"
-                onClick={() => setTempPasswordModal(null)}
-                className="rounded-xl bg-slate-900 px-5 py-2 text-sm font-semibold text-white hover:bg-slate-800"
-              >
-                Đã hoàn tất
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </AppShell>
   );
 }

@@ -69,21 +69,6 @@ export default function AdminStudentsPage() {
   const [isBulkBan, setIsBulkBan] = useState(false);
   const [submittingAction, setSubmittingAction] = useState(false);
 
-  // Modal Mật khẩu tạm thời
-  const [tempPasswordModal, setTempPasswordModal] = useState<{
-    show: boolean;
-    studentName: string;
-    studentEmail: string;
-    tempPass: string;
-  }>({
-    show: false,
-    studentName: '',
-    studentEmail: '',
-    tempPass: '',
-  });
-
-  const [copiedPass, setCopiedPass] = useState(false);
-
   // Tải thông tin phiên và danh sách học viên
   const fetchStudents = useCallback(async (page = 1) => {
     try {
@@ -168,31 +153,29 @@ export default function AdminStudentsPage() {
     );
   }
 
-  // Thao tác Đặt lại mật khẩu
-  async function handleResetPassword(student: StudentItem) {
-    if (!window.confirm(`Bạn có chắc chắn muốn đặt lại mật khẩu ngẫu nhiên cho học viên "${student.fullName}"?`)) {
+  // Thao tác Xóa vĩnh viễn (Hard delete)
+  async function handleHardDelete(student: StudentItem) {
+    if (
+      !window.confirm(
+        `⚠️ CẢNH BÁO NGUY HIỂM:\n\nBạn có chắc chắn muốn XÓA VĨNH VIỄN học viên "${student.fullName}" (@${student.username} - ${student.email})?\n\nToàn bộ dữ liệu phiên đăng nhập, lịch sử làm bài và thông tin tài khoản sẽ bị XÓA HOÀN TOÀN khỏi cơ sở dữ liệu và KHÔNG THỂ KHÔI PHỤC!`
+      )
+    ) {
       return;
     }
     try {
       setSubmittingAction(true);
-      const res = await fetch(`/api/admin/students/${student.id}/reset-password`, {
-        method: 'POST',
+      const res = await fetch(`/api/admin/students/${student.id}?permanent=true`, {
+        method: 'DELETE',
       });
       const data = await res.json();
       if (data.ok) {
-        setTempPasswordModal({
-          show: true,
-          studentName: student.fullName,
-          studentEmail: student.email,
-          tempPass: data.tempPassword,
-        });
-        setCopiedPass(false);
-        setStatusMsg({ type: 'success', text: `Đã cấp mật khẩu mới cho học viên ${student.fullName}.` });
+        setStatusMsg({ type: 'success', text: data.message });
+        fetchStudents(currentPage);
       } else {
-        setStatusMsg({ type: 'error', text: data.error || 'Đặt lại mật khẩu thất bại.' });
+        setStatusMsg({ type: 'error', text: data.error || 'Xóa vĩnh viễn thất bại.' });
       }
     } catch {
-      setStatusMsg({ type: 'error', text: 'Lỗi mạng khi đặt lại mật khẩu.' });
+      setStatusMsg({ type: 'error', text: 'Lỗi mạng khi xóa vĩnh viễn.' });
     } finally {
       setSubmittingAction(false);
     }
@@ -297,18 +280,24 @@ export default function AdminStudentsPage() {
   }
 
   // Thao tác Hàng loạt (Bulk actions)
-  async function handleBulkAction(action: 'unban' | 'delete' | 'restore') {
+  async function handleBulkAction(action: 'unban' | 'delete' | 'restore' | 'permanent_delete') {
     if (selectedIds.length === 0) return;
     const actionLabels: Record<string, string> = {
       unban: 'mở khóa',
       delete: 'xóa mềm',
       restore: 'khôi phục',
+      permanent_delete: 'XÓA VĨNH VIỄN (KHÔNG THỂ KHÔI PHỤC)',
     };
-    if (!window.confirm(`Bạn có chắc chắn muốn ${actionLabels[action]} ${selectedIds.length} học viên đã chọn?`)) {
+    const confirmText =
+      action === 'permanent_delete'
+        ? `⚠️ CẢNH BÁO NGUY HIỂM:\n\nBạn có chắc chắn muốn XÓA VĨNH VIỄN ${selectedIds.length} học viên đã chọn?\n\nToàn bộ dữ liệu phiên đăng nhập, kết quả làm bài của các tài khoản này sẽ bị XÓA HOÀN TOÀN khỏi cơ sở dữ liệu và KHÔNG THỂ KHÔI PHỤC!`
+        : `Bạn có chắc chắn muốn ${actionLabels[action]} ${selectedIds.length} học viên đã chọn?`;
+    if (!window.confirm(confirmText)) {
       return;
     }
 
     try {
+      setSubmittingAction(true);
       const res = await fetch('/api/admin/students/bulk', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -317,19 +306,16 @@ export default function AdminStudentsPage() {
       const data = await res.json();
       if (data.ok) {
         setStatusMsg({ type: 'success', text: data.message });
+        setSelectedIds([]);
         fetchStudents(currentPage);
       } else {
         alert(data.error || 'Thao tác thất bại.');
       }
     } catch {
       alert('Lỗi kết nối khi thao tác hàng loạt.');
+    } finally {
+      setSubmittingAction(false);
     }
-  }
-
-  function copyPasswordToClipboard(text: string) {
-    navigator.clipboard.writeText(text);
-    setCopiedPass(true);
-    setTimeout(() => setCopiedPass(false), 2000);
   }
 
   const isAuthorized = user?.role === 'ADMIN';
@@ -353,15 +339,6 @@ export default function AdminStudentsPage() {
       user={user}
       title="Quản Trị Tài Khoản Học Viên THCS"
       subtitle="Quản lý toàn bộ thông tin học viên, kết quả học tập, khóa/mở khóa và bảo mật tài khoản"
-      rightActions={
-        <Link
-          href="/admin/students/create"
-          className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 transition"
-        >
-          <span>➕</span>
-          <span>Thêm Học viên mới</span>
-        </Link>
-      }
     >
       <div className="space-y-6">
         {/* Thông báo trạng thái */}
@@ -503,6 +480,13 @@ export default function AdminStudentsPage() {
                 🗑️ Xóa mềm đã chọn
               </button>
               <button
+                onClick={() => handleBulkAction('permanent_delete')}
+                className="rounded-lg bg-rose-700 px-3 py-1.5 text-xs font-bold text-white hover:bg-rose-800 transition"
+                title="Xóa vĩnh viễn các tài khoản đã chọn khỏi hệ thống"
+              >
+                💥 Xóa vĩnh viễn đã chọn
+              </button>
+              <button
                 onClick={() => setSelectedIds([])}
                 className="rounded-lg border border-indigo-300 bg-white px-3 py-1.5 text-xs font-semibold text-indigo-700 hover:bg-indigo-50"
               >
@@ -641,14 +625,6 @@ export default function AdminStudentsPage() {
                             >
                               ✏️
                             </Link>
-                            <button
-                              onClick={() => handleResetPassword(st)}
-                              disabled={submittingAction}
-                              className="rounded-lg p-1.5 text-slate-500 hover:bg-slate-100 hover:text-indigo-600 transition"
-                              title="Đặt lại mật khẩu tạm thời"
-                            >
-                              🔑
-                            </button>
                             {st.status === 'banned' ? (
                               <button
                                 onClick={() => handleUnban(st)}
@@ -687,6 +663,14 @@ export default function AdminStudentsPage() {
                                 🗑️
                               </button>
                             )}
+                            <button
+                              onClick={() => handleHardDelete(st)}
+                              disabled={submittingAction}
+                              className="rounded-lg p-1.5 text-rose-600 hover:bg-rose-50 hover:text-rose-800 transition"
+                              title="Xóa vĩnh viễn tài khoản (Không thể khôi phục)"
+                            >
+                              💥
+                            </button>
                           </div>
                         </td>
                       </tr>
@@ -806,55 +790,6 @@ export default function AdminStudentsPage() {
         </div>
       )}
 
-      {/* Modal Mật khẩu tạm thời sau khi Đặt lại mật khẩu */}
-      {tempPasswordModal.show && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs"
-        >
-          <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl border border-slate-200">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 font-bold text-xl mb-3">
-              ✓
-            </div>
-            <h3 className="font-bold text-lg text-slate-900">Mật khẩu tạm thời mới</h3>
-            <p className="text-sm text-slate-600 mt-1">
-              Đã đặt lại mật khẩu cho học viên{' '}
-              <span className="font-semibold text-slate-900">{tempPasswordModal.studentName}</span>
-            </p>
-
-            <div className="mt-4 rounded-xl bg-slate-50 border border-slate-200 p-4">
-              <p className="text-xs text-slate-500 font-medium">Mật khẩu tạm (chỉ hiển thị một lần):</p>
-              <div className="mt-1 flex items-center justify-between">
-                <span className="font-mono text-lg font-bold text-indigo-700 tracking-wider">
-                  {tempPasswordModal.tempPass}
-                </span>
-                <button
-                  onClick={() => copyPasswordToClipboard(tempPasswordModal.tempPass)}
-                  className="rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-indigo-700 transition"
-                >
-                  {copiedPass ? '✓ Đã sao chép' : '📋 Sao chép'}
-                </button>
-              </div>
-            </div>
-
-            <p className="mt-3 text-xs text-slate-500">
-              Vui lòng gửi mật khẩu này cho học viên hoặc phụ huynh. Học viên sẽ được yêu cầu đổi mật khẩu
-              ở lần đăng nhập tiếp theo.
-            </p>
-
-            <div className="mt-5 flex justify-end">
-              <button
-                type="button"
-                onClick={() => setTempPasswordModal({ show: false, studentName: '', studentEmail: '', tempPass: '' })}
-                className="rounded-xl bg-slate-900 px-5 py-2 text-sm font-semibold text-white hover:bg-slate-800"
-              >
-                Đã hoàn tất
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </AppShell>
   );
 }

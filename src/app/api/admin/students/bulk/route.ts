@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const validActions = ['ban', 'unban', 'delete', 'restore'];
+    const validActions = ['ban', 'unban', 'delete', 'restore', 'permanent_delete'];
     if (!validActions.includes(action)) {
       return NextResponse.json(
         { ok: false, error: 'Hành động hàng loạt không hợp lệ.' },
@@ -77,6 +77,17 @@ export async function POST(req: NextRequest) {
       } else if (action === 'restore') {
         student.deletedAt = null;
         student.updatedAt = nowIso;
+      } else if (action === 'permanent_delete') {
+        const idx = (state.users || []).findIndex((u: any) => u.id === id);
+        if (idx !== -1) {
+          state.users.splice(idx, 1);
+        }
+        if (Array.isArray(state.sessions)) {
+          state.sessions = state.sessions.filter((s: any) => s.userId !== id);
+        }
+        if (Array.isArray(state.passwordResetTokens)) {
+          state.passwordResetTokens = state.passwordResetTokens.filter((t: any) => t.userId !== id);
+        }
       }
 
       affectedCount++;
@@ -108,6 +119,7 @@ export async function POST(req: NextRequest) {
       unban: 'Mở khóa',
       delete: 'Xóa mềm',
       restore: 'Khôi phục',
+      permanent_delete: 'Xóa vĩnh viễn',
     };
 
     return NextResponse.json({
