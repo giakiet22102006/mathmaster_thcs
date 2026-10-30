@@ -85,6 +85,7 @@ export interface GenerateQuestionsOptions {
   type?: QuestionType | 'ALL';
   count: number;
   excludeFingerprints?: Set<string> | string[];
+  excludeContents?: Set<string> | string[];
   seed?: number | string;
   maxPerTemplate?: number;
 }

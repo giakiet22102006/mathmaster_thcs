@@ -8,9 +8,13 @@ import { Mulberry32, type PRNG } from './rng';
 import { verifyQuestion, type VerificationResult } from './verify';
 import { computeDifficultyScore } from './difficulty-standard';
 import { grade6Templates } from './templates/grade6';
+import { grade6VdVdcTemplates } from './templates/grade6-vd-vdc';
 import { grade7Templates } from './templates/grade7';
+import { grade7VdcTemplates } from './templates/grade7-vdc';
 import { grade8Templates } from './templates/grade8';
+import { grade8VdcTemplates } from './templates/grade8-vdc';
 import { grade9Templates } from './templates/grade9';
+import { grade9VdcTemplates } from './templates/grade9-vdc';
 import type {
   EngineQuestion,
   QuestionTemplate,
@@ -26,12 +30,16 @@ export * from './types';
 export { Mulberry32, createRNG } from './rng';
 export { verifyQuestion } from './verify';
 
-// Gom toàn bộ template 4 khối lớp
+// Gom toàn bộ template 4 khối lớp (bao gồm cả các bộ chuyên sâu VD/VDC)
 export const ALL_TEMPLATES: QuestionTemplate[] = [
   ...grade6Templates,
+  ...grade6VdVdcTemplates,
   ...grade7Templates,
+  ...grade7VdcTemplates,
   ...grade8Templates,
+  ...grade8VdcTemplates,
   ...grade9Templates,
+  ...grade9VdcTemplates,
 ];
 
 /**
@@ -132,6 +140,16 @@ export function generateQuestions(options: GenerateQuestionsOptions): {
     }
   }
 
+  // Tập hợp các nội dung đã tồn tại để tránh sinh câu có cùng đề bài
+  const seenContents = new Set<string>();
+  if (options.excludeContents) {
+    if (options.excludeContents instanceof Set) {
+      for (const c of options.excludeContents) seenContents.add(c);
+    } else if (Array.isArray(options.excludeContents)) {
+      for (const c of options.excludeContents) seenContents.add(c);
+    }
+  }
+
   // Tìm các template thỏa mãn tiêu chí (cognitiveLevel là nguồn sự thật tối cao)
   let candidateTemplates = ALL_TEMPLATES.filter((t) => {
     if (t.grade !== grade) return false;
@@ -223,9 +241,14 @@ export function generateQuestions(options: GenerateQuestionsOptions): {
     try {
       const rawQ = template.generate(rng, selectedBook);
       const fp = computeFingerprint(rawQ.content, rawQ.options);
+      const normContent = (rawQ.content || '')
+        .toLowerCase()
+        .replace(/\s+/g, ' ')
+        .replace(/[^a-z0-9\u00C0-\u024F\u1EA0-\u1EF9]/gi, '')
+        .trim();
 
-      // Tránh trùng lặp
-      if (seenFingerprints.has(fp)) {
+      // Tránh trùng lặp cả về fingerprint lẫn chuỗi nội dung câu hỏi
+      if (seenFingerprints.has(fp) || (normContent && seenContents.has(normContent))) {
         retries++;
         continue;
       }
@@ -271,6 +294,7 @@ export function generateQuestions(options: GenerateQuestionsOptions): {
       }
 
       seenFingerprints.add(fp);
+      if (normContent) seenContents.add(normContent);
       templateUsage.set(template.id, (templateUsage.get(template.id) || 0) + 1);
       generatedQuestions.push(question);
     } catch {

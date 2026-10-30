@@ -3243,165 +3243,166 @@
       "version": 1
     },
     {
+      "grade": 6,
+      "semester": 2,
+      "chapterId": "G6_C6",
+      "lesson": "Xác suất thực nghiệm",
+      "topic": "Xúc xắc 6 mặt",
+      "problemType": "Xác suất thực nghiệm mặt chấm chẵn",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 0.5,
+      "textbooks": [
+        "CD"
+      ],
+      "content": "Gieo một con xúc xắc $6$ mặt $60$ lần liên tiếp, ghi nhận được $32$ lần xuất hiện mặt có số chấm là số chẵn. Xác suất thực nghiệm xuất hiện mặt chấm chẵn là:",
+      "options": [
+        {
+          "label": "A",
+          "text": "Khoảng $53\\%$"
+        },
+        {
+          "label": "B",
+          "text": "Khoảng $47\\%$",
+          "errorType": "MẶT_LẺ"
+        },
+        {
+          "label": "C",
+          "text": "Khoảng $65\\%$",
+          "errorType": "TÍNH_NHẦM"
+        },
+        {
+          "label": "D",
+          "text": "Khoảng $50\\%$",
+          "errorType": "LÝ_THUYẾT"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "A"
+      ],
+      "solution": "Xác suất thực nghiệm là tỉ số giữa số lần xuất hiện mặt chẵn và tổng số lần gieo:\n$$P = \\frac{32}{60} \\approx 53\\%$$",
+      "rubricSteps": [
+        {
+          "step": "Tính đúng tỉ số phần trăm thực nghiệm",
+          "points": 0.5
+        }
+      ],
+      "keyFormula": "$P = \\frac{n(A)}{N}$",
+      "commonMistake": "Mặc định xác suất luôn là 50%.",
       "id": "Q6_TPL_064",
       "code": "M6-HK2-C6-TH-64",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
+      "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.083Z",
+      "version": 1,
+      "fingerprint": "ffa2e1c521ad8874c69bac3484cbbfaa99eb6d5d8cddbc553681885846fcac87",
+      "difficultyScore": 4.5
+    },
+    {
       "grade": 6,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 2,
       "chapterId": "G6_C6",
-      "lesson": "Bảng thống kê & Xác suất thực nghiệm",
-      "topic": "Tính xác suất thực nghiệm",
-      "problemType": "Tính xác suất thực nghiệm qua phép thử",
+      "lesson": "Xác suất thực nghiệm",
+      "topic": "Chọn đồ vật ngẫu nhiên trong hộp",
+      "problemType": "Xác suất thực nghiệm rút thẻ màu",
       "type": "mcq",
       "difficulty": "medium",
       "cognitiveLevel": "thong_hieu",
-      "points": 1,
-      "content": "Gieo một đồng xu cân đối $40$ lần liên tiếp, thấy có $10$ lần xuất hiện mặt Ngửa (N). Xác suất thực nghiệm xuất hiện mặt Ngửa bằng bao nhiêu?",
+      "points": 0.5,
+      "textbooks": [
+        "CTST"
+      ],
+      "content": "Trong một trò chơi rút thăm, bạn Lan thực hiện rút thẻ $30$ lần và ghi nhận có $17$ lần rút được thẻ đỏ, $13$ lần rút được thẻ xanh. Xác suất thực nghiệm rút được thẻ màu đỏ là:",
       "options": [
         {
           "label": "A",
-          "text": "$\\frac{3}{4}$",
-          "errorType": "CONCEPT_ERROR"
+          "text": "$\\frac{17}{13}$",
+          "errorType": "TỈ_SỐ_GIỮA_HAI_LOẠI"
         },
         {
           "label": "B",
-          "text": "$\\frac{1}{4}$"
+          "text": "$\\frac{1}{2}$",
+          "errorType": "ĐOÁN_MÒ"
         },
         {
           "label": "C",
-          "text": "$\\frac{4}{1}$",
-          "errorType": "FORMULA_ERROR"
+          "text": "$\\frac{17}{30}$"
         },
         {
           "label": "D",
-          "text": "$\\frac{1}{40}$",
-          "errorType": "CALCULATION_ERROR"
+          "text": "$\\frac{13}{30}$",
+          "errorType": "TÍNH_THẺ_XANH"
         }
       ],
-      "correctAnswer": "B",
+      "correctAnswer": "C",
       "acceptedAnswers": [
-        "1/4",
-        "10/40",
-        "0.25"
+        "C"
       ],
-      "solution": "Xác suất thực nghiệm xuất hiện mặt Ngửa là $\\frac{10}{40} = \\frac{1}{4}$.",
+      "solution": "Xác suất thực nghiệm rút được thẻ đỏ bằng số lần rút được thẻ đỏ chia cho tổng số lần thực hiện:\n$$P = \\frac{17}{30}$$",
       "rubricSteps": [
         {
-          "step": "Tính đúng xác suất thực nghiệm $\\frac{1}{4}$",
-          "points": 1
+          "step": "Lập đúng tỉ số xác suất thực nghiệm của thẻ đỏ",
+          "points": 0.5
         }
       ],
-      "keyFormula": "$P = \\frac{n(A)}{n}$",
-      "commonMistake": "Lấy tổng số phép thử chia cho số lần xuất hiện sự kiện.",
-      "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
-      "verificationStatus": "draft",
-      "version": 1
-    },
-    {
+      "keyFormula": "$P(\\text{Đỏ}) = \\frac{N_{\\text{đỏ}}}{N_{\\text{tổng}}}$",
+      "commonMistake": "Lấy số lần thẻ đỏ chia cho số lần thẻ xanh.",
       "id": "Q6_TPL_065",
       "code": "M6-HK2-C6-TH-65",
-      "grade": 6,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
-      "semester": 2,
-      "chapterId": "G6_C6",
-      "lesson": "Bảng thống kê & Xác suất thực nghiệm",
-      "topic": "Tính xác suất thực nghiệm",
-      "problemType": "Tính xác suất thực nghiệm qua phép thử",
-      "type": "mcq",
-      "difficulty": "medium",
-      "cognitiveLevel": "thong_hieu",
-      "points": 1,
-      "content": "Gieo một đồng xu cân đối $60$ lần liên tiếp, thấy có $15$ lần xuất hiện mặt Ngửa (N). Xác suất thực nghiệm xuất hiện mặt Ngửa bằng bao nhiêu?",
-      "options": [
-        {
-          "label": "A",
-          "text": "$\\frac{3}{4}$",
-          "errorType": "CONCEPT_ERROR"
-        },
-        {
-          "label": "B",
-          "text": "$\\frac{4}{1}$",
-          "errorType": "FORMULA_ERROR"
-        },
-        {
-          "label": "C",
-          "text": "$\\frac{1}{60}$",
-          "errorType": "CALCULATION_ERROR"
-        },
-        {
-          "label": "D",
-          "text": "$\\frac{1}{4}$"
-        }
-      ],
-      "correctAnswer": "D",
-      "acceptedAnswers": [
-        "1/4",
-        "15/60",
-        "0.25"
-      ],
-      "solution": "Xác suất thực nghiệm xuất hiện mặt Ngửa là $\\frac{15}{60} = \\frac{1}{4}$.",
-      "rubricSteps": [
-        {
-          "step": "Tính đúng xác suất thực nghiệm $\\frac{1}{4}$",
-          "points": 1
-        }
-      ],
-      "keyFormula": "$P = \\frac{n(A)}{n}$",
-      "commonMistake": "Lấy tổng số phép thử chia cho số lần xuất hiện sự kiện.",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
       "verificationStatus": "draft",
-      "version": 1
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.089Z",
+      "version": 1,
+      "fingerprint": "ac3b90cc6db7bd889faa9c68f8ba9dedeee839a7209edc4f0026eb3e7ece8f5d",
+      "difficultyScore": 4.5
     },
     {
-      "id": "Q6_TPL_066",
-      "code": "M6-HK2-C6-TH-66",
       "grade": 6,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 2,
       "chapterId": "G6_C6",
-      "lesson": "Bảng thống kê & Xác suất thực nghiệm",
-      "topic": "Tính xác suất thực nghiệm",
-      "problemType": "Tính xác suất thực nghiệm qua phép thử",
+      "lesson": "Thu thập và tổ chức dữ liệu",
+      "topic": "Xác định dữ liệu không hợp lý",
+      "problemType": "Kiểm tra tính logic của dữ liệu thu thập",
       "type": "essay",
       "difficulty": "medium",
       "cognitiveLevel": "thong_hieu",
-      "points": 2,
-      "content": "Gieo một đồng xu cân đối $20$ lần liên tiếp, thấy có $5$ lần xuất hiện mặt Ngửa (N). Xác suất thực nghiệm xuất hiện mặt Ngửa bằng bao nhiêu?",
-      "options": [],
-      "correctAnswer": "1/4",
-      "acceptedAnswers": [
-        "1/4",
-        "5/20",
-        "0.25"
+      "points": 1,
+      "textbooks": [
+        "CTST"
       ],
-      "solution": "Xác suất thực nghiệm xuất hiện mặt Ngửa là $\\frac{5}{20} = \\frac{1}{4}$.",
+      "content": "Một học sinh ghi chép chiều cao của 4 bạn trong tổ như sau: 135 cm, 142 cm, -150 cm, 138 cm. Em hãy chỉ ra số liệu không hợp lý trong bảng và giải thích vì sao.",
+      "correctAnswer": "-150 cm không hợp lý vì chiều cao luôn dương",
+      "acceptedAnswers": [
+        "-150",
+        "-150 cm",
+        "-150cm"
+      ],
+      "solution": "Số liệu không hợp lý là $-150\\text{ cm}$ vì chiều cao của con người là một đại lượng hình học mang giá trị dương, không thể là số âm.",
       "rubricSteps": [
         {
-          "step": "Lập tỉ số $\\frac{n(A)}{n} = \\frac{5}{20}$",
-          "points": 1
+          "step": "Chỉ ra số liệu không hợp lý là -150 cm",
+          "points": 0.5
         },
         {
-          "step": "Rút gọn phân số tối giản được $\\frac{1}{4}$",
-          "points": 1
+          "step": "Giải thích chiều cao thực tế luôn là số dương",
+          "points": 0.5
         }
       ],
-      "keyFormula": "$P = \\frac{n(A)}{n}$",
-      "commonMistake": "Lấy tổng số phép thử chia cho số lần xuất hiện sự kiện.",
+      "keyFormula": "Độ dài, khối lượng, số lượng thực tế luôn $> 0$.",
+      "commonMistake": "Không giải thích lý do số âm vô lý.",
+      "id": "Q6_TPL_066",
+      "code": "M6-HK2-C6-TH-66",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
       "verificationStatus": "draft",
-      "version": 1
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.091Z",
+      "version": 1,
+      "fingerprint": "41b8f285a304992c71d94042e5cc79f3fddba4d76311c468e6c2d55e3a6e6d5e",
+      "difficultyScore": 4.5
     },
     {
       "id": "Q6_TPL_067",
@@ -3565,149 +3566,222 @@
       "version": 1
     },
     {
-      "id": "Q6_TPL_070",
-      "code": "M6-HK2-C6-VDC-70",
       "grade": 6,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 2,
       "chapterId": "G6_C6",
-      "lesson": "Bảng thống kê & Xác suất thực nghiệm",
-      "topic": "Tính xác suất thực nghiệm",
-      "problemType": "Tính xác suất thực nghiệm qua phép thử",
+      "lesson": "Điểm và đường thẳng",
+      "topic": "Bài toán tổ hợp đếm hình",
+      "problemType": "Tìm số điểm khi biết số đường thẳng",
       "type": "mcq",
       "difficulty": "hard",
       "cognitiveLevel": "van_dung_cao",
-      "points": 1,
-      "content": "Trong một hộp có các quả bóng xanh và đỏ. Lấy ngẫu nhiên một quả bóng, xem màu rồi trả lại hộp. Lặp lại phép thử $40$ lần thì thấy có $10$ lần lấy được bóng xanh. Tính xác suất thực nghiệm của sự kiện \"Lấy được quả bóng màu đỏ\".",
+      "points": 0.75,
+      "textbooks": [
+        "CTST"
+      ],
+      "complexity": {
+        "steps": 5,
+        "techniques": [
+          "cong_thuc_to_hop_duong_thang",
+          "tich_hai_so_tu_nhien_lien_tiep",
+          "giai_phuong_trinh_nghiem_nguyen"
+        ],
+        "crossTopic": true,
+        "modeling": false,
+        "needsCaseAnalysis": false,
+        "estMinutes": 7
+      },
+      "content": "Cho $n$ điểm phân biệt trên mặt phẳng ($n \\in \\mathbb{N}, n \\ge 2$), trong đó không có ba điểm nào thẳng hàng. Cứ qua hai điểm ta vẽ được một đường thẳng. Biết rằng vẽ được tất cả $190$ đường thẳng. Số điểm $n$ ban đầu là:",
       "options": [
         {
           "label": "A",
-          "text": "$\\frac{1}{4}$",
-          "errorType": "MISSING_CONDITION"
+          "text": "$n = 13$ điểm",
+          "errorType": "CĂN_BẬC_HAI_KHÔNG_CHIA_2"
         },
         {
           "label": "B",
-          "text": "$\\frac{10}{30}$",
-          "errorType": "FORMULA_ERROR"
+          "text": "$n = 20$ điểm"
         },
         {
           "label": "C",
-          "text": "$\\frac{1}{2}$",
-          "errorType": "CONCEPT_ERROR"
+          "text": "$n = 19$ điểm",
+          "errorType": "TÍNH_THIẾU_MỘT_ĐIỂM"
         },
         {
           "label": "D",
-          "text": "$\\frac{3}{4}$"
+          "text": "$n = 22$ điểm",
+          "errorType": "TÍNH_NHẦM_TÍCH"
         }
       ],
-      "correctAnswer": "D",
+      "correctAnswer": "B",
       "acceptedAnswers": [
-        "3/4",
-        "30/40",
-        "0.75"
+        "B"
       ],
-      "solution": "Số lần lấy được bóng đỏ là $40 - 10 = 30$ (lần). Xác suất thực nghiệm lấy được bóng đỏ là $\\frac{30}{40} = \\frac{3}{4}$.",
+      "solution": "Bước 1: Từ mỗi điểm trong $n$ điểm, ta nối với $n - 1$ điểm còn lại thì được $n - 1$ đường thẳng.\\nBước 2: Với $n$ điểm, ta vẽ được $n(n - 1)$ đường thẳng.\\nBước 3: Vì mỗi đường thẳng được tính lặp lại hai lần (đường thẳng $AB$ cũng là đường thẳng $BA$) nên số đường thẳng thực tế là:\\n$N = \\frac{n(n - 1)}{2}$.\\nBước 4: Theo đề bài, $\\frac{n(n - 1)}{2} = 190 \\implies n(n - 1) = 380$.\\nBước 5: Ta nhận thấy $380 = 20 \\cdot 19$ là tích của hai số tự nhiên liên tiếp. Do đó $n = 20$ điểm.",
       "rubricSteps": [
         {
-          "step": "Tính đúng xác suất $\\frac{3}{4}$",
-          "points": 1
+          "step": "Lý giải công thức tính số đường thẳng từ n điểm: n(n - 1) / 2",
+          "points": 0.15
+        },
+        {
+          "step": "Thiết lập phương trình n(n - 1) / 2 = 190",
+          "points": 0.15
+        },
+        {
+          "step": "Nhân chéo ra n(n - 1) = 380",
+          "points": 0.15
+        },
+        {
+          "step": "Phân tích thành tích hai số tự nhiên liên tiếp 20 x 19",
+          "points": 0.15
+        },
+        {
+          "step": "Kết luận n = 20 điểm",
+          "points": 0.15
         }
       ],
-      "keyFormula": "$P(B) = \\frac{n - n(A)}{n}$",
-      "commonMistake": "Lấy nhầm số lần xuất hiện bóng xanh thay vì trừ đi để tìm số lần bóng đỏ.",
+      "keyFormula": "$N = \\frac{n(n - 1)}{2}$.",
+      "id": "Q6_TPL_070",
+      "code": "M6-HK2-C6-VDC-70",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
       "verificationStatus": "draft",
-      "version": 1
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.092Z",
+      "version": 1,
+      "fingerprint": "119b2762b46021e2edcb810331db2a19dc00ecc7f6ea592712f20fea0dee14b0",
+      "difficultyScore": 9.3
     },
     {
+      "grade": 6,
+      "semester": 2,
+      "chapterId": "G6_C6",
+      "lesson": "Góc. Các góc đặc biệt",
+      "topic": "Tổ hợp đếm góc tạo bởi các tia chung gốc",
+      "problemType": "Số góc tăng thêm khi vẽ thêm k tia",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 1.5,
+      "textbooks": [
+        "KNTT"
+      ],
+      "complexity": {
+        "steps": 5,
+        "techniques": [
+          "cong_thuc_dem_goc_chung_goc",
+          "giai_phuong_trinh_bac_hai_so_hoc",
+          "tinh_chenh_lech_so_goc"
+        ],
+        "crossTopic": true,
+        "modeling": false,
+        "needsCaseAnalysis": true,
+        "estMinutes": 8
+      },
+      "content": "Cho $n$ tia chung gốc $O$ phân biệt. Biết rằng các tia này tạo thành tất cả $105$ góc. Nếu vẽ thêm $3$ tia chung gốc $O$ nữa thì số góc tạo thành sẽ tăng thêm bao nhiêu góc?",
+      "correctAnswer": "48",
+      "acceptedAnswers": [
+        "48",
+        "48 góc"
+      ],
+      "solution": "Bước 1: Công thức tính số góc tạo bởi $n$ tia chung gốc là $S = \\frac{n(n - 1)}{2}$.\\nBước 2: Theo đề bài:\\n$\\frac{n(n - 1)}{2} = 105 \\implies n(n - 1) = 210 = 210$.\\nBước 3: Ta phân tích $210 = 15 \\cdot 14$ là tích của hai số tự nhiên liên tiếp, suy ra $n = 15$ tia.\\nBước 4: Khi vẽ thêm $3$ tia chung gốc nữa, tổng số tia lúc này là:\\n$n' = 15 + 3 = 18$ (tia).\\nSố góc tạo thành lúc này là:\\n$S' = \\frac{18 \\cdot (18 - 1)}{2} = \\frac{18 \\cdot 17}{2} = 153$ (góc).\\nBước 5: Số góc tăng thêm là:\\n$\\Delta S = S' - S = 153 - 105 = 48$ (góc).\\nVậy số góc tăng thêm là $48$ góc.",
+      "rubricSteps": [
+        {
+          "step": "Nêu công thức tính số góc từ n tia: n(n - 1) / 2",
+          "points": 0.3
+        },
+        {
+          "step": "Giải phương trình n(n - 1) = 210 tìm ra n = 15 tia",
+          "points": 0.3
+        },
+        {
+          "step": "Tính tổng số tia mới là 15 + 3 = 18 tia",
+          "points": 0.3
+        },
+        {
+          "step": "Tính số góc mới là 153 góc",
+          "points": 0.3
+        },
+        {
+          "step": "Tính số góc tăng thêm là 48 góc",
+          "points": 0.3
+        }
+      ],
+      "keyFormula": "$S = \\frac{n(n - 1)}{2}$.",
       "id": "Q6_TPL_071",
       "code": "M6-HK2-C6-VDC-71",
-      "grade": 6,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
-      "semester": 2,
-      "chapterId": "G6_C6",
-      "lesson": "Bảng thống kê & Xác suất thực nghiệm",
-      "topic": "Tính xác suất thực nghiệm",
-      "problemType": "Tính xác suất thực nghiệm qua phép thử",
-      "type": "essay",
-      "difficulty": "hard",
-      "cognitiveLevel": "van_dung_cao",
-      "points": 2,
-      "content": "Trong một hộp có các quả bóng xanh và đỏ. Lấy ngẫu nhiên một quả bóng, xem màu rồi trả lại hộp. Lặp lại phép thử $60$ lần thì thấy có $15$ lần lấy được bóng xanh. Tính xác suất thực nghiệm của sự kiện \"Lấy được quả bóng màu đỏ\".",
-      "options": [],
-      "correctAnswer": "3/4",
-      "acceptedAnswers": [
-        "3/4",
-        "45/60",
-        "0.75"
-      ],
-      "solution": "Số lần lấy được bóng đỏ là $60 - 15 = 45$ (lần). Xác suất thực nghiệm lấy được bóng đỏ là $\\frac{45}{60} = \\frac{3}{4}$.",
-      "rubricSteps": [
-        {
-          "step": "Tính số lần xuất hiện bóng đỏ: $60 - 15 = 45$",
-          "points": 1
-        },
-        {
-          "step": "Tính xác suất thực nghiệm $\\frac{45}{60} = \\frac{3}{4}$",
-          "points": 1
-        }
-      ],
-      "keyFormula": "$P(B) = \\frac{n - n(A)}{n}$",
-      "commonMistake": "Lấy nhầm số lần xuất hiện bóng xanh thay vì trừ đi để tìm số lần bóng đỏ.",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
       "verificationStatus": "draft",
-      "version": 1
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.095Z",
+      "version": 1,
+      "fingerprint": "9b84e12aadbfea4807de6a5f52e451a6ebd24f8c16520031ec12993c4bfb1b69",
+      "difficultyScore": 9.6
     },
     {
-      "id": "Q6_TPL_072",
-      "code": "M6-HK2-C6-VDC-72",
       "grade": 6,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 2,
       "chapterId": "G6_C6",
-      "lesson": "Bảng thống kê & Xác suất thực nghiệm",
-      "topic": "Tính xác suất thực nghiệm",
-      "problemType": "Tính xác suất thực nghiệm qua phép thử",
+      "lesson": "Đoạn thẳng. Độ dài đoạn thẳng",
+      "topic": "Tính chất bất biến hình học",
+      "problemType": "Chứng minh độ dài đoạn thẳng không đổi khi điểm di động",
       "type": "essay",
       "difficulty": "hard",
       "cognitiveLevel": "van_dung_cao",
-      "points": 2,
-      "content": "Trong một hộp có các quả bóng xanh và đỏ. Lấy ngẫu nhiên một quả bóng, xem màu rồi trả lại hộp. Lặp lại phép thử $20$ lần thì thấy có $5$ lần lấy được bóng xanh. Tính xác suất thực nghiệm của sự kiện \"Lấy được quả bóng màu đỏ\".",
-      "options": [],
-      "correctAnswer": "3/4",
-      "acceptedAnswers": [
-        "3/4",
-        "15/20",
-        "0.75"
+      "points": 1.5,
+      "textbooks": [
+        "CD"
       ],
-      "solution": "Số lần lấy được bóng đỏ là $20 - 5 = 15$ (lần). Xác suất thực nghiệm lấy được bóng đỏ là $\\frac{15}{20} = \\frac{3}{4}$.",
+      "complexity": {
+        "steps": 5,
+        "techniques": [
+          "bien_doi_dai_so_doan_thang",
+          "dinh_nghia_trung_diem",
+          "chung_minh_bat_bien"
+        ],
+        "crossTopic": true,
+        "modeling": false,
+        "needsCaseAnalysis": false,
+        "estMinutes": 7
+      },
+      "content": "Cho đoạn thẳng $AB = 14\\text{ cm}$. Lấy điểm $C$ bất kỳ nằm giữa hai điểm $A$ và $B$. Gọi $M$ là trung điểm của đoạn thẳng $AC$, và $N$ là trung điểm của đoạn thẳng $CB$. Tính độ dài đoạn thẳng $MN$ và chứng minh rằng độ dài này không phụ thuộc vào vị trí của điểm $C$.",
+      "correctAnswer": "7",
+      "acceptedAnswers": [
+        "7",
+        "7 cm"
+      ],
+      "solution": "Bước 1: Vì điểm $C$ nằm giữa hai điểm $A$ và $B$ nên $AC + CB = AB = 14\\text{ cm}$.\\nBước 2: Vì $M$ là trung điểm của đoạn thẳng $AC$ nên $MC = \\frac{AC}{2}$.\\nBước 3: Vì $N$ là trung điểm của đoạn thẳng $CB$ nên $CN = \\frac{CB}{2}$.\\nBước 4: Vì $C$ nằm giữa $A$ và $B$, $M$ thuộc đoạn $AC$ và $N$ thuộc đoạn $CB$ nên điểm $C$ nằm giữa hai điểm $M$ và $N$. Do đó:\\n$MN = MC + CN = \\frac{AC}{2} + \\frac{CB}{2} = \\frac{AC + CB}{2}$.\\nBước 5: Thay $AC + CB = 14\\text{ cm}$ vào, ta được:\\n$MN = \\frac{14}{2} = 7\\text{ cm}$.\\nVì $14$ là hằng số cố định nên độ dài đoạn thẳng $MN$ luôn bằng $7\\text{ cm}$, không phụ thuộc vào vị trí của điểm $C$ trên đoạn $AB$.",
       "rubricSteps": [
         {
-          "step": "Tính số lần xuất hiện bóng đỏ: $20 - 5 = 15$",
-          "points": 1
+          "step": "Nêu hệ thức C nằm giữa A và B: AC + CB = AB",
+          "points": 0.3
         },
         {
-          "step": "Tính xác suất thực nghiệm $\\frac{15}{20} = \\frac{3}{4}$",
-          "points": 1
+          "step": "Biểu diễn MC = AC / 2 theo định nghĩa trung điểm",
+          "points": 0.3
+        },
+        {
+          "step": "Biểu diễn CN = CB / 2 theo định nghĩa trung điểm",
+          "points": 0.3
+        },
+        {
+          "step": "Chứng minh hệ thức MN = (AC + CB) / 2",
+          "points": 0.3
+        },
+        {
+          "step": "Tính ra MN = 7 cm và kết luận tính không đổi",
+          "points": 0.3
         }
       ],
-      "keyFormula": "$P(B) = \\frac{n - n(A)}{n}$",
-      "commonMistake": "Lấy nhầm số lần xuất hiện bóng xanh thay vì trừ đi để tìm số lần bóng đỏ.",
+      "keyFormula": "$MN = \\frac{AB}{2}$ (không phụ thuộc vào vị trí điểm $C$).",
+      "id": "Q6_TPL_072",
+      "code": "M6-HK2-C6-VDC-72",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 6 GDPT 2018",
       "verificationStatus": "draft",
-      "version": 1
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.097Z",
+      "version": 1,
+      "fingerprint": "270688ef34b2aadb3585b8bded48b01c5d8c3956c2150ca2f17746cd35adeffd",
+      "difficultyScore": 9.3
     }
   ]
 }

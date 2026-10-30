@@ -160,162 +160,173 @@
       "mathExpressionToVerify": "(1/2)^2 * 2^(3)"
     },
     {
+      "grade": 7,
+      "semester": 1,
+      "chapterId": "G7_C1",
+      "lesson": "Lũy thừa của một số hữu tỉ",
+      "topic": "Chia hai lũy thừa cùng cơ số",
+      "problemType": "Tính giá trị biểu thức lũy thừa",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 0.5,
+      "textbooks": [
+        "CTST"
+      ],
+      "content": "Tính: $\\left(-\\frac{2}{3}\\right)^5 : \\left(-\\frac{2}{3}\\right)^3$",
+      "options": [
+        {
+          "label": "A",
+          "text": "$-\\frac{4}{9}$",
+          "errorType": "LŨY_THỪA_BẬC_CHẴN_MANG_DẤU_ÂM"
+        },
+        {
+          "label": "B",
+          "text": "$\\frac{8}{27}$",
+          "errorType": "MŨ_BA"
+        },
+        {
+          "label": "C",
+          "text": "$\\frac{4}{9}$"
+        },
+        {
+          "label": "D",
+          "text": "$\\frac{2}{3}$",
+          "errorType": "BỎ_SỐ_MŨ"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "C"
+      ],
+      "solution": "Chia hai lũy thừa cùng cơ số:\n$$\\left(-\\frac{2}{3}\\right)^5 : \\left(-\\frac{2}{3}\\right)^3 = \\left(-\\frac{2}{3}\\right)^{5-3} = \\left(-\\frac{2}{3}\\right)^2 = \\frac{(-2)^2}{3^2} = \\frac{4}{9}$$",
+      "rubricSteps": [
+        {
+          "step": "Nêu công thức và thiết lập các bước biến đổi ban đầu",
+          "points": 0.25
+        },
+        {
+          "step": "Thực hiện phép tính và kết luận đáp án chính xác",
+          "points": 0.25
+        }
+      ],
+      "keyFormula": "$x^m : x^n = x^{m-n}$",
+      "commonMistake": "Để kết quả là số âm khi lũy thừa với số mũ chẵn.",
       "id": "Q7_TPL_004",
       "code": "M7-HK1-C1-TH-04",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
+      "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.102Z",
+      "version": 1,
+      "fingerprint": "9e9379cb1c4e7670ff8fcb50fa100bdf66b809128d9f5affeb28c30812d2f9ba",
+      "difficultyScore": 4.5
+    },
+    {
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 1,
       "chapterId": "G7_C1",
-      "lesson": "Các phép tính số hữu tỉ & Quy tắc chuyển vế",
-      "topic": "Các phép tính số hữu tỉ",
-      "problemType": "Tính hợp lý biểu thức số hữu tỉ",
+      "lesson": "Quy tắc dấu ngoặc và quy tắc chuyển vế",
+      "topic": "Tìm x có giá trị tuyệt đối",
+      "problemType": "Phương trình chứa dấu giá trị tuyệt đối",
       "type": "mcq",
       "difficulty": "medium",
       "cognitiveLevel": "thong_hieu",
-      "points": 1,
-      "content": "Tính giá trị của lũy thừa số hữu tỉ $\\left(\\frac{1}{2}\\right)^3 \\cdot 2^4$.",
+      "points": 0.5,
+      "textbooks": [
+        "CD"
+      ],
+      "content": "Tìm tất cả các giá trị của $x$ thỏa mãn: $|x - 6| = 1$",
       "options": [
         {
           "label": "A",
-          "text": "$1$",
-          "errorType": "CALCULATION_ERROR"
+          "text": "$x \\in \\{5; 7\\}$"
         },
         {
           "label": "B",
-          "text": "$2$"
+          "text": "$x \\in \\{-7; 7\\}$",
+          "errorType": "TÍNH_NHẦM"
         },
         {
           "label": "C",
-          "text": "$8$",
-          "errorType": "FORMULA_ERROR"
+          "text": "$x = 5$",
+          "errorType": "THIẾU_NGHIỆM_DƯƠNG"
         },
         {
           "label": "D",
-          "text": "$\\frac{1}{2}$",
-          "errorType": "FORMULA_ERROR"
+          "text": "$x = 7$",
+          "errorType": "THIẾU_NGHIỆM_ÂM"
         }
       ],
-      "correctAnswer": "B",
+      "correctAnswer": "A",
       "acceptedAnswers": [
-        "2"
+        "A"
       ],
-      "solution": "Ta có $\\left(\\frac{1}{2}\\right)^3 \\cdot 2^4 = \\frac{1}{8} \\cdot 16 = 2$.",
+      "solution": "Ta xét hai trường hợp:\n- TH1: $x - 6 = 1 \\implies x = 6 + 1 = 7$\n- TH2: $x - 6 = -1 \\implies x = 6 - 1 = 5$\nVậy $x \\in \\{5; 7\\}$.",
       "rubricSteps": [
         {
-          "step": "Rút gọn đúng bằng $2$",
-          "points": 1
+          "step": "Nêu công thức và thiết lập các bước biến đổi ban đầu",
+          "points": 0.25
+        },
+        {
+          "step": "Thực hiện phép tính và kết luận đáp án chính xác",
+          "points": 0.25
         }
       ],
-      "keyFormula": "$\\left(\\frac{a}{b}\\right)^n = \\frac{a^n}{b^n}$",
-      "commonMistake": "Cộng sai số mũ khi nhân hai lũy thừa.",
-      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
-      "verificationStatus": "draft",
-      "version": 1,
-      "mathExpressionToVerify": "(1/2)^3 * 2^(4)"
-    },
-    {
+      "keyFormula": "$|A| = m (m \\ge 0) \\iff A = m \\text{ hoặc } A = -m$",
+      "commonMistake": "Chỉ giải trường hợp $x - a = b$ mà quên trường hợp âm.",
       "id": "Q7_TPL_005",
       "code": "M7-HK1-C1-TH-05",
-      "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
-      "semester": 1,
-      "chapterId": "G7_C1",
-      "lesson": "Các phép tính số hữu tỉ & Quy tắc chuyển vế",
-      "topic": "Các phép tính số hữu tỉ",
-      "problemType": "Tính hợp lý biểu thức số hữu tỉ",
-      "type": "mcq",
-      "difficulty": "medium",
-      "cognitiveLevel": "thong_hieu",
-      "points": 1,
-      "content": "Tính giá trị của lũy thừa số hữu tỉ $\\left(\\frac{1}{2}\\right)^4 \\cdot 2^5$.",
-      "options": [
-        {
-          "label": "A",
-          "text": "$1$",
-          "errorType": "CALCULATION_ERROR"
-        },
-        {
-          "label": "B",
-          "text": "$16$",
-          "errorType": "FORMULA_ERROR"
-        },
-        {
-          "label": "C",
-          "text": "$\\frac{1}{2}$",
-          "errorType": "FORMULA_ERROR"
-        },
-        {
-          "label": "D",
-          "text": "$2$"
-        }
-      ],
-      "correctAnswer": "D",
-      "acceptedAnswers": [
-        "2"
-      ],
-      "solution": "Ta có $\\left(\\frac{1}{2}\\right)^4 \\cdot 2^5 = \\frac{1}{16} \\cdot 32 = 2$.",
-      "rubricSteps": [
-        {
-          "step": "Rút gọn đúng bằng $2$",
-          "points": 1
-        }
-      ],
-      "keyFormula": "$\\left(\\frac{a}{b}\\right)^n = \\frac{a^n}{b^n}$",
-      "commonMistake": "Cộng sai số mũ khi nhân hai lũy thừa.",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.105Z",
       "version": 1,
-      "mathExpressionToVerify": "(1/2)^4 * 2^(5)"
+      "fingerprint": "8c1422940d45fa219c2d200b4d0dcf68924264b5b93cad3190a3f372f94f4e93",
+      "difficultyScore": 4.5
     },
     {
-      "id": "Q7_TPL_006",
-      "code": "M7-HK1-C1-TH-06",
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 1,
       "chapterId": "G7_C1",
-      "lesson": "Các phép tính số hữu tỉ & Quy tắc chuyển vế",
-      "topic": "Các phép tính số hữu tỉ",
-      "problemType": "Tính hợp lý biểu thức số hữu tỉ",
+      "lesson": "Cộng, trừ, nhân, chia số hữu tỉ",
+      "topic": "Tính chất phân phối",
+      "problemType": "Tính nhanh phân phối",
       "type": "essay",
       "difficulty": "medium",
       "cognitiveLevel": "thong_hieu",
-      "points": 2,
-      "content": "Tính giá trị của lũy thừa số hữu tỉ $\\left(\\frac{1}{2}\\right)^2 \\cdot 2^3$.",
-      "options": [],
-      "correctAnswer": "2",
-      "acceptedAnswers": [
-        "2"
+      "points": 1,
+      "textbooks": [
+        "KNTT"
       ],
-      "solution": "Ta có $\\left(\\frac{1}{2}\\right)^2 \\cdot 2^3 = \\frac{1}{4} \\cdot 8 = 2$.",
+      "content": "Tính hợp lý: $B = \\frac{3}{7} \\cdot \\frac{5}{11} + \\frac{3}{7} \\cdot \\frac{6}{11}$",
+      "correctAnswer": "\\frac{3}{7}",
+      "acceptedAnswers": [
+        "\\frac{3}{7}",
+        "3/7"
+      ],
+      "solution": "Đặt thừa số chung $\\frac{3}{7}$ ra ngoài:\n$$B = \\frac{3}{7} \\cdot \\left(\\frac{5}{11} + \\frac{6}{11}\\right) = \\frac{3}{7} \\cdot \\frac{11}{11} = \\frac{3}{7} \\cdot 1 = \\frac{3}{7}$$",
       "rubricSteps": [
         {
-          "step": "Viết $\\left(\\frac{1}{2}\\right)^2 = \\frac{1}{4}$",
-          "points": 1
+          "step": "Đặt thừa số chung ra ngoài",
+          "points": 0.5
         },
         {
-          "step": "Nhân với $2^{3}$ rút gọn được $2$",
-          "points": 1
+          "step": "Cộng trong ngoặc ra 1 và kết luận $B = \\frac{3}{7}$",
+          "points": 0.5
         }
       ],
-      "keyFormula": "$\\left(\\frac{a}{b}\\right)^n = \\frac{a^n}{b^n}$",
-      "commonMistake": "Cộng sai số mũ khi nhân hai lũy thừa.",
+      "keyFormula": "$a \\cdot b + a \\cdot c = a(b + c)$",
+      "commonMistake": "Nhân riêng lẻ hai tích rồi quy đồng phức tạp.",
+      "id": "Q7_TPL_006",
+      "code": "M7-HK1-C1-TH-06",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.106Z",
       "version": 1,
-      "mathExpressionToVerify": "(1/2)^2 * 2^(3)"
+      "fingerprint": "a52dace064cd5d683f9d00e9f930440e791b9e54d31881b57043c2e90c618372",
+      "difficultyScore": 4.5
     },
     {
       "id": "Q7_TPL_007",
@@ -476,146 +487,222 @@
       "version": 1
     },
     {
-      "id": "Q7_TPL_010",
-      "code": "M7-HK1-C1-VDC-10",
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 1,
       "chapterId": "G7_C1",
-      "lesson": "Các phép tính số hữu tỉ & Quy tắc chuyển vế",
-      "topic": "Các phép tính số hữu tỉ",
-      "problemType": "Tìm x trong đẳng thức hữu tỉ",
+      "lesson": "Cộng, trừ, nhân, chia số hữu tỉ",
+      "topic": "Mô hình tài chính thực tế",
+      "problemType": "Bài toán lãi kép gửi tiết kiệm 2 năm",
       "type": "mcq",
       "difficulty": "hard",
       "cognitiveLevel": "van_dung_cao",
       "points": 1,
-      "content": "Tìm số hữu tỉ $x$, biết: $2x + 3 = x + 7$.",
+      "textbooks": [
+        "KNTT"
+      ],
+      "complexity": {
+        "steps": 5,
+        "techniques": [
+          "mo_hinh_hoa_thuc_te",
+          "lai_suat_cong_don",
+          "phan_tram_so_huu_ti"
+        ],
+        "crossTopic": true,
+        "modeling": true,
+        "needsCaseAnalysis": false,
+        "estMinutes": 7
+      },
+      "content": "Bác An gửi 79 triệu đồng với lãi suất $6\\\\%/\\\\text{năm}$. Hết năm 1 tiền lãi nhập gốc và gửi tiếp năm 2 với lãi suất $7\\\\%/\\\\text{năm}$. Sau 2 năm bác nhận được:",
       "options": [
         {
           "label": "A",
-          "text": "$10$",
-          "errorType": "SIGN_ERROR"
+          "text": "83.74 triệu đồng",
+          "errorType": "CHỈ_TÍNH_NĂM_1"
         },
         {
           "label": "B",
-          "text": "$-4$",
-          "errorType": "SIGN_ERROR"
+          "text": "89.6 triệu đồng"
         },
         {
           "label": "C",
-          "text": "$1.3333333333333333$",
-          "errorType": "SIGN_ERROR"
+          "text": "89.27 triệu đồng",
+          "errorType": "TÍNH_LÃI_ĐƠN"
         },
         {
           "label": "D",
-          "text": "$4$"
+          "text": "10.6 triệu đồng",
+          "errorType": "NHẦM_TIỀN_LÃI_VỚI_TỔNG"
         }
       ],
-      "correctAnswer": "D",
+      "correctAnswer": "B",
       "acceptedAnswers": [
-        "4",
-        "x=4"
+        "B"
       ],
-      "solution": "Áp dụng quy tắc chuyển vế: $2x - x = 7 - 3 \\Rightarrow x = 4$.",
+      "solution": "Bước 1: Lãi năm 1 là: $79 \\\\cdot 6\\\\% = 4.74$ triệu.\\\\nBước 2: Tiền sau năm 1 là: $79 + 4.74 = 83.74000000000001$ triệu.\\\\nBước 3: Lãi năm 2 tính trên gốc mới là: $83.74000000000001 \\\\cdot 7\\\\% = 5.86$ triệu.\\\\nBước 4: Tổng tiền sau 2 năm là: $83.74000000000001 \\\\cdot 1{,}07 = 89.6$ triệu.\\\\nBước 5: Kết luận số tiền là 89.6 triệu đồng.",
       "rubricSteps": [
         {
-          "step": "Tìm đúng $x = 4$",
-          "points": 1
+          "step": "Tính lãi năm thứ nhất",
+          "points": 0.2
+        },
+        {
+          "step": "Tính tổng tiền gốc và lãi năm thứ nhất",
+          "points": 0.2
+        },
+        {
+          "step": "Tính tiền lãi năm thứ hai",
+          "points": 0.2
+        },
+        {
+          "step": "Tính tổng tiền sau 2 năm",
+          "points": 0.2
+        },
+        {
+          "step": "Kết luận đáp án chính xác",
+          "points": 0.2
         }
       ],
-      "keyFormula": "$A + B = C \\Leftrightarrow A = C - B$",
-      "commonMistake": "Chuyển vế nhưng quên đổi dấu hạng tử.",
+      "keyFormula": "$T = P(1 + r_1)(1 + r_2)$.",
+      "id": "Q7_TPL_010",
+      "code": "M7-HK1-C1-VDC-10",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
-      "version": 1
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.107Z",
+      "version": 1,
+      "fingerprint": "ab98f3da5576593d9cb2b58343a31bd3ac2a26c3275a408c72371f5c3ce9a82a",
+      "difficultyScore": 9.5
     },
     {
+      "grade": 7,
+      "semester": 1,
+      "chapterId": "G7_C1",
+      "lesson": "Lũy thừa của một số hữu tỉ",
+      "topic": "Tổng dãy lũy thừa và tính chia hết",
+      "problemType": "Thu gọn tổng lũy thừa và tìm số mũ",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 1,
+      "textbooks": [
+        "KNTT"
+      ],
+      "complexity": {
+        "steps": 5,
+        "techniques": [
+          "nhan_he_so_tong_luy_thua",
+          "triet_tieu_sai_phan",
+          "bien_doi_luy_thua_nang_cao"
+        ],
+        "crossTopic": true,
+        "modeling": false,
+        "needsCaseAnalysis": false,
+        "estMinutes": 7
+      },
+      "content": "Cho biểu thức $S = 1 + 4 + 4^2 + 4^3 + \\\\dots + 4^{58}$. Tìm số tự nhiên $x$ thỏa mãn: $3S + 1 = 4^x$.",
+      "correctAnswer": "59",
+      "acceptedAnswers": [
+        "59",
+        "x = 59"
+      ],
+      "solution": "Bước 1: Nhân cả hai vế với $4$: $4S = 4 + 4^2 + \\\\dots + 4^{59}$.\\\\nBước 2: Lấy $4S - S$ theo từng vế.\\\\nBước 3: Triệt tiêu các số hạng ở giữa được $(4 - 1)S = 4^{59} - 1$.\\\\nBước 4: Chuyển vế được $(4 - 1)S + 1 = 4^{59}$.\\\\nBước 5: So sánh với đề bài suy ra $x = 59$.",
+      "rubricSteps": [
+        {
+          "step": "Nhân cả hai vế với 4",
+          "points": 0.2
+        },
+        {
+          "step": "Lấy hiệu hai vế để triệt tiêu trung gian",
+          "points": 0.2
+        },
+        {
+          "step": "Thu gọn được (4 - 1)S = 4^59 - 1",
+          "points": 0.2
+        },
+        {
+          "step": "Chuyển vế thành (4 - 1)S + 1 = 4^59",
+          "points": 0.2
+        },
+        {
+          "step": "Kết luận x = 59",
+          "points": 0.2
+        }
+      ],
+      "keyFormula": "$(q - 1)S = q^{n+1} - 1$.",
       "id": "Q7_TPL_011",
       "code": "M7-HK1-C1-VDC-11",
-      "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
-      "semester": 1,
-      "chapterId": "G7_C1",
-      "lesson": "Các phép tính số hữu tỉ & Quy tắc chuyển vế",
-      "topic": "Các phép tính số hữu tỉ",
-      "problemType": "Tìm x trong đẳng thức hữu tỉ",
-      "type": "essay",
-      "difficulty": "hard",
-      "cognitiveLevel": "van_dung_cao",
-      "points": 2,
-      "content": "Tìm số hữu tỉ $x$, biết: $2x + 4 = x + 9$.",
-      "options": [],
-      "correctAnswer": "5",
-      "acceptedAnswers": [
-        "5",
-        "x=5"
-      ],
-      "solution": "Áp dụng quy tắc chuyển vế: $2x - x = 9 - 4 \\Rightarrow x = 5$.",
-      "rubricSteps": [
-        {
-          "step": "Chuyển vế đổi dấu đúng $2x - x = 9 - 4$",
-          "points": 1
-        },
-        {
-          "step": "Thu gọn được $x = 5$",
-          "points": 1
-        }
-      ],
-      "keyFormula": "$A + B = C \\Leftrightarrow A = C - B$",
-      "commonMistake": "Chuyển vế nhưng quên đổi dấu hạng tử.",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
-      "version": 1
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.109Z",
+      "version": 1,
+      "fingerprint": "b12de77cf1a2149ffded901cd35b64b212c6183eb51d2f1d32661a24febe1593",
+      "difficultyScore": 9.3
     },
     {
-      "id": "Q7_TPL_012",
-      "code": "M7-HK1-C1-VDC-12",
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 1,
       "chapterId": "G7_C1",
-      "lesson": "Các phép tính số hữu tỉ & Quy tắc chuyển vế",
-      "topic": "Các phép tính số hữu tỉ",
-      "problemType": "Tìm x trong đẳng thức hữu tỉ",
+      "lesson": "Lũy thừa của một số hữu tỉ",
+      "topic": "Tổng dãy lũy thừa và tính chia hết",
+      "problemType": "Thu gọn tổng lũy thừa và tìm số mũ",
       "type": "essay",
       "difficulty": "hard",
       "cognitiveLevel": "van_dung_cao",
-      "points": 2,
-      "content": "Tìm số hữu tỉ $x$, biết: $2x + 5 = x + 11$.",
-      "options": [],
-      "correctAnswer": "6",
-      "acceptedAnswers": [
-        "6",
-        "x=6"
+      "points": 1,
+      "textbooks": [
+        "CTST"
       ],
-      "solution": "Áp dụng quy tắc chuyển vế: $2x - x = 11 - 5 \\Rightarrow x = 6$.",
+      "complexity": {
+        "steps": 5,
+        "techniques": [
+          "nhan_he_so_tong_luy_thua",
+          "triet_tieu_sai_phan",
+          "bien_doi_luy_thua_nang_cao"
+        ],
+        "crossTopic": true,
+        "modeling": false,
+        "needsCaseAnalysis": false,
+        "estMinutes": 7
+      },
+      "content": "Cho biểu thức $S = 1 + 4 + 4^2 + 4^3 + \\\\dots + 4^{49}$. Tìm số tự nhiên $x$ thỏa mãn: $3S + 1 = 4^x$.",
+      "correctAnswer": "50",
+      "acceptedAnswers": [
+        "50",
+        "x = 50"
+      ],
+      "solution": "Bước 1: Nhân cả hai vế với $4$: $4S = 4 + 4^2 + \\\\dots + 4^{50}$.\\\\nBước 2: Lấy $4S - S$ theo từng vế.\\\\nBước 3: Triệt tiêu các số hạng ở giữa được $(4 - 1)S = 4^{50} - 1$.\\\\nBước 4: Chuyển vế được $(4 - 1)S + 1 = 4^{50}$.\\\\nBước 5: So sánh với đề bài suy ra $x = 50$.",
       "rubricSteps": [
         {
-          "step": "Chuyển vế đổi dấu đúng $2x - x = 11 - 5$",
-          "points": 1
+          "step": "Nhân cả hai vế với 4",
+          "points": 0.2
         },
         {
-          "step": "Thu gọn được $x = 6$",
-          "points": 1
+          "step": "Lấy hiệu hai vế để triệt tiêu trung gian",
+          "points": 0.2
+        },
+        {
+          "step": "Thu gọn được (4 - 1)S = 4^50 - 1",
+          "points": 0.2
+        },
+        {
+          "step": "Chuyển vế thành (4 - 1)S + 1 = 4^50",
+          "points": 0.2
+        },
+        {
+          "step": "Kết luận x = 50",
+          "points": 0.2
         }
       ],
-      "keyFormula": "$A + B = C \\Leftrightarrow A = C - B$",
-      "commonMistake": "Chuyển vế nhưng quên đổi dấu hạng tử.",
+      "keyFormula": "$(q - 1)S = q^{n+1} - 1$.",
+      "id": "Q7_TPL_012",
+      "code": "M7-HK1-C1-VDC-12",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
-      "version": 1
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.109Z",
+      "version": 1,
+      "fingerprint": "73df95845f6a9f47741627bcea5d9b640988c9cdc0590d442ad7204aa5e06793",
+      "difficultyScore": 9.3
     },
     {
       "id": "Q7_TPL_013",
@@ -779,165 +866,173 @@
       "mathExpressionToVerify": "sqrt(36) + 5"
     },
     {
-      "id": "Q7_TPL_016",
-      "code": "M7-HK1-C2-TH-16",
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 1,
       "chapterId": "G7_C2",
-      "lesson": "Căn bậc hai số học & Giá trị tuyệt đối của số thực",
-      "topic": "Căn bậc hai số học",
-      "problemType": "Tính biểu thức chứa căn bậc hai và trị tuyệt đối",
+      "lesson": "Giá trị tuyệt đối của một số thực",
+      "topic": "Tìm x trong đẳng thức",
+      "problemType": "Phương trình |x| = a",
       "type": "mcq",
       "difficulty": "medium",
       "cognitiveLevel": "thong_hieu",
-      "points": 1,
-      "content": "Tính giá trị biểu thức $P = \\sqrt{16} + |-3|$.",
-      "options": [
-        {
-          "label": "A",
-          "text": "$1$",
-          "errorType": "SIGN_ERROR"
-        },
-        {
-          "label": "B",
-          "text": "$7$"
-        },
-        {
-          "label": "C",
-          "text": "$19$",
-          "errorType": "CONCEPT_ERROR"
-        },
-        {
-          "label": "D",
-          "text": "$-7$",
-          "errorType": "SIGN_ERROR"
-        }
-      ],
-      "correctAnswer": "B",
-      "acceptedAnswers": [
-        "7",
-        "P=7"
-      ],
-      "solution": "Vì $\\sqrt{16} = 4$ và $|-3| = 3$ nên $P = 4 + 3 = 7$.",
-      "rubricSteps": [
-        {
-          "step": "Tính đúng $P = 7$",
-          "points": 1
-        }
-      ],
-      "keyFormula": "$\\sqrt{a^2} = a$ ($a \\ge 0$) và $|-b| = b$ ($b > 0$)",
-      "commonMistake": "Giữ nguyên dấu âm của giá trị tuyệt đối $|-a| = -a$.",
-      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
-      "verificationStatus": "draft",
-      "version": 1,
-      "mathExpressionToVerify": "sqrt(16) + 3"
-    },
-    {
-      "id": "Q7_TPL_017",
-      "code": "M7-HK1-C2-TH-17",
-      "grade": 7,
+      "points": 0.5,
       "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
+        "CD"
       ],
-      "semester": 1,
-      "chapterId": "G7_C2",
-      "lesson": "Căn bậc hai số học & Giá trị tuyệt đối của số thực",
-      "topic": "Căn bậc hai số học",
-      "problemType": "Tính biểu thức chứa căn bậc hai và trị tuyệt đối",
-      "type": "mcq",
-      "difficulty": "medium",
-      "cognitiveLevel": "thong_hieu",
-      "points": 1,
-      "content": "Tính giá trị biểu thức $P = \\sqrt{25} + |-4|$.",
+      "content": "Tìm tất cả các giá trị của $x$ thỏa mãn: $|x| = 3.8$",
       "options": [
         {
           "label": "A",
-          "text": "$1$",
-          "errorType": "SIGN_ERROR"
+          "text": "$x = 3.8$",
+          "errorType": "THIẾU_NGHIỆM_ÂM"
         },
         {
           "label": "B",
-          "text": "$29$",
-          "errorType": "CONCEPT_ERROR"
+          "text": "$x = -3.8$",
+          "errorType": "CHỈ_CHỌN_NGHIỆM_ÂM"
         },
         {
           "label": "C",
-          "text": "$-9$",
-          "errorType": "SIGN_ERROR"
+          "text": "Phương trình vô nghiệm",
+          "errorType": "SAI_KIẾN_THỨC"
         },
         {
           "label": "D",
-          "text": "$9$"
+          "text": "$x = 3.8$ hoặc $x = -3.8$"
         }
       ],
       "correctAnswer": "D",
       "acceptedAnswers": [
-        "9",
-        "P=9"
+        "D"
       ],
-      "solution": "Vì $\\sqrt{25} = 5$ và $|-4| = 4$ nên $P = 5 + 4 = 9$.",
+      "solution": "Vì $3.8 > 0$ nên $|x| = 3.8 \\iff x = 3.8$ hoặc $x = -3.8$.",
       "rubricSteps": [
         {
-          "step": "Tính đúng $P = 9$",
-          "points": 1
+          "step": "Nêu công thức và thiết lập các bước biến đổi ban đầu",
+          "points": 0.25
+        },
+        {
+          "step": "Thực hiện phép tính và kết luận đáp án chính xác",
+          "points": 0.25
         }
       ],
-      "keyFormula": "$\\sqrt{a^2} = a$ ($a \\ge 0$) và $|-b| = b$ ($b > 0$)",
-      "commonMistake": "Giữ nguyên dấu âm của giá trị tuyệt đối $|-a| = -a$.",
+      "keyFormula": "$|x| = a (a > 0) \\iff x = \\pm a$",
+      "commonMistake": "Quên nghiệm âm.",
+      "id": "Q7_TPL_016",
+      "code": "M7-HK1-C2-TH-16",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.110Z",
       "version": 1,
-      "mathExpressionToVerify": "sqrt(25) + 4"
+      "fingerprint": "a0fff69382214de1853aec311feac7a0de86a54f73c1c804d3c25e3fce150b9f",
+      "difficultyScore": 4.5
     },
     {
-      "id": "Q7_TPL_018",
-      "code": "M7-HK1-C2-TH-18",
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 1,
       "chapterId": "G7_C2",
-      "lesson": "Căn bậc hai số học & Giá trị tuyệt đối của số thực",
-      "topic": "Căn bậc hai số học",
-      "problemType": "Tính biểu thức chứa căn bậc hai và trị tuyệt đối",
+      "lesson": "Giá trị tuyệt đối của một số thực",
+      "topic": "Tìm x trong đẳng thức",
+      "problemType": "Phương trình |x| = a",
+      "type": "mcq",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 0.5,
+      "textbooks": [
+        "CD"
+      ],
+      "content": "Tìm tất cả các giá trị của $x$ thỏa mãn: $|x| = 3.0$",
+      "options": [
+        {
+          "label": "A",
+          "text": "$x = -3.0$",
+          "errorType": "CHỈ_CHỌN_NGHIỆM_ÂM"
+        },
+        {
+          "label": "B",
+          "text": "$x = 3.0$",
+          "errorType": "THIẾU_NGHIỆM_ÂM"
+        },
+        {
+          "label": "C",
+          "text": "Phương trình vô nghiệm",
+          "errorType": "SAI_KIẾN_THỨC"
+        },
+        {
+          "label": "D",
+          "text": "$x = 3.0$ hoặc $x = -3.0$"
+        }
+      ],
+      "correctAnswer": "D",
+      "acceptedAnswers": [
+        "D"
+      ],
+      "solution": "Vì $3.0 > 0$ nên $|x| = 3.0 \\iff x = 3.0$ hoặc $x = -3.0$.",
+      "rubricSteps": [
+        {
+          "step": "Nêu công thức và thiết lập các bước biến đổi ban đầu",
+          "points": 0.25
+        },
+        {
+          "step": "Thực hiện phép tính và kết luận đáp án chính xác",
+          "points": 0.25
+        }
+      ],
+      "keyFormula": "$|x| = a (a > 0) \\iff x = \\pm a$",
+      "commonMistake": "Quên nghiệm âm.",
+      "id": "Q7_TPL_017",
+      "code": "M7-HK1-C2-TH-17",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
+      "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.111Z",
+      "version": 1,
+      "fingerprint": "d3927977cc71733af9f3a491bfb9c57c96c8cede2e288adb1e705a2c21ecd7c4",
+      "difficultyScore": 4.5
+    },
+    {
+      "grade": 7,
+      "semester": 1,
+      "chapterId": "G7_C2",
+      "lesson": "Căn bậc hai số học",
+      "topic": "Tính toán với căn bậc hai",
+      "problemType": "Thực hiện phép tính chứa căn",
       "type": "essay",
       "difficulty": "medium",
       "cognitiveLevel": "thong_hieu",
-      "points": 2,
-      "content": "Tính giá trị biểu thức $P = \\sqrt{36} + |-5|$.",
-      "options": [],
-      "correctAnswer": "11",
-      "acceptedAnswers": [
-        "11",
-        "P=11"
+      "points": 1,
+      "textbooks": [
+        "CTST"
       ],
-      "solution": "Vì $\\sqrt{36} = 6$ và $|-5| = 5$ nên $P = 6 + 5 = 11$.",
+      "content": "Tính giá trị biểu thức: $A = \\sqrt{25} + 2 \\cdot \\sqrt{16}$",
+      "correctAnswer": "13",
+      "acceptedAnswers": [
+        "13",
+        "13"
+      ],
+      "solution": "Khai phương các căn bậc hai số học:\n$$\\sqrt{25} = 5, \\quad \\sqrt{16} = 4$$\nThay vào biểu thức:\n$$A = 5 + 2 \\cdot 4 = 5 + 8 = 13$$",
       "rubricSteps": [
         {
-          "step": "Tính đúng $\\sqrt{36} = 6$ và $|-5| = 5$",
-          "points": 1
+          "step": "Tính $\\sqrt{25} = 5$ và $\\sqrt{16} = 4$",
+          "points": 0.5
         },
         {
-          "step": "Cộng hai kết quả được $P = 11$",
-          "points": 1
+          "step": "Thực hiện phép tính ra $13$",
+          "points": 0.5
         }
       ],
-      "keyFormula": "$\\sqrt{a^2} = a$ ($a \\ge 0$) và $|-b| = b$ ($b > 0$)",
-      "commonMistake": "Giữ nguyên dấu âm của giá trị tuyệt đối $|-a| = -a$.",
+      "keyFormula": "$\\sqrt{x^2} = x$ với $x > 0$.",
+      "commonMistake": "Cộng trước rồi mới nhân.",
+      "id": "Q7_TPL_018",
+      "code": "M7-HK1-C2-TH-18",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.112Z",
       "version": 1,
-      "mathExpressionToVerify": "sqrt(36) + 5"
+      "fingerprint": "ec60f1d9c534c4c5704308d808fd65b5025240319cb484964acbf15bf7ee14fe",
+      "difficultyScore": 4.5
     },
     {
       "id": "Q7_TPL_019",
@@ -1098,146 +1193,222 @@
       "version": 1
     },
     {
-      "id": "Q7_TPL_022",
-      "code": "M7-HK1-C2-VDC-22",
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 1,
       "chapterId": "G7_C2",
-      "lesson": "Căn bậc hai số học & Giá trị tuyệt đối của số thực",
-      "topic": "Căn bậc hai số học",
-      "problemType": "Tìm GTNN chứa dấu giá trị tuyệt đối",
+      "lesson": "Đại lượng tỉ lệ nghịch",
+      "topic": "Ứng dụng tỉ lệ nghịch trong sản xuất",
+      "problemType": "Ba đội máy cày tỉ lệ nghịch với thời gian hoàn thành",
       "type": "mcq",
       "difficulty": "hard",
       "cognitiveLevel": "van_dung_cao",
       "points": 1,
-      "content": "Tìm giá trị nhỏ nhất của biểu thức $A = |x - 2| + 7$.",
+      "textbooks": [
+        "KNTT"
+      ],
+      "complexity": {
+        "steps": 5,
+        "techniques": [
+          "mo_hinh_hoa_thuc_te",
+          "dai_luong_ti_le_nghich",
+          "giai_he_ti_le_thuc"
+        ],
+        "crossTopic": true,
+        "modeling": true,
+        "needsCaseAnalysis": false,
+        "estMinutes": 7
+      },
+      "content": "Ba đội máy cày có cùng năng suất làm việc trên ba cánh đồng cùng diện tích. Đội thứ nhất hoàn thành công việc trong $4$ ngày, đội thứ hai trong $6$ ngày và đội thứ ba trong $8$ ngày. Biết đội thứ nhất có nhiều hơn đội thứ ba là 9 máy. Tổng số máy của cả ba đội là:",
       "options": [
         {
           "label": "A",
-          "text": "$2$",
-          "errorType": "CONCEPT_ERROR"
+          "text": "33 máy",
+          "errorType": "TÍNH_SAI_HIỆU_SỐ_MÁY"
         },
         {
           "label": "B",
-          "text": "$5$",
-          "errorType": "SIGN_ERROR"
+          "text": "43 máy",
+          "errorType": "TÍNH_NHẦM_BCNN"
         },
         {
           "label": "C",
-          "text": "$0$",
-          "errorType": "CONCEPT_ERROR"
+          "text": "30 máy",
+          "errorType": "QUÊN_ĐỘI_THỨ_BA"
         },
         {
           "label": "D",
-          "text": "$7$"
+          "text": "39 máy"
         }
       ],
       "correctAnswer": "D",
       "acceptedAnswers": [
-        "7",
-        "min A = 7"
+        "D"
       ],
-      "solution": "Vì $|x - 2| \\ge 0$ với mọi $x \\in \\mathbb{R}$ nên $A = |x - 2| + 7 \\ge 7$. Dấu \"$=$\" xảy ra khi $x = 2$. Vậy $\\min A = 7$.",
+      "solution": "Bước 1: Gọi số máy của 3 đội là $x, y, z$ ($x, y, z \\\\in \\\\mathbb{N}^*$).\\\\nBước 2: Vì năng suất và diện tích như nhau nên số máy và số ngày tỉ lệ nghịch: $4x = 6y = 8z \\\\iff \\\\frac{x}{6} = \\\\frac{y}{4} = \\\\frac{z}{3}$.\\\\nBước 3: Đội một nhiều hơn đội ba là 9 máy nên $x - z = 9$.\\\\nBước 4: Áp dụng tính chất dãy tỉ số bằng nhau: $\\\\frac{x}{6} = \\\\frac{z}{3} = \\\\frac{x - z}{6 - 3} = \\\\frac{9}{3} = 3$. Suy ra $x = 18, y = 12, z = 9$.\\\\nBước 5: Tổng số máy cả ba đội là $x + y + z = 39$ máy.",
       "rubricSteps": [
         {
-          "step": "Tìm đúng $\\min A = 7$",
-          "points": 1
+          "step": "Gọi ẩn và thiết lập mối quan hệ tỉ lệ nghịch",
+          "points": 0.2
+        },
+        {
+          "step": "Chuyển về dãy tỉ số bằng nhau",
+          "points": 0.2
+        },
+        {
+          "step": "Thiết lập hiệu x - z theo đề bài",
+          "points": 0.2
+        },
+        {
+          "step": "Áp dụng tính chất dãy tỉ số tìm số máy từng đội",
+          "points": 0.2
+        },
+        {
+          "step": "Tính tổng số máy cả ba đội là 39 máy",
+          "points": 0.2
         }
       ],
-      "keyFormula": "$|f(x)| + c \\ge c$ với mọi $x$",
-      "commonMistake": "Nhầm giá trị của $x$ làm biểu thức đạt GTNN với chính GTNN của biểu thức.",
+      "keyFormula": "Tỉ lệ nghịch: $a x = b y = c z \\\\implies \\\\frac{x}{1/a} = \\\\frac{y}{1/b} = \\\\frac{z}{1/c}$.",
+      "id": "Q7_TPL_022",
+      "code": "M7-HK1-C2-VDC-22",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
-      "version": 1
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.114Z",
+      "version": 1,
+      "fingerprint": "e19a15b0d439a763fc49615c0e112763a22cb5838442000e6853ef2c31ba78b1",
+      "difficultyScore": 9.5
     },
     {
+      "grade": 7,
+      "semester": 1,
+      "chapterId": "G7_C2",
+      "lesson": "Tính chất của dãy tỉ số bằng nhau",
+      "topic": "Dãy tỉ số bằng nhau bậc hai",
+      "problemType": "Tìm x, y, z thỏa mãn dãy tỉ số và phương trình bậc hai",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 1,
+      "textbooks": [
+        "KNTT"
+      ],
+      "complexity": {
+        "steps": 5,
+        "techniques": [
+          "phuong_phap_dat_k",
+          "bien_luan_hai_truong_hop_dau",
+          "giai_he_ti_le_thuc"
+        ],
+        "crossTopic": false,
+        "modeling": false,
+        "needsCaseAnalysis": true,
+        "estMinutes": 7
+      },
+      "content": "Cho $\\\\frac{x}{2} = \\\\frac{y}{3} = \\\\frac{z}{4}$ và $2x^2 + y^2 - z^2 = 4$. Tìm giá trị lớn nhất của tổng $x + y + z$.",
+      "correctAnswer": "18",
+      "acceptedAnswers": [
+        "18",
+        "18"
+      ],
+      "solution": "Bước 1: Đặt $\\\\frac{x}{2} = \\\\frac{y}{3} = \\\\frac{z}{4} = t \\\\implies x = 2t, y = 3t, z = 4t$.\\\\nBước 2: Thay vào phương trình: $2(2t)^2 + (3t)^2 - (4t)^2 = 4 \\\\iff 8t^2 + 9t^2 - 16t^2 = 4$.\\\\nBước 3: Thu gọn được $t^2 = 4 \\\\implies t = 2$ hoặc $t = -2$.\\\\nBước 4: TH1: $t = 2 \\\\implies x + y + z = 9t = 18$.\\\\nTH2: $t = -2 \\\\implies x + y + z = -18$.\\\\nBước 5: Giá trị lớn nhất của tổng là $18$.",
+      "rubricSteps": [
+        {
+          "step": "Đặt ẩn phụ t biểu diễn x, y, z theo t",
+          "points": 0.2
+        },
+        {
+          "step": "Thay vào phương trình bậc hai và thu gọn",
+          "points": 0.2
+        },
+        {
+          "step": "Giải ra hai giá trị t = +-2",
+          "points": 0.2
+        },
+        {
+          "step": "Tính tổng x + y + z cho cả hai trường hợp",
+          "points": 0.2
+        },
+        {
+          "step": "Kết luận giá trị lớn nhất là 18",
+          "points": 0.2
+        }
+      ],
+      "keyFormula": "$t^2 = a \\\\implies t = \\\\pm \\\\sqrt{a}$.",
       "id": "Q7_TPL_023",
       "code": "M7-HK1-C2-VDC-23",
-      "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
-      "semester": 1,
-      "chapterId": "G7_C2",
-      "lesson": "Căn bậc hai số học & Giá trị tuyệt đối của số thực",
-      "topic": "Căn bậc hai số học",
-      "problemType": "Tìm GTNN chứa dấu giá trị tuyệt đối",
-      "type": "essay",
-      "difficulty": "hard",
-      "cognitiveLevel": "van_dung_cao",
-      "points": 2,
-      "content": "Tìm giá trị nhỏ nhất của biểu thức $A = |x - 3| + 10$.",
-      "options": [],
-      "correctAnswer": "10",
-      "acceptedAnswers": [
-        "10",
-        "min A = 10"
-      ],
-      "solution": "Vì $|x - 3| \\ge 0$ với mọi $x \\in \\mathbb{R}$ nên $A = |x - 3| + 10 \\ge 10$. Dấu \"$=$\" xảy ra khi $x = 3$. Vậy $\\min A = 10$.",
-      "rubricSteps": [
-        {
-          "step": "Đánh giá $|x - 3| \\ge 0 \\Rightarrow A \\ge 10$",
-          "points": 1
-        },
-        {
-          "step": "Chỉ ra dấu bằng khi $x = 3$ và kết luận $\\min A = 10$",
-          "points": 1
-        }
-      ],
-      "keyFormula": "$|f(x)| + c \\ge c$ với mọi $x$",
-      "commonMistake": "Nhầm giá trị của $x$ làm biểu thức đạt GTNN với chính GTNN của biểu thức.",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
-      "version": 1
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.115Z",
+      "version": 1,
+      "fingerprint": "8b50521ddebfa01be51a9b19062becff48be0b3eeb02ee2a14160daabeea7b38",
+      "difficultyScore": 9.3
     },
     {
-      "id": "Q7_TPL_024",
-      "code": "M7-HK1-C2-VDC-24",
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 1,
       "chapterId": "G7_C2",
-      "lesson": "Căn bậc hai số học & Giá trị tuyệt đối của số thực",
-      "topic": "Căn bậc hai số học",
-      "problemType": "Tìm GTNN chứa dấu giá trị tuyệt đối",
+      "lesson": "Tính chất của dãy tỉ số bằng nhau",
+      "topic": "Dãy tỉ số bằng nhau bậc hai",
+      "problemType": "Tìm x, y, z thỏa mãn dãy tỉ số và phương trình bậc hai",
       "type": "essay",
       "difficulty": "hard",
       "cognitiveLevel": "van_dung_cao",
-      "points": 2,
-      "content": "Tìm giá trị nhỏ nhất của biểu thức $A = |x - 4| + 13$.",
-      "options": [],
-      "correctAnswer": "13",
-      "acceptedAnswers": [
-        "13",
-        "min A = 13"
+      "points": 1,
+      "textbooks": [
+        "CD"
       ],
-      "solution": "Vì $|x - 4| \\ge 0$ với mọi $x \\in \\mathbb{R}$ nên $A = |x - 4| + 13 \\ge 13$. Dấu \"$=$\" xảy ra khi $x = 4$. Vậy $\\min A = 13$.",
+      "complexity": {
+        "steps": 5,
+        "techniques": [
+          "phuong_phap_dat_k",
+          "bien_luan_hai_truong_hop_dau",
+          "giai_he_ti_le_thuc"
+        ],
+        "crossTopic": false,
+        "modeling": false,
+        "needsCaseAnalysis": true,
+        "estMinutes": 7
+      },
+      "content": "Cho $\\\\frac{x}{2} = \\\\frac{y}{3} = \\\\frac{z}{4}$ và $2x^2 + y^2 - z^2 = 16$. Tìm giá trị lớn nhất của tổng $x + y + z$.",
+      "correctAnswer": "36",
+      "acceptedAnswers": [
+        "36",
+        "36"
+      ],
+      "solution": "Bước 1: Đặt $\\\\frac{x}{2} = \\\\frac{y}{3} = \\\\frac{z}{4} = t \\\\implies x = 2t, y = 3t, z = 4t$.\\\\nBước 2: Thay vào phương trình: $2(2t)^2 + (3t)^2 - (4t)^2 = 16 \\\\iff 8t^2 + 9t^2 - 16t^2 = 16$.\\\\nBước 3: Thu gọn được $t^2 = 16 \\\\implies t = 4$ hoặc $t = -4$.\\\\nBước 4: TH1: $t = 4 \\\\implies x + y + z = 9t = 36$.\\\\nTH2: $t = -4 \\\\implies x + y + z = -36$.\\\\nBước 5: Giá trị lớn nhất của tổng là $36$.",
       "rubricSteps": [
         {
-          "step": "Đánh giá $|x - 4| \\ge 0 \\Rightarrow A \\ge 13$",
-          "points": 1
+          "step": "Đặt ẩn phụ t biểu diễn x, y, z theo t",
+          "points": 0.2
         },
         {
-          "step": "Chỉ ra dấu bằng khi $x = 4$ và kết luận $\\min A = 13$",
-          "points": 1
+          "step": "Thay vào phương trình bậc hai và thu gọn",
+          "points": 0.2
+        },
+        {
+          "step": "Giải ra hai giá trị t = +-4",
+          "points": 0.2
+        },
+        {
+          "step": "Tính tổng x + y + z cho cả hai trường hợp",
+          "points": 0.2
+        },
+        {
+          "step": "Kết luận giá trị lớn nhất là 36",
+          "points": 0.2
         }
       ],
-      "keyFormula": "$|f(x)| + c \\ge c$ với mọi $x$",
-      "commonMistake": "Nhầm giá trị của $x$ làm biểu thức đạt GTNN với chính GTNN của biểu thức.",
+      "keyFormula": "$t^2 = a \\\\implies t = \\\\pm \\\\sqrt{a}$.",
+      "id": "Q7_TPL_024",
+      "code": "M7-HK1-C2-VDC-24",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
-      "version": 1
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.117Z",
+      "version": 1,
+      "fingerprint": "088627c418e2bab0497e3daa49bfabffb71b6e0210ac0085d11d921d0bb9d215",
+      "difficultyScore": 9.3
     },
     {
       "id": "Q7_TPL_025",
@@ -1398,162 +1569,174 @@
       "mathExpressionToVerify": "180 - 80"
     },
     {
-      "id": "Q7_TPL_028",
-      "code": "M7-HK1-C3-TH-28",
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 1,
       "chapterId": "G7_C3",
-      "lesson": "Hai đường thẳng song song và tính chất",
-      "topic": "Dấu hiệu và tính chất hai đường thẳng song song",
-      "problemType": "Tính số đo góc dựa vào song song",
+      "lesson": "Từ vuông góc đến song song",
+      "topic": "Tính chất ba đường thẳng",
+      "problemType": "Hai đường thẳng cùng vuông góc với đường thẳng thứ ba",
       "type": "mcq",
       "difficulty": "medium",
       "cognitiveLevel": "thong_hieu",
-      "points": 1,
-      "content": "Cho hai đường thẳng song song $a \\parallel b$. Đường thẳng $c$ cắt $a$ tại $A$ và cắt $b$ tại $B$. Biết một góc trong bằng $60^\\circ$, số đo góc trong cùng phía với góc đó bằng bao nhiêu độ?",
+      "points": 0.5,
+      "textbooks": [
+        "KNTT"
+      ],
+      "content": "Cho hai đường thẳng phân biệt $a$ và $b$. Biết $a \\perp c$ và $b \\perp c$. Khẳng định nào sau đây là đúng?",
       "options": [
         {
           "label": "A",
-          "text": "$60$",
-          "errorType": "CONCEPT_ERROR"
+          "text": "$a$ trùng $b$",
+          "errorType": "TRÙNG_NHAU"
         },
         {
           "label": "B",
-          "text": "$120$"
+          "text": "$a \\parallel b$"
         },
         {
           "label": "C",
-          "text": "$30$",
-          "errorType": "FORMULA_ERROR"
+          "text": "$a \\perp b$",
+          "errorType": "CHO_LÀ_VUÔNG_GÓC"
         },
         {
           "label": "D",
-          "text": "$130$",
-          "errorType": "CALCULATION_ERROR"
+          "text": "$a$ cắt $b$",
+          "errorType": "CẮT_NHAU"
         }
       ],
       "correctAnswer": "B",
       "acceptedAnswers": [
-        "120"
+        "B"
       ],
-      "solution": "Vì $a \\parallel b$ nên hai góc trong cùng phía bù nhau, số đo góc cần tìm là $180^\\circ - 60^\\circ = 120^\\circ$.",
+      "solution": "Hai đường thẳng phân biệt cùng vuông góc với một đường thẳng thứ ba thì chúng song song với nhau: $a \\parallel b$.",
       "rubricSteps": [
         {
-          "step": "Tính đúng góc trong cùng phía bằng $120^\\circ$",
-          "points": 1
+          "step": "Nêu công thức và thiết lập các bước biến đổi ban đầu",
+          "points": 0.25
+        },
+        {
+          "step": "Thực hiện phép tính và kết luận đáp án chính xác",
+          "points": 0.25
         }
       ],
-      "keyFormula": "$\\widehat{A}_1 + \\widehat{B}_2 = 180^\\circ$ (hai góc trong cùng phía)",
-      "commonMistake": "Nhầm hai góc trong cùng phía bằng nhau (nhầm sang hai góc so le trong).",
+      "keyFormula": "$a \\perp c, b \\perp c \\implies a \\parallel b$",
+      "commonMistake": "Nghĩ rằng $a$ vuông góc với $b$.",
+      "id": "Q7_TPL_028",
+      "code": "M7-HK1-C3-TH-28",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.122Z",
       "version": 1,
-      "mathExpressionToVerify": "180 - 60"
+      "fingerprint": "8ae13afc06398c419fe69659d08737f2cee126b7f286d54022169cbf2d81cde9",
+      "difficultyScore": 4.5
     },
     {
-      "id": "Q7_TPL_029",
-      "code": "M7-HK1-C3-TH-29",
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 1,
       "chapterId": "G7_C3",
-      "lesson": "Hai đường thẳng song song và tính chất",
-      "topic": "Dấu hiệu và tính chất hai đường thẳng song song",
-      "problemType": "Tính số đo góc dựa vào song song",
+      "lesson": "Hai đường thẳng song song và dấu hiệu nhận biết",
+      "topic": "Tính góc trong cùng phía",
+      "problemType": "Tìm số đo góc trong cùng phía",
       "type": "mcq",
       "difficulty": "medium",
       "cognitiveLevel": "thong_hieu",
-      "points": 1,
-      "content": "Cho hai đường thẳng song song $a \\parallel b$. Đường thẳng $c$ cắt $a$ tại $A$ và cắt $b$ tại $B$. Biết một góc trong bằng $70^\\circ$, số đo góc trong cùng phía với góc đó bằng bao nhiêu độ?",
+      "points": 0.5,
+      "textbooks": [
+        "CD"
+      ],
+      "content": "Cho đường thẳng $a \\parallel b$. Đường thẳng $c$ cắt $a$ và $b$ lần lượt tại $A$ và $B$. Biết một góc trong cùng phía tại đỉnh $A$ có số đo $57^\\circ$. Góc trong cùng phía tại đỉnh $B$ có số đo là:",
       "options": [
         {
           "label": "A",
-          "text": "$70$",
-          "errorType": "CONCEPT_ERROR"
+          "text": "$123^\\circ$"
         },
         {
           "label": "B",
-          "text": "$20$",
-          "errorType": "FORMULA_ERROR"
+          "text": "$113^\\circ$",
+          "errorType": "TÍNH_NHẦM"
         },
         {
           "label": "C",
-          "text": "$120$",
-          "errorType": "CALCULATION_ERROR"
+          "text": "$57^\\circ$",
+          "errorType": "CHO_LÀ_BẰNG_NHAU_NHẦM_SO_LE"
         },
         {
           "label": "D",
-          "text": "$110$"
+          "text": "$33^\\circ$",
+          "errorType": "TÍNH_PHỤ_NHAU"
         }
       ],
-      "correctAnswer": "D",
+      "correctAnswer": "A",
       "acceptedAnswers": [
-        "110"
+        "A"
       ],
-      "solution": "Vì $a \\parallel b$ nên hai góc trong cùng phía bù nhau, số đo góc cần tìm là $180^\\circ - 70^\\circ = 110^\\circ$.",
+      "solution": "Hai góc trong cùng phía của hai đường thẳng song song thì bù nhau (tổng số đo bằng $180^\\circ$):\n$$\\widehat{B} = 180^\\circ - 57^\\circ = 123^\\circ$$",
       "rubricSteps": [
         {
-          "step": "Tính đúng góc trong cùng phía bằng $110^\\circ$",
-          "points": 1
+          "step": "Nêu công thức và thiết lập các bước biến đổi ban đầu",
+          "points": 0.25
+        },
+        {
+          "step": "Thực hiện phép tính và kết luận đáp án chính xác",
+          "points": 0.25
         }
       ],
-      "keyFormula": "$\\widehat{A}_1 + \\widehat{B}_2 = 180^\\circ$ (hai góc trong cùng phía)",
-      "commonMistake": "Nhầm hai góc trong cùng phía bằng nhau (nhầm sang hai góc so le trong).",
+      "keyFormula": "Hai góc trong cùng phía có tổng bằng $180^\\circ$.",
+      "commonMistake": "Cho hai góc trong cùng phía bằng nhau như góc so le trong.",
+      "id": "Q7_TPL_029",
+      "code": "M7-HK1-C3-TH-29",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.122Z",
       "version": 1,
-      "mathExpressionToVerify": "180 - 70"
+      "fingerprint": "7d433f01ac6e35b0784aa911d95169f16d5b37ac134b0d5aacc292c6b9eae927",
+      "difficultyScore": 4.5
     },
     {
-      "id": "Q7_TPL_030",
-      "code": "M7-HK1-C3-TH-30",
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 1,
       "chapterId": "G7_C3",
-      "lesson": "Hai đường thẳng song song và tính chất",
-      "topic": "Dấu hiệu và tính chất hai đường thẳng song song",
-      "problemType": "Tính số đo góc dựa vào song song",
+      "lesson": "Tia phân giác của một góc",
+      "topic": "Hai tia phân giác của hai góc kề",
+      "problemType": "Tính tổng số đo",
       "type": "essay",
       "difficulty": "medium",
       "cognitiveLevel": "thong_hieu",
-      "points": 2,
-      "content": "Cho hai đường thẳng song song $a \\parallel b$. Đường thẳng $c$ cắt $a$ tại $A$ và cắt $b$ tại $B$. Biết một góc trong bằng $80^\\circ$, số đo góc trong cùng phía với góc đó bằng bao nhiêu độ?",
-      "options": [],
-      "correctAnswer": "100",
-      "acceptedAnswers": [
-        "100"
+      "points": 1,
+      "textbooks": [
+        "CTST"
       ],
-      "solution": "Vì $a \\parallel b$ nên hai góc trong cùng phía bù nhau, số đo góc cần tìm là $180^\\circ - 80^\\circ = 100^\\circ$.",
+      "content": "Cho hai góc kề nhau $\\widehat{xOy} = 34^\\circ$ và $\\widehat{yOz} = 58^\\circ$. Gọi $Om, On$ lần lượt là tia phân giác của $\\widehat{xOy}$ và $\\widehat{yOz}$. Tính số đo của góc $\\widehat{mOn}$.",
+      "correctAnswer": "46",
+      "acceptedAnswers": [
+        "46",
+        "46 độ",
+        "46°"
+      ],
+      "solution": "Ta có:\n$$\\widehat{mOn} = \\widehat{mOy} + \\widehat{yOn} = \\frac{\\widehat{xOy}}{2} + \\frac{\\widehat{yOz}}{2} = \\frac{34^\\circ + 58^\\circ}{2} = \\frac{92^\\circ}{2} = 46^\\circ$$",
       "rubricSteps": [
         {
-          "step": "Nêu tính chất hai góc trong cùng phía bù nhau khi $a \\parallel b$",
-          "points": 1
+          "step": "Tính số đo từng góc phân giác",
+          "points": 0.5
         },
         {
-          "step": "Tính đúng $180^\\circ - 80^\\circ = 100^\\circ$",
-          "points": 1
+          "step": "Cộng lại tìm ra $\\widehat{mOn} = 46^\\circ$",
+          "points": 0.5
         }
       ],
-      "keyFormula": "$\\widehat{A}_1 + \\widehat{B}_2 = 180^\\circ$ (hai góc trong cùng phía)",
-      "commonMistake": "Nhầm hai góc trong cùng phía bằng nhau (nhầm sang hai góc so le trong).",
+      "keyFormula": "$\\widehat{mOn} = \\frac{\\widehat{xOy} + \\widehat{yOz}}{2}$",
+      "commonMistake": "Lấy cả hai góc cộng lại mà quên chia đôi.",
+      "id": "Q7_TPL_030",
+      "code": "M7-HK1-C3-TH-30",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.123Z",
       "version": 1,
-      "mathExpressionToVerify": "180 - 80"
+      "fingerprint": "a8c7b2e0b1090119bd74304280ba8beea6e9ced393dfbfba91f03ad72435e7b3",
+      "difficultyScore": 4.5
     },
     {
       "id": "Q7_TPL_031",
@@ -1714,146 +1897,224 @@
       "mathExpressionToVerify": "80 / 2"
     },
     {
-      "id": "Q7_TPL_034",
-      "code": "M7-HK1-C3-VDC-34",
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 1,
       "chapterId": "G7_C3",
-      "lesson": "Hai đường thẳng song song và tính chất",
-      "topic": "Dấu hiệu và tính chất hai đường thẳng song song",
-      "problemType": "Tính số đo góc dựa vào song song",
+      "lesson": "Hình lăng trụ đứng tam giác và tứ giác",
+      "topic": "Tối ưu đóng gói và diện tích bề mặt",
+      "problemType": "Bài toán đóng hộp carton và chi phí sản xuất",
       "type": "mcq",
       "difficulty": "hard",
       "cognitiveLevel": "van_dung_cao",
       "points": 1,
-      "content": "Cho góc $\\widehat{xOy} = 60^\\circ$. Tia $Oz$ là tia phân giác của góc $\\widehat{xOy}$. Từ điểm $M$ trên tia $Ox$ kẻ đường thẳng song song với $Oy$ cắt tia $Oz$ tại $N$. Tính số đo góc $\\widehat{MNO}$ (đơn vị độ).",
+      "textbooks": [
+        "CD"
+      ],
+      "complexity": {
+        "steps": 5,
+        "techniques": [
+          "the_tich_hinh_hop",
+          "dien_tich_toan_phan",
+          "mo_hinh_hoa_thuc_te"
+        ],
+        "crossTopic": true,
+        "modeling": true,
+        "needsCaseAnalysis": false,
+        "estMinutes": 7
+      },
+      "content": "Một xưởng sản xuất cần làm hộp carton hình hộp chữ nhật có kích thước dài $30\\\\text{ cm}$, rộng $20\\\\text{ cm}$, cao $10\\\\text{ cm}$. Diện tích bìa carton thực tế cần dùng bằng $110\\\\%$ diện tích toàn phần của hộp (để làm mép dán và trừ hao hụt). Giá bìa là $50$ đồng/$\\\\text{cm}^2$. Chi phí bìa để làm một chiếc hộp là:",
       "options": [
         {
           "label": "A",
-          "text": "$60$",
-          "errorType": "MISSING_CONDITION"
+          "text": "145.200 đồng",
+          "errorType": "TÍNH_SAI_TỈ_LỆ_HAO_HỤT"
         },
         {
           "label": "B",
-          "text": "$120$",
-          "errorType": "FORMULA_ERROR"
+          "text": "96.800 đồng",
+          "errorType": "NHẦM_ĐƠN_GIÁ"
         },
         {
           "label": "C",
-          "text": "$150$",
-          "errorType": "FORMULA_ERROR"
+          "text": "110.000 đồng",
+          "errorType": "QUÊN_TÍNH_HAO_HỤT_BÌA"
         },
         {
           "label": "D",
-          "text": "$30$"
+          "text": "121.000 đồng"
         }
       ],
       "correctAnswer": "D",
       "acceptedAnswers": [
-        "30"
+        "D"
       ],
-      "solution": "Vì $Oz$ là tia phân giác của $\\widehat{xOy}$ nên $\\widehat{zOy} = \\frac{60^\\circ}{2} = 30^\\circ$. Do $MN \\parallel Oy$ nên $\\widehat{MNO} = \\widehat{zOy} = 30^\\circ$ (hai góc so le trong).",
+      "solution": "Bước 1: Diện tích xung quanh của hộp là: $S_{xq} = 2(30 + 20) \\\\cdot 10 = 1000\\\\text{ cm}^2$.\\\\nBước 2: Diện tích hai đáy là: $2 \\\\cdot 30 \\\\cdot 20 = 1200\\\\text{ cm}^2$.\\\\nBước 3: Diện tích toàn phần là: $S_{tp} = 1000 + 1200 = 2200\\\\text{ cm}^2$.\\\\nBước 4: Diện tích bìa thực tế cần dùng là: $S = 2200 \\\\cdot 110\\\\% = 2420\\\\text{ cm}^2$.\\\\nBước 5: Chi phí tiền bìa là: $T = 2420 \\\\cdot 50 = 121.000$ đồng.",
       "rubricSteps": [
         {
-          "step": "Tính đúng $\\widehat{MNO} = 30^\\circ$",
-          "points": 1
+          "step": "Tính diện tích xung quanh hộp chữ nhật",
+          "points": 0.2
+        },
+        {
+          "step": "Tính diện tích hai đáy của hộp",
+          "points": 0.2
+        },
+        {
+          "step": "Tính diện tích toàn phần là 2200 cm2",
+          "points": 0.2
+        },
+        {
+          "step": "Tính diện tích bìa thực tế kèm 10% hao hụt là 2420 cm2",
+          "points": 0.2
+        },
+        {
+          "step": "Tính chi phí tiền bìa chính xác",
+          "points": 0.2
         }
       ],
-      "keyFormula": "Tia phân giác chia đôi góc & hai góc so le trong bằng nhau.",
-      "commonMistake": "Quên chia đôi góc khi sử dụng tính chất tia phân giác.",
+      "keyFormula": "$S_{\\\\text{bìa}} = 2(ab + bc + ca) \\\\times 1{,}1$.",
+      "id": "Q7_TPL_034",
+      "code": "M7-HK1-C3-VDC-34",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.135Z",
       "version": 1,
-      "mathExpressionToVerify": "60 / 2"
+      "fingerprint": "520fa1d86b1fc60818aa87ca77f7140128d01677a73f943327318e4d3e421791",
+      "difficultyScore": 9.5
     },
     {
+      "grade": 7,
+      "semester": 1,
+      "chapterId": "G7_C3",
+      "lesson": "Hình hộp chữ nhật và hình lập phương",
+      "topic": "Thể tích và lưu lượng vòi nước",
+      "problemType": "Bài toán hai vòi nước chảy vào và tháo ra khỏi bể",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 1,
+      "textbooks": [
+        "CTST"
+      ],
+      "complexity": {
+        "steps": 5,
+        "techniques": [
+          "the_tich_hinh_hop_chu_nhat",
+          "luu_luong_chay",
+          "mo_hinh_hoa_thuc_te"
+        ],
+        "crossTopic": true,
+        "modeling": true,
+        "needsCaseAnalysis": false,
+        "estMinutes": 7
+      },
+      "content": "Một bể bơi dạng hình hộp chữ nhật có chiều dài 5\\\\text{ m}, chiều rộng 2\\\\text{ m} và chiều sâu $2\\\\text{ m}$. Bể đang cạn, người ta mở đồng thời một vòi chảy vào với lưu lượng $5\\\\text{ m}^3/\\\\text{h}$ và một vòi xả đáy với lưu lượng $2\\\\text{ m}^3/\\\\text{h}$. Hỏi sau bao nhiêu giờ thì bể đầy nước? (Làm tròn đến 1 chữ số thập phân).",
+      "correctAnswer": "6.7",
+      "acceptedAnswers": [
+        "6.7",
+        "6.7 gio",
+        "6.7 giờ"
+      ],
+      "solution": "Bước 1: Dung tích của bể bơi là: $V = 5 \\\\cdot 2 \\\\cdot 2 = 20\\\\text{ m}^3$.\\\\nBước 2: Trong mỗi giờ, lượng nước thực tế tăng thêm trong bể là: $v = 5 - 2 = 3\\\\text{ m}^3/\\\\text{h}$.\\\\nBước 3: Thời gian để bể đầy nước là: $t = V : v = 20 : 3$.\\\\nBước 4: Thực hiện phép chia: $t \\\\approx 6.7$ (giờ).\\\\nBước 5: Kết luận sau 6.7 giờ thì bể đầy nước.",
+      "rubricSteps": [
+        {
+          "step": "Tính dung tích bể bơi V = 20 m3",
+          "points": 0.2
+        },
+        {
+          "step": "Tính lưu lượng nước tích lũy ròng mỗi giờ là 3 m3/h",
+          "points": 0.2
+        },
+        {
+          "step": "Lập tỉ số thể tích chia lưu lượng ròng",
+          "points": 0.2
+        },
+        {
+          "step": "Tính ra thời gian xấp xỉ 6.7 giờ",
+          "points": 0.2
+        },
+        {
+          "step": "Kết luận đáp số đúng",
+          "points": 0.2
+        }
+      ],
+      "keyFormula": "$t = \\\\frac{V_{\\\\text{bể}}}{v_{\\\\text{vào}} - v_{\\\\text{ra}}}$.",
       "id": "Q7_TPL_035",
       "code": "M7-HK1-C3-VDC-35",
-      "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
-      "semester": 1,
-      "chapterId": "G7_C3",
-      "lesson": "Hai đường thẳng song song và tính chất",
-      "topic": "Dấu hiệu và tính chất hai đường thẳng song song",
-      "problemType": "Tính số đo góc dựa vào song song",
-      "type": "essay",
-      "difficulty": "hard",
-      "cognitiveLevel": "van_dung_cao",
-      "points": 2,
-      "content": "Cho góc $\\widehat{xOy} = 70^\\circ$. Tia $Oz$ là tia phân giác của góc $\\widehat{xOy}$. Từ điểm $M$ trên tia $Ox$ kẻ đường thẳng song song với $Oy$ cắt tia $Oz$ tại $N$. Tính số đo góc $\\widehat{MNO}$ (đơn vị độ).",
-      "options": [],
-      "correctAnswer": "35",
-      "acceptedAnswers": [
-        "35"
-      ],
-      "solution": "Vì $Oz$ là tia phân giác của $\\widehat{xOy}$ nên $\\widehat{zOy} = \\frac{70^\\circ}{2} = 35^\\circ$. Do $MN \\parallel Oy$ nên $\\widehat{MNO} = \\widehat{zOy} = 35^\\circ$ (hai góc so le trong).",
-      "rubricSteps": [
-        {
-          "step": "Tính đúng $\\widehat{zOy} = \\frac{70^\\circ}{2} = 35^\\circ$",
-          "points": 1
-        },
-        {
-          "step": "Dùng so le trong suy ra $\\widehat{MNO} = 35^\\circ$",
-          "points": 1
-        }
-      ],
-      "keyFormula": "Tia phân giác chia đôi góc & hai góc so le trong bằng nhau.",
-      "commonMistake": "Quên chia đôi góc khi sử dụng tính chất tia phân giác.",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.137Z",
       "version": 1,
-      "mathExpressionToVerify": "70 / 2"
+      "fingerprint": "88a67770d8eb0873b821c7505b4870acb995e0fd9ceaacd7b43926c2e1e40dae",
+      "difficultyScore": 9.5
     },
     {
-      "id": "Q7_TPL_036",
-      "code": "M7-HK1-C3-VDC-36",
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 1,
       "chapterId": "G7_C3",
-      "lesson": "Hai đường thẳng song song và tính chất",
-      "topic": "Dấu hiệu và tính chất hai đường thẳng song song",
-      "problemType": "Tính số đo góc dựa vào song song",
+      "lesson": "Hình hộp chữ nhật và hình lập phương",
+      "topic": "Thể tích và lưu lượng vòi nước",
+      "problemType": "Bài toán hai vòi nước chảy vào và tháo ra khỏi bể",
       "type": "essay",
       "difficulty": "hard",
       "cognitiveLevel": "van_dung_cao",
-      "points": 2,
-      "content": "Cho góc $\\widehat{xOy} = 80^\\circ$. Tia $Oz$ là tia phân giác của góc $\\widehat{xOy}$. Từ điểm $M$ trên tia $Ox$ kẻ đường thẳng song song với $Oy$ cắt tia $Oz$ tại $N$. Tính số đo góc $\\widehat{MNO}$ (đơn vị độ).",
-      "options": [],
-      "correctAnswer": "40",
-      "acceptedAnswers": [
-        "40"
+      "points": 1,
+      "textbooks": [
+        "CTST"
       ],
-      "solution": "Vì $Oz$ là tia phân giác của $\\widehat{xOy}$ nên $\\widehat{zOy} = \\frac{80^\\circ}{2} = 40^\\circ$. Do $MN \\parallel Oy$ nên $\\widehat{MNO} = \\widehat{zOy} = 40^\\circ$ (hai góc so le trong).",
+      "complexity": {
+        "steps": 5,
+        "techniques": [
+          "the_tich_hinh_hop_chu_nhat",
+          "luu_luong_chay",
+          "mo_hinh_hoa_thuc_te"
+        ],
+        "crossTopic": true,
+        "modeling": true,
+        "needsCaseAnalysis": false,
+        "estMinutes": 7
+      },
+      "content": "Một bể bơi dạng hình hộp chữ nhật có chiều dài 6\\\\text{ m}, chiều rộng 4\\\\text{ m} và chiều sâu $2\\\\text{ m}$. Bể đang cạn, người ta mở đồng thời một vòi chảy vào với lưu lượng $5\\\\text{ m}^3/\\\\text{h}$ và một vòi xả đáy với lưu lượng $2\\\\text{ m}^3/\\\\text{h}$. Hỏi sau bao nhiêu giờ thì bể đầy nước? (Làm tròn đến 1 chữ số thập phân).",
+      "correctAnswer": "16",
+      "acceptedAnswers": [
+        "16",
+        "16 gio",
+        "16 giờ"
+      ],
+      "solution": "Bước 1: Dung tích của bể bơi là: $V = 6 \\\\cdot 4 \\\\cdot 2 = 48\\\\text{ m}^3$.\\\\nBước 2: Trong mỗi giờ, lượng nước thực tế tăng thêm trong bể là: $v = 5 - 2 = 3\\\\text{ m}^3/\\\\text{h}$.\\\\nBước 3: Thời gian để bể đầy nước là: $t = V : v = 48 : 3$.\\\\nBước 4: Thực hiện phép chia: $t \\\\approx 16$ (giờ).\\\\nBước 5: Kết luận sau 16 giờ thì bể đầy nước.",
       "rubricSteps": [
         {
-          "step": "Tính đúng $\\widehat{zOy} = \\frac{80^\\circ}{2} = 40^\\circ$",
-          "points": 1
+          "step": "Tính dung tích bể bơi V = 48 m3",
+          "points": 0.2
         },
         {
-          "step": "Dùng so le trong suy ra $\\widehat{MNO} = 40^\\circ$",
-          "points": 1
+          "step": "Tính lưu lượng nước tích lũy ròng mỗi giờ là 3 m3/h",
+          "points": 0.2
+        },
+        {
+          "step": "Lập tỉ số thể tích chia lưu lượng ròng",
+          "points": 0.2
+        },
+        {
+          "step": "Tính ra thời gian xấp xỉ 16 giờ",
+          "points": 0.2
+        },
+        {
+          "step": "Kết luận đáp số đúng",
+          "points": 0.2
         }
       ],
-      "keyFormula": "Tia phân giác chia đôi góc & hai góc so le trong bằng nhau.",
-      "commonMistake": "Quên chia đôi góc khi sử dụng tính chất tia phân giác.",
+      "keyFormula": "$t = \\\\frac{V_{\\\\text{bể}}}{v_{\\\\text{vào}} - v_{\\\\text{ra}}}$.",
+      "id": "Q7_TPL_036",
+      "code": "M7-HK1-C3-VDC-36",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.137Z",
       "version": 1,
-      "mathExpressionToVerify": "80 / 2"
+      "fingerprint": "6eec64e65f9ca5fa1cf20cc259ec4bcbac61e90ced9b8f9a88cf516a040cba44",
+      "difficultyScore": 9.5
     },
     {
       "id": "Q7_TPL_037",
@@ -2014,462 +2275,611 @@
       "version": 1
     },
     {
-      "id": "Q7_TPL_040",
-      "code": "M7-HK2-C4-TH-40",
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 2,
       "chapterId": "G7_C4",
-      "lesson": "Tỉ lệ thức & Tính chất dãy tỉ số bằng nhau",
-      "topic": "Tỉ lệ thức và dãy tỉ số bằng nhau",
-      "problemType": "Tìm x, y, z bằng tính chất dãy tỉ số bằng nhau",
+      "lesson": "Tỉ lệ thức",
+      "topic": "Biến đổi tỉ lệ thức",
+      "problemType": "Lập tỉ lệ thức từ tích",
       "type": "mcq",
       "difficulty": "medium",
       "cognitiveLevel": "thong_hieu",
-      "points": 1,
-      "content": "Tìm hai số $x, y$ biết $\\frac{x}{2} = \\frac{y}{3}$ và $x + y = 15$. Giá trị của $x$ bằng bao nhiêu?",
+      "points": 0.5,
+      "textbooks": [
+        "CTST"
+      ],
+      "content": "Từ đẳng thức $2 \\cdot 6 = 3 \\cdot 4$, tỉ lệ thức nào sau đây được lập đúng?",
       "options": [
         {
           "label": "A",
-          "text": "$9$",
-          "errorType": "CALCULATION_ERROR"
+          "text": "$\\frac{2}{3} = \\frac{4}{6}$"
         },
         {
           "label": "B",
-          "text": "$6$"
+          "text": "$\\frac{2}{4} = \\frac{6}{3}$",
+          "errorType": "ĐẢO_NGHỊCH"
         },
         {
           "label": "C",
-          "text": "$3$",
-          "errorType": "MISSING_CONDITION"
+          "text": "$\\frac{3}{2} = \\frac{4}{6}$",
+          "errorType": "SAI_TỶ_LỆ"
         },
         {
           "label": "D",
-          "text": "$13$",
-          "errorType": "FORMULA_ERROR"
-        }
-      ],
-      "correctAnswer": "B",
-      "acceptedAnswers": [
-        "6",
-        "x=6"
-      ],
-      "solution": "Áp dụng tính chất dãy tỉ số bằng nhau: $\\frac{x}{2} = \\frac{y}{3} = \\frac{x+y}{2+3} = \\frac{15}{5} = 3$. Suy ra $x = 2 \\cdot 3 = 6$.",
-      "rubricSteps": [
-        {
-          "step": "Tính đúng $x = 6$",
-          "points": 1
-        }
-      ],
-      "keyFormula": "$\\frac{x}{a} = \\frac{y}{b} = \\frac{x+y}{a+b}$",
-      "commonMistake": "Tính được hệ số tỉ lệ $k$ nhưng quên nhân với mẫu số tương ứng để ra $x$.",
-      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
-      "verificationStatus": "draft",
-      "version": 1
-    },
-    {
-      "id": "Q7_TPL_041",
-      "code": "M7-HK2-C4-TH-41",
-      "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
-      "semester": 2,
-      "chapterId": "G7_C4",
-      "lesson": "Tỉ lệ thức & Tính chất dãy tỉ số bằng nhau",
-      "topic": "Tỉ lệ thức và dãy tỉ số bằng nhau",
-      "problemType": "Tìm x, y, z bằng tính chất dãy tỉ số bằng nhau",
-      "type": "mcq",
-      "difficulty": "medium",
-      "cognitiveLevel": "thong_hieu",
-      "points": 1,
-      "content": "Tìm hai số $x, y$ biết $\\frac{x}{2} = \\frac{y}{3}$ và $x + y = 20$. Giá trị của $x$ bằng bao nhiêu?",
-      "options": [
-        {
-          "label": "A",
-          "text": "$12$",
-          "errorType": "CALCULATION_ERROR"
-        },
-        {
-          "label": "B",
-          "text": "$4$",
-          "errorType": "MISSING_CONDITION"
-        },
-        {
-          "label": "C",
-          "text": "$18$",
-          "errorType": "FORMULA_ERROR"
-        },
-        {
-          "label": "D",
-          "text": "$8$"
-        }
-      ],
-      "correctAnswer": "D",
-      "acceptedAnswers": [
-        "8",
-        "x=8"
-      ],
-      "solution": "Áp dụng tính chất dãy tỉ số bằng nhau: $\\frac{x}{2} = \\frac{y}{3} = \\frac{x+y}{2+3} = \\frac{20}{5} = 4$. Suy ra $x = 2 \\cdot 4 = 8$.",
-      "rubricSteps": [
-        {
-          "step": "Tính đúng $x = 8$",
-          "points": 1
-        }
-      ],
-      "keyFormula": "$\\frac{x}{a} = \\frac{y}{b} = \\frac{x+y}{a+b}$",
-      "commonMistake": "Tính được hệ số tỉ lệ $k$ nhưng quên nhân với mẫu số tương ứng để ra $x$.",
-      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
-      "verificationStatus": "draft",
-      "version": 1
-    },
-    {
-      "id": "Q7_TPL_042",
-      "code": "M7-HK2-C4-TH-42",
-      "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
-      "semester": 2,
-      "chapterId": "G7_C4",
-      "lesson": "Tỉ lệ thức & Tính chất dãy tỉ số bằng nhau",
-      "topic": "Tỉ lệ thức và dãy tỉ số bằng nhau",
-      "problemType": "Tìm x, y, z bằng tính chất dãy tỉ số bằng nhau",
-      "type": "essay",
-      "difficulty": "medium",
-      "cognitiveLevel": "thong_hieu",
-      "points": 2,
-      "content": "Tìm hai số $x, y$ biết $\\frac{x}{2} = \\frac{y}{3}$ và $x + y = 25$. Giá trị của $x$ bằng bao nhiêu?",
-      "options": [],
-      "correctAnswer": "10",
-      "acceptedAnswers": [
-        "10",
-        "x=10"
-      ],
-      "solution": "Áp dụng tính chất dãy tỉ số bằng nhau: $\\frac{x}{2} = \\frac{y}{3} = \\frac{x+y}{2+3} = \\frac{25}{5} = 5$. Suy ra $x = 2 \\cdot 5 = 10$.",
-      "rubricSteps": [
-        {
-          "step": "Áp dụng dãy tỉ số bằng nhau tính được hệ số tỉ lệ bằng $5$",
-          "points": 1
-        },
-        {
-          "step": "Suy ra $x = 10$ (và $y = 15$)",
-          "points": 1
-        }
-      ],
-      "keyFormula": "$\\frac{x}{a} = \\frac{y}{b} = \\frac{x+y}{a+b}$",
-      "commonMistake": "Tính được hệ số tỉ lệ $k$ nhưng quên nhân với mẫu số tương ứng để ra $x$.",
-      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
-      "verificationStatus": "draft",
-      "version": 1
-    },
-    {
-      "id": "Q7_TPL_043",
-      "code": "M7-HK2-C4-VD-43",
-      "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
-      "semester": 2,
-      "chapterId": "G7_C4",
-      "lesson": "Tỉ lệ thức & Tính chất dãy tỉ số bằng nhau",
-      "topic": "Tỉ lệ thức và dãy tỉ số bằng nhau",
-      "problemType": "Tìm x, y, z bằng tính chất dãy tỉ số bằng nhau",
-      "type": "mcq",
-      "difficulty": "hard",
-      "cognitiveLevel": "van_dung",
-      "points": 1,
-      "content": "Tìm hai số $x, y$ biết $\\frac{x}{2} = \\frac{y}{3}$ và $x + y = 15$. Giá trị của $x$ bằng bao nhiêu?",
-      "options": [
-        {
-          "label": "A",
-          "text": "$6$"
-        },
-        {
-          "label": "B",
-          "text": "$9$",
-          "errorType": "CALCULATION_ERROR"
-        },
-        {
-          "label": "C",
-          "text": "$3$",
-          "errorType": "MISSING_CONDITION"
-        },
-        {
-          "label": "D",
-          "text": "$13$",
-          "errorType": "FORMULA_ERROR"
+          "text": "$\\frac{2}{6} = \\frac{3}{4}$",
+          "errorType": "NHÂN_CÙNG_VẾ"
         }
       ],
       "correctAnswer": "A",
       "acceptedAnswers": [
-        "6",
-        "x=6"
+        "A"
       ],
-      "solution": "Áp dụng tính chất dãy tỉ số bằng nhau: $\\frac{x}{2} = \\frac{y}{3} = \\frac{x+y}{2+3} = \\frac{15}{5} = 3$. Suy ra $x = 2 \\cdot 3 = 6$.",
+      "solution": "Từ đẳng thức $ad = bc$, ta có thể lập được $\\frac{a}{c} = \\frac{b}{d}$. Ở đây $2 \\cdot 6 = 3 \\cdot 4 \\implies \\frac{2}{3} = \\frac{4}{6}$.",
       "rubricSteps": [
         {
-          "step": "Tính đúng $x = 6$",
-          "points": 1
+          "step": "Nêu công thức và thiết lập các bước biến đổi ban đầu",
+          "points": 0.25
+        },
+        {
+          "step": "Thực hiện phép tính và kết luận đáp án chính xác",
+          "points": 0.25
         }
       ],
-      "keyFormula": "$\\frac{x}{a} = \\frac{y}{b} = \\frac{x+y}{a+b}$",
-      "commonMistake": "Tính được hệ số tỉ lệ $k$ nhưng quên nhân với mẫu số tương ứng để ra $x$.",
+      "keyFormula": "$ad = bc \\implies \\frac{a}{c} = \\frac{b}{d}$",
+      "commonMistake": "Nhầm lẫn vị trí của ngoại tỉ và trung tỉ.",
+      "id": "Q7_TPL_040",
+      "code": "M7-HK2-C4-TH-40",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
-      "version": 1
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.139Z",
+      "version": 1,
+      "fingerprint": "662d507c6e996b1f583e85eee26c0b86b5ebaad6767bbd18426ff52375dfe4a5",
+      "difficultyScore": 4.5
     },
     {
-      "id": "Q7_TPL_044",
-      "code": "M7-HK2-C4-VD-44",
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 2,
       "chapterId": "G7_C4",
-      "lesson": "Tỉ lệ thức & Tính chất dãy tỉ số bằng nhau",
-      "topic": "Tỉ lệ thức và dãy tỉ số bằng nhau",
-      "problemType": "Tìm x, y, z bằng tính chất dãy tỉ số bằng nhau",
+      "lesson": "Đại lượng tỉ lệ thuận",
+      "topic": "Bài toán năng suất sản phẩm",
+      "problemType": "Tỉ lệ thuận trong sản xuất",
       "type": "mcq",
-      "difficulty": "hard",
-      "cognitiveLevel": "van_dung",
-      "points": 1,
-      "content": "Tìm hai số $x, y$ biết $\\frac{x}{2} = \\frac{y}{3}$ và $x + y = 20$. Giá trị của $x$ bằng bao nhiêu?",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 0.5,
+      "textbooks": [
+        "KNTT"
+      ],
+      "content": "Một máy dệt tự động trong $3$ giờ dệt được $45$ mét vải. Với cùng năng suất đó, trong $5$ giờ máy dệt được bao nhiêu mét vải?",
       "options": [
         {
           "label": "A",
-          "text": "$12$",
-          "errorType": "CALCULATION_ERROR"
+          "text": "$90$ sản phẩm",
+          "errorType": "GẤP_ĐÔI"
         },
         {
           "label": "B",
-          "text": "$4$",
-          "errorType": "MISSING_CONDITION"
+          "text": "$85$ sản phẩm",
+          "errorType": "TÍNH_NHẦM"
         },
         {
           "label": "C",
-          "text": "$8$"
+          "text": "$60$ sản phẩm",
+          "errorType": "ĐOÁN_MÒ"
         },
         {
           "label": "D",
-          "text": "$18$",
-          "errorType": "FORMULA_ERROR"
-        }
-      ],
-      "correctAnswer": "C",
-      "acceptedAnswers": [
-        "8",
-        "x=8"
-      ],
-      "solution": "Áp dụng tính chất dãy tỉ số bằng nhau: $\\frac{x}{2} = \\frac{y}{3} = \\frac{x+y}{2+3} = \\frac{20}{5} = 4$. Suy ra $x = 2 \\cdot 4 = 8$.",
-      "rubricSteps": [
-        {
-          "step": "Tính đúng $x = 8$",
-          "points": 1
-        }
-      ],
-      "keyFormula": "$\\frac{x}{a} = \\frac{y}{b} = \\frac{x+y}{a+b}$",
-      "commonMistake": "Tính được hệ số tỉ lệ $k$ nhưng quên nhân với mẫu số tương ứng để ra $x$.",
-      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
-      "verificationStatus": "draft",
-      "version": 1
-    },
-    {
-      "id": "Q7_TPL_045",
-      "code": "M7-HK2-C4-VD-45",
-      "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
-      "semester": 2,
-      "chapterId": "G7_C4",
-      "lesson": "Tỉ lệ thức & Tính chất dãy tỉ số bằng nhau",
-      "topic": "Tỉ lệ thức và dãy tỉ số bằng nhau",
-      "problemType": "Tìm x, y, z bằng tính chất dãy tỉ số bằng nhau",
-      "type": "essay",
-      "difficulty": "hard",
-      "cognitiveLevel": "van_dung",
-      "points": 2,
-      "content": "Tìm hai số $x, y$ biết $\\frac{x}{2} = \\frac{y}{3}$ và $x + y = 25$. Giá trị của $x$ bằng bao nhiêu?",
-      "options": [],
-      "correctAnswer": "10",
-      "acceptedAnswers": [
-        "10",
-        "x=10"
-      ],
-      "solution": "Áp dụng tính chất dãy tỉ số bằng nhau: $\\frac{x}{2} = \\frac{y}{3} = \\frac{x+y}{2+3} = \\frac{25}{5} = 5$. Suy ra $x = 2 \\cdot 5 = 10$.",
-      "rubricSteps": [
-        {
-          "step": "Áp dụng dãy tỉ số bằng nhau tính được hệ số tỉ lệ bằng $5$",
-          "points": 1
-        },
-        {
-          "step": "Suy ra $x = 10$ (và $y = 15$)",
-          "points": 1
-        }
-      ],
-      "keyFormula": "$\\frac{x}{a} = \\frac{y}{b} = \\frac{x+y}{a+b}$",
-      "commonMistake": "Tính được hệ số tỉ lệ $k$ nhưng quên nhân với mẫu số tương ứng để ra $x$.",
-      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
-      "verificationStatus": "draft",
-      "version": 1
-    },
-    {
-      "id": "Q7_TPL_046",
-      "code": "M7-HK2-C4-VDC-46",
-      "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
-      "semester": 2,
-      "chapterId": "G7_C4",
-      "lesson": "Tỉ lệ thức & Tính chất dãy tỉ số bằng nhau",
-      "topic": "Tỉ lệ thức và dãy tỉ số bằng nhau",
-      "problemType": "Tìm x, y, z bằng tính chất dãy tỉ số bằng nhau",
-      "type": "mcq",
-      "difficulty": "hard",
-      "cognitiveLevel": "van_dung_cao",
-      "points": 1,
-      "content": "Tìm hai số $x, y$ biết $\\frac{x}{2} = \\frac{y}{3}$ và $x + y = 15$. Giá trị của $x$ bằng bao nhiêu?",
-      "options": [
-        {
-          "label": "A",
-          "text": "$9$",
-          "errorType": "CALCULATION_ERROR"
-        },
-        {
-          "label": "B",
-          "text": "$3$",
-          "errorType": "MISSING_CONDITION"
-        },
-        {
-          "label": "C",
-          "text": "$13$",
-          "errorType": "FORMULA_ERROR"
-        },
-        {
-          "label": "D",
-          "text": "$6$"
+          "text": "$75$ sản phẩm"
         }
       ],
       "correctAnswer": "D",
       "acceptedAnswers": [
-        "6",
-        "x=6"
+        "D"
       ],
-      "solution": "Áp dụng tính chất dãy tỉ số bằng nhau: $\\frac{x}{2} = \\frac{y}{3} = \\frac{x+y}{2+3} = \\frac{15}{5} = 3$. Suy ra $x = 2 \\cdot 3 = 6$.",
+      "solution": "Vì số mét vải dệt được tỉ lệ thuận với thời gian dệt nên:\n$$x = \\frac{45 \\cdot 5}{3} = 75\\text{ mét vải}$$",
       "rubricSteps": [
         {
-          "step": "Tính đúng $x = 6$",
-          "points": 1
+          "step": "Nêu công thức và thiết lập các bước biến đổi ban đầu",
+          "points": 0.25
+        },
+        {
+          "step": "Thực hiện phép tính và kết luận đáp án chính xác",
+          "points": 0.25
         }
       ],
-      "keyFormula": "$\\frac{x}{a} = \\frac{y}{b} = \\frac{x+y}{a+b}$",
-      "commonMistake": "Tính được hệ số tỉ lệ $k$ nhưng quên nhân với mẫu số tương ứng để ra $x$.",
+      "keyFormula": "$\\frac{y_1}{x_1} = \\frac{y_2}{x_2}$",
+      "commonMistake": "Lập nhầm tỉ lệ nghịch.",
+      "id": "Q7_TPL_041",
+      "code": "M7-HK2-C4-TH-41",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
-      "version": 1
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.140Z",
+      "version": 1,
+      "fingerprint": "b3de4eb0df3f9b3d2ea4b744ef730f08b1d8e277cd3d20a6d45ed2a85d130dc2",
+      "difficultyScore": 4.5
     },
     {
+      "grade": 7,
+      "semester": 2,
+      "chapterId": "G7_C4",
+      "lesson": "Đại lượng tỉ lệ nghịch",
+      "topic": "Bài toán công nhân làm việc",
+      "problemType": "Tỉ lệ nghịch số người và thời gian hoàn thành",
+      "type": "essay",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "textbooks": [
+        "CD"
+      ],
+      "content": "Một đội gồm $6$ công nhân hoàn thành một công việc trong $10$ ngày. Nếu đội được bổ sung thêm để có tất cả $12$ công nhân (năng suất như nhau) thì sẽ hoàn thành công việc đó trong bao nhiêu ngày?",
+      "correctAnswer": "5",
+      "acceptedAnswers": [
+        "5",
+        "5 ngày",
+        "5 ngay"
+      ],
+      "solution": "Vì số công nhân và thời gian hoàn thành công việc cùng khối lượng là hai đại lượng tỉ lệ nghịch, ta có:\n$$p_1 \\cdot d_1 = p_2 \\cdot d_2 \\implies 6 \\cdot 10 = 12 \\cdot d_2 \\implies d_2 = \\frac{60}{12} = 5\\text{ ngày}$$",
+      "rubricSteps": [
+        {
+          "step": "Lập công thức tỉ lệ nghịch $p_1 \\cdot d_1 = p_2 \\cdot d_2$",
+          "points": 0.5
+        },
+        {
+          "step": "Tính ra thời gian hoàn thành là $5$ ngày",
+          "points": 0.5
+        }
+      ],
+      "keyFormula": "$x_1 y_1 = x_2 y_2$",
+      "commonMistake": "Lập tỉ lệ thuận khiến số người tăng mà số ngày cũng tăng.",
+      "id": "Q7_TPL_042",
+      "code": "M7-HK2-C4-TH-42",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
+      "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.140Z",
+      "version": 1,
+      "fingerprint": "2b9dd11b82e4f5b8d2fbfc4bff72a6174a65cdee9ce488a4be887e3e6d6dc7e6",
+      "difficultyScore": 4.5
+    },
+    {
+      "grade": 7,
+      "semester": 2,
+      "chapterId": "G7_C4",
+      "lesson": "Tính chất của dãy tỉ số bằng nhau",
+      "topic": "Tìm x, y, z tỉ lệ phức tạp",
+      "problemType": "Dãy tỉ số có hệ số",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 0.5,
+      "textbooks": [
+        "CTST"
+      ],
+      "content": "Cho đẳng thức $2x = 3y = 4z$. Dãy tỉ số bằng nhau tương đương là:",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\frac{x}{6} = \\frac{y}{4} = \\frac{z}{3}$"
+        },
+        {
+          "label": "B",
+          "text": "$\\frac{x}{4} = \\frac{y}{3} = \\frac{z}{2}$",
+          "errorType": "ĐẢO_NGƯỢC_SAI"
+        },
+        {
+          "label": "C",
+          "text": "$\\frac{x}{2} = \\frac{y}{3} = \\frac{z}{4}$",
+          "errorType": "ĐẶT_HỆ_SỐ_LÀM_MẪU"
+        },
+        {
+          "label": "D",
+          "text": "$\\frac{x}{3} = \\frac{y}{4} = \\frac{z}{6}$",
+          "errorType": "TÍNH_NHẦM"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "A"
+      ],
+      "solution": "Chia cả ba vế cho $\\text{BCNN}(2, 3, 4) = 12$:\n$$\\frac{2x}{12} = \\frac{3y}{12} = \\frac{4z}{12} \\implies \\frac{x}{6} = \\frac{y}{4} = \\frac{z}{3}$$",
+      "rubricSteps": [
+        {
+          "step": "Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán",
+          "points": 0.15
+        },
+        {
+          "step": "Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian",
+          "points": 0.18
+        },
+        {
+          "step": "Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận",
+          "points": 0.17
+        }
+      ],
+      "keyFormula": "Chia cho $\\text{BCNN}(a, b, c)$ để rút gọn hệ số về mẫu số.",
+      "commonMistake": "Lấy trực tiếp các hệ số đặt xuống mẫu.",
+      "id": "Q7_TPL_043",
+      "code": "M7-HK2-C4-VD-43",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
+      "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.141Z",
+      "version": 1,
+      "fingerprint": "c2881275b423f95d32fee3c5cc6f7998aeae07b4a7f615a83ef90a18d3195b91",
+      "complexity": {
+        "steps": 3,
+        "techniques": [
+          "bien_doi_toan_hoc",
+          "van_dung_thuc_te"
+        ],
+        "crossTopic": false,
+        "modeling": true,
+        "needsCaseAnalysis": false,
+        "estMinutes": 4
+      },
+      "difficultyScore": 7.2
+    },
+    {
+      "grade": 7,
+      "semester": 2,
+      "chapterId": "G7_C4",
+      "lesson": "Đại lượng tỉ lệ nghịch",
+      "topic": "Bài toán ba đại lượng tỉ lệ nghịch",
+      "problemType": "Phân chia công việc theo tỉ lệ nghịch",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 0.5,
+      "textbooks": [
+        "CTST"
+      ],
+      "content": "Ba cánh đồng có diện tích như nhau được cày bởi ba đội máy cày có thời gian hoàn thành lần lượt là 2 ngày, 3 ngày, 4 ngày. Số máy cày của ba đội (năng suất các máy như nhau) tỉ lệ với dãy số nào?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Tỉ lệ với $2 : 3 : 4$",
+          "errorType": "NHẦM_TỈ_LỆ_THUẬN"
+        },
+        {
+          "label": "B",
+          "text": "Tỉ lệ với $4 : 3 : 2$",
+          "errorType": "ĐẢO_NGƯỢC_ĐƠN_GIẢN"
+        },
+        {
+          "label": "C",
+          "text": "Tỉ lệ với $\\frac{1}{2} : \\frac{1}{3} : \\frac{1}{4}$"
+        },
+        {
+          "label": "D",
+          "text": "Tỉ lệ với $2^2 : 3^2 : 4^2$",
+          "errorType": "BÌNH_PHƯƠNG_SAI"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "C"
+      ],
+      "solution": "Vì khối lượng công việc như nhau nên số máy cày và thời gian hoàn thành là hai đại lượng tỉ lệ nghịch. Do đó số máy cày của ba đội sẽ tỉ lệ với nghịch đảo của thời gian: $\\frac{1}{2} : \\frac{1}{3} : \\frac{1}{4}$.",
+      "rubricSteps": [
+        {
+          "step": "Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán",
+          "points": 0.15
+        },
+        {
+          "step": "Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian",
+          "points": 0.18
+        },
+        {
+          "step": "Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận",
+          "points": 0.17
+        }
+      ],
+      "keyFormula": "Tỉ lệ nghịch với $a, b, c \\iff$ tỉ lệ thuận với $\\frac{1}{a}, \\frac{1}{b}, \\frac{1}{c}$.",
+      "commonMistake": "Cho tỉ lệ thuận với $2:3:4$.",
+      "id": "Q7_TPL_044",
+      "code": "M7-HK2-C4-VD-44",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
+      "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.142Z",
+      "version": 1,
+      "fingerprint": "998cdfe872e7462423b46900bca102a38266460adb15de0d432bc3472cfa9da0",
+      "complexity": {
+        "steps": 3,
+        "techniques": [
+          "bien_doi_toan_hoc",
+          "van_dung_thuc_te"
+        ],
+        "crossTopic": false,
+        "modeling": true,
+        "needsCaseAnalysis": false,
+        "estMinutes": 4
+      },
+      "difficultyScore": 7.2
+    },
+    {
+      "grade": 7,
+      "semester": 2,
+      "chapterId": "G7_C4",
+      "lesson": "Tính chất của dãy tỉ số bằng nhau",
+      "topic": "Chứng minh đẳng thức từ tỉ lệ thức",
+      "problemType": "Phương pháp đặt k",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 1,
+      "textbooks": [
+        "CD"
+      ],
+      "content": "Cho tỉ lệ thức $\\frac{a}{b} = \\frac{c}{d}$. Chứng minh rằng: $\\frac{a + b}{b} = \\frac{c + d}{d}$.",
+      "correctAnswer": "Dat a/b = c/d = k roi the vao hai ve",
+      "acceptedAnswers": [
+        "dat k",
+        "k",
+        "chung minh bang nhau"
+      ],
+      "solution": "Cách 1: Đặt $\\frac{a}{b} = \\frac{c}{d} = k \\implies a = bk, c = dk$.\nThay vào vế trái: $\\frac{a + b}{b} = \\frac{bk + b}{b} = \\frac{b(k + 1)}{b} = k + 1$.\nThay vào vế phải: $\\frac{c + d}{d} = \\frac{dk + d}{d} = \\frac{d(k + 1)}{d} = k + 1$.\nVì cả hai vế cùng bằng $k + 1$ nên $\\frac{a + b}{b} = \\frac{c + d}{d}$.",
+      "rubricSteps": [
+        {
+          "step": "Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán",
+          "points": 0.3
+        },
+        {
+          "step": "Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian",
+          "points": 0.35
+        },
+        {
+          "step": "Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận",
+          "points": 0.35
+        }
+      ],
+      "keyFormula": "Phương pháp đặt ẩn phụ $k$ để chứng minh đẳng thức phân số.",
+      "commonMistake": "Biến đổi vòng tròn không rõ ràng.",
+      "id": "Q7_TPL_045",
+      "code": "M7-HK2-C4-VD-45",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
+      "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.143Z",
+      "version": 1,
+      "fingerprint": "c090b18096151105adac4e46f5f49ef74017abe8d58a60bb214446b392042950",
+      "complexity": {
+        "steps": 3,
+        "techniques": [
+          "bien_doi_toan_hoc",
+          "van_dung_thuc_te"
+        ],
+        "crossTopic": false,
+        "modeling": true,
+        "needsCaseAnalysis": false,
+        "estMinutes": 4
+      },
+      "difficultyScore": 7.2
+    },
+    {
+      "grade": 7,
+      "semester": 1,
+      "chapterId": "G7_C4",
+      "lesson": "Định lí và chứng minh định lí",
+      "topic": "Quang hình học: Định luật phản xạ ánh sáng",
+      "problemType": "Bài toán góc lệch tia sáng qua hai gương song song",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 1,
+      "textbooks": [
+        "CTST"
+      ],
+      "complexity": {
+        "steps": 5,
+        "techniques": [
+          "mo_hinh_hoa_thuc_te",
+          "dinh_luat_phan_xa",
+          "duong_thang_song_song"
+        ],
+        "crossTopic": true,
+        "modeling": true,
+        "needsCaseAnalysis": false,
+        "estMinutes": 7
+      },
+      "content": "Hai gương phẳng $G_1$ và $G_2$ được đặt song song với nhau, mặt phản xạ quay vào nhau. Một tia sáng chiếu đến gương $G_1$ với góc tới $45^\\circ$, phản xạ đến gương $G_2$ rồi tiếp tục phản xạ lại môi trường. Mối quan hệ hình học giữa tia tới ban đầu và tia phản xạ cuối cùng là:",
+      "options": [
+        {
+          "label": "A",
+          "text": "Hai tia sáng tạo thành góc 90^\\circ",
+          "errorType": "CHỈ_TÍNH_GÓC_LỆCH_MỘT_GƯƠNG"
+        },
+        {
+          "label": "B",
+          "text": "Hai tia sáng song song với nhau"
+        },
+        {
+          "label": "C",
+          "text": "Hai tia sáng cắt nhau tạo góc nhọn",
+          "errorType": "KHÔNG_ÁP_DỤNG_ĐỊNH_LÝ_SONG_SONG"
+        },
+        {
+          "label": "D",
+          "text": "Hai tia sáng vuông góc với nhau",
+          "errorType": "NHẦM_VỚI_HAI_GƯƠNG_VUÔNG_GÓC"
+        }
+      ],
+      "correctAnswer": "B",
+      "acceptedAnswers": [
+        "B"
+      ],
+      "solution": "Bước 1: Gọi góc tới tại gương $G_1$ là $i_1 = 45^\\circ$. Theo định luật phản xạ, góc phản xạ $i'_1 = i_1 = 45^\\circ$.\\\\nBước 2: Vì hai gương $G_1 \\\\parallel G_2$ nên hai pháp tuyến tại hai điểm tới cũng song song với nhau.\\\\nBước 3: Do hai pháp tuyến song song, góc tới tại gương thứ hai $i_2$ và góc phản xạ $i'_1$ là hai góc so le trong nên $i_2 = i'_1 = 45^\\circ$.\\\\nBước 4: Góc phản xạ tại gương $G_2$ là $i'_2 = i_2 = 45^\\circ$.\\\\nBước 5: So sánh hướng của tia tới đầu tiên và tia phản xạ cuối cùng: chúng tạo với đường thẳng nối hai điểm tới các cặp góc so le trong bằng nhau, nên tia phản xạ cuối cùng song song với tia tới ban đầu.",
+      "rubricSteps": [
+        {
+          "step": "Áp dụng định luật phản xạ góc tới bằng góc phản xạ tại gương 1",
+          "points": 0.2
+        },
+        {
+          "step": "Chứng minh hai pháp tuyến song song do hai mặt gương song song",
+          "points": 0.2
+        },
+        {
+          "step": "Suy ra góc tới gương 2 bằng góc phản xạ gương 1 do so le trong",
+          "points": 0.2
+        },
+        {
+          "step": "Tính góc phản xạ tại gương thứ hai",
+          "points": 0.2
+        },
+        {
+          "step": "Kết luận hai tia sáng song song với nhau",
+          "points": 0.2
+        }
+      ],
+      "keyFormula": "Hai gương song song $\\\\implies$ tia phản xạ cuối cùng song song tia tới.",
+      "id": "Q7_TPL_046",
+      "code": "M7-HK2-C4-VDC-46",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
+      "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.144Z",
+      "version": 1,
+      "fingerprint": "b1c2ac4a886f4c5334b4de33375e1120c886c3e0dd01f59ac96d153634484273",
+      "difficultyScore": 9.5
+    },
+    {
+      "grade": 7,
+      "semester": 1,
+      "chapterId": "G7_C4",
+      "lesson": "Tia phân giác của một góc",
+      "topic": "Góc tạo bởi hai tia phân giác trong tam giác",
+      "problemType": "Tính góc tạo bởi hai đường phân giác của hai góc tam giác",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 1,
+      "textbooks": [
+        "CTST"
+      ],
+      "complexity": {
+        "steps": 5,
+        "techniques": [
+          "tong_ba_goc_tam_giac",
+          "tinh_chat_tia_phan_giac",
+          "bien_doi_he_thuc_goc"
+        ],
+        "crossTopic": true,
+        "modeling": false,
+        "needsCaseAnalysis": false,
+        "estMinutes": 7
+      },
+      "content": "Cho tam giác $ABC$ có $\\\\widehat{A} = 69^\\circ$. Hai tia phân giác của góc $B$ và góc $C$ cắt nhau tại điểm $I$. Tính số đo của góc $\\\\widehat{BIC}$.",
+      "correctAnswer": "124.5",
+      "acceptedAnswers": [
+        "124.5",
+        "124.5^",
+        "124.5 do",
+        "124.5 độ"
+      ],
+      "solution": "Bước 1: Xét $\\\\Delta ABC$, ta có: $\\\\widehat{B} + \\\\widehat{C} = 180^\\circ - \\\\widehat{A} = 180^\\circ - 69^\\circ = 111^\\circ$.\\\\nBước 2: Vì $BI, CI$ là tia phân giác nên: $\\\\widehat{IBC} = \\\\frac{\\\\widehat{B}}{2}$ và $\\\\widehat{ICB} = \\\\frac{\\\\widehat{C}}{2}$.\\\\nBước 3: Do đó: $\\\\widehat{IBC} + \\\\widehat{ICB} = \\\\frac{\\\\widehat{B} + \\\\widehat{C}}{2} = \\\\frac{111^\\circ}{2} = 55.5^\\circ$.\\\\nBước 4: Xét $\\\\Delta IBC$, ta có: $\\\\widehat{BIC} = 180^\\circ - (\\\\widehat{IBC} + \\\\widehat{ICB}) = 180^\\circ - 55.5^\\circ = 124.5^\\circ$.\\\\nBước 5: Kết luận số đo góc $\\\\widehat{BIC} = 124.5^\\circ$.",
+      "rubricSteps": [
+        {
+          "step": "Tính tổng góc B + C = 111 độ trong tam giác ABC",
+          "points": 0.2
+        },
+        {
+          "step": "Sử dụng tính chất phân giác lập tỉ lệ nửa góc",
+          "points": 0.2
+        },
+        {
+          "step": "Tính tổng IBC + ICB = 55.5 độ",
+          "points": 0.2
+        },
+        {
+          "step": "Tính góc BIC = 180 - 55.5 = 124.5 độ",
+          "points": 0.2
+        },
+        {
+          "step": "Kết luận đáp số đúng",
+          "points": 0.2
+        }
+      ],
+      "keyFormula": "$\\\\widehat{BIC} = 90^\\circ + \\\\frac{\\\\widehat{A}}{2}$.",
       "id": "Q7_TPL_047",
       "code": "M7-HK2-C4-VDC-47",
-      "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
-      "semester": 2,
-      "chapterId": "G7_C4",
-      "lesson": "Tỉ lệ thức & Tính chất dãy tỉ số bằng nhau",
-      "topic": "Tỉ lệ thức và dãy tỉ số bằng nhau",
-      "problemType": "Tìm x, y, z bằng tính chất dãy tỉ số bằng nhau",
-      "type": "essay",
-      "difficulty": "hard",
-      "cognitiveLevel": "van_dung_cao",
-      "points": 2,
-      "content": "Tìm hai số $x, y$ biết $\\frac{x}{2} = \\frac{y}{3}$ và $x + y = 20$. Giá trị của $x$ bằng bao nhiêu?",
-      "options": [],
-      "correctAnswer": "8",
-      "acceptedAnswers": [
-        "8",
-        "x=8"
-      ],
-      "solution": "Áp dụng tính chất dãy tỉ số bằng nhau: $\\frac{x}{2} = \\frac{y}{3} = \\frac{x+y}{2+3} = \\frac{20}{5} = 4$. Suy ra $x = 2 \\cdot 4 = 8$.",
-      "rubricSteps": [
-        {
-          "step": "Áp dụng dãy tỉ số bằng nhau tính được hệ số tỉ lệ bằng $4$",
-          "points": 1
-        },
-        {
-          "step": "Suy ra $x = 8$ (và $y = 12$)",
-          "points": 1
-        }
-      ],
-      "keyFormula": "$\\frac{x}{a} = \\frac{y}{b} = \\frac{x+y}{a+b}$",
-      "commonMistake": "Tính được hệ số tỉ lệ $k$ nhưng quên nhân với mẫu số tương ứng để ra $x$.",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
-      "version": 1
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.145Z",
+      "version": 1,
+      "fingerprint": "4980a2b84c7e5f95e7531dff152a97e0ba788cc8d6371061ce075b108435eeea",
+      "difficultyScore": 9.3
     },
     {
-      "id": "Q7_TPL_048",
-      "code": "M7-HK2-C4-VDC-48",
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
-      "semester": 2,
+      "semester": 1,
       "chapterId": "G7_C4",
-      "lesson": "Tỉ lệ thức & Tính chất dãy tỉ số bằng nhau",
-      "topic": "Tỉ lệ thức và dãy tỉ số bằng nhau",
-      "problemType": "Tìm x, y, z bằng tính chất dãy tỉ số bằng nhau",
+      "lesson": "Tia phân giác của một góc",
+      "topic": "Góc tạo bởi hai tia phân giác trong tam giác",
+      "problemType": "Tính góc tạo bởi hai đường phân giác của hai góc tam giác",
       "type": "essay",
       "difficulty": "hard",
       "cognitiveLevel": "van_dung_cao",
-      "points": 2,
-      "content": "Tìm hai số $x, y$ biết $\\frac{x}{2} = \\frac{y}{3}$ và $x + y = 25$. Giá trị của $x$ bằng bao nhiêu?",
-      "options": [],
-      "correctAnswer": "10",
-      "acceptedAnswers": [
-        "10",
-        "x=10"
+      "points": 1,
+      "textbooks": [
+        "KNTT"
       ],
-      "solution": "Áp dụng tính chất dãy tỉ số bằng nhau: $\\frac{x}{2} = \\frac{y}{3} = \\frac{x+y}{2+3} = \\frac{25}{5} = 5$. Suy ra $x = 2 \\cdot 5 = 10$.",
+      "complexity": {
+        "steps": 5,
+        "techniques": [
+          "tong_ba_goc_tam_giac",
+          "tinh_chat_tia_phan_giac",
+          "bien_doi_he_thuc_goc"
+        ],
+        "crossTopic": true,
+        "modeling": false,
+        "needsCaseAnalysis": false,
+        "estMinutes": 7
+      },
+      "content": "Cho tam giác $ABC$ có $\\\\widehat{A} = 75^\\circ$. Hai tia phân giác của góc $B$ và góc $C$ cắt nhau tại điểm $I$. Tính số đo của góc $\\\\widehat{BIC}$.",
+      "correctAnswer": "127.5",
+      "acceptedAnswers": [
+        "127.5",
+        "127.5^",
+        "127.5 do",
+        "127.5 độ"
+      ],
+      "solution": "Bước 1: Xét $\\\\Delta ABC$, ta có: $\\\\widehat{B} + \\\\widehat{C} = 180^\\circ - \\\\widehat{A} = 180^\\circ - 75^\\circ = 105^\\circ$.\\\\nBước 2: Vì $BI, CI$ là tia phân giác nên: $\\\\widehat{IBC} = \\\\frac{\\\\widehat{B}}{2}$ và $\\\\widehat{ICB} = \\\\frac{\\\\widehat{C}}{2}$.\\\\nBước 3: Do đó: $\\\\widehat{IBC} + \\\\widehat{ICB} = \\\\frac{\\\\widehat{B} + \\\\widehat{C}}{2} = \\\\frac{105^\\circ}{2} = 52.5^\\circ$.\\\\nBước 4: Xét $\\\\Delta IBC$, ta có: $\\\\widehat{BIC} = 180^\\circ - (\\\\widehat{IBC} + \\\\widehat{ICB}) = 180^\\circ - 52.5^\\circ = 127.5^\\circ$.\\\\nBước 5: Kết luận số đo góc $\\\\widehat{BIC} = 127.5^\\circ$.",
       "rubricSteps": [
         {
-          "step": "Áp dụng dãy tỉ số bằng nhau tính được hệ số tỉ lệ bằng $5$",
-          "points": 1
+          "step": "Tính tổng góc B + C = 105 độ trong tam giác ABC",
+          "points": 0.2
         },
         {
-          "step": "Suy ra $x = 10$ (và $y = 15$)",
-          "points": 1
+          "step": "Sử dụng tính chất phân giác lập tỉ lệ nửa góc",
+          "points": 0.2
+        },
+        {
+          "step": "Tính tổng IBC + ICB = 52.5 độ",
+          "points": 0.2
+        },
+        {
+          "step": "Tính góc BIC = 180 - 52.5 = 127.5 độ",
+          "points": 0.2
+        },
+        {
+          "step": "Kết luận đáp số đúng",
+          "points": 0.2
         }
       ],
-      "keyFormula": "$\\frac{x}{a} = \\frac{y}{b} = \\frac{x+y}{a+b}$",
-      "commonMistake": "Tính được hệ số tỉ lệ $k$ nhưng quên nhân với mẫu số tương ứng để ra $x$.",
+      "keyFormula": "$\\\\widehat{BIC} = 90^\\circ + \\\\frac{\\\\widehat{A}}{2}$.",
+      "id": "Q7_TPL_048",
+      "code": "M7-HK2-C4-VDC-48",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
-      "version": 1
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.147Z",
+      "version": 1,
+      "fingerprint": "c020ce9fadd37a80b1c12fcae9b62a8dfd646f9d616051a13cb4ace45bbe0a93",
+      "difficultyScore": 9.3
     },
     {
       "id": "Q7_TPL_049",
@@ -2630,462 +3040,608 @@
       "version": 1
     },
     {
-      "id": "Q7_TPL_052",
-      "code": "M7-HK2-C5-TH-52",
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 2,
       "chapterId": "G7_C5",
-      "lesson": "Đa thức một biến và nghiệm của đa thức",
-      "topic": "Các phép tính đa thức & Tìm nghiệm",
-      "problemType": "Tìm nghiệm của đa thức một biến",
+      "lesson": "Phép chia đa thức một biến",
+      "topic": "Chia đa thức cho đơn thức",
+      "problemType": "Thực hiện phép chia",
       "type": "mcq",
       "difficulty": "medium",
       "cognitiveLevel": "thong_hieu",
-      "points": 1,
-      "content": "Tìm nghiệm của đa thức một biến $P(x) = 3x - 9$.",
+      "points": 0.5,
+      "textbooks": [
+        "KNTT"
+      ],
+      "content": "Kết quả của phép chia $(2x^2 + 8x) : (2x)$ là:",
       "options": [
         {
           "label": "A",
-          "text": "$-3$",
-          "errorType": "SIGN_ERROR"
+          "text": "$x + 4$"
         },
         {
           "label": "B",
-          "text": "$3$"
+          "text": "$2x^2 + 4$",
+          "errorType": "QUÊN_TRỪ_SỐ_MŨ"
         },
         {
           "label": "C",
-          "text": "$9$",
-          "errorType": "CALCULATION_ERROR"
+          "text": "$2x + 4x$",
+          "errorType": "QUÊN_CHIA_X_Ở_HẠNG_TỬ_SAU"
         },
         {
           "label": "D",
-          "text": "$6$",
-          "errorType": "FORMULA_ERROR"
-        }
-      ],
-      "correctAnswer": "B",
-      "acceptedAnswers": [
-        "3",
-        "x=3"
-      ],
-      "solution": "Cho $P(x) = 0 \\Leftrightarrow 3x - 9 = 0 \\Leftrightarrow x = \\frac{9}{3} = 3$.",
-      "rubricSteps": [
-        {
-          "step": "Tìm đúng nghiệm $x = 3$",
-          "points": 1
-        }
-      ],
-      "keyFormula": "$P(x) = ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$",
-      "commonMistake": "Chuyển vế sai dấu dẫn đến nghiệm bị ngược dấu.",
-      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
-      "verificationStatus": "draft",
-      "version": 1
-    },
-    {
-      "id": "Q7_TPL_053",
-      "code": "M7-HK2-C5-TH-53",
-      "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
-      "semester": 2,
-      "chapterId": "G7_C5",
-      "lesson": "Đa thức một biến và nghiệm của đa thức",
-      "topic": "Các phép tính đa thức & Tìm nghiệm",
-      "problemType": "Tìm nghiệm của đa thức một biến",
-      "type": "mcq",
-      "difficulty": "medium",
-      "cognitiveLevel": "thong_hieu",
-      "points": 1,
-      "content": "Tìm nghiệm của đa thức một biến $P(x) = 4x - 16$.",
-      "options": [
-        {
-          "label": "A",
-          "text": "$-4$",
-          "errorType": "SIGN_ERROR"
-        },
-        {
-          "label": "B",
-          "text": "$16$",
-          "errorType": "CALCULATION_ERROR"
-        },
-        {
-          "label": "C",
-          "text": "$12$",
-          "errorType": "FORMULA_ERROR"
-        },
-        {
-          "label": "D",
-          "text": "$4$"
-        }
-      ],
-      "correctAnswer": "D",
-      "acceptedAnswers": [
-        "4",
-        "x=4"
-      ],
-      "solution": "Cho $P(x) = 0 \\Leftrightarrow 4x - 16 = 0 \\Leftrightarrow x = \\frac{16}{4} = 4$.",
-      "rubricSteps": [
-        {
-          "step": "Tìm đúng nghiệm $x = 4$",
-          "points": 1
-        }
-      ],
-      "keyFormula": "$P(x) = ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$",
-      "commonMistake": "Chuyển vế sai dấu dẫn đến nghiệm bị ngược dấu.",
-      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
-      "verificationStatus": "draft",
-      "version": 1
-    },
-    {
-      "id": "Q7_TPL_054",
-      "code": "M7-HK2-C5-TH-54",
-      "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
-      "semester": 2,
-      "chapterId": "G7_C5",
-      "lesson": "Đa thức một biến và nghiệm của đa thức",
-      "topic": "Các phép tính đa thức & Tìm nghiệm",
-      "problemType": "Tìm nghiệm của đa thức một biến",
-      "type": "essay",
-      "difficulty": "medium",
-      "cognitiveLevel": "thong_hieu",
-      "points": 2,
-      "content": "Tìm nghiệm của đa thức một biến $P(x) = 2x - 10$.",
-      "options": [],
-      "correctAnswer": "5",
-      "acceptedAnswers": [
-        "5",
-        "x=5"
-      ],
-      "solution": "Cho $P(x) = 0 \\Leftrightarrow 2x - 10 = 0 \\Leftrightarrow x = \\frac{10}{2} = 5$.",
-      "rubricSteps": [
-        {
-          "step": "Đặt $P(x) = 0 \\Leftrightarrow 2x = 10$",
-          "points": 1
-        },
-        {
-          "step": "Giải được nghiệm $x = 5$",
-          "points": 1
-        }
-      ],
-      "keyFormula": "$P(x) = ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$",
-      "commonMistake": "Chuyển vế sai dấu dẫn đến nghiệm bị ngược dấu.",
-      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
-      "verificationStatus": "draft",
-      "version": 1
-    },
-    {
-      "id": "Q7_TPL_055",
-      "code": "M7-HK2-C5-VD-55",
-      "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
-      "semester": 2,
-      "chapterId": "G7_C5",
-      "lesson": "Đa thức một biến và nghiệm của đa thức",
-      "topic": "Các phép tính đa thức & Tìm nghiệm",
-      "problemType": "Tìm nghiệm của đa thức một biến",
-      "type": "mcq",
-      "difficulty": "hard",
-      "cognitiveLevel": "van_dung",
-      "points": 1,
-      "content": "Tìm nghiệm của đa thức một biến $P(x) = 3x - 9$.",
-      "options": [
-        {
-          "label": "A",
-          "text": "$3$"
-        },
-        {
-          "label": "B",
-          "text": "$-3$",
-          "errorType": "SIGN_ERROR"
-        },
-        {
-          "label": "C",
-          "text": "$9$",
-          "errorType": "CALCULATION_ERROR"
-        },
-        {
-          "label": "D",
-          "text": "$6$",
-          "errorType": "FORMULA_ERROR"
+          "text": "$2x + 4$",
+          "errorType": "CHIA_SAI_HỆ_SỐ"
         }
       ],
       "correctAnswer": "A",
       "acceptedAnswers": [
-        "3",
-        "x=3"
+        "A"
       ],
-      "solution": "Cho $P(x) = 0 \\Leftrightarrow 3x - 9 = 0 \\Leftrightarrow x = \\frac{9}{3} = 3$.",
+      "solution": "Chia từng hạng tử của đa thức cho đơn thức $2x$:\n$$(2x^2 + 8x) : 2x = \\frac{2x^2}{2x} + \\frac{8x}{2x} = x + 4$$",
       "rubricSteps": [
         {
-          "step": "Tìm đúng nghiệm $x = 3$",
-          "points": 1
+          "step": "Nêu công thức và thiết lập các bước biến đổi ban đầu",
+          "points": 0.25
+        },
+        {
+          "step": "Thực hiện phép tính và kết luận đáp án chính xác",
+          "points": 0.25
         }
       ],
-      "keyFormula": "$P(x) = ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$",
-      "commonMistake": "Chuyển vế sai dấu dẫn đến nghiệm bị ngược dấu.",
+      "keyFormula": "$(A + B) : C = A:C + B:C$",
+      "commonMistake": "Chỉ chia hạng tử đầu tiên.",
+      "id": "Q7_TPL_052",
+      "code": "M7-HK2-C5-TH-52",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
-      "version": 1
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.148Z",
+      "version": 1,
+      "fingerprint": "b0454f0f94453fd922fea040f347d0a2d13b574b9b4af974851a32c3c6171eb1",
+      "difficultyScore": 4.5
     },
     {
-      "id": "Q7_TPL_056",
-      "code": "M7-HK2-C5-VD-56",
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 2,
       "chapterId": "G7_C5",
-      "lesson": "Đa thức một biến và nghiệm của đa thức",
-      "topic": "Các phép tính đa thức & Tìm nghiệm",
-      "problemType": "Tìm nghiệm của đa thức một biến",
+      "lesson": "Phép nhân đa thức một biến",
+      "topic": "Nhân đơn thức với đa thức",
+      "problemType": "Khai triển tích",
       "type": "mcq",
-      "difficulty": "hard",
-      "cognitiveLevel": "van_dung",
-      "points": 1,
-      "content": "Tìm nghiệm của đa thức một biến $P(x) = 4x - 16$.",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 0.5,
+      "textbooks": [
+        "CTST"
+      ],
+      "content": "Thực hiện phép tính: $3x \\cdot (x^2 - 4)$",
       "options": [
         {
           "label": "A",
-          "text": "$-4$",
-          "errorType": "SIGN_ERROR"
+          "text": "$3x^3 + 12x$",
+          "errorType": "SAI_DẤU"
         },
         {
           "label": "B",
-          "text": "$16$",
-          "errorType": "CALCULATION_ERROR"
+          "text": "$3x^2 - 12x$",
+          "errorType": "QUÊN_CỘNG_SỐ_MŨ"
         },
         {
           "label": "C",
-          "text": "$4$"
+          "text": "$3x^3 - 12x$"
         },
         {
           "label": "D",
-          "text": "$12$",
-          "errorType": "FORMULA_ERROR"
+          "text": "$3x^3 - 4x$",
+          "errorType": "QUÊN_NHÂN_HỆ_SỐ_SAU"
         }
       ],
       "correctAnswer": "C",
       "acceptedAnswers": [
-        "4",
-        "x=4"
+        "C"
       ],
-      "solution": "Cho $P(x) = 0 \\Leftrightarrow 4x - 16 = 0 \\Leftrightarrow x = \\frac{16}{4} = 4$.",
+      "solution": "Nhân đơn thức với từng hạng tử của đa thức:\n$$3x \\cdot (x^2 - 4) = 3x \\cdot x^2 - 3x \\cdot 4 = 3x^3 - 12x$$",
       "rubricSteps": [
         {
-          "step": "Tìm đúng nghiệm $x = 4$",
-          "points": 1
+          "step": "Nêu công thức và thiết lập các bước biến đổi ban đầu",
+          "points": 0.25
+        },
+        {
+          "step": "Thực hiện phép tính và kết luận đáp án chính xác",
+          "points": 0.25
         }
       ],
-      "keyFormula": "$P(x) = ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$",
-      "commonMistake": "Chuyển vế sai dấu dẫn đến nghiệm bị ngược dấu.",
+      "keyFormula": "$A(B + C) = AB + AC$",
+      "commonMistake": "Quên nhân hệ số với hạng tử phía sau.",
+      "id": "Q7_TPL_053",
+      "code": "M7-HK2-C5-TH-53",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
-      "version": 1
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.149Z",
+      "version": 1,
+      "fingerprint": "2414ef79fbed936f6c0cf42728f0b83b94273232afe5e63ed35656239e1bc805",
+      "difficultyScore": 4.5
     },
     {
-      "id": "Q7_TPL_057",
-      "code": "M7-HK2-C5-VD-57",
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 2,
       "chapterId": "G7_C5",
-      "lesson": "Đa thức một biến và nghiệm của đa thức",
-      "topic": "Các phép tính đa thức & Tìm nghiệm",
-      "problemType": "Tìm nghiệm của đa thức một biến",
+      "lesson": "Phép cộng và phép trừ đa thức một biến",
+      "topic": "Cộng hai đa thức",
+      "problemType": "Tìm tổng P(x) + Q(x)",
+      "type": "essay",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "textbooks": [
+        "CTST"
+      ],
+      "content": "Cho hai đa thức: $P(x) = 5x^2 + 7$ và $Q(x) = 2x^2 + 4$. Tính $P(x) + Q(x)$.",
+      "correctAnswer": "7x^2 + 11",
+      "acceptedAnswers": [
+        "7x^2 + 11",
+        "7x^2+11"
+      ],
+      "solution": "Cộng các hạng tử cùng bậc:\n$$P(x) + Q(x) = (5x^2 + 2x^2) + (7 + 4) = 7x^2 + 11$$",
+      "rubricSteps": [
+        {
+          "step": "Nhóm các đơn thức đồng dạng cùng bậc",
+          "points": 0.5
+        },
+        {
+          "step": "Cộng hệ số ra kết quả $7x^2 + 11$",
+          "points": 0.5
+        }
+      ],
+      "keyFormula": "Cộng các hệ số của các hạng tử cùng bậc.",
+      "commonMistake": "Cộng cả các số mũ của biến.",
+      "id": "Q7_TPL_054",
+      "code": "M7-HK2-C5-TH-54",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
+      "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.150Z",
+      "version": 1,
+      "fingerprint": "5037352d7c1baf34249eb5d06e1db1b712dcb5461a12c6250f19cb122a400bd5",
+      "difficultyScore": 4.5
+    },
+    {
+      "grade": 7,
+      "semester": 2,
+      "chapterId": "G7_C5",
+      "lesson": "Nghiệm của đa thức một biến",
+      "topic": "Định lý Bézout sơ cấp / Hệ số nghiệm",
+      "problemType": "Tìm hệ số a để đa thức có nghiệm cho trước",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 0.5,
+      "textbooks": [
+        "KNTT"
+      ],
+      "content": "Biết đa thức $P(x) = m x^2 - 5x + 4$ nhận $x = 1$ là một nghiệm. Giá trị của hệ số $m$ là:",
+      "options": [
+        {
+          "label": "A",
+          "text": "$m = -1$",
+          "errorType": "SAI_DẤU"
+        },
+        {
+          "label": "B",
+          "text": "$m = 0$",
+          "errorType": "TRIỆT_TIÊU_BẬC_HAI"
+        },
+        {
+          "label": "C",
+          "text": "$m = 1$"
+        },
+        {
+          "label": "D",
+          "text": "$m = 2$",
+          "errorType": "TÍNH_NHẦM"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "C"
+      ],
+      "solution": "Vì $x = 1$ là nghiệm của $P(x)$ nên $P(1) = 0$:\n$$m \\cdot 1^2 - 5 \\cdot 1 + 4 = 0 \\implies m - 5 + 4 = 0 \\implies m - 1 = 0 \\implies m = 1$$",
+      "rubricSteps": [
+        {
+          "step": "Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán",
+          "points": 0.15
+        },
+        {
+          "step": "Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian",
+          "points": 0.18
+        },
+        {
+          "step": "Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận",
+          "points": 0.17
+        }
+      ],
+      "keyFormula": "$P(x_0) = 0$ khi $x_0$ là nghiệm.",
+      "commonMistake": "Tính nhầm dấu của hằng số tự do.",
+      "id": "Q7_TPL_055",
+      "code": "M7-HK2-C5-VD-55",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
+      "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.150Z",
+      "version": 1,
+      "fingerprint": "20ad2e6542dab68435e69875185b44616d59bb7ab4840eb54b7d75df79725687",
+      "complexity": {
+        "steps": 3,
+        "techniques": [
+          "bien_doi_toan_hoc",
+          "van_dung_thuc_te"
+        ],
+        "crossTopic": false,
+        "modeling": true,
+        "needsCaseAnalysis": false,
+        "estMinutes": 4
+      },
+      "difficultyScore": 7.2
+    },
+    {
+      "grade": 7,
+      "semester": 2,
+      "chapterId": "G7_C5",
+      "lesson": "Phép cộng và phép trừ đa thức một biến",
+      "topic": "Tìm đa thức chưa biết M(x)",
+      "problemType": "Tìm đa thức thỏa mãn phương trình",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 0.5,
+      "textbooks": [
+        "KNTT"
+      ],
+      "content": "Tìm đa thức $M(x)$ biết: $M(x) + (3x^2 - 2x + 1) = x^2 + 3x - 2$",
+      "options": [
+        {
+          "label": "A",
+          "text": "$M(x) = -2x^2 + 5x - 3$"
+        },
+        {
+          "label": "B",
+          "text": "$M(x) = -2x^2 - 5x + 3$",
+          "errorType": "SAI_DẤU"
+        },
+        {
+          "label": "C",
+          "text": "$M(x) = 4x^2 + 5x + 3$",
+          "errorType": "CỘNG_NHẦM"
+        },
+        {
+          "label": "D",
+          "text": "$M(x) = 2x^2 - 5x + 3$",
+          "errorType": "ĐỔI_DẤU_TOÀN_BỘ"
+        }
+      ],
+      "correctAnswer": "A",
+      "acceptedAnswers": [
+        "A"
+      ],
+      "solution": "Ta có:\n$$M(x) = (x^2 + 3x - 2) - (3x^2 - 2x + 1) = x^2 + 3x - 2 - 3x^2 + 2x - 1 = -2x^2 + 5x - 3$$",
+      "rubricSteps": [
+        {
+          "step": "Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán",
+          "points": 0.15
+        },
+        {
+          "step": "Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian",
+          "points": 0.18
+        },
+        {
+          "step": "Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận",
+          "points": 0.17
+        }
+      ],
+      "keyFormula": "$M + A = B \\implies M = B - A$",
+      "commonMistake": "Quên đổi dấu các số hạng trong ngoặc khi có dấu trừ đằng trước.",
+      "id": "Q7_TPL_056",
+      "code": "M7-HK2-C5-VD-56",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
+      "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.151Z",
+      "version": 1,
+      "fingerprint": "69b200be6748a65c830ff1d07cb643c18d47b4898d6530ef5394ffd52680bee6",
+      "complexity": {
+        "steps": 3,
+        "techniques": [
+          "bien_doi_toan_hoc",
+          "van_dung_thuc_te"
+        ],
+        "crossTopic": false,
+        "modeling": true,
+        "needsCaseAnalysis": false,
+        "estMinutes": 4
+      },
+      "difficultyScore": 7.2
+    },
+    {
+      "grade": 7,
+      "semester": 2,
+      "chapterId": "G7_C5",
+      "lesson": "Biểu thức đại số",
+      "topic": "Tìm giá trị lớn nhất / nhỏ nhất",
+      "problemType": "Cực trị tam thức bậc hai hoàn hảo",
       "type": "essay",
       "difficulty": "hard",
       "cognitiveLevel": "van_dung",
-      "points": 2,
-      "content": "Tìm nghiệm của đa thức một biến $P(x) = 2x - 10$.",
-      "options": [],
-      "correctAnswer": "5",
-      "acceptedAnswers": [
-        "5",
-        "x=5"
+      "points": 1,
+      "textbooks": [
+        "KNTT"
       ],
-      "solution": "Cho $P(x) = 0 \\Leftrightarrow 2x - 10 = 0 \\Leftrightarrow x = \\frac{10}{2} = 5$.",
+      "content": "Tìm giá trị lớn nhất của biểu thức: $B = 14 - (x + 3)^2$.",
+      "correctAnswer": "14",
+      "acceptedAnswers": [
+        "14",
+        "B=14",
+        "GTLN=14"
+      ],
+      "solution": "Với mọi $x$, ta có $(x + 3)^2 \\ge 0 \\implies -(x + 3)^2 \\le 0$.\nDo đó $B = 14 - (x + 3)^2 \\le 14 - 0 = 14$.\nDấu bằng xảy ra khi $x + 3 = 0 \\implies x = -3$.\nVậy giá trị lớn nhất của $B$ là $14$.",
       "rubricSteps": [
         {
-          "step": "Đặt $P(x) = 0 \\Leftrightarrow 2x = 10$",
-          "points": 1
+          "step": "Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán",
+          "points": 0.3
         },
         {
-          "step": "Giải được nghiệm $x = 5$",
-          "points": 1
+          "step": "Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian",
+          "points": 0.35
+        },
+        {
+          "step": "Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận",
+          "points": 0.35
         }
       ],
-      "keyFormula": "$P(x) = ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$",
-      "commonMistake": "Chuyển vế sai dấu dẫn đến nghiệm bị ngược dấu.",
+      "keyFormula": "$m - A^2 \\le m \\implies \\text{GTLN} = m$",
+      "commonMistake": "Nhầm lẫn giữa giá trị lớn nhất và nhỏ nhất.",
+      "id": "Q7_TPL_057",
+      "code": "M7-HK2-C5-VD-57",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
-      "version": 1
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.152Z",
+      "version": 1,
+      "fingerprint": "4a86acd5759d77017faa2b947f69931112576afbd7f4834a74ad46135e3582ed",
+      "complexity": {
+        "steps": 3,
+        "techniques": [
+          "bien_doi_toan_hoc",
+          "van_dung_thuc_te"
+        ],
+        "crossTopic": false,
+        "modeling": true,
+        "needsCaseAnalysis": false,
+        "estMinutes": 4
+      },
+      "difficultyScore": 7.2
     },
     {
-      "id": "Q7_TPL_058",
-      "code": "M7-HK2-C5-VDC-58",
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 2,
       "chapterId": "G7_C5",
-      "lesson": "Đa thức một biến và nghiệm của đa thức",
-      "topic": "Các phép tính đa thức & Tìm nghiệm",
-      "problemType": "Tìm nghiệm của đa thức một biến",
+      "lesson": "Thu thập và phân loại dữ liệu",
+      "topic": "Phân tích sai số và tính đại diện của mẫu khảo sát",
+      "problemType": "So sánh tỉ số hai nhóm đối tượng khảo sát để phát hiện định kiến mẫu",
       "type": "mcq",
       "difficulty": "hard",
       "cognitiveLevel": "van_dung_cao",
       "points": 1,
-      "content": "Tìm nghiệm của đa thức một biến $P(x) = 3x - 9$.",
+      "textbooks": [
+        "KNTT"
+      ],
+      "complexity": {
+        "steps": 5,
+        "techniques": [
+          "mo_hinh_hoa_thuc_te",
+          "phan_tich_mau_khao_sat",
+          "ti_so_phan_tram"
+        ],
+        "crossTopic": true,
+        "modeling": true,
+        "needsCaseAnalysis": false,
+        "estMinutes": 7
+      },
+      "content": "Khảo sát ý kiến về việc mở thêm câu lạc bộ bóng rổ: Nhóm A khảo sát $100$ học sinh tại sân bóng rổ thấy có $70\\%$ đồng ý; Nhóm B khảo sát ngẫu nhiên $400$ học sinh toàn trường thấy có $30\\%$ đồng ý. Độ chênh lệch tỉ lệ phần trăm và nhận định về tính đại diện là:",
       "options": [
         {
           "label": "A",
-          "text": "$-3$",
-          "errorType": "SIGN_ERROR"
+          "text": "$0\\%$, hai mẫu hoàn toàn đồng nhất",
+          "errorType": "BỎ_QUA_KHÁC_BIỆT_MẪU"
         },
         {
           "label": "B",
-          "text": "$9$",
-          "errorType": "CALCULATION_ERROR"
+          "text": "$40\\%$, mẫu CLB bị định kiến thiên vị"
         },
         {
           "label": "C",
-          "text": "$6$",
-          "errorType": "FORMULA_ERROR"
+          "text": "$70\\%$, mẫu nhỏ chính xác hơn",
+          "errorType": "NGỘ_NHẬN_MẪU_NHỎ"
         },
         {
           "label": "D",
-          "text": "$3$"
+          "text": "$50\\%$, hai mẫu đều đại diện tốt",
+          "errorType": "TÍNH_SAI_CHÊNH_LỆCH"
         }
       ],
-      "correctAnswer": "D",
+      "correctAnswer": "B",
       "acceptedAnswers": [
-        "3",
-        "x=3"
+        "B"
       ],
-      "solution": "Cho $P(x) = 0 \\Leftrightarrow 3x - 9 = 0 \\Leftrightarrow x = \\frac{9}{3} = 3$.",
+      "solution": "Bước 1: Tỉ lệ đồng ý ở mẫu A là $70\\%$.\\\\nBước 2: Tỉ lệ đồng ý ở mẫu B là $30\\%$.\\\\nBước 3: Độ chênh lệch giữa hai kết quả là: $70\\% - 30\\% = 40\\%$.\\\\nBước 4: Mẫu A chỉ lấy người tại sân bóng rổ nên đối tượng đã có sẵn sở thích, dẫn đến định kiến thiên vị cao.\\\\nBước 5: Kết luận độ chênh lệch là 40% và mẫu A bị định kiến thiên vị.",
       "rubricSteps": [
         {
-          "step": "Tìm đúng nghiệm $x = 3$",
-          "points": 1
+          "step": "Xác định tỉ số phần trăm mẫu A",
+          "points": 0.2
+        },
+        {
+          "step": "Xác định tỉ số phần trăm mẫu B",
+          "points": 0.2
+        },
+        {
+          "step": "Tính độ chênh lệch là 40%",
+          "points": 0.2
+        },
+        {
+          "step": "Phân tích nguyên nhân sai lệch do chọn mẫu thiên vị tại sân thể thao",
+          "points": 0.2
+        },
+        {
+          "step": "Kết luận tính đại diện không hợp lệ của mẫu A",
+          "points": 0.2
         }
       ],
-      "keyFormula": "$P(x) = ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$",
-      "commonMistake": "Chuyển vế sai dấu dẫn đến nghiệm bị ngược dấu.",
+      "keyFormula": "Mẫu ngẫu nhiên toàn trường có tính đại diện cao hơn mẫu chuyên biệt.",
+      "id": "Q7_TPL_058",
+      "code": "M7-HK2-C5-VDC-58",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
-      "version": 1
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.153Z",
+      "version": 1,
+      "fingerprint": "3c5180a9b043a08be98c93d1101f7fdcbc377f5066f5c2f389dbdd921f002665",
+      "difficultyScore": 9.5
     },
     {
+      "grade": 7,
+      "semester": 2,
+      "chapterId": "G7_C5",
+      "lesson": "Biểu đồ hình quạt tròn",
+      "topic": "Khôi phục dữ liệu khuyết trong biểu đồ quạt tròn",
+      "problemType": "Giải hệ tìm cơ cấu phần trăm hai nhóm dữ liệu khuyết",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 1,
+      "textbooks": [
+        "KNTT"
+      ],
+      "complexity": {
+        "steps": 5,
+        "techniques": [
+          "bieu_do_quat_tron",
+          "tong_phan_tram_100",
+          "giai_phuong_trinh_ti_so"
+        ],
+        "crossTopic": true,
+        "modeling": false,
+        "needsCaseAnalysis": false,
+        "estMinutes": 7
+      },
+      "content": "Một trường THCS có 320 học sinh. Kết quả xếp loại rèn luyện được biểu diễn bằng biểu đồ quạt tròn: Tốt chiếm $30\\\\%$, Khá chiếm $40\\\\%$, còn lại là Đạt và Chưa đạt. Biết tỉ số phần trăm học sinh xếp loại Đạt gấp đôi xếp loại Chưa đạt. Hỏi có bao nhiêu học sinh xếp loại Đạt?",
+      "correctAnswer": "64",
+      "acceptedAnswers": [
+        "64",
+        "64 hoc sinh",
+        "64 em"
+      ],
+      "solution": "Bước 1: Tổng phần trăm của loại Đạt và Chưa đạt là: $100\\\\% - (30\\\\% + 40\\\\%) = 30\\\\%$.\\\\nBước 2: Vì phần trăm loại Đạt gấp đôi Chưa đạt, gọi phần trăm Chưa đạt là $x\\\\%$, loại Đạt là $2x\\\\%$.\\\\nBước 3: Ta có phương trình: $x + 2x = 30 \\\\iff 3x = 30 \\\\iff x = 10\\\\%$.\\\\nBước 4: Phần trăm học sinh xếp loại Đạt là: $2x = 20\\\\%$.\\\\nBước 5: Số học sinh xếp loại Đạt là: $320 \\\\cdot 20\\\\% = 64$ học sinh.",
+      "rubricSteps": [
+        {
+          "step": "Tính tổng phần trăm hai nhóm còn lại là 30%",
+          "points": 0.2
+        },
+        {
+          "step": "Thiết lập phương trình tỉ lệ x + 2x = 30%",
+          "points": 0.2
+        },
+        {
+          "step": "Giải tìm phần trăm loại Chưa đạt là 10%",
+          "points": 0.2
+        },
+        {
+          "step": "Tính phần trăm loại Đạt là 20%",
+          "points": 0.2
+        },
+        {
+          "step": "Tính số học sinh loại Đạt là 64 học sinh",
+          "points": 0.2
+        }
+      ],
+      "keyFormula": "Tổng các quạt tròn trong biểu đồ $= 100\\\\%$.",
       "id": "Q7_TPL_059",
       "code": "M7-HK2-C5-VDC-59",
-      "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
-      "semester": 2,
-      "chapterId": "G7_C5",
-      "lesson": "Đa thức một biến và nghiệm của đa thức",
-      "topic": "Các phép tính đa thức & Tìm nghiệm",
-      "problemType": "Tìm nghiệm của đa thức một biến",
-      "type": "essay",
-      "difficulty": "hard",
-      "cognitiveLevel": "van_dung_cao",
-      "points": 2,
-      "content": "Tìm nghiệm của đa thức một biến $P(x) = 4x - 16$.",
-      "options": [],
-      "correctAnswer": "4",
-      "acceptedAnswers": [
-        "4",
-        "x=4"
-      ],
-      "solution": "Cho $P(x) = 0 \\Leftrightarrow 4x - 16 = 0 \\Leftrightarrow x = \\frac{16}{4} = 4$.",
-      "rubricSteps": [
-        {
-          "step": "Đặt $P(x) = 0 \\Leftrightarrow 4x = 16$",
-          "points": 1
-        },
-        {
-          "step": "Giải được nghiệm $x = 4$",
-          "points": 1
-        }
-      ],
-      "keyFormula": "$P(x) = ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$",
-      "commonMistake": "Chuyển vế sai dấu dẫn đến nghiệm bị ngược dấu.",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
-      "version": 1
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.153Z",
+      "version": 1,
+      "fingerprint": "86b5bb1b8f774e5869ba67afb1b4130e170e0a269afed09dcb92f7aead5a15f0",
+      "difficultyScore": 9.3
     },
     {
-      "id": "Q7_TPL_060",
-      "code": "M7-HK2-C5-VDC-60",
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 2,
       "chapterId": "G7_C5",
-      "lesson": "Đa thức một biến và nghiệm của đa thức",
-      "topic": "Các phép tính đa thức & Tìm nghiệm",
-      "problemType": "Tìm nghiệm của đa thức một biến",
+      "lesson": "Biểu đồ hình quạt tròn",
+      "topic": "Khôi phục dữ liệu khuyết trong biểu đồ quạt tròn",
+      "problemType": "Giải hệ tìm cơ cấu phần trăm hai nhóm dữ liệu khuyết",
       "type": "essay",
       "difficulty": "hard",
       "cognitiveLevel": "van_dung_cao",
-      "points": 2,
-      "content": "Tìm nghiệm của đa thức một biến $P(x) = 2x - 10$.",
-      "options": [],
-      "correctAnswer": "5",
-      "acceptedAnswers": [
-        "5",
-        "x=5"
+      "points": 1,
+      "textbooks": [
+        "CD"
       ],
-      "solution": "Cho $P(x) = 0 \\Leftrightarrow 2x - 10 = 0 \\Leftrightarrow x = \\frac{10}{2} = 5$.",
+      "complexity": {
+        "steps": 5,
+        "techniques": [
+          "bieu_do_quat_tron",
+          "tong_phan_tram_100",
+          "giai_phuong_trinh_ti_so"
+        ],
+        "crossTopic": true,
+        "modeling": false,
+        "needsCaseAnalysis": false,
+        "estMinutes": 7
+      },
+      "content": "Một trường THCS có 400 học sinh. Kết quả xếp loại rèn luyện được biểu diễn bằng biểu đồ quạt tròn: Tốt chiếm $30\\\\%$, Khá chiếm $40\\\\%$, còn lại là Đạt và Chưa đạt. Biết tỉ số phần trăm học sinh xếp loại Đạt gấp đôi xếp loại Chưa đạt. Hỏi có bao nhiêu học sinh xếp loại Đạt?",
+      "correctAnswer": "80",
+      "acceptedAnswers": [
+        "80",
+        "80 hoc sinh",
+        "80 em"
+      ],
+      "solution": "Bước 1: Tổng phần trăm của loại Đạt và Chưa đạt là: $100\\\\% - (30\\\\% + 40\\\\%) = 30\\\\%$.\\\\nBước 2: Vì phần trăm loại Đạt gấp đôi Chưa đạt, gọi phần trăm Chưa đạt là $x\\\\%$, loại Đạt là $2x\\\\%$.\\\\nBước 3: Ta có phương trình: $x + 2x = 30 \\\\iff 3x = 30 \\\\iff x = 10\\\\%$.\\\\nBước 4: Phần trăm học sinh xếp loại Đạt là: $2x = 20\\\\%$.\\\\nBước 5: Số học sinh xếp loại Đạt là: $400 \\\\cdot 20\\\\% = 80$ học sinh.",
       "rubricSteps": [
         {
-          "step": "Đặt $P(x) = 0 \\Leftrightarrow 2x = 10$",
-          "points": 1
+          "step": "Tính tổng phần trăm hai nhóm còn lại là 30%",
+          "points": 0.2
         },
         {
-          "step": "Giải được nghiệm $x = 5$",
-          "points": 1
+          "step": "Thiết lập phương trình tỉ lệ x + 2x = 30%",
+          "points": 0.2
+        },
+        {
+          "step": "Giải tìm phần trăm loại Chưa đạt là 10%",
+          "points": 0.2
+        },
+        {
+          "step": "Tính phần trăm loại Đạt là 20%",
+          "points": 0.2
+        },
+        {
+          "step": "Tính số học sinh loại Đạt là 80 học sinh",
+          "points": 0.2
         }
       ],
-      "keyFormula": "$P(x) = ax + b = 0 \\Leftrightarrow x = -\\frac{b}{a}$",
-      "commonMistake": "Chuyển vế sai dấu dẫn đến nghiệm bị ngược dấu.",
+      "keyFormula": "Tổng các quạt tròn trong biểu đồ $= 100\\\\%$.",
+      "id": "Q7_TPL_060",
+      "code": "M7-HK2-C5-VDC-60",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
-      "version": 1
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.154Z",
+      "version": 1,
+      "fingerprint": "ac345c05f975f62050a7211fc2ce39229dbe8c6b90178a788f22b7625d3ada64",
+      "difficultyScore": 9.3
     },
     {
       "id": "Q7_TPL_061",
@@ -3249,471 +3805,608 @@
       "mathExpressionToVerify": "(2 * 18) / 3"
     },
     {
-      "id": "Q7_TPL_064",
-      "code": "M7-HK2-C6-TH-64",
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 2,
       "chapterId": "G7_C6",
-      "lesson": "Tam giác cân & Ba đường trung tuyến của tam giác",
-      "topic": "Tam giác cân và các đường đồng quy",
-      "problemType": "Vận dụng tính chất trọng tâm tam giác",
+      "lesson": "Quan hệ giữa cạnh và góc trong tam giác",
+      "topic": "Bất đẳng thức tam giác",
+      "problemType": "Kiểm tra bộ ba độ dài đoạn thẳng",
       "type": "mcq",
       "difficulty": "medium",
       "cognitiveLevel": "thong_hieu",
-      "points": 1,
-      "content": "Cho tam giác $ABC$ có đường trung tuyến $AM = 12\\text{ cm}$ và trọng tâm $G$. Độ dài đoạn thẳng $AG$ bằng bao nhiêu $\\text{cm}$?",
+      "points": 0.5,
+      "textbooks": [
+        "CD"
+      ],
+      "content": "Bộ ba độ dài đoạn thẳng nào sau đây CÓ THỂ là độ dài ba cạnh của một tam giác?",
       "options": [
         {
           "label": "A",
-          "text": "$4$",
-          "errorType": "FORMULA_ERROR"
+          "text": "3 cm, 4 cm, 5 cm"
         },
         {
           "label": "B",
-          "text": "$8$"
+          "text": "4 cm, 5 cm, 10 cm",
+          "errorType": "4+5=9<10_VI_PHẠM"
         },
         {
           "label": "C",
-          "text": "$6$",
-          "errorType": "FORMULA_ERROR"
+          "text": "2 cm, 3 cm, 6 cm",
+          "errorType": "2+3=5<6_VI_PHẠM_BĐT"
         },
         {
           "label": "D",
-          "text": "$10$",
-          "errorType": "CALCULATION_ERROR"
-        }
-      ],
-      "correctAnswer": "B",
-      "acceptedAnswers": [
-        "8",
-        "8 cm"
-      ],
-      "solution": "Theo tính chất trọng tâm của tam giác, ta có $AG = \\frac{2}{3} AM = \\frac{2}{3} \\cdot 12 = 8\\text{ (cm)}$.",
-      "rubricSteps": [
-        {
-          "step": "Tính đúng $AG = 8\\text{ cm}$",
-          "points": 1
-        }
-      ],
-      "keyFormula": "$AG = \\frac{2}{3} AM,\\quad GM = \\frac{1}{3} AM$",
-      "commonMistake": "Nhầm tỉ số trọng tâm thành $\\frac{1}{2}$ hoặc $\\frac{1}{3}$ độ dài trung tuyến.",
-      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
-      "verificationStatus": "draft",
-      "version": 1,
-      "mathExpressionToVerify": "(2 * 12) / 3"
-    },
-    {
-      "id": "Q7_TPL_065",
-      "code": "M7-HK2-C6-TH-65",
-      "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
-      "semester": 2,
-      "chapterId": "G7_C6",
-      "lesson": "Tam giác cân & Ba đường trung tuyến của tam giác",
-      "topic": "Tam giác cân và các đường đồng quy",
-      "problemType": "Vận dụng tính chất trọng tâm tam giác",
-      "type": "mcq",
-      "difficulty": "medium",
-      "cognitiveLevel": "thong_hieu",
-      "points": 1,
-      "content": "Cho tam giác $ABC$ có đường trung tuyến $AM = 15\\text{ cm}$ và trọng tâm $G$. Độ dài đoạn thẳng $AG$ bằng bao nhiêu $\\text{cm}$?",
-      "options": [
-        {
-          "label": "A",
-          "text": "$5$",
-          "errorType": "FORMULA_ERROR"
-        },
-        {
-          "label": "B",
-          "text": "$7.5$",
-          "errorType": "FORMULA_ERROR"
-        },
-        {
-          "label": "C",
-          "text": "$13$",
-          "errorType": "CALCULATION_ERROR"
-        },
-        {
-          "label": "D",
-          "text": "$10$"
-        }
-      ],
-      "correctAnswer": "D",
-      "acceptedAnswers": [
-        "10",
-        "10 cm"
-      ],
-      "solution": "Theo tính chất trọng tâm của tam giác, ta có $AG = \\frac{2}{3} AM = \\frac{2}{3} \\cdot 15 = 10\\text{ (cm)}$.",
-      "rubricSteps": [
-        {
-          "step": "Tính đúng $AG = 10\\text{ cm}$",
-          "points": 1
-        }
-      ],
-      "keyFormula": "$AG = \\frac{2}{3} AM,\\quad GM = \\frac{1}{3} AM$",
-      "commonMistake": "Nhầm tỉ số trọng tâm thành $\\frac{1}{2}$ hoặc $\\frac{1}{3}$ độ dài trung tuyến.",
-      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
-      "verificationStatus": "draft",
-      "version": 1,
-      "mathExpressionToVerify": "(2 * 15) / 3"
-    },
-    {
-      "id": "Q7_TPL_066",
-      "code": "M7-HK2-C6-TH-66",
-      "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
-      "semester": 2,
-      "chapterId": "G7_C6",
-      "lesson": "Tam giác cân & Ba đường trung tuyến của tam giác",
-      "topic": "Tam giác cân và các đường đồng quy",
-      "problemType": "Vận dụng tính chất trọng tâm tam giác",
-      "type": "essay",
-      "difficulty": "medium",
-      "cognitiveLevel": "thong_hieu",
-      "points": 2,
-      "content": "Cho tam giác $ABC$ có đường trung tuyến $AM = 18\\text{ cm}$ và trọng tâm $G$. Độ dài đoạn thẳng $AG$ bằng bao nhiêu $\\text{cm}$?",
-      "options": [],
-      "correctAnswer": "12",
-      "acceptedAnswers": [
-        "12",
-        "12 cm"
-      ],
-      "solution": "Theo tính chất trọng tâm của tam giác, ta có $AG = \\frac{2}{3} AM = \\frac{2}{3} \\cdot 18 = 12\\text{ (cm)}$.",
-      "rubricSteps": [
-        {
-          "step": "Nêu tính chất trọng tâm $AG = \\frac{2}{3} AM$",
-          "points": 1
-        },
-        {
-          "step": "Thay số tính được $AG = 12\\text{ cm}$",
-          "points": 1
-        }
-      ],
-      "keyFormula": "$AG = \\frac{2}{3} AM,\\quad GM = \\frac{1}{3} AM$",
-      "commonMistake": "Nhầm tỉ số trọng tâm thành $\\frac{1}{2}$ hoặc $\\frac{1}{3}$ độ dài trung tuyến.",
-      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
-      "verificationStatus": "draft",
-      "version": 1,
-      "mathExpressionToVerify": "(2 * 18) / 3"
-    },
-    {
-      "id": "Q7_TPL_067",
-      "code": "M7-HK2-C6-VD-67",
-      "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
-      "semester": 2,
-      "chapterId": "G7_C6",
-      "lesson": "Tam giác cân & Ba đường trung tuyến của tam giác",
-      "topic": "Tam giác cân và các đường đồng quy",
-      "problemType": "Vận dụng tính chất trọng tâm tam giác",
-      "type": "mcq",
-      "difficulty": "hard",
-      "cognitiveLevel": "van_dung",
-      "points": 1,
-      "content": "Cho tam giác $ABC$ có đường trung tuyến $AM = 12\\text{ cm}$ và trọng tâm $G$. Độ dài đoạn thẳng $AG$ bằng bao nhiêu $\\text{cm}$?",
-      "options": [
-        {
-          "label": "A",
-          "text": "$8$"
-        },
-        {
-          "label": "B",
-          "text": "$4$",
-          "errorType": "FORMULA_ERROR"
-        },
-        {
-          "label": "C",
-          "text": "$6$",
-          "errorType": "FORMULA_ERROR"
-        },
-        {
-          "label": "D",
-          "text": "$10$",
-          "errorType": "CALCULATION_ERROR"
+          "text": "1 cm, 2 cm, 3 cm",
+          "errorType": "1+2=3_KHÔNG_LỚN_HƠN"
         }
       ],
       "correctAnswer": "A",
       "acceptedAnswers": [
-        "8",
-        "8 cm"
+        "A"
       ],
-      "solution": "Theo tính chất trọng tâm của tam giác, ta có $AG = \\frac{2}{3} AM = \\frac{2}{3} \\cdot 12 = 8\\text{ (cm)}$.",
+      "solution": "Theo bất đẳng thức tam giác, tổng độ dài hai cạnh bất kỳ luôn lớn hơn độ dài cạnh còn lại. Chỉ có bộ ba $3\\text{ cm}, 4\\text{ cm}, 5\\text{ cm}$ thỏa mãn vì $3 + 4 = 7 > 5$. Các bộ ba còn lại tổng hai cạnh nhỏ hơn không lớn hơn cạnh lớn nhất.",
       "rubricSteps": [
         {
-          "step": "Tính đúng $AG = 8\\text{ cm}$",
-          "points": 1
+          "step": "Nêu công thức và thiết lập các bước biến đổi ban đầu",
+          "points": 0.25
+        },
+        {
+          "step": "Thực hiện phép tính và kết luận đáp án chính xác",
+          "points": 0.25
         }
       ],
-      "keyFormula": "$AG = \\frac{2}{3} AM,\\quad GM = \\frac{1}{3} AM$",
-      "commonMistake": "Nhầm tỉ số trọng tâm thành $\\frac{1}{2}$ hoặc $\\frac{1}{3}$ độ dài trung tuyến.",
+      "keyFormula": "$a + b > c$",
+      "commonMistake": "Chọn bộ có tổng bằng cạnh thứ ba (tam giác suy biến thành đoạn thẳng).",
+      "id": "Q7_TPL_064",
+      "code": "M7-HK2-C6-TH-64",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.154Z",
       "version": 1,
-      "mathExpressionToVerify": "(2 * 12) / 3"
+      "fingerprint": "c490a2cfdc99b9bfbb61e08cdb7695a156eec18363a0225315154b8b6ada1b73",
+      "difficultyScore": 4.5
     },
     {
-      "id": "Q7_TPL_068",
-      "code": "M7-HK2-C6-VD-68",
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 2,
       "chapterId": "G7_C6",
-      "lesson": "Tam giác cân & Ba đường trung tuyến của tam giác",
-      "topic": "Tam giác cân và các đường đồng quy",
-      "problemType": "Vận dụng tính chất trọng tâm tam giác",
+      "lesson": "Hai tam giác bằng nhau",
+      "topic": "Trường hợp cạnh - góc - cạnh",
+      "problemType": "Tìm điều kiện để hai tam giác bằng nhau",
       "type": "mcq",
-      "difficulty": "hard",
-      "cognitiveLevel": "van_dung",
-      "points": 1,
-      "content": "Cho tam giác $ABC$ có đường trung tuyến $AM = 15\\text{ cm}$ và trọng tâm $G$. Độ dài đoạn thẳng $AG$ bằng bao nhiêu $\\text{cm}$?",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 0.5,
+      "textbooks": [
+        "CTST"
+      ],
+      "content": "Cho $\\triangle ABC$ và $\\triangle DEF$ có $AB = DE$ và $AC = DF$. Để $\\triangle ABC = \\triangle DEF$ theo trường hợp cạnh - góc - cạnh (c-g-c) thì cần thêm điều kiện gì?",
       "options": [
         {
           "label": "A",
-          "text": "$5$",
-          "errorType": "FORMULA_ERROR"
+          "text": "Góc bất kỳ bằng nhau: $\\widehat{B} = \\widehat{E}$",
+          "errorType": "GÓC_KHÔNG_XEN_GIỮA"
         },
         {
           "label": "B",
-          "text": "$7.5$",
-          "errorType": "FORMULA_ERROR"
+          "text": "Góc xen giữa hai cạnh phải bằng nhau: $\\widehat{A} = \\widehat{D}$"
         },
         {
           "label": "C",
-          "text": "$10$"
+          "text": "Thêm một góc vuông bất kỳ",
+          "errorType": "KHÔNG_CẦN_THIẾT"
         },
         {
           "label": "D",
-          "text": "$13$",
-          "errorType": "CALCULATION_ERROR"
+          "text": "Cạnh thứ ba phải bằng nhau",
+          "errorType": "SANG_TRƯỜNG_HỢP_CCC"
+        }
+      ],
+      "correctAnswer": "B",
+      "acceptedAnswers": [
+        "B"
+      ],
+      "solution": "Theo trường hợp cạnh - góc - cạnh, góc bằng nhau phải là góc xen giữa hai cặp cạnh tương ứng bằng nhau. Ở đây góc xen giữa $AB, AC$ là $\\widehat{A}$, góc xen giữa $DE, DF$ là $\\widehat{D}$, do đó cần thêm điều kiện $\\widehat{A} = \\widehat{D}$.",
+      "rubricSteps": [
+        {
+          "step": "Nêu công thức và thiết lập các bước biến đổi ban đầu",
+          "points": 0.25
+        },
+        {
+          "step": "Thực hiện phép tính và kết luận đáp án chính xác",
+          "points": 0.25
+        }
+      ],
+      "keyFormula": "Góc bằng nhau phải là góc xen giữa hai cạnh.",
+      "commonMistake": "Chọn góc không xen giữa.",
+      "id": "Q7_TPL_065",
+      "code": "M7-HK2-C6-TH-65",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
+      "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.155Z",
+      "version": 1,
+      "fingerprint": "b271b6171b19fa0f2694f6127f7417cb3c8c46edb0ae7f65b3ef37f67f867702",
+      "difficultyScore": 4.5
+    },
+    {
+      "grade": 7,
+      "semester": 2,
+      "chapterId": "G7_C6",
+      "lesson": "Sự đồng quy của ba đường cao",
+      "topic": "Khái niệm trực tâm",
+      "problemType": "Vị trí trực tâm trong tam giác vuông",
+      "type": "essay",
+      "difficulty": "medium",
+      "cognitiveLevel": "thong_hieu",
+      "points": 1,
+      "textbooks": [
+        "CTST"
+      ],
+      "content": "Trực tâm của một tam giác vuông nằm ở vị trí nào?",
+      "correctAnswer": "Tai dinh goc vuong",
+      "acceptedAnswers": [
+        "tai dinh goc vuong",
+        "đỉnh góc vuông",
+        "dinh goc vuong"
+      ],
+      "solution": "Trong tam giác vuông, hai cạnh góc vuông chính là hai đường cao xuất phát từ hai góc nhọn. Do đó, trực tâm (giao điểm của ba đường cao) trùng với đỉnh góc vuông.",
+      "rubricSteps": [
+        {
+          "step": "Nêu công thức và thiết lập các bước biến đổi ban đầu",
+          "points": 0.5
+        },
+        {
+          "step": "Thực hiện phép tính và kết luận đáp án chính xác",
+          "points": 0.5
+        }
+      ],
+      "keyFormula": "Tam giác vuông có trực tâm tại đỉnh góc vuông.",
+      "commonMistake": "Nghĩ rằng trực tâm nằm trên cạnh huyền.",
+      "id": "Q7_TPL_066",
+      "code": "M7-HK2-C6-TH-66",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
+      "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.155Z",
+      "version": 1,
+      "fingerprint": "538cd783ebccdbbbaa2fa528e23558bf0fe52ce10bc138f4c86ecb9cddaea0c0",
+      "difficultyScore": 4.5
+    },
+    {
+      "grade": 7,
+      "semester": 2,
+      "chapterId": "G7_C6",
+      "lesson": "Tam giác cân",
+      "topic": "Chứng minh tam giác đều",
+      "problemType": "Tam giác cân có 1 góc bằng 60 độ",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 0.5,
+      "textbooks": [
+        "KNTT"
+      ],
+      "content": "Một tam giác cân có một góc bằng $60^\\circ$ thì tam giác đó là:",
+      "options": [
+        {
+          "label": "A",
+          "text": "Tam giác tù",
+          "errorType": "SAI_HOÀN_TOÀN"
+        },
+        {
+          "label": "B",
+          "text": "Tam giác vuông cân",
+          "errorType": "CHO_LÀ_VUÔNG_CÂN"
+        },
+        {
+          "label": "C",
+          "text": "Tam giác đều"
+        },
+        {
+          "label": "D",
+          "text": "Tam giác nhọn thường",
+          "errorType": "THIẾU_ĐẶC_BIỆT"
         }
       ],
       "correctAnswer": "C",
       "acceptedAnswers": [
-        "10",
-        "10 cm"
+        "C"
       ],
-      "solution": "Theo tính chất trọng tâm của tam giác, ta có $AG = \\frac{2}{3} AM = \\frac{2}{3} \\cdot 15 = 10\\text{ (cm)}$.",
+      "solution": "Dấu hiệu nhận biết: Tam giác cân có một góc bằng $60^\\circ$ (dù là góc ở đỉnh hay góc ở đáy) thì hai góc còn lại cũng đều bằng $60^\\circ$, do đó tam giác đó là tam giác đều.",
       "rubricSteps": [
         {
-          "step": "Tính đúng $AG = 10\\text{ cm}$",
-          "points": 1
+          "step": "Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán",
+          "points": 0.15
+        },
+        {
+          "step": "Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian",
+          "points": 0.18
+        },
+        {
+          "step": "Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận",
+          "points": 0.17
         }
       ],
-      "keyFormula": "$AG = \\frac{2}{3} AM,\\quad GM = \\frac{1}{3} AM$",
-      "commonMistake": "Nhầm tỉ số trọng tâm thành $\\frac{1}{2}$ hoặc $\\frac{1}{3}$ độ dài trung tuyến.",
+      "keyFormula": "Tam giác cân + góc $60^\\circ \\implies$ Tam giác đều.",
+      "commonMistake": "Nghĩ rằng chỉ khi góc ở đỉnh bằng 60° mới là tam giác đều.",
+      "id": "Q7_TPL_067",
+      "code": "M7-HK2-C6-VD-67",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.155Z",
       "version": 1,
-      "mathExpressionToVerify": "(2 * 15) / 3"
+      "fingerprint": "f4f305bcd8d3217b44a37152ad964acd986a388316133abf1a614c15aee64471",
+      "complexity": {
+        "steps": 3,
+        "techniques": [
+          "bien_doi_toan_hoc",
+          "van_dung_thuc_te"
+        ],
+        "crossTopic": false,
+        "modeling": true,
+        "needsCaseAnalysis": false,
+        "estMinutes": 4
+      },
+      "difficultyScore": 7.2
     },
     {
-      "id": "Q7_TPL_069",
-      "code": "M7-HK2-C6-VD-69",
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 2,
       "chapterId": "G7_C6",
-      "lesson": "Tam giác cân & Ba đường trung tuyến của tam giác",
-      "topic": "Tam giác cân và các đường đồng quy",
-      "problemType": "Vận dụng tính chất trọng tâm tam giác",
+      "lesson": "Sự đồng quy của ba đường trung tuyến",
+      "topic": "Bài toán tỉ số diện tích tam giác con tạo bởi trọng tâm",
+      "problemType": "Trọng tâm chia tam giác thành 6 tam giác nhỏ",
+      "type": "mcq",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung",
+      "points": 0.5,
+      "textbooks": [
+        "CTST"
+      ],
+      "content": "Ba đường trung tuyến của một tam giác chia tam giác đó thành $6$ tam giác nhỏ. Nhận xét nào sau đây về diện tích của $6$ tam giác này là đúng?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Các tam giác có diện tích khác nhau hoàn toàn",
+          "errorType": "SAI_LẬP_LUẬN"
+        },
+        {
+          "label": "B",
+          "text": "Chỉ có 3 tam giác kề đỉnh bằng nhau",
+          "errorType": "TÍNH_THIẾU"
+        },
+        {
+          "label": "C",
+          "text": "Cả 6 tam giác nhỏ đều có diện tích bằng nhau"
+        },
+        {
+          "label": "D",
+          "text": "Diện tích tam giác nhỏ tỉ lệ với cạnh đáy",
+          "errorType": "PHỎNG_ĐOÁN"
+        }
+      ],
+      "correctAnswer": "C",
+      "acceptedAnswers": [
+        "C"
+      ],
+      "solution": "Do tính chất đường trung tuyến chia đôi diện tích tam giác và trọng tâm chia trung tuyến theo tỉ số $2:1$, cả $6$ tam giác con tạo bởi trọng tâm và ba đường trung tuyến đều có diện tích bằng nhau và bằng $1/6$ diện tích tam giác ban đầu.",
+      "rubricSteps": [
+        {
+          "step": "Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán",
+          "points": 0.15
+        },
+        {
+          "step": "Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian",
+          "points": 0.18
+        },
+        {
+          "step": "Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận",
+          "points": 0.17
+        }
+      ],
+      "keyFormula": "$S_i = \\frac{1}{6} S_{\\triangle ABC}$ với $i = 1..6$.",
+      "commonMistake": "Nghĩ rằng các hình dạng khác nhau thì diện tích không bằng nhau.",
+      "id": "Q7_TPL_068",
+      "code": "M7-HK2-C6-VD-68",
+      "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
+      "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.156Z",
+      "version": 1,
+      "fingerprint": "c1aa418e6a2b07354b9f87538916467c51f3dae346e3c5997fbe689427c1812b",
+      "complexity": {
+        "steps": 3,
+        "techniques": [
+          "bien_doi_toan_hoc",
+          "van_dung_thuc_te"
+        ],
+        "crossTopic": false,
+        "modeling": true,
+        "needsCaseAnalysis": false,
+        "estMinutes": 4
+      },
+      "difficultyScore": 7.2
+    },
+    {
+      "grade": 7,
+      "semester": 2,
+      "chapterId": "G7_C6",
+      "lesson": "Quan hệ giữa cạnh và góc trong tam giác",
+      "topic": "Bất đẳng thức tam giác và cực trị hình học",
+      "problemType": "Tìm vị trí đặt trạm bơm ngắn nhất",
       "type": "essay",
       "difficulty": "hard",
       "cognitiveLevel": "van_dung",
-      "points": 2,
-      "content": "Cho tam giác $ABC$ có đường trung tuyến $AM = 18\\text{ cm}$ và trọng tâm $G$. Độ dài đoạn thẳng $AG$ bằng bao nhiêu $\\text{cm}$?",
-      "options": [],
-      "correctAnswer": "12",
-      "acceptedAnswers": [
-        "12",
-        "12 cm"
+      "points": 1,
+      "textbooks": [
+        "CD"
       ],
-      "solution": "Theo tính chất trọng tâm của tam giác, ta có $AG = \\frac{2}{3} AM = \\frac{2}{3} \\cdot 18 = 12\\text{ (cm)}$.",
+      "content": "Hai khu dân cư $A$ và $B$ nằm cùng một phía bờ sông $d$. Người ta cần xây một trạm cấp nước $M$ trên bờ sông $d$ sao cho tổng độ dài đường ống dẫn nước $MA + MB$ là ngắn nhất. Hãy nêu cách xác định vị trí điểm $M$.",
+      "correctAnswer": "Lay A doi xung qua d roi noi voi B cat d tai M",
+      "acceptedAnswers": [
+        "doi xung",
+        "đối xứng",
+        "A doi xung"
+      ],
+      "solution": "Cách xác định điểm $M$:\n1. Lấy điểm $A'$ đối xứng với điểm $A$ qua bờ sông $d$.\n2. Nối $A'$ với $B$, đoạn thẳng $A'B$ cắt bờ sông $d$ tại điểm $M$.\nKhi đó với mọi điểm $M'$ bất kỳ trên $d$, ta có: $M'A + M'B = M'A' + M'B \\ge A'B = MA' + MB = MA + MB$.\nVậy $M$ chính là giao điểm của $A'B$ và $d$, khi đó $MA + MB$ đạt giá trị nhỏ nhất.",
       "rubricSteps": [
         {
-          "step": "Nêu tính chất trọng tâm $AG = \\frac{2}{3} AM$",
-          "points": 1
+          "step": "Bước 1: Xác định điều kiện, phân tích đề bài và thiết lập mô hình toán",
+          "points": 0.3
         },
         {
-          "step": "Thay số tính được $AG = 12\\text{ cm}$",
-          "points": 1
+          "step": "Bước 2: Thực hiện các phép biến đổi đại số / hình học trung gian",
+          "points": 0.35
+        },
+        {
+          "step": "Bước 3: Hoàn thành tính toán, đối chiếu điều kiện và đưa ra kết luận",
+          "points": 0.35
         }
       ],
-      "keyFormula": "$AG = \\frac{2}{3} AM,\\quad GM = \\frac{1}{3} AM$",
-      "commonMistake": "Nhầm tỉ số trọng tâm thành $\\frac{1}{2}$ hoặc $\\frac{1}{3}$ độ dài trung tuyến.",
+      "keyFormula": "Bài toán cực trị Heron: lấy điểm đối xứng qua đường thẳng.",
+      "commonMistake": "Hạ đường cao vuông góc thay vì lấy điểm đối xứng.",
+      "id": "Q7_TPL_069",
+      "code": "M7-HK2-C6-VD-69",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.156Z",
       "version": 1,
-      "mathExpressionToVerify": "(2 * 18) / 3"
+      "fingerprint": "132796f84ec395262778d1d83341b2434f104d784bcc8e94ff49d4740d25d9a0",
+      "complexity": {
+        "steps": 3,
+        "techniques": [
+          "bien_doi_toan_hoc",
+          "van_dung_thuc_te"
+        ],
+        "crossTopic": false,
+        "modeling": true,
+        "needsCaseAnalysis": false,
+        "estMinutes": 4
+      },
+      "difficultyScore": 7.2
     },
     {
-      "id": "Q7_TPL_070",
-      "code": "M7-HK2-C6-VDC-70",
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 2,
       "chapterId": "G7_C6",
-      "lesson": "Tam giác cân & Ba đường trung tuyến của tam giác",
-      "topic": "Tam giác cân và các đường đồng quy",
-      "problemType": "Vận dụng tính chất trọng tâm tam giác",
+      "lesson": "Nghiệm của đa thức một biến",
+      "topic": "Chứng minh đa thức vô nghiệm",
+      "problemType": "Đánh giá đa thức bậc hai luôn dương",
       "type": "mcq",
       "difficulty": "hard",
       "cognitiveLevel": "van_dung_cao",
       "points": 1,
-      "content": "Cho tam giác $ABC$ có đường trung tuyến $AM = 12\\text{ cm}$ và trọng tâm $G$. Độ dài đoạn thẳng $AG$ bằng bao nhiêu $\\text{cm}$?",
+      "textbooks": [
+        "CTST"
+      ],
+      "complexity": {
+        "steps": 5,
+        "techniques": [
+          "bien_doi_binh_phuong_thieu",
+          "tach_hang_so_duong",
+          "danh_gia_vo_nghiem"
+        ],
+        "crossTopic": false,
+        "modeling": false,
+        "needsCaseAnalysis": true,
+        "estMinutes": 7
+      },
+      "content": "Cho đa thức $Q(x) = x^2 + 2x + 7$. Khẳng định nào sau đây về nghiệm của đa thức $Q(x)$ là đúng?",
       "options": [
         {
           "label": "A",
-          "text": "$4$",
-          "errorType": "FORMULA_ERROR"
+          "text": "Đa thức có nghiệm x = -6",
+          "errorType": "THỬ_NGHIỆM_SAI"
         },
         {
           "label": "B",
-          "text": "$6$",
-          "errorType": "FORMULA_ERROR"
+          "text": "Đa thức không có nghiệm (vô nghiệm)"
         },
         {
           "label": "C",
-          "text": "$10$",
-          "errorType": "CALCULATION_ERROR"
+          "text": "Đa thức có đúng 1 nghiệm x = 0",
+          "errorType": "CHO_RẰNG_X_BẰNG_0_LÀ_NGHIỆM"
         },
         {
           "label": "D",
-          "text": "$8$"
+          "text": "Đa thức có 2 nghiệm phân biệt",
+          "errorType": "NHẦM_VỚI_PHƯƠNG_TRÌNH_CÓ_NGHIỆM"
         }
       ],
-      "correctAnswer": "D",
+      "correctAnswer": "B",
       "acceptedAnswers": [
-        "8",
-        "8 cm"
+        "B"
       ],
-      "solution": "Theo tính chất trọng tâm của tam giác, ta có $AG = \\frac{2}{3} AM = \\frac{2}{3} \\cdot 12 = 8\\text{ (cm)}$.",
+      "solution": "Bước 1: Tách hệ số tự do: $7 = 1 + 6$.\\\\nBước 2: Viết lại đa thức dưới dạng: $Q(x) = (x^2 + 2x + 1) + 6$.\\\\nBước 3: Nhận xét rằng $x^2 + 2x + 1 = (x + 1)^2$.\\\\nBước 4: Ta có $(x + 1)^2 \\\\ge 0$ với mọi $x \\\\in \\\\mathbb{R}$, suy ra $Q(x) = (x + 1)^2 + 6 \\\\ge 0 + 6 = 6 > 0$.\\\\nBước 5: Vì $Q(x) > 0$ với mọi $x$ nên phương trình $Q(x) = 0$ không thể xảy ra. Vậy đa thức vô nghiệm.",
       "rubricSteps": [
         {
-          "step": "Tính đúng $AG = 8\\text{ cm}$",
-          "points": 1
+          "step": "Tách hằng số tự do 7 = 1 + 6",
+          "points": 0.2
+        },
+        {
+          "step": "Nhóm hằng đẳng thức (x + 1)^2",
+          "points": 0.2
+        },
+        {
+          "step": "Đánh giá bình phương luôn >= 0",
+          "points": 0.2
+        },
+        {
+          "step": "Cộng hằng số dương suy ra Q(x) >= 6 > 0",
+          "points": 0.2
+        },
+        {
+          "step": "Kết luận đa thức vô nghiệm",
+          "points": 0.2
         }
       ],
-      "keyFormula": "$AG = \\frac{2}{3} AM,\\quad GM = \\frac{1}{3} AM$",
-      "commonMistake": "Nhầm tỉ số trọng tâm thành $\\frac{1}{2}$ hoặc $\\frac{1}{3}$ độ dài trung tuyến.",
+      "keyFormula": "$A^2 + k > 0$ (với $k > 0$) $\\\\implies$ Đa thức vô nghiệm.",
+      "id": "Q7_TPL_070",
+      "code": "M7-HK2-C6-VDC-70",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.157Z",
       "version": 1,
-      "mathExpressionToVerify": "(2 * 12) / 3"
+      "fingerprint": "d3631c715fd8dd63a60cadb4ecc05e1d03605243661a4222ce45c55f6d1fb4c2",
+      "difficultyScore": 9.3
     },
     {
+      "grade": 7,
+      "semester": 2,
+      "chapterId": "G7_C6",
+      "lesson": "Ứng dụng của biểu thức đại số",
+      "topic": "Mô hình kinh tế đa thức",
+      "problemType": "Tìm điểm hòa vốn và doanh thu từ hàm lợi nhuận",
+      "type": "essay",
+      "difficulty": "hard",
+      "cognitiveLevel": "van_dung_cao",
+      "points": 1,
+      "textbooks": [
+        "KNTT"
+      ],
+      "complexity": {
+        "steps": 5,
+        "techniques": [
+          "mo_hinh_hoa_thuc_te",
+          "bieu_thuc_loi_nhuan",
+          "giai_phuong_trinh_bac_nhat"
+        ],
+        "crossTopic": true,
+        "modeling": true,
+        "needsCaseAnalysis": false,
+        "estMinutes": 7
+      },
+      "content": "Một cơ sở sản xuất đồ thủ công có chi phí cố định ban đầu là 25.000 nghìn đồng. Chi phí nguyên liệu để làm một sản phẩm là $20$ nghìn đồng và giá bán mỗi sản phẩm là $50$ nghìn đồng. Gọi $x$ là số sản phẩm sản xuất và bán được. Để cơ sở bắt đầu hòa vốn (doanh thu bằng tổng chi phí), cần bán được tối thiểu bao nhiêu sản phẩm?",
+      "correctAnswer": "833.3333333333334",
+      "acceptedAnswers": [
+        "833.3333333333334",
+        "833.3333333333334 san pham",
+        "833.3333333333334 sản phẩm"
+      ],
+      "solution": "Bước 1: Doanh thu bán $x$ sản phẩm là đa thức: $R(x) = 50x$ (nghìn đồng).\\\\nBước 2: Tổng chi phí sản xuất $x$ sản phẩm là: $C(x) = 25.000 + 20x$ (nghìn đồng).\\\\nBước 3: Lợi nhuận là hiệu đa thức: $L(x) = R(x) - C(x) = 50x - (25.000 + 20x) = 30x - 25.000$.\\\\nBước 4: Để hòa vốn thì lợi nhuận bằng 0: $L(x) = 0 \\\\iff 30x = 25.000 \\\\iff x = 833.3333333333334$.\\\\nBước 5: Kết luận cần bán tối thiểu 833.3333333333334 sản phẩm để hòa vốn.",
+      "rubricSteps": [
+        {
+          "step": "Viết biểu thức đa thức doanh thu R(x) = 50x",
+          "points": 0.2
+        },
+        {
+          "step": "Viết biểu thức đa thức tổng chi phí C(x)",
+          "points": 0.2
+        },
+        {
+          "step": "Thiết lập biểu thức lợi nhuận L(x) = R(x) - C(x)",
+          "points": 0.2
+        },
+        {
+          "step": "Giải phương trình hòa vốn 30x = 25000",
+          "points": 0.2
+        },
+        {
+          "step": "Kết luận cần bán 833.3333333333334 sản phẩm",
+          "points": 0.2
+        }
+      ],
+      "keyFormula": "$L(x) = R(x) - C(x) = 0 \\\\implies x = \\\\frac{\\\\text{Chi phí cố định}}{\\\\text{Giá bán} - \\\\text{Biến phí}}$.",
       "id": "Q7_TPL_071",
       "code": "M7-HK2-C6-VDC-71",
-      "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
-      "semester": 2,
-      "chapterId": "G7_C6",
-      "lesson": "Tam giác cân & Ba đường trung tuyến của tam giác",
-      "topic": "Tam giác cân và các đường đồng quy",
-      "problemType": "Vận dụng tính chất trọng tâm tam giác",
-      "type": "essay",
-      "difficulty": "hard",
-      "cognitiveLevel": "van_dung_cao",
-      "points": 2,
-      "content": "Cho tam giác $ABC$ có đường trung tuyến $AM = 15\\text{ cm}$ và trọng tâm $G$. Độ dài đoạn thẳng $AG$ bằng bao nhiêu $\\text{cm}$?",
-      "options": [],
-      "correctAnswer": "10",
-      "acceptedAnswers": [
-        "10",
-        "10 cm"
-      ],
-      "solution": "Theo tính chất trọng tâm của tam giác, ta có $AG = \\frac{2}{3} AM = \\frac{2}{3} \\cdot 15 = 10\\text{ (cm)}$.",
-      "rubricSteps": [
-        {
-          "step": "Nêu tính chất trọng tâm $AG = \\frac{2}{3} AM$",
-          "points": 1
-        },
-        {
-          "step": "Thay số tính được $AG = 10\\text{ cm}$",
-          "points": 1
-        }
-      ],
-      "keyFormula": "$AG = \\frac{2}{3} AM,\\quad GM = \\frac{1}{3} AM$",
-      "commonMistake": "Nhầm tỉ số trọng tâm thành $\\frac{1}{2}$ hoặc $\\frac{1}{3}$ độ dài trung tuyến.",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.158Z",
       "version": 1,
-      "mathExpressionToVerify": "(2 * 15) / 3"
+      "fingerprint": "05cd01cf8b1ac99adac13342e06fed91eff3684c82272246e24603be58b03e51",
+      "difficultyScore": 9.5
     },
     {
-      "id": "Q7_TPL_072",
-      "code": "M7-HK2-C6-VDC-72",
       "grade": 7,
-      "textbooks": [
-        "KNTT",
-        "CD",
-        "CTST"
-      ],
       "semester": 2,
       "chapterId": "G7_C6",
-      "lesson": "Tam giác cân & Ba đường trung tuyến của tam giác",
-      "topic": "Tam giác cân và các đường đồng quy",
-      "problemType": "Vận dụng tính chất trọng tâm tam giác",
+      "lesson": "Đa thức một biến",
+      "topic": "Xác định hệ số đa thức khi biết giá trị",
+      "problemType": "Tìm hệ số a, b của đa thức bậc hai thỏa mãn các điều kiện điểm",
       "type": "essay",
       "difficulty": "hard",
       "cognitiveLevel": "van_dung_cao",
-      "points": 2,
-      "content": "Cho tam giác $ABC$ có đường trung tuyến $AM = 18\\text{ cm}$ và trọng tâm $G$. Độ dài đoạn thẳng $AG$ bằng bao nhiêu $\\text{cm}$?",
-      "options": [],
-      "correctAnswer": "12",
-      "acceptedAnswers": [
-        "12",
-        "12 cm"
+      "points": 1,
+      "textbooks": [
+        "CD"
       ],
-      "solution": "Theo tính chất trọng tâm của tam giác, ta có $AG = \\frac{2}{3} AM = \\frac{2}{3} \\cdot 18 = 12\\text{ (cm)}$.",
+      "complexity": {
+        "steps": 5,
+        "techniques": [
+          "thay_gia_tri_xac_dinh_he_so",
+          "giai_he_phuong_trinh_bac_nhat",
+          "tim_cuc_tri_da_thuc"
+        ],
+        "crossTopic": true,
+        "modeling": false,
+        "needsCaseAnalysis": false,
+        "estMinutes": 7
+      },
+      "content": "Cho đa thức $P(x) = ax^2 + bx + c$. Biết $P(0) = 7$, $P(1) = 10$ và $P(-1) = 6$. Tìm các hệ số $a, b, c$, từ đó tính giá trị $P(2)$.",
+      "correctAnswer": "15",
+      "acceptedAnswers": [
+        "15",
+        "P(2) = 15"
+      ],
+      "solution": "Bước 1: Thay $x = 0$ ta có: $P(0) = c = 7 \\\\implies c = 7$.\\\\nBước 2: Thay $x = 1$ ta có: $P(1) = a + b + 7 = 10 \\\\implies a + b = 3$.\\\\nBước 3: Thay $x = -1$ ta có: $P(-1) = a - b + 7 = 6 \\\\implies a - b = -1$.\\\\nBước 4: Cộng hai vế ta được: $2a = 2 \\\\implies a = 1$ và $b = 2$. Đa thức là: $P(x) = 1x^2 + 2x + 7$.\\\\nBước 5: Tính $P(2) = 1 \\\\cdot 2^2 + 2 \\\\cdot 2 + 7 = 15$.",
       "rubricSteps": [
         {
-          "step": "Nêu tính chất trọng tâm $AG = \\frac{2}{3} AM$",
-          "points": 1
+          "step": "Tìm được hệ số tự do c = 7",
+          "points": 0.2
         },
         {
-          "step": "Thay số tính được $AG = 12\\text{ cm}$",
-          "points": 1
+          "step": "Thiết lập hệ thức a + b = 3",
+          "points": 0.2
+        },
+        {
+          "step": "Thiết lập hệ thức a - b = -1",
+          "points": 0.2
+        },
+        {
+          "step": "Tìm được a = 1 và b = 2",
+          "points": 0.2
+        },
+        {
+          "step": "Tính ra P(2) = 15",
+          "points": 0.2
         }
       ],
-      "keyFormula": "$AG = \\frac{2}{3} AM,\\quad GM = \\frac{1}{3} AM$",
-      "commonMistake": "Nhầm tỉ số trọng tâm thành $\\frac{1}{2}$ hoặc $\\frac{1}{3}$ độ dài trung tuyến.",
+      "keyFormula": "$P(x) = ax^2 + bx + c$. Thay giá trị $x$ để lập hệ tìm hệ số.",
+      "id": "Q7_TPL_072",
+      "code": "M7-HK2-C6-VDC-72",
       "source": "Bộ mẫu câu hỏi tham số hóa Toán 7 GDPT 2018",
       "verificationStatus": "draft",
+      "verifiedBy": "auto-engine",
+      "verifiedAt": "2026-10-30T16:40:43.159Z",
       "version": 1,
-      "mathExpressionToVerify": "(2 * 18) / 3"
+      "fingerprint": "d50c89273339116679d32de27a4261c4a4e3a954d22b36d3aba68545a088be35",
+      "difficultyScore": 9.3
     }
   ]
 }

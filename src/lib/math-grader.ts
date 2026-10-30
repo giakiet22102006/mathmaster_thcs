@@ -3,7 +3,19 @@
 // Chuẩn Thông tư 22/2021/TT-BGDĐT (4 mức độ nhận thức, Largest Remainder, PRNG)
 // ==============================================================================
 
-import { generateQuestions } from './question-engine';
+import { generateQuestions, computeFingerprint } from './question-engine';
+
+/**
+ * Chuẩn hóa chuỗi nội dung câu hỏi để so sánh chống trùng lặp tuyệt đối
+ */
+export function normalizeQuestionContent(content: string): string {
+  return (content || '')
+    .toLowerCase()
+    .replace(/\\(text|mathrm|mathbf)\{([^}]*)\}/g, '$2')
+    .replace(/[$_{}\\()[\]^+\-*\/=,.:;!?]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
 
 export type CognitiveLevel = 'nhan_biet' | 'thong_hieu' | 'van_dung' | 'van_dung_cao';
 export type DifficultyLevel = 'easy' | 'medium' | 'hard' | 'very_hard';
@@ -721,6 +733,15 @@ export function generateExamFromPool(
   // Bù đắp thiếu hụt tự động bằng Parametric Question Engine trước khi báo lỗi (cho BANK, DOCS_SIMILAR, MIXED)
   const generatedQuestions: any[] = [];
   if (sourceMode !== 'DOCS_REUSE') {
+    const seenEngineFingerprints = new Set<string>();
+    const seenEngineContents = new Set<string>();
+    for (const q of pool) {
+      const cNorm = normalizeQuestionContent(q.content);
+      if (cNorm) seenEngineContents.add(cNorm);
+      const fp = q.fingerprint || computeFingerprint(q.content, q.options);
+      if (fp) seenEngineFingerprints.add(fp);
+    }
+
     for (const lv of COGNITIVE_LEVELS) {
       if (shortage[lv].missing > 0) {
         let reqType: 'mcq' | 'essay' | 'ALL' = 'ALL';
@@ -740,10 +761,19 @@ export function generateExamFromPool(
           type: reqType,
           count: shortage[lv].missing,
           seed: config?.seed,
+          excludeFingerprints: seenEngineFingerprints,
+          excludeContents: seenEngineContents,
         });
 
         if (genRes.questions.length > 0) {
           for (const gq of genRes.questions) {
+            const cNorm = normalizeQuestionContent(gq.content);
+            const fp = gq.fingerprint || computeFingerprint(gq.content, gq.options);
+            if (seenEngineFingerprints.has(fp) || (cNorm && seenEngineContents.has(cNorm))) {
+              continue;
+            }
+            seenEngineFingerprints.add(fp);
+            if (cNorm) seenEngineContents.add(cNorm);
             availableByLevel[lv].push(gq);
             pool.push(gq);
             generatedQuestions.push(gq);
@@ -858,10 +888,21 @@ export function generateExamFromPool(
   // Chỉ lấy lịch sử đề của chính userId hiện tại (N = 3 đề gần nhất)
   const recentWindow = Number(config?.recentExamWindow ?? 3);
   const recentQIds = new Set<string>();
+  const recentContents = new Set<string>();
+  const qMapById = new Map((allQuestions || []).map((q) => [q.id, q]));
   (existingExams || [])
     .filter((e) => e.userId === userId && Number(e.grade) === grade)
     .slice(0, recentWindow)
-    .forEach((e) => (e.questionIds || []).forEach((id: string) => recentQIds.add(id)));
+    .forEach((e) => {
+      (e.questionIds || []).forEach((id: string) => {
+        recentQIds.add(id);
+        const qObj = qMapById.get(id);
+        if (qObj?.content) {
+          const norm = normalizeQuestionContent(qObj.content);
+          if (norm) recentContents.add(norm);
+        }
+      });
+    });
 
   // Thống kê câu đã làm và câu làm sai từ lịch sử bài làm của chính userId
   const answeredQIds = new Set<string>();
@@ -879,6 +920,9 @@ export function generateExamFromPool(
     });
 
   const selected: any[] = [];
+  const selectedIds = new Set<string>();
+  const selectedContents = new Set<string>();
+  const selectedFingerprints = new Set<string>();
 
   for (const lv of COGNITIVE_LEVELS) {
     const quota = effectiveQuotas[lv];
@@ -887,7 +931,8 @@ export function generateExamFromPool(
     const candidates = availableByLevel[lv].map((q) => {
       // Điểm ưu tiên cá nhân hóa + nhiễu ngẫu nhiên từ PRNG có seed
       let score = random() * 2.0;
-      if (!recentQIds.has(q.id)) score += 20;
+      const qNorm = normalizeQuestionContent(q.content);
+      if (!recentQIds.has(q.id) && (!qNorm || !recentContents.has(qNorm))) score += 20;
       if (!answeredQIds.has(q.id)) score += 10;
       if (wrongQTimestamp.has(q.id)) score += 15;
       if (sourceMode === 'MIXED' && q.sourceDocId) score += 50;
@@ -917,10 +962,105 @@ export function generateExamFromPool(
     while (pickedForLevel < quota && chapterQueues.some((arr) => arr.length > 0)) {
       const queue = chapterQueues[roundIdx % chapterQueues.length];
       if (queue && queue.length > 0) {
-        selected.push(queue.shift()!);
+        const candidate = queue.shift()!;
+        const cNorm = normalizeQuestionContent(candidate.content);
+        const fp = candidate.fingerprint || computeFingerprint(candidate.content, candidate.options);
+
+        // Chống trùng lặp tuyệt đối trong cùng đề thi (cả ID, nội dung đề bài và fingerprint)
+        if (
+          selectedIds.has(candidate.id) ||
+          (cNorm && selectedContents.has(cNorm)) ||
+          (fp && selectedFingerprints.has(fp))
+        ) {
+          roundIdx += 1;
+          continue;
+        }
+
+        selected.push(candidate);
+        selectedIds.add(candidate.id);
+        if (cNorm) selectedContents.add(cNorm);
+        if (fp) selectedFingerprints.add(fp);
         pickedForLevel += 1;
       }
       roundIdx += 1;
+    }
+
+    // Nếu sau khi duyệt hết câu trong ngân hàng mà vẫn chưa đủ quota cho mức này (do lọc bỏ câu trùng)
+    // thì tự động sinh thêm câu mới từ Parametric Engine để bù đắp
+    if (pickedForLevel < quota && sourceMode !== 'DOCS_REUSE') {
+      const missingForLevel = quota - pickedForLevel;
+      let reqType: 'mcq' | 'essay' | 'ALL' = 'ALL';
+      if (format === 'mcq') reqType = 'mcq';
+      else if (format === 'essay') reqType = 'essay';
+      else if (format === 'combined') {
+        reqType = lv === 'nhan_biet' || lv === 'thong_hieu' ? 'mcq' : 'essay';
+      }
+
+      const genRes = generateQuestions({
+        grade,
+        textbook: textbook && textbook !== 'ALL' ? (textbook as any) : undefined,
+        chapterIds: chapterIds.length > 0 ? chapterIds : undefined,
+        semester: semConstraint === 1 || semConstraint === 2 ? (semConstraint as any) : 0,
+        difficulty: COGNITIVE_TO_DIFFICULTY[lv],
+        cognitiveLevel: lv,
+        type: reqType,
+        count: missingForLevel,
+        seed: numericSeed + pickedForLevel * 31 + roundIdx,
+        excludeFingerprints: selectedFingerprints,
+        excludeContents: selectedContents,
+      });
+
+      for (const gq of genRes.questions) {
+        if (pickedForLevel >= quota) break;
+        const cNorm = normalizeQuestionContent(gq.content);
+        const fp = gq.fingerprint || computeFingerprint(gq.content, gq.options);
+        if (
+          !selectedIds.has(gq.id) &&
+          (!cNorm || !selectedContents.has(cNorm)) &&
+          (!fp || !selectedFingerprints.has(fp))
+        ) {
+          selected.push(gq);
+          selectedIds.add(gq.id);
+          if (cNorm) selectedContents.add(cNorm);
+          if (fp) selectedFingerprints.add(fp);
+          generatedQuestions.push(gq);
+          pool.push(gq);
+          pickedForLevel += 1;
+        }
+      }
+    }
+  }
+
+  // Đảm bảo số lượng câu đạt đủ totalCount nếu ngân hàng thiếu câu và không dùng DOCS_REUSE
+  if (selected.length < totalCount && sourceMode !== 'DOCS_REUSE') {
+    const missingTotal = totalCount - selected.length;
+    const fillerRes = generateQuestions({
+      grade,
+      textbook: textbook && textbook !== 'ALL' ? (textbook as any) : undefined,
+      chapterIds: chapterIds.length > 0 ? chapterIds : undefined,
+      semester: semConstraint === 1 || semConstraint === 2 ? (semConstraint as any) : 0,
+      type: format === 'mcq' ? 'mcq' : format === 'essay' ? 'essay' : 'ALL',
+      count: missingTotal,
+      seed: numericSeed + 7777,
+      excludeFingerprints: selectedFingerprints,
+      excludeContents: selectedContents,
+    });
+    for (const gq of fillerRes.questions) {
+      if (selected.length >= totalCount) break;
+      const cNorm = normalizeQuestionContent(gq.content);
+      const fp = gq.fingerprint || computeFingerprint(gq.content, gq.options);
+      if (
+        !selectedIds.has(gq.id) &&
+        (!cNorm || !selectedContents.has(cNorm)) &&
+        (!fp || !selectedFingerprints.has(fp))
+      ) {
+        selected.push(gq);
+        selectedIds.add(gq.id);
+        if (cNorm) selectedContents.add(cNorm);
+        if (fp) selectedFingerprints.add(fp);
+        generatedQuestions.push(gq);
+        pool.push(gq);
+      }
     }
   }
 
@@ -1020,7 +1160,14 @@ export function generateExamFromPool(
     maxScore: 10.0,
     questionIds: selected.map((q) => q.id),
     questions: selected,
-    generatedQuestions,
+    generatedQuestions: selected.filter(
+      (q) =>
+        q.isGenerated ||
+        q.templateId ||
+        String(q.id).startsWith('Q_GEN_') ||
+        String(q.code || '').startsWith('GEN-') ||
+        String(q.source || '').includes('Parametric')
+    ),
     questionPoints,
     composition,
     seed: numericSeed,

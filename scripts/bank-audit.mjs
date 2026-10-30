@@ -86,6 +86,7 @@ export function runBankAudit(options = {}) {
   const warnings = [];
   const seenIds = new Set();
   const seenCodes = new Set();
+  const seenContents = new Map();
   let mathJsVerifiedCount = 0;
   let katexFormulasChecked = 0;
 
@@ -100,6 +101,22 @@ export function runBankAudit(options = {}) {
     if (!q.code) criticalErrors.push(`${label} Thiếu trường code`);
     else if (seenCodes.has(q.code)) criticalErrors.push(`${label} Trùng lặp code: ${q.code}`);
     else seenCodes.add(q.code);
+
+    // 1.1 Kiểm tra không trùng lặp nội dung câu hỏi
+    const normContent = (q.content || '')
+      .toLowerCase()
+      .replace(/\\(text|mathrm|mathbf)\{([^}]*)\}/g, '$2')
+      .replace(/[$_{}\\()[\]^+\-*\/=,.:;!?]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    if (normContent.length > 10) {
+      if (seenContents.has(normContent)) {
+        const prev = seenContents.get(normContent);
+        criticalErrors.push(`${label} Trùng lặp nội dung đề bài với câu [${prev.id} (${prev._origin})]`);
+      } else {
+        seenContents.set(normContent, q);
+      }
+    }
 
     // 2. Kiểm tra nội dung, lời giải, đáp án
     if (!q.content || typeof q.content !== 'string' || !q.content.trim()) {

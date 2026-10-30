@@ -153,10 +153,21 @@ export async function POST(req: NextRequest) {
       return false;
     });
 
+    // Lọc khử trùng lặp nội dung trước khi lấy từ cache
+    const uniqueCachedQuestions: any[] = [];
+    const seenCacheContents = new Set<string>();
+    for (const q of cachedMatchingQuestions) {
+      const cNorm = (q.content || '').toLowerCase().replace(/\s+/g, ' ').replace(/[^a-z0-9\u00C0-\u024F\u1EA0-\u1EF9]/gi, '').trim();
+      if (!cNorm || !seenCacheContents.has(cNorm)) {
+        if (cNorm) seenCacheContents.add(cNorm);
+        uniqueCachedQuestions.push(q);
+      }
+    }
+
     // Nếu trong Database đã có đủ số câu hỏi AI phù hợp -> BỐC TRỰC TIẾP TỪ CACHE (Tiết kiệm token & không trừ hạn mức)
-    if (cachedMatchingQuestions.length >= count) {
+    if (uniqueCachedQuestions.length >= count) {
       // Xáo trộn ngẫu nhiên để học sinh không bị lặp lại thứ tự câu
-      const shuffled = [...cachedMatchingQuestions].sort(() => 0.5 - Math.random());
+      const shuffled = [...uniqueCachedQuestions].sort(() => 0.5 - Math.random());
       const selectedFromCache = shuffled.slice(0, count);
 
       let createdExam: any = null;
@@ -322,10 +333,29 @@ export async function POST(req: NextRequest) {
       // hệ thống bổ sung từ kho câu hỏi chuẩn cùng khối, cùng mức độ nhận thức
       if (allExamQuestions.length < count) {
         const remainingNeeded = count - allExamQuestions.length;
+        const examContentSet = new Set(
+          allExamQuestions
+            .map((eq: any) =>
+              (eq.content || '')
+                .toLowerCase()
+                .replace(/\s+/g, ' ')
+                .replace(/[^a-z0-9\u00C0-\u024F\u1EA0-\u1EF9]/gi, '')
+                .trim()
+            )
+            .filter(Boolean)
+        );
+        const examIdSet = new Set(allExamQuestions.map((eq: any) => eq.id));
+
         const existingPool = state.questions.filter((q: any) => {
           if (Number(q.grade) !== grade) return false;
           if (type !== 'ALL' && q.type !== type) return false;
-          if (allExamQuestions.some((eq: any) => eq.id === q.id)) return false;
+          if (examIdSet.has(q.id)) return false;
+          const cNorm = (q.content || '')
+            .toLowerCase()
+            .replace(/\s+/g, ' ')
+            .replace(/[^a-z0-9\u00C0-\u024F\u1EA0-\u1EF9]/gi, '')
+            .trim();
+          if (cNorm && examContentSet.has(cNorm)) return false;
           return true;
         });
 
@@ -336,7 +366,19 @@ export async function POST(req: NextRequest) {
           return bScore - aScore;
         });
 
-        const additionalQuestions = prioritized.slice(0, remainingNeeded);
+        const additionalQuestions: any[] = [];
+        for (const q of prioritized) {
+          if (additionalQuestions.length >= remainingNeeded) break;
+          const cNorm = (q.content || '')
+            .toLowerCase()
+            .replace(/\s+/g, ' ')
+            .replace(/[^a-z0-9\u00C0-\u024F\u1EA0-\u1EF9]/gi, '')
+            .trim();
+          if (cNorm && examContentSet.has(cNorm)) continue;
+          if (cNorm) examContentSet.add(cNorm);
+          examIdSet.add(q.id);
+          additionalQuestions.push(q);
+        }
         allExamQuestions = [...allExamQuestions, ...additionalQuestions];
       }
 
